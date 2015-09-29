@@ -18,7 +18,7 @@ public class SaborModelo {
 		return this.sabor.GetSabores(Producto);
 	}
 	
-	public int GerPrecio(String Producto, String Sabor) {
+	public int GetPrecio(String Producto, String Sabor) {
 		return this.sabor.GetPrecio(Producto, Sabor);
 	}
 }

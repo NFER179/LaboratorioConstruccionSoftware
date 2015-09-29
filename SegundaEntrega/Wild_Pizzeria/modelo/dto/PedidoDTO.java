@@ -8,6 +8,7 @@ public class PedidoDTO {
 	private int numPedido;
 	private String cliente;
 	private String direccion;
+	private String tel;
 	private int precio;
 	private String fecha_hora;
 	private String estado;
@@ -15,10 +16,11 @@ public class PedidoDTO {
 	private boolean delivery;
 	private List<ProductoEnPedidoDTO> productos;
 
-	public PedidoDTO(int NumPedido, String Cliente, String Direccion,int Precio, String Fecha_hora, String Estado, String Observacion, boolean Delivery) {
+	public PedidoDTO(int NumPedido, String Cliente, String Direccion, String Tel, int Precio, String Fecha_hora, String Estado, String Observacion, boolean Delivery) {
 		this.numPedido = NumPedido;
 		this.cliente = Cliente;
 		this.direccion = Direccion;
+		this.tel = Tel;
 		this.precio = Precio;
 		this.fecha_hora = Fecha_hora;
 		this.estado = Estado;
@@ -40,9 +42,6 @@ public class PedidoDTO {
 		if (noEstaenPedido) {
 			this.productos.add(new ProductoEnPedidoDTO(Producto, Sabor, Cantidad));
 		}
-		
-		this.calcularPrecio();
-		
 	}
 	
 	public void quitarProducto(SaborDTO Producto) {
@@ -52,20 +51,12 @@ public class PedidoDTO {
 			if (pp.getProducto().equals(Producto))
 				app = pp;
 		}
-		
 		this.productos.remove(app);
-		
-		this.calcularPrecio();
-	}
-	
-	private void calcularPrecio() {
-//		this.precio = 0;
-//		/* Falta Primero calcular el precio de combos y en base a eso restar los que estan en un combo. */
-//		for (ProductoEnPedidoDTO pp:this.productos){
-//			precio = precio + (pp.getCantidad() * pp.getProducto().getPrecio());			
-//		}
 	}
 
+	
+	
+	
 	public int getNumPedido() {
 		return numPedido;
 	}
@@ -88,7 +79,15 @@ public class PedidoDTO {
 
 	public void setDireccion(String Direccion) {
 		this.direccion = Direccion;
-	}	
+	}
+	
+	public String getTel() {
+		return tel;
+	}
+
+	public void setTel(String Tel) {
+		this.tel = Tel;
+	}
 	
 	public String getFecha_hora() {
 		return this.fecha_hora;

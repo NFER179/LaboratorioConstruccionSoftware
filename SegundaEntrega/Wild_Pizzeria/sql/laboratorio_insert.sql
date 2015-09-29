@@ -1,4 +1,4 @@
-/* source C:/Documents and Settings/hola/Escritorio/Proyectos/Workspace/Wild_Pizzeria/sql/laboratorio_insert.sql; */
+/* source C:/Documents and Settings/nicolas/Escritorio/Workspace/Wild_Pizzeria/sql/laboratorio_insert.sql; */
 /*insert into cliente values
 (000000001,	'Cliente',	'Mostrados',	'-',				'-'),
 (000000002,	'Diego',	'Martinez',		'ruta 23 al 000',	'011-4952-7401'),
@@ -49,7 +49,7 @@ insert into sabor_producto values
 ('FAIN','Apio',7);
 
 insert into pedido values
-(1, "nicolas", "bolivia 2577", 120, "2015/10/31 22:27:36", "Pendiente", "ninguna.", "N");
+(1, "nicolas", "bolivia 2577", "011-15-66149730", 120, "2015/10/31 22:27:36", "Pendiente", "ninguna.", "N");
 
 select * from cliente;
 select * from producto;

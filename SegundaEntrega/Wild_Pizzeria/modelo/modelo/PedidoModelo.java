@@ -22,11 +22,31 @@ public class PedidoModelo {
 		this.pedido.CrearNuevoPedido(nuevoPedido);
 	}
 	
-	public void cancelarPedido(PedidoDTO pedido) {
-		
+	public void cancelarPedido(int NumPedido) {
+		this.pedido.CancelarPedido(NumPedido);
 	}
 	
-	public List<PedidoDTO> obtenerPedidosPendientes() {
-		return this.pedido.pedidosPendientes();
+	public List<PedidoDTO> obtenerPedidosPendientesCocina() {
+		return this.pedido.pedidosPendientesCocina();
+	}
+	
+	public List<PedidoDTO> GetPedidoSinFacturar() {
+		return this.pedido.PedidoPendientesEntregar();
+	}
+
+	public void ModificarPedido(PedidoDTO Pedido) {
+		this.pedido.ModificarPedido(Pedido);
+	}
+
+	public PedidoDTO GetPedido(int PedidoID) {
+		return this.pedido.GetPedido(PedidoID);
+	}
+
+	public void FinalizarPedido(int NumPedido) {
+		this.pedido.FacturarPedido(NumPedido);		
+	}
+
+	public void PedidoArmado(int NumPedido) {
+		this.pedido.PedidoArmado(NumPedido);
 	}
 }

@@ -1,4 +1,4 @@
-/* source C:/Documents and Settings/hola/Escritorio/Proyectos/Workspace/Wild_Pizzeria/sql/laboratorio.sql; */
+/* source C:/Documents and Settings/nicolas/Escritorio/Workspace/Wild_Pizzeria/sql/laboratorio.sql; */
 drop database if exists PizzeriaWild;
 
 create database PizzeriaWild;
@@ -53,7 +53,7 @@ create table sabor_producto(product_id char(4), sabor char(100), precio integer,
 					primary key(product_id, sabor),
 					foreign key (product_id) references producto(product_id));
 					
-create table pedido(num_pedido integer, cliente char(80), direccion char(50), precio integer, fecha_hora datetime, Estado enum('Pendiente','Armado','Viaje','Cancelado','Facturado'), observaciones long, delivery char(1),
+create table pedido(num_pedido integer, cliente char(80), direccion char(50), tel_cliente char(20), precio integer, fecha_hora datetime, Estado enum('Pendiente','Armado','Viaje','Cancelado','Facturado'), observaciones long, delivery char(1),
 					primary key(num_pedido));
 
 create table producto_pedido(num_pedido integer, producto char(4), sabor char(250), cantidad integer,

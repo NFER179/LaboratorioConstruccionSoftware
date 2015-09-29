@@ -21,6 +21,7 @@ public class PedidoVista extends JFrame {
 	private JButton btnEnViaje;
 	private JButton btnEnMostrador;
 	private JButton btnInformacin;
+	private JButton btnModificar;
 	private JButton btnVolverInicio;
 
 	public PedidoVista() {
@@ -73,6 +74,10 @@ public class PedidoVista extends JFrame {
 		this.btnInformacin.setBounds(546, 110, 140, 23);
 		this.contentPane.add(btnInformacin);
 		
+		this.btnModificar = new JButton("Modificar");
+		this.btnModificar.setBounds(546, 144, 140, 23);
+		this.contentPane.add(btnModificar);
+		
 		this.btnVolverInicio = new JButton("Volver Inicio");
 		this.btnVolverInicio.setBounds(460, 337, 140, 23);
 		this.contentPane.add(btnVolverInicio);
@@ -110,23 +115,27 @@ public class PedidoVista extends JFrame {
 		return this.btnPedidoEntregado;
 	}
 	
-	public JButton btnEnviar() {
+	public JButton GetBtnEnviar() {
 		return this.btnEnviar;
 	}
 	
-	public JButton btnEnViaje() {
+	public JButton GetBtnEnViaje() {
 		return this.btnEnViaje;
 	}
 	
-	public JButton btnEnMostrador() {
+	public JButton GetBtnEnMostrador() {
 		return this.btnEnMostrador;
 	}
+
+	public JButton GetBtnModificar() {
+		return this.btnModificar;
+	}
 	
-	public JButton btnInformacin() {
+	public JButton GetBtnInformacin() {
 		return this.btnInformacin;
 	}
 	
-	public JButton getBtnVolverInicio() {
+	public JButton GetBtnVolverInicio() {
 		return this.btnVolverInicio;
 	}
 }

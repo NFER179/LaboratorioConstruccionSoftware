@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import modelo.PedidoModelo;
 import modelo.SaborModelo;
@@ -14,6 +15,7 @@ import modelo.SaborModelo;
 import dto.ClienteDTO;
 import dto.EstadoPedido;
 import dto.PedidoDTO;
+import dto.ProductoEnPedidoDTO;
 
 public class ControladorArmadoPedido implements ActionListener{
 
@@ -37,10 +39,31 @@ public class ControladorArmadoPedido implements ActionListener{
 		this.mdlPedido = new PedidoModelo();
 	}
 	
+	public ControladorArmadoPedido(ControladorPedido ControladorPedido, JFrame Frame, int NumPedido) {
+		this.vtArmadoPedido = new ArmadoPedidoVista(Frame);
+		this.vtArmadoPedido.getTxtNumpedido().setText(Integer.toString(NumPedido));
+		this.vtArmadoPedido.getBtnBusquedaCliente().addActionListener(this);
+		this.vtArmadoPedido.getBtnAgregar().addActionListener(this);
+		this.vtArmadoPedido.getBtnQuitar().addActionListener(this);
+		this.vtArmadoPedido.getBtnCancelar().addActionListener(this);
+		this.vtArmadoPedido.getBtnArmar().addActionListener(this);
+		this.vtArmadoPedido.getBtnCancelar().addActionListener(this);
+		
+		this.ctrPedido = ControladorPedido;
+		this.mdlSabor = new SaborModelo();
+		this.mdlPedido = new PedidoModelo();
+	}
+	
 	public void Inicializar() {
 		/*ver de cambiar el pedido.*/
-		CargarFecha();
-		this.vtArmadoPedido.Open();
+		if (this.vtArmadoPedido.getTxtNumpedido().getText().equals("NEXT")) {
+			this.CargarFecha();
+			this.vtArmadoPedido.Open();
+		}
+		else {
+			this.CargarPedido();
+			this.vtArmadoPedido.Open();
+		}
 	}
 	
 	private void CargarFecha() {
@@ -57,6 +80,31 @@ public class ControladorArmadoPedido implements ActionListener{
 		this.vtArmadoPedido.getTxtFecha().setText(fecha);
 	}
 	
+	private void CargarPedido() {
+		PedidoDTO p = this.mdlPedido.GetPedido(Integer.parseInt(this.vtArmadoPedido.getTxtNumpedido().getText().toString()));
+		
+		this.vtArmadoPedido.getTxtFecha().setText(p.getFecha_hora());
+		this.vtArmadoPedido.getTxtCliente().setText(p.getCliente());
+		this.vtArmadoPedido.getTxtCliente().enable(false);
+		this.vtArmadoPedido.getChckbxDelivery().setSelected(p.isDelivery());
+		this.vtArmadoPedido.getTxtDireccion().setText(p.getDireccion());
+		this.vtArmadoPedido.getTxtTel().setText(p.getTel());
+		this.vtArmadoPedido.getTxtrObservacion().setText(p.getObservacion());
+		
+		/* Carga la tabla de los prductos. */
+		this.vtArmadoPedido.getModelProductos().setRowCount(0);
+		this.vtArmadoPedido.getModelProductos().setColumnCount(0);
+		this.vtArmadoPedido.getModelProductos().setColumnIdentifiers(this.vtArmadoPedido.getNombreColumnas());
+		for (ProductoEnPedidoDTO pp:p.getProductos()) {
+			int PrecioUnidad = this.mdlSabor.GetPrecio(pp.getProducto(), pp.getSabor());
+			Object[] fila = {pp.getProducto(), pp.getSabor(), pp.getCantidad(), Integer.toString(PrecioUnidad), Integer.toString(pp.getCantidad() * PrecioUnidad)};
+			this.vtArmadoPedido.getModelProductos().addRow(fila);
+		}
+		this.vtArmadoPedido.getTblProductos().setModel(this.vtArmadoPedido.getModelProductos());
+		
+		this.ActualizarPrecio();
+	}
+	
 	public void CargarDatosCliente(ClienteDTO Cliente) {
 		this.vtArmadoPedido.getTxtCliente().setText(Cliente.getApellido() + " " +Cliente.getNombre());
 		this.vtArmadoPedido.getTxtDireccion().setText(Cliente.getDireccion());
@@ -64,7 +112,7 @@ public class ControladorArmadoPedido implements ActionListener{
 	}
 	
 	public void AgregarProducto(String Producto, String Sabor, int Cantidad) {
-		int PreUnid = this.mdlSabor.GerPrecio(Producto, Sabor);
+		int PreUnid = this.mdlSabor.GetPrecio(Producto, Sabor);
 		Object[] fila = {Producto, Sabor, Integer.toString(Cantidad), Integer.toString(PreUnid), Integer.toString(Cantidad * PreUnid)};
 		this.vtArmadoPedido.getModelProductos().addRow(fila);
 		this.vtArmadoPedido.getTblProductos().setModel(this.vtArmadoPedido.getModelProductos());
@@ -96,16 +144,45 @@ public class ControladorArmadoPedido implements ActionListener{
 	}
 	
 	private void ArmarPedido() {
-		int NumPedido = this.mdlPedido.GetNuevoNumeroPedido();
-		PedidoDTO NewPedido = new PedidoDTO(NumPedido, 
-				this.vtArmadoPedido.getTxtCliente().getText(), 
-				this.vtArmadoPedido.getTxtDireccion().getText(), 
-				Integer.parseInt(this.vtArmadoPedido.getTxtPrecio().getText()),
-				this.vtArmadoPedido.getTxtFecha().getText(), 
-				"Pendiente", 
-				this.vtArmadoPedido.getTxtrObservacion().getText(), 
-				CheckDelivery());
-		this.mdlPedido.agregarPedido(NewPedido);
+		if (this.vtArmadoPedido.getTxtNumpedido().getText().equals("NEXT")) {
+			int NumPedido = this.mdlPedido.GetNuevoNumeroPedido();
+			PedidoDTO NewPedido = new PedidoDTO(NumPedido, 
+					this.vtArmadoPedido.getTxtCliente().getText(), 
+					this.vtArmadoPedido.getTxtDireccion().getText(), 
+					this.vtArmadoPedido.getTxtTel().getText(),
+					Integer.parseInt(this.vtArmadoPedido.getTxtPrecio().getText()),
+					this.vtArmadoPedido.getTxtFecha().getText(), 
+					"Pendiente", 
+					this.vtArmadoPedido.getTxtrObservacion().getText(), 
+					CheckDelivery());
+			
+			for (int i = 0 ; i < this.vtArmadoPedido.getModelProductos().getRowCount() ; i++) {
+				NewPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(), 
+						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1).toString(),
+						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
+			}
+			
+			this.mdlPedido.agregarPedido(NewPedido);
+		}
+		else {
+			PedidoDTO OldPedido = new PedidoDTO(Integer.parseInt(this.vtArmadoPedido.getTxtNumpedido().getText()), 
+					this.vtArmadoPedido.getTxtCliente().getText(), 
+					this.vtArmadoPedido.getTxtDireccion().getText(),
+					this.vtArmadoPedido.getTxtTel().getText(),
+					Integer.parseInt(this.vtArmadoPedido.getTxtPrecio().getText()),
+					this.vtArmadoPedido.getTxtFecha().getText(), 
+					"Pendiente", 
+					this.vtArmadoPedido.getTxtrObservacion().getText(), 
+					CheckDelivery());
+			
+			for (int i = 0 ; i < this.vtArmadoPedido.getModelProductos().getRowCount() ; i++) {
+				OldPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(), 
+						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1).toString(),
+						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
+			}
+			
+			this.mdlPedido.ModificarPedido(OldPedido);
+		}
 	}
 	
 	@Override
@@ -122,9 +199,14 @@ public class ControladorArmadoPedido implements ActionListener{
 			QuitarProducto();
 		}
 		else if(arg0.getSource() == this.vtArmadoPedido.getBtnArmar()) {
-			this.ArmarPedido();
-			this.ctrPedido.RecargarTabla();
-			this.vtArmadoPedido.Close();
+			if (this.vtArmadoPedido.getModelProductos().getRowCount() > 0) {
+				this.ArmarPedido();
+				this.ctrPedido.RecargarTabla();
+				this.vtArmadoPedido.Close();
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Debe Ingresar al Menos un Producto.");
+			}
 		}
 		else if(arg0.getSource() == this.vtArmadoPedido.getBtnCancelar()) {
 			this.vtArmadoPedido.Close();
