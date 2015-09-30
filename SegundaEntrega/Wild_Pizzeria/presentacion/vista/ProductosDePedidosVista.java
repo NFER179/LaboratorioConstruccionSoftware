@@ -44,6 +44,8 @@ public class ProductosDePedidosVista extends JDialog {
 		this.contentPanel.add(lblProducto);
 		
 		this.txtIdproducto = new JTextField();
+		this.txtIdproducto.setEditable(false);
+		this.txtIdproducto.setEnabled(false);
 		this.txtIdproducto.setBounds(71, 8, 86, 20);
 		this.contentPanel.add(txtIdproducto);
 		this.txtIdproducto.setColumns(10);

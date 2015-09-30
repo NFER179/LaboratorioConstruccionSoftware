@@ -13,7 +13,6 @@ import modelo.PedidoModelo;
 import modelo.SaborModelo;
 
 import dto.ClienteDTO;
-import dto.EstadoPedido;
 import dto.PedidoDTO;
 import dto.ProductoEnPedidoDTO;
 
@@ -85,7 +84,7 @@ public class ControladorArmadoPedido implements ActionListener{
 		
 		this.vtArmadoPedido.getTxtFecha().setText(p.getFecha_hora());
 		this.vtArmadoPedido.getTxtCliente().setText(p.getCliente());
-		this.vtArmadoPedido.getTxtCliente().enable(false);
+		this.vtArmadoPedido.getTxtCliente().setEnabled(false);
 		this.vtArmadoPedido.getChckbxDelivery().setSelected(p.isDelivery());
 		this.vtArmadoPedido.getTxtDireccion().setText(p.getDireccion());
 		this.vtArmadoPedido.getTxtTel().setText(p.getTel());
