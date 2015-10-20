@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="modelo"/>
+	<classpathentry kind="src" path="persistencia"/>
+	<classpathentry kind="src" path="presentacion"/>
+	<classpathentry kind="src" path="main"/>
+	<classpathentry kind="src" path="helpers"/>
+	<classpathentry kind="src" path="impresiones"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/nicolas/Escritorio/Workspace/Wild_Pizzeria/lib/mysql-connector-java-5.1.35-bin.jar"/>
+	<classpathentry kind="lib" path="C:/Documents and Settings/nicolas/Escritorio/Workspace/Wild_Pizzeria/lib/JTattoo-1.6.10.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-examples-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-excelant-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-ooxml-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-ooxml-schemas-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/poi-scratchpad-3.13-20150929.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="lib/JarsImpresion/junit-4.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
