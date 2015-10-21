@@ -37,6 +37,13 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		this.vtCreacionSolicitud.getTxtDescrproveedor().setText(Descripcion);
 	}
 	
+
+	public void AgregarMateriaPrima(String MateriaPrima, String Cantidad) {
+		/* Si la materia prima esta debe sumar */
+		Object[] fila = {MateriaPrima, Cantidad};
+		this.vtCreacionSolicitud.getModelTable().addRow(fila);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == this.vtCreacionSolicitud.getBtnBuscar()) {
