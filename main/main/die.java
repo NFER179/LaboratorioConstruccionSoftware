@@ -9,6 +9,8 @@ public class die {
 		System.out.println(-2);
 		//aguante bocaç////ghj
 
+		//aguante boca GDFDTFHGF
+		//MCN,MN,NC.
 	}
 
 }
