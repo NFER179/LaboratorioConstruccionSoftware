@@ -7,7 +7,7 @@ public class die {
 	 */
 	public static void main(String[] args) {
 		System.out.println(-2);
-		//aguante boca
+		//aguante bocaç////ghj
 
 	}
 
