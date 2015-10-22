@@ -1,4 +1,4 @@
-﻿/* source C:/Documents and Settings/nicolas/Escritorio/SVN/LaboratorioConstruccionSoftware/trunk/Pizzeria Wild/sql/laboratorio_insert.sql; */
+﻿/* source C:/Documents and Settings/nicolas/Escritorio/SVN/LaboratorioContruccionSoftware/trunk/Pizzeria Wild/sql/laboratorio_insert.sql; */
 /*insert into cliente values
 (000000001,	'Cliente',	'Mostrados',	'-',				'-'),
 (000000002,	'Diego',	'Martinez',		'ruta 23 al 000',	'011-4952-7401'),

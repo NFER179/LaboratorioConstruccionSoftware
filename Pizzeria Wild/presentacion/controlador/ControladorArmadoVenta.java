@@ -260,7 +260,7 @@ public class ControladorArmadoVenta implements ActionListener {
 	private void QuitarProducto() {
 		int[] FilasBorrar = this.vtArmadoPedido.getTblProductos()
 				.getSelectedRows();
-		for (int i = 0; i < FilasBorrar.length; i++) {
+		for (int i = FilasBorrar.length - 1; i >= 0; i--) {
 			this.vtArmadoPedido.getModelProductos().removeRow(FilasBorrar[i]);
 		}
 		this.vtArmadoPedido.getTblProductos().setModel(

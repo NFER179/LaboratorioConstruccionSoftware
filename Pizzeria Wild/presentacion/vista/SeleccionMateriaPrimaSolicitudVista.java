@@ -15,7 +15,7 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 	private DefaultTableModel modelTable;
 	private String[] nombreColumnas = {"Materia Prima", "Unidad"};
 	private JTable table;
-	private JTextField textField;
+	private JTextField txtCantidad;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 
@@ -40,10 +40,10 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 		lblCantidad.setBounds(10, 204, 69, 14);
 		getContentPane().add(lblCantidad);
 		
-		textField = new JTextField();
-		textField.setBounds(78, 201, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		txtCantidad = new JTextField();
+		txtCantidad.setBounds(78, 201, 86, 20);
+		getContentPane().add(txtCantidad);
+		txtCantidad.setColumns(10);
 		
 		btnAceptar = new JButton("Aceptar");
 		btnAceptar.setBounds(78, 232, 89, 23);
@@ -74,8 +74,8 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 		return table;
 	}
 
-	public JTextField getTextField() {
-		return textField;
+	public JTextField getTxtCantidad() {
+		return txtCantidad;
 	}
 
 	public JButton getBtnAceptar() {

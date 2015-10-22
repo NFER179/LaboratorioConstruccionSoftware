@@ -26,6 +26,8 @@ public class CreacionSolicitudVista extends JDialog {
 	private JScrollPane scrollPane;
 	private JButton btnAgregar;
 	private JButton btnQuitar;
+	private JButton btnEnviar;
+	private JButton btnGuardar;
 	private JButton btnVolver;
 
 	public CreacionSolicitudVista(SolicitudCompraVista arg0) {
@@ -42,7 +44,6 @@ public class CreacionSolicitudVista extends JDialog {
 		getContentPane().add(lblFecha);
 		
 		txtFecha = new JTextField();
-		txtFecha.setText("CURRENT");
 		txtFecha.setEnabled(false);
 		txtFecha.setEditable(false);
 		txtFecha.setBounds(105, 8, 86, 20);
@@ -102,6 +103,14 @@ public class CreacionSolicitudVista extends JDialog {
 		btnQuitar = new JButton("Quitar");
 		btnQuitar.setBounds(385, 161, 89, 23);
 		getContentPane().add(btnQuitar);
+		
+		btnEnviar = new JButton("Enviar");
+		btnEnviar.setBounds(189, 264, 89, 23);
+		getContentPane().add(btnEnviar);
+		
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(288, 264, 89, 23);
+		getContentPane().add(btnGuardar);
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(385, 264, 89, 23);
@@ -164,8 +173,15 @@ public class CreacionSolicitudVista extends JDialog {
 		return btnQuitar;
 	}
 
+	public JButton getBtnEnviar() {
+		return btnEnviar;
+	}
+
+	public JButton getBtnGuardar() {
+		return btnGuardar;
+	}
+
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
-	
 }

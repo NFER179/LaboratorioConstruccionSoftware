@@ -7,6 +7,7 @@ import java.util.List;
 
 import conexion.ConectorDB;
 import dao.SolicitudDAO;
+import dto.MateriaPrimaSolicitudDTO;
 import dto.SolicitudDTO;
 
 public class SolicitudImp implements SolicitudDAO {
@@ -43,5 +44,56 @@ public class SolicitudImp implements SolicitudDAO {
 		}
 		
 		return solicitudes;
+	}
+
+	@Override
+	public int GetNuevoNumeroSolicitud(String Fecha) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select max(p.num_pedido) as 'num_pedido' from pedido p " +
+						"where p.effdt = '" + Fecha + "'";
+		ResultSet rs = null;
+		int numSolicitud = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				numSolicitud = rs.getInt("num_pedido") + 1;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return numSolicitud;
+	}
+
+	@Override
+	public void EnviarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
+		Statement stm = this.conector.GetStatement();
+		String sqlStringPedido = "insert into pedido value('" + Solicitud.getEffdt() + "', " +
+															Solicitud.getNumPedido() + ", '" +
+															Solicitud.GetYesNo() + "')";
+		String sqlStringPedidoProveedor = "insert into pedido_proveedor value('" + Solicitud.getEffdt() + "'," +
+															Solicitud.getNumPedido() + " , '" +
+															Proveedor + "')";
+		
+		try{
+			stm.executeUpdate(sqlStringPedido);
+			stm.executeUpdate(sqlStringPedidoProveedor);
+			String sqlSringPedidoMt;
+			for(MateriaPrimaSolicitudDTO mts:MateriasPrimas){
+				sqlSringPedidoMt = "insert into pedido_mp value('" + Solicitud.getEffdt() + "', " + 
+																Solicitud.getNumPedido() + ", '" +
+																mts.getMateriaPrima() + "', " +
+																mts.getCantidad() + ")";
+				stm.executeUpdate(sqlSringPedidoMt);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}		
 	}
 }

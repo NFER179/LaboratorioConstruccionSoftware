@@ -1,4 +1,4 @@
-/* source C:/Documents and Settings/nicolas/Escritorio/SVN/LaboratorioConstruccionSoftware/trunk/Pizzeria Wild/sql/laboratorio.sql; */
+/* source C:/Documents and Settings/nicolas/Escritorio/SVN/LaboratorioContruccionSoftware/trunk/Pizzeria Wild/sql/laboratorio.sql; */
 drop database if exists PizzeriaWild;
 
 create database PizzeriaWild;

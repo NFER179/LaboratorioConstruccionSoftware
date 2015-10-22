@@ -53,10 +53,10 @@ public class ControladorSeleccionMateriaPrimaSolicitud implements ActionListener
 		int FilaSeleccionada = tabla.getSelectedRow();
 		
 		String materiaPrima = tabla.getValueAt(FilaSeleccionada, 0).toString().trim();
-		String cantidad = this.vtSMPS.getTextField().getText().trim();
+		String cantidad = this.vtSMPS.getTxtCantidad().getText().trim();
 		String unidad = tabla.getValueAt(FilaSeleccionada, 1).toString().trim();
 		
-		this.ctrCreacionSolicitud.AgregarMateriaPrima(materiaPrima, cantidad + " " + unidad);
+		this.ctrCreacionSolicitud.AgregarMateriaPrima(materiaPrima, cantidad, unidad);
 	}
 	
 	@Override

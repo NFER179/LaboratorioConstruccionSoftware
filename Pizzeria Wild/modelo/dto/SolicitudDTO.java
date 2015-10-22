@@ -48,7 +48,7 @@ public class SolicitudDTO {
 		this.enviado = enviado;
 	}
 	
-	public String GetEnviado() {
+	public String GetYesNo() {
 		if (this.enviado)
 			return "Y";
 		return "N";

@@ -36,7 +36,7 @@ public class ValidacionSeleccionMateriaPrimaSolicitud {
 	}
 	
 	private boolean CantidadProducto() {
-		if(this.vista.getTextField().getText().trim().equals("")) {
+		if(this.vista.getTxtCantidad().getText().trim().equals("")) {
 			this.AgregarMensaje("Debe Seleccionar una Cantidad de la Materia Prima.");
 			this.ErrorCampoCantidad(true);
 			return false;
@@ -49,7 +49,7 @@ public class ValidacionSeleccionMateriaPrimaSolicitud {
 	
 	private boolean ValorCantidadCorrecto() {
 		try{
-			Integer.parseInt(this.vista.getTextField().getText().trim());
+			Integer.parseInt(this.vista.getTxtCantidad().getText().trim());
 			this.ErrorCampoCantidad(false);
 			return true;
 		}
@@ -69,8 +69,8 @@ public class ValidacionSeleccionMateriaPrimaSolicitud {
 	
 	private void ErrorCampoCantidad(boolean arg0) {
 		if(arg0)
-			this.vista.getTextField().setBackground(Color.RED);
+			this.vista.getTxtCantidad().setBackground(Color.RED);
 		else
-			this.vista.getTextField().setBackground(null);
+			this.vista.getTxtCantidad().setBackground(null);
 	}
 }

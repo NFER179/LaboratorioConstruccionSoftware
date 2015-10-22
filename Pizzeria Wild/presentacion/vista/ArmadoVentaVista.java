@@ -65,6 +65,7 @@ public class ArmadoVentaVista extends JDialog {
 		
 		this.txtNumVenta = new JTextField();
 		this.txtNumVenta.setEditable(false);
+		this.txtNumVenta.setEditable(false);
 		this.txtNumVenta.setBounds(103, 5, 86, 20);
 		this.contentPanel.add(txtNumVenta);
 		this.txtNumVenta.setColumns(10);
@@ -85,6 +86,7 @@ public class ArmadoVentaVista extends JDialog {
 		this.contentPanel.add(lblHora);
 		
 		this.txtHora = new JTextField();
+		this.txtHora.setEditable(false);
 		this.txtHora.setEditable(false);
 		this.txtHora.setBounds(457, 5, 75, 20);
 		this.contentPanel.add(txtHora);
