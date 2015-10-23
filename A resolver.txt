@@ -1,0 +1,9 @@
+Al seleccionar carga de productos de mat prima no funciona
+No se pueden selcecconar categorias de proveedores
+no se puede seleccionar productos asociados
+
+la funcionalidad de solicidudes rompe el sistema
+
+del modulo de pedidos:
+
+falta validar los botones cancelar pedido , rompe si no se selecciona nada al presionar el boton , lo mismo con el pedido entregado
