@@ -5,11 +5,13 @@ public class SolicitudDTO {
 	private String effdt;
 	private int numPedido;
 	private boolean enviado;
+	private String fecha_envio;
 	
-	public SolicitudDTO(String Fecha, int NumPedido, boolean Enviado){
+	public SolicitudDTO(String Fecha, int NumPedido, boolean Enviado, String FechaEnvio){
 		this.effdt = Fecha;
 		this.numPedido = NumPedido;
 		this.enviado = Enviado;
+		this.fecha_envio = FechaEnvio;
 	}
 	
 	public static boolean StringToBoolean(String arg0) {
@@ -60,4 +62,13 @@ public class SolicitudDTO {
 		else
 			this.enviado = false;
 	}
+
+	public String getFecha_envio() {
+		return fecha_envio;
+	}
+
+	public void setFecha_envio(String fecha_envio) {
+		this.fecha_envio = fecha_envio;
+	}
+	
 }

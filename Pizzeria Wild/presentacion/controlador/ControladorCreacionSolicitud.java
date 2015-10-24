@@ -116,17 +116,25 @@ public class ControladorCreacionSolicitud implements ActionListener{
 	}
 	
 	private void EnviarSolicitud() {
-		String Fecha = this.vtCreacionSolicitud.getTxtFecha().getText();
+		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
 		
 		int NumPedido;
 		if(this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
-			NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(Fecha);
+			NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaCreacion);
 		}
 		else{
 			NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
 		}
 		
-		SolicitudDTO sol = new SolicitudDTO(Fecha, NumPedido, true);
+		Calendar c = Calendar.getInstance();
+		
+		String año = Integer.toString(c.get(Calendar.YEAR));
+		String mes = Integer.toString(c.get(Calendar.MONTH));
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		
+		String FechaEnvio = año + "/" + mes + "/" + dia;
+		
+		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, true, FechaEnvio);
 		
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor().getText().trim();
 		

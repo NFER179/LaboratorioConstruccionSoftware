@@ -33,8 +33,9 @@ public class SolicitudImp implements SolicitudDAO {
 				String fechaPedido = rs.getString("effdt");
 				int numPedido = Integer.parseInt(rs.getString("num_pedido"));
 				boolean enviado = SolicitudDTO.StringToBoolean(rs.getString("enviado"));
+				String fecha_envio = rs.getString("fecha_envio");
 				
-				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado));
+				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -76,7 +77,8 @@ public class SolicitudImp implements SolicitudDAO {
 		Statement stm = this.conector.GetStatement();
 		String sqlStringPedido = "insert into pedido value('" + Solicitud.getEffdt() + "', " +
 															Solicitud.getNumPedido() + ", '" +
-															Solicitud.GetYesNo() + "')";
+															Solicitud.GetYesNo() + "', '" +
+															Solicitud.getFecha_envio() + "')";
 		String sqlStringPedidoProveedor = "insert into pedido_proveedor value('" + Solicitud.getEffdt() + "'," +
 															Solicitud.getNumPedido() + " , '" +
 															Proveedor + "')";
