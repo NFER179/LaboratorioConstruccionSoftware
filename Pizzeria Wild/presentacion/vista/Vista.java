@@ -11,6 +11,7 @@ public class Vista {
 	private JButton btnMateriasPrimas;
 	private JButton btnCategorias;
 	private JButton btnSolicitud;
+	private JButton btnReportes;
 	
 	public Vista() {
 		try {
@@ -48,6 +49,10 @@ public class Vista {
 		btnSolicitud = new JButton("Solicitudes");
 		btnSolicitud.setBounds(10, 113, 120, 23);
 		frame.getContentPane().add(btnSolicitud);
+		
+		btnReportes = new JButton("Reportes");
+		btnReportes.setBounds(10, 147, 120, 23);
+		frame.getContentPane().add(btnReportes);
 	}
 	
 	public void Open() {
@@ -73,5 +78,8 @@ public class Vista {
 	public JButton getBtnSolicitud() {
 		return btnSolicitud;
 	}
-	
+
+	public JButton getBtnReportes() {
+		return btnReportes;
+	}
 }
