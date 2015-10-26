@@ -116,11 +116,11 @@ insert into mp_proveedor values
 
 insert into pedido values
 ('2015-07-21', 1, 'Y',	'2015-07-21', 1),
-('2015/10/31', 2, 'N',	'2015/10/31', 2);
+('2015/10/01', 1, 'N',	'2015/10/01', 1);
 
 insert into pedido_proveedor values
 ('2015-07-21', 1, 'TRESTRIGOS'),
-('2015/10/31', 2, 'HEREFORD');
+('2015/10/01', 1, 'HEREFORD');
 					
 /*insert into pedido_mp values
 ('2015-07-21', 1, 'CEREAL'	, 'Harina 000'		, 100),
@@ -130,8 +130,8 @@ insert into pedido_proveedor values
 insert into pedido_mp values
 ('2015-07-21', 1, 'Harina 000'		, 100),
 ('2015-07-21', 1, 'Harina Integral'	, 30),
-('2015/10/31', 2, 'Pechuga'			, 50),
-('2015-10-31', 2, 'Cuadril'			, 70);
+('2015/10/01', 1, 'Pechuga'			, 50),
+('2015-10-01', 1, 'Cuadril'			, 70);
 
 select * from proveedor;
 select * from categoria;

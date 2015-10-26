@@ -131,10 +131,10 @@ public class SolicitudImp implements SolicitudDAO {
 		
 		Statement stm = this.conector.GetStatement();
 		String deletePedidoMateriaPrima = "delete from pedido_mp " +
-										"where efft = '" + Solicitud.getEffdt() + "' " +
+										"where effdt = '" + Solicitud.getEffdt() + "' " +
 										"and num_pedido = " + Solicitud.getNumPedido();
 		String deletePedidoProveedor = "delete from pedido_proveedor " +
-										"where efft = '" + Solicitud.getEffdt() + "' " +
+										"where effdt = '" + Solicitud.getEffdt() + "' " +
 										"and num_pedido = " + Solicitud.getNumPedido();
 		String deletePedido = "delete from pedido " +
 								"where effdt = '" + Solicitud.getEffdt() + "' " +

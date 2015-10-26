@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.Calendar;
 import java.util.List;
 
 import dao.SolicitudDAO;
@@ -25,14 +26,36 @@ public class SolicitudModelo {
 	}
 
 	public void EnviarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
-		this.solicitud.CrearSolicitud(Solicitud, Proveedor, MateriasPrimas);
-		this.solicitud.Enviar(Solicitud);
+		Calendar c = Calendar.getInstance();
 		
-		SolicitudDTO solicitud = this.SolicitudReferenteA(Solicitud);
-		if(!this.solicitud.Existe(solicitud)) {
-			this.solicitud.CrearSolicitud(solicitud, Proveedor, MateriasPrimas);
-			this.solicitud.Enviar(solicitud);
+		String año = Integer.toString(c.get(Calendar.YEAR));
+		String mes = Integer.toString(c.get(Calendar.MONTH));
+		if(mes.length() == 1) 
+			mes = "0" +  mes;
+		String dia = Integer.toString(c.get(Calendar.DATE));
+		if(dia.length() == 1) 
+			dia = "0" + dia;
+		
+		String CurrentDate = año + "-" + mes + "-" + dia;
+		
+		if(Solicitud.getEffdt().equals(CurrentDate)) {
+			if(this.solicitud.Existe(Solicitud)) {
+				this.solicitud.ActualizarSolicitud(Solicitud, Proveedor, MateriasPrimas);
+			}
+			else{
+				this.solicitud.CrearSolicitud(Solicitud, Proveedor, MateriasPrimas);
+			}
 		}
+		else {
+			Solicitud.setFecha_envio(CurrentDate);
+			Solicitud.setReferenciaNumPedido(this.solicitud.GetNuevoNumeroSolicitud(CurrentDate));
+			this.solicitud.ActualizarSolicitud(Solicitud, Proveedor, MateriasPrimas);
+			
+			SolicitudDTO soli = this.SolicitudReferenteA(Solicitud);
+			this.solicitud.CrearSolicitud(soli, Proveedor, MateriasPrimas);
+			this.solicitud.Enviar(soli);
+		}
+		this.solicitud.Enviar(Solicitud);
 	}
 	
 	public void GuardarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {

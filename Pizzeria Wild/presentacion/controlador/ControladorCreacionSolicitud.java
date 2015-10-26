@@ -85,13 +85,13 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		String mes = Integer.toString(c.get(Calendar.MONTH)); 
 		if(mes.length() == 1)
 			mes = "0" + mes;
-		fecha = fecha + "/" + mes;
+		fecha = fecha + "-" + mes;
 		
 		String dia = Integer.toString(c.get(Calendar.DATE));
 		if(dia.length() == 1)
 			dia = "0" + dia;
 			
-		fecha = fecha + "/" + dia;
+		fecha = fecha + "-" + dia;
 		
 		this.vtCreacionSolicitud.getTxtFecha().setText(fecha);
 	}
@@ -150,7 +150,7 @@ public class ControladorCreacionSolicitud implements ActionListener{
 	}
 	
 	private void EnviarSolicitud() {
-		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
+		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
 		
 		int NumPedido;
 		if(this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
@@ -160,15 +160,8 @@ public class ControladorCreacionSolicitud implements ActionListener{
 			NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
 		}
 		
-		Calendar c = Calendar.getInstance();
-		
-		String año = Integer.toString(c.get(Calendar.YEAR));
-		String mes = Integer.toString(c.get(Calendar.MONTH));
-		String dia = Integer.toString(c.get(Calendar.DATE));
-		
-		String FechaEnvio = año + "/" + mes + "/" + dia;
-		
-		int referenciaNumeroPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaEnvio);
+		String FechaEnvio = FechaCreacion;
+		int referenciaNumeroPedido = NumPedido;
 		
 		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, true, FechaEnvio, referenciaNumeroPedido);
 		
