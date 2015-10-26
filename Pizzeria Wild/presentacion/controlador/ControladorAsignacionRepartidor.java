@@ -7,8 +7,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JFrame;
-
-import clasesImpresiones.ImpresionDocx;
+import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjItinerario;
 
 //import clasesImpresiones.ImpresionDocx;
@@ -177,8 +176,11 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 			/* Recarga la tabla en la vista de Ventas generales. */
 			this.ctrVenta.RecargarTabla();
 			ObjItinerario itinerario = construirItinerario(numDelivery);
-			ImpresionDocx.ImprimirItinerario(itinerario);
-
+			try {
+				Impresiones.ImprimirItinerario(itinerario);
+			} catch (Exception e) {
+				e.getStackTrace();
+			}
 			this.vtAsignacionRepartidores.Close();
 		} else {
 			Msj.advertencia("Atencion", "Debe seleccionar a un repartidor");
@@ -186,13 +188,13 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	}
 
 	private ObjItinerario construirItinerario(int numDelivery) {
-		ObjItinerario itinerario = new ObjItinerario();
-		itinerario.nombreArchivo = "Delivery Numero " + numDelivery;
+		ObjItinerario itinerario = new ObjItinerario("Delivery Numero "
+				+ numDelivery, this.vtAsignacionRepartidores.getTxtFecha()
+				.getText(), numDelivery);
 		for (VentaDTO venta : this.lVentas) {
 			List<ProductoEnVentaDTO> productos = venta.getProductos();
 			itinerario.addPunto(venta.getDireccion(),
 					venta.getObservacionDelivery(), productos);
-
 		}
 		return itinerario;
 	}

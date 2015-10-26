@@ -2,25 +2,26 @@ package clasesImpresiones;
 
 import java.util.ArrayList;
 
-public class ObjSolicitudMP {
-	String NombreArchivo;
+public class ObjSolicitudMP extends ObjModel {
+
 	String fecha;
 	String hora;
 	String proveedor;
 	int numSolicitud;
 	ArrayList<ObjMateriaPrima> materiasPrimas;
 
-	public ObjSolicitudMP() {
+	public ObjSolicitudMP(String nombreArchivo, String fecha,
+			int id) {
+		super(nombreArchivo, fecha, "SolicitudMP", id);
 		this.materiasPrimas = new ArrayList<ObjMateriaPrima>();
 	}
 
-	public ObjSolicitudMP(String pNombreArchivo, String pFecha, String pHora, String pProveedor, int pNumSolicitud,
+	public ObjSolicitudMP(String nombreArchivo, String fecha,
+			int id, String pHora, String pProveedor, int pNumSolicitud,
 			ArrayList<ObjMateriaPrima> pMateriasPrimas) {
-		this.NombreArchivo = pNombreArchivo;
-		this.fecha = pFecha;
+		super(nombreArchivo, fecha, "SolicitudMP", id);
 		this.hora = pHora;
 		this.proveedor = pProveedor;
-		this.numSolicitud = pNumSolicitud;
 		this.materiasPrimas = pMateriasPrimas;
 	}
 
@@ -36,6 +37,12 @@ public class ObjSolicitudMP {
 			this.nombre = pNombre;
 			this.cantidad = pCantidad;
 		}
+	}
+
+	@Override
+	public String[] getParametros() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
