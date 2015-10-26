@@ -110,7 +110,7 @@ create table mp_proveedor(proveedor_id char(11), categoria_id char(8), materia_p
 					foreign key(proveedor_id) references proveedor(proveedor_id),
 					foreign key(categoria_id, materia_prima) references mp_categoria(categoria_id, materia_prima));
 
-create table pedido(effdt date, num_pedido integer, enviado char(1), fecha_envio date,
+create table pedido(effdt date, num_pedido integer, enviado char(1), fecha_envio date, ref_num_pedido integer,
 					primary key(effdt, num_pedido));
 					
 create table pedido_proveedor(effdt date, num_pedido integer, proveedor_id char(11),

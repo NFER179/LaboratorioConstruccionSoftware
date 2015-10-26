@@ -26,6 +26,10 @@ public class MateriaPrimaModelo {
 		return this.materiaPrima.GetMateriasPrimasSinAsignar();
 	}
 
+	public String ObtenerUnidad(String MateriaPrima) {
+		return this.materiaPrima.GetUnidad(MateriaPrima);
+	}
+
 //	public void AsignarACategoria(String MateriaPrima, String Categoria) {
 //		this.materiaPrima.AsignarMTaCategoria(MateriaPrima, Categoria);
 //	}

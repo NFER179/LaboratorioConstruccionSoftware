@@ -81,6 +81,30 @@ public class MateriaPrimaImp implements MateriaPrimaDAO{
 		return materiasPrimas;
 	}
 
+	@Override
+	public String GetUnidad(String MateriaPrima) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select mp.unidad from materia_prima mp " +
+						"where materia_prima = '" + MateriaPrima + "'";
+		ResultSet rs = null;
+		String unidad = "";
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				unidad = rs.getString("unidad");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return unidad;
+	}
+
 //	@Override
 //	public void AsignarMTaCategoria(String MateriaPrima, String Categoria) {
 //		

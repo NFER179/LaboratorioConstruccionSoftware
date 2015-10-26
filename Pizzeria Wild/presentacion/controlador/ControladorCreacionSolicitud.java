@@ -10,8 +10,10 @@ import javax.swing.JTable;
 
 import dto.MateriaPrimaDTO;
 import dto.MateriaPrimaSolicitudDTO;
+import dto.ProveedorDTO;
 import dto.SolicitudDTO;
 
+import modelo.MateriaPrimaModelo;
 import modelo.SolicitudModelo;
 
 import validacion.ValidacionCreacionSolicitud;
@@ -24,6 +26,7 @@ public class ControladorCreacionSolicitud implements ActionListener{
 	private CreacionSolicitudVista vtCreacionSolicitud;
 	private ValidacionCreacionSolicitud vldCreacion;
 	private SolicitudModelo mdlSolicitud;
+	private MateriaPrimaModelo mdlMateriaPrima;
 	
 	public ControladorCreacionSolicitud(ControladorSolicitud Ctr, SolicitudCompraVista vista){
 		this.vtCreacionSolicitud = new CreacionSolicitudVista(vista);
@@ -37,11 +40,42 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		this.ctrSolicitud = Ctr;
 		this.vldCreacion = new ValidacionCreacionSolicitud(this.vtCreacionSolicitud);
 		this.mdlSolicitud = new SolicitudModelo();
+		this.mdlMateriaPrima = new MateriaPrimaModelo();
 	}
 	
 	public void Inicializar() {
 		this.CargarFecha();
 		this.vtCreacionSolicitud.Open();
+	}
+	
+	public void InicializarModificacion(String FechaSolicitud, String NumeroSolicitud) {
+		this.vtCreacionSolicitud.getTxtFecha().setText(FechaSolicitud);
+		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumeroSolicitud);
+		
+		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(FechaSolicitud, NumeroSolicitud);
+		
+		this.vtCreacionSolicitud.getTxtIdproveedor().setText(proveedor.getProveedorId());
+		this.vtCreacionSolicitud.getTxtDescrproveedor().setText(proveedor.getNombre());
+		
+		this.CargarTabla();
+		
+		this.vtCreacionSolicitud.Open();
+	}
+	
+	private void CargarTabla() {
+		this.vtCreacionSolicitud.getModelTable().setRowCount(0);
+		this.vtCreacionSolicitud.getModelTable().setColumnCount(0);
+		this.vtCreacionSolicitud.getModelTable().setColumnIdentifiers(this.vtCreacionSolicitud.getNombreColumnas());
+		
+		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
+		String numPedido = this.vtCreacionSolicitud.getTxtNumpedido().getText().trim();
+		
+		for(MateriaPrimaSolicitudDTO m:this.mdlSolicitud.GetMateriasPrimas(fecha, numPedido)) {
+			String unidad = this.mdlMateriaPrima.ObtenerUnidad(m.getMateriaPrima());
+			Object[] fila = {m.getMateriaPrima(), m.getCantidad() + " " + unidad};
+			this.vtCreacionSolicitud.getModelTable().addRow(fila);
+		}
+		this.vtCreacionSolicitud.getTable().setModel(this.vtCreacionSolicitud.getModelTable());
 	}
 	
 	private void CargarFecha() {
@@ -134,7 +168,9 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		
 		String FechaEnvio = año + "/" + mes + "/" + dia;
 		
-		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, true, FechaEnvio);
+		int referenciaNumeroPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaEnvio);
+		
+		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, true, FechaEnvio, referenciaNumeroPedido);
 		
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor().getText().trim();
 		
@@ -152,6 +188,27 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		}
 		
 		return materiasPrimas;
+	}
+	
+	private void GuardarPedido() {
+		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
+		
+		int NumPedido;
+		if(this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+			NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaCreacion);
+		}
+		else{
+			NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
+		}
+		
+		String FechaEnvio = FechaCreacion;
+		int referenciaNumeroPedido = NumPedido;
+		
+		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, false, FechaEnvio, referenciaNumeroPedido);
+		
+		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor().getText().trim();
+		
+		this.mdlSolicitud.GuardarSolicitud(sol, proveedor, this.GetMateriasPrimas());	
 	}
 	
 	@Override
@@ -173,11 +230,14 @@ public class ControladorCreacionSolicitud implements ActionListener{
 		}
 		else if(arg0.getSource() == this.vtCreacionSolicitud.getBtnEnviar()){
 			this.EnviarSolicitud();
+			this.ctrSolicitud.CargarTabla();
 			this.vtCreacionSolicitud.Close();
 		}
 		
 		else if(arg0.getSource() == this.vtCreacionSolicitud.getBtnGuardar()) {
-			
+			this.GuardarPedido();
+			this.ctrSolicitud.CargarTabla();
+			this.vtCreacionSolicitud.Close();
 		}
 		else if(arg0.getSource() == this.vtCreacionSolicitud.getBtnVolver()) {
 			this.vtCreacionSolicitud.Close();

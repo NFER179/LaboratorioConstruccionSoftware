@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTable;
+
 import modelo.SolicitudModelo;
 
 import dto.SolicitudDTO;
@@ -45,11 +47,17 @@ public class ControladorSolicitud implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtSolicitudCompra.getBtnNuevaSolicitud()) {
-			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(
-					this, this.vtSolicitudCompra);
+			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
 			ctrCreacionSolicitud.Inicializar();
 		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnModificar()) {
-
+			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
+			
+			JTable table = this.vtSolicitudCompra.getTable();
+			int filaSeleccionada = table.getSelectedRow();
+			String FechaSolicitud = table.getValueAt(filaSeleccionada, 0).toString().trim();
+			String NumeroSolicitud = table.getValueAt(filaSeleccionada, 1).toString().trim();
+			
+			ctrCreacionSolicitud.InicializarModificacion(FechaSolicitud, NumeroSolicitud);
 		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnVolver()) {
 			this.ctr.Return();
 			this.vtSolicitudCompra.Close();

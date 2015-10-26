@@ -10,6 +10,7 @@ import javax.swing.JTable;
 import modelo.VentaModelo;
 import utilidades.Msj;
 import utilidades.Str;
+import validacion.ValidacionVenta;
 import vista.VentasVista;
 import controlador.Controlador;
 
@@ -20,6 +21,7 @@ public class ControladorVenta implements ActionListener {
 	private VentaModelo mdlVenta;
 	private List<VentaDTO> ventasEnTabla;
 	private ControladorVentasCocina ctrVentasCocina;
+	private ValidacionVenta vldVenta;
 	private static int columnaFecha = 0;
 	private static int columnaNVenta = 1;
 
@@ -30,6 +32,7 @@ public class ControladorVenta implements ActionListener {
 		this.controlador = controlador;
 		this.mdlVenta = new VentaModelo();
 		this.ventasEnTabla = null;
+		this.vldVenta = new ValidacionVenta(this.vtVenta);
 		this.ctrVentasCocina = ControladorVentasCocina.GetInstancia();
 	}
 
@@ -48,14 +51,14 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.GetBtnVentaEntregada().addActionListener(this);
 		this.vtVenta.GetBtnVolverInicio().addActionListener(this);
 		/** JNVR - agrego eventos para los items del menu */
-		this.vtVenta.getMntmReporteDiario().addActionListener(this);
-		this.vtVenta.getMntmReporteSemanal().addActionListener(this);
-		this.vtVenta.getMntmReporteMensual().addActionListener(this);
-		this.vtVenta.getMntmBusquedaDeProveedores().addActionListener(this);
-		this.vtVenta.getMntmNuevoProveedor().addActionListener(this);
-		this.vtVenta.getMntmEditarSolicitudesGuardadas()
-				.addActionListener(this);
-		this.vtVenta.getMntmNuevaSolicitud().addActionListener(this);
+//		this.vtVenta.getMntmReporteDiario().addActionListener(this);
+//		this.vtVenta.getMntmReporteSemanal().addActionListener(this);
+//		this.vtVenta.getMntmReporteMensual().addActionListener(this);
+//		this.vtVenta.getMntmBusquedaDeProveedores().addActionListener(this);
+//		this.vtVenta.getMntmNuevoProveedor().addActionListener(this);
+//		this.vtVenta.getMntmEditarSolicitudesGuardadas()
+//				.addActionListener(this);
+//		this.vtVenta.getMntmNuevaSolicitud().addActionListener(this);
 
 	}
 
@@ -172,15 +175,15 @@ public class ControladorVenta implements ActionListener {
 		return venta.getEstado().toUpperCase().equals("VIAJE");
 	}
 
-	private boolean SinVentasPendientes(List<VentaDTO> Ventas) {
-		boolean sinPendientes = true;
-		for (VentaDTO venta : Ventas) {
-			if (!esVentaPendiente(venta)) {
-				sinPendientes = false;
-			}
-		}
-		return sinPendientes;
-	}
+//	private boolean SinVentasPendientes(List<VentaDTO> Ventas) {
+//		boolean sinPendientes = true;
+//		for (VentaDTO venta : Ventas) {
+//			if (!esVentaPendiente(venta)) {
+//				sinPendientes = false;
+//			}
+//		}
+//		return sinPendientes;
+//	}
 
 	private boolean esVentaPendiente(VentaDTO venta) {
 		return venta.getEstado().toUpperCase().equals("PENDIENTE");
@@ -209,64 +212,55 @@ public class ControladorVenta implements ActionListener {
 		} else if (source == vista.GetBtnNuevaVenta()) {
 			accionNuevaVenta();
 		} else if (source == vista.GetBtnCancelarVenta()) {
-			accionCancelarVenta();
+			if(this.vldVenta.CancelarValido()) {
+				accionCancelarVenta();
+			}
 		} else if (source == vista.GetBtnVentaEntregada()) {
-			accionVentaEntregada();
+			if(this.vldVenta.EntregarValido()) {
+				accionVentaEntregada();
+			}
 		} else if (source == vista.GetBtnVolverInicio()) {
 			accionVolverInicio();
-		} else if (source == vista.getMntmReporteDiario()) {
-			accionReporteDiario();
-		} else if (source == vista.getMntmReporteSemanal()) {
-			accionReporteSemanal();
-		} else if (source == vista.getMntmReporteMensual()) {
-			accionReporteMensual();
-		} else if (source == vista.getMntmBusquedaDeProveedores()) {
-			accionBusquedaDeProveedores();
-		} else if (source == vista.getMntmNuevoProveedor()) {
-			accionNuevoProveedor();
-		} else if (source == vista.getMntmNuevaSolicitud()) {
-			accionNuevaSolicitud();
-		} else if (source == vista.getMntmEditarSolicitudesGuardadas()) {
-			accionEditarSolicitudesGuardadas();
-		} else {
-			System.out.println("ESTADO ILEGAL");
 		}
+//		} else if (source == vista.getMntmReporteDiario()) {
+//			accionReporteDiario();
+//		} else if (source == vista.getMntmReporteSemanal()) {
+//			accionReporteSemanal();
+//		} else if (source == vista.getMntmReporteMensual()) {
+//			accionReporteMensual();
+//		} else if (source == vista.getMntmBusquedaDeProveedores()) {
+//			accionBusquedaDeProveedores();
+//		} else if (source == vista.getMntmNuevoProveedor()) {
+//			accionNuevoProveedor();
+//		} else if (source == vista.getMntmNuevaSolicitud()) {
+//			accionNuevaSolicitud();
+//		} else if (source == vista.getMntmEditarSolicitudesGuardadas()) {
+//			accionEditarSolicitudesGuardadas();
+//		} else {
+//			System.out.println("ESTADO ILEGAL");
+//		}
 	}
 
-	private void accionEditarSolicitudesGuardadas() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionNuevaSolicitud() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionNuevoProveedor() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionBusquedaDeProveedores() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionReporteMensual() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionReporteSemanal() {
-		// TODO Auto-generated method stub
-
-	}
-
-	private void accionReporteDiario() {
-		// TODO Auto-generated method stub
-
-	}
+//	private void accionEditarSolicitudesGuardadas() {
+//	}
+//
+//	private void accionNuevaSolicitud() {
+//	}
+//
+//	private void accionNuevoProveedor() {
+//	}
+//
+//	private void accionBusquedaDeProveedores() {
+//	}
+//
+//	private void accionReporteMensual() {
+//	}
+//
+//	private void accionReporteSemanal() {
+//	}
+//
+//	private void accionReporteDiario() {
+//	}
 
 	private void accionVolverInicio() {
 		this.controlador.Return();

@@ -8,6 +8,7 @@ import java.util.List;
 import conexion.ConectorDB;
 import dao.SolicitudDAO;
 import dto.MateriaPrimaSolicitudDTO;
+import dto.ProveedorDTO;
 import dto.SolicitudDTO;
 
 public class SolicitudImp implements SolicitudDAO {
@@ -19,10 +20,12 @@ public class SolicitudImp implements SolicitudDAO {
 	}
 	
 	@Override
-	public List<SolicitudDTO> GetSolicitudes() {
+	public List<SolicitudDTO> GetSolicitudesActualesGuardadas() {
 		
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "select * from pedido";
+		String sqlString = "select p.* from pedido p " +
+							"where p.effdt = curdate() " +
+							"or p.enviado = 'N'";
 		ResultSet rs = null;
 		List<SolicitudDTO> solicitudes = new ArrayList<SolicitudDTO>();
 		
@@ -34,8 +37,9 @@ public class SolicitudImp implements SolicitudDAO {
 				int numPedido = Integer.parseInt(rs.getString("num_pedido"));
 				boolean enviado = SolicitudDTO.StringToBoolean(rs.getString("enviado"));
 				String fecha_envio = rs.getString("fecha_envio");
+				int refNumPedido = rs.getInt("ref_num_pedido");
 				
-				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio));
+				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio, refNumPedido));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -73,12 +77,13 @@ public class SolicitudImp implements SolicitudDAO {
 	}
 
 	@Override
-	public void EnviarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
+	public void CrearSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		Statement stm = this.conector.GetStatement();
 		String sqlStringPedido = "insert into pedido value('" + Solicitud.getEffdt() + "', " +
 															Solicitud.getNumPedido() + ", '" +
-															Solicitud.GetYesNo() + "', '" +
-															Solicitud.getFecha_envio() + "')";
+															"N', '" +
+															Solicitud.getFecha_envio() + "', " +
+															Solicitud.getReferenciaNumPedido() + ")";
 		String sqlStringPedidoProveedor = "insert into pedido_proveedor value('" + Solicitud.getEffdt() + "'," +
 															Solicitud.getNumPedido() + " , '" +
 															Proveedor + "')";
@@ -97,5 +102,133 @@ public class SolicitudImp implements SolicitudDAO {
 		}catch(Exception e) {
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public boolean Existe(SolicitudDTO Solicitud) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select 'X' from pedido p " +
+						"where p.effdt = '" + Solicitud.getEffdt() + "' " +
+						"  and p.num_pedido = " + Solicitud.getNumPedido() ;
+		ResultSet rs = null;
+		boolean existe = false;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				existe = true;
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return existe;
+	}
+
+	@Override
+	public void ActualizarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
+		
+		Statement stm = this.conector.GetStatement();
+		String deletePedidoMateriaPrima = "delete from pedido_mp " +
+										"where efft = '" + Solicitud.getEffdt() + "' " +
+										"and num_pedido = " + Solicitud.getNumPedido();
+		String deletePedidoProveedor = "delete from pedido_proveedor " +
+										"where efft = '" + Solicitud.getEffdt() + "' " +
+										"and num_pedido = " + Solicitud.getNumPedido();
+		String deletePedido = "delete from pedido " +
+								"where effdt = '" + Solicitud.getEffdt() + "' " +
+								"and num_pedido = " + Solicitud.getNumPedido();
+		
+		try {
+			stm.executeUpdate(deletePedidoMateriaPrima);
+			stm.executeUpdate(deletePedidoProveedor);
+			stm.executeUpdate(deletePedido);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		this.CrearSolicitud(Solicitud, Proveedor, MateriasPrimas);
+	}
+
+	@Override
+	public void Enviar(SolicitudDTO Solicitud) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update pedido set enviado = 'Y' " +
+							"where effdt = '" + Solicitud.getEffdt() + "' " +
+							"and num_pedido = " + Solicitud.getNumPedido();
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public ProveedorDTO GetProveedor(String FechaSolicitud,	String NumeroSolicitud) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select p.* from proveedor p " +
+							"where p.proveedor_id = (select pp.proveedor_id from pedido_proveedor pp " +
+													"where pp.effdt = '" + FechaSolicitud + "' " +
+													"and pp.num_pedido = " + NumeroSolicitud + ")";
+		ResultSet rs = null;
+		ProveedorDTO proveedor = null;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String ProveedorId = rs.getString("proveedor_id");
+				String Nombre = rs.getString("nombre");
+				String Telefono = rs.getString("telefono");
+				String Mail = rs.getString("mail");
+				proveedor = new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return proveedor;
+	}
+
+	@Override
+	public List<MateriaPrimaSolicitudDTO> GetMaterasPrimasPara(String Fecha, String NumPedido) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select pmp.materia_prima, pmp.cantidad " +
+						"from pedido_mp pmp " +
+						"where pmp.effdt = '" + Fecha + "' " +
+						"and pmp.num_pedido = " + NumPedido;
+		ResultSet rs = null;
+		List<MateriaPrimaSolicitudDTO> solicitudes = new ArrayList<MateriaPrimaSolicitudDTO>();
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String MateriaPrima = rs.getString("materia_prima");
+				int Cantidad = rs.getInt("cantidad");
+				solicitudes.add(new MateriaPrimaSolicitudDTO(MateriaPrima, Cantidad));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return solicitudes;
 	}
 }

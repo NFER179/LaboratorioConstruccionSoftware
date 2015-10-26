@@ -6,12 +6,14 @@ public class SolicitudDTO {
 	private int numPedido;
 	private boolean enviado;
 	private String fecha_envio;
+	private int referenciaNumPedido;
 	
-	public SolicitudDTO(String Fecha, int NumPedido, boolean Enviado, String FechaEnvio){
+	public SolicitudDTO(String Fecha, int NumPedido, boolean Enviado, String FechaEnvio, int ReferenciaNumeroPedido){
 		this.effdt = Fecha;
 		this.numPedido = NumPedido;
 		this.enviado = Enviado;
 		this.fecha_envio = FechaEnvio;
+		this.referenciaNumPedido = ReferenciaNumeroPedido;
 	}
 	
 	public static boolean StringToBoolean(String arg0) {
@@ -69,6 +71,14 @@ public class SolicitudDTO {
 
 	public void setFecha_envio(String fecha_envio) {
 		this.fecha_envio = fecha_envio;
+	}
+
+	public int getReferenciaNumPedido() {
+		return referenciaNumPedido;
+	}
+
+	public void setReferenciaNumPedido(int referenciaNumPedido) {
+		this.referenciaNumPedido = referenciaNumPedido;
 	}
 	
 }

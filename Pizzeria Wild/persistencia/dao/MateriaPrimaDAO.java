@@ -19,6 +19,9 @@ public interface MateriaPrimaDAO {
 	/* Obtiene las Categorias que aun no han sido asignadas. */
 	public List<MateriaPrimaDTO> GetMateriasPrimasSinAsignar();
 
+	/* Obtiene la unidad de la materia prima. */
+	public String GetUnidad(String MateriaPrima);
+
 	/* Asigna la Materia Prima a una Categoria. */
 //	public void AsignarMTaCategoria(String materiaPrima, String categoria);
 }

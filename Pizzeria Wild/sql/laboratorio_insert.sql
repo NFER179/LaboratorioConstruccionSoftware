@@ -110,12 +110,13 @@ insert into mp_categoria values
 insert into mp_proveedor values
 ('SERENICIMA'	, 'LACTEO'		, 'Leche Larga Vida'),
 ('HEREFORD'		, 'CARNE'		, 'Pechuga'),
+('HEREFORD'		, 'CARNE'		, 'Cuadril'),
 ('COTOPROV'		, 'VERDU'		, 'Tomate'),
 ('TRESTRIGOS'	, 'CEREAL'		, 'Harina 000');
 
 insert into pedido values
-('2015-07-21', 1, 'Y',	'2015-07-21'),
-('2015/10/31', 2, 'N',	'2015/10/31');
+('2015-07-21', 1, 'Y',	'2015-07-21', 1),
+('2015/10/31', 2, 'N',	'2015/10/31', 2);
 
 insert into pedido_proveedor values
 ('2015-07-21', 1, 'TRESTRIGOS'),
