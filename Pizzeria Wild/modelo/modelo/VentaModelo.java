@@ -1,6 +1,8 @@
 package modelo;
 
 import java.util.List;
+
+import utilidades.Fecha;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
 import dao.VentaDAO;
@@ -69,5 +71,29 @@ public class VentaModelo {
 
 	public List<ProductoEnVentaDTO> GetProductosFaltantesElaborarCocina() {
 		return this.productos.GetFaltantesElabracion();
+	}
+
+	public int ObtenerCurCantidadVentasFacturadas() {
+		return this.venta.GetCantidadFacturadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public List<VentaDTO> ObtenerCurVentasFacturadas() {
+		return this.venta.GetFacturadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public int ObtenerCurGananciaFacturadas() {
+		return this.venta.GetGananciaFacturadas(Fecha.CurrentDate(),Fecha.CurrentDate());
+	}
+
+	public int ObtenerCurCantidadVentasCanceladas() {
+		return this.venta.GetCantidadCanceladas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public List<VentaDTO> ObtenerCurVentasCanceladas() {
+		return this.venta.GetCanceladas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public int ObtenerCurPerdidaCanceladas() {
+		return this.venta.GetPerdidas(Fecha.CurrentDate(), Fecha.CurrentDate());
 	}
 }

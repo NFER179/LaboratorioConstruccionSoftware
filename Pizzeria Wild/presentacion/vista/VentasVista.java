@@ -31,14 +31,14 @@ public class VentasVista extends JFrame {
 	private JButton btnInformacin;
 	private JButton btnModificar;
 	private JButton btnVolverInicio;
-	private JMenuItem mntmReporteDiario;
-	private JMenuItem mntmReporteSemanal;
-	private JMenuItem mntmReporteMensual;
-	private JMenuItem mntmNuevoProveedor;
-	private JMenuItem mntmBusquedaDeProveedores;
-
-	private JMenuItem mntmNuevaSolicitud;
-	private JMenuItem mntmEditarSolicitudesGuardadas;
+//	private JMenuItem mntmReporteDiario;
+//	private JMenuItem mntmReporteSemanal;
+//	private JMenuItem mntmReporteMensual;
+//	private JMenuItem mntmNuevoProveedor;
+//	private JMenuItem mntmBusquedaDeProveedores;
+//
+//	private JMenuItem mntmNuevaSolicitud;
+//	private JMenuItem mntmEditarSolicitudesGuardadas;
 
 	public VentasVista() {
 
@@ -46,49 +46,49 @@ public class VentasVista extends JFrame {
 		this.setTitle("Ventas");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(100, 100, 702, 419);
-
-		JMenuBar menuBar_1 = new JMenuBar();
-		setJMenuBar(menuBar_1);
-
-		JMenu mnReportes = new JMenu("Reportes");
-		menuBar_1.add(mnReportes);
-
-		mntmReporteDiario = new JMenuItem("Reporte Diario");
-		mnReportes.add(mntmReporteDiario);
-
-		mntmReporteSemanal = new JMenuItem("Reporte Semanal");
-		mnReportes.add(mntmReporteSemanal);
-
-		mntmReporteMensual = new JMenuItem("Reporte Mensual");
-		mnReportes.add(mntmReporteMensual);
-
-		JMenu mnProveedores = new JMenu("Proveedores");
-		menuBar_1.add(mnProveedores);
-
-		mntmNuevoProveedor = new JMenuItem("Nuevo Proveedor");
-		mnProveedores.add(mntmNuevoProveedor);
-
-		mntmBusquedaDeProveedores = new JMenuItem("Busqueda de Proveedores");
-		mnProveedores.add(mntmBusquedaDeProveedores);
-
-		JMenu mnMateriasPrimas = new JMenu("Materias Primas");
-		menuBar_1.add(mnMateriasPrimas);
-
-		mntmNuevaSolicitud = new JMenuItem("Nueva Solicitud");
-		mnMateriasPrimas.add(mntmNuevaSolicitud);
-
-		mntmEditarSolicitudesGuardadas = new JMenuItem(
-				"Editar Solicitudes Guardadas");
-		mnMateriasPrimas.add(mntmEditarSolicitudesGuardadas);
-
+		
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
+		
+//		JMenuBar menuBar_1 = new JMenuBar();
+//		setJMenuBar(menuBar_1);
+
+//		JMenu mnReportes = new JMenu("Reportes");
+//		menuBar_1.add(mnReportes);
+
+//		mntmReporteDiario = new JMenuItem("Reporte Diario");
+//		mnReportes.add(mntmReporteDiario);
+
+//		mntmReporteSemanal = new JMenuItem("Reporte Semanal");
+//		mnReportes.add(mntmReporteSemanal);
+
+//		mntmReporteMensual = new JMenuItem("Reporte Mensual");
+//		mnReportes.add(mntmReporteMensual);
+
+//		JMenu mnProveedores = new JMenu("Proveedores");
+//		menuBar_1.add(mnProveedores);
+
+//		mntmNuevoProveedor = new JMenuItem("Nuevo Proveedor");
+//		mnProveedores.add(mntmNuevoProveedor);
+
+//		mntmBusquedaDeProveedores = new JMenuItem("Busqueda de Proveedores");
+//		mnProveedores.add(mntmBusquedaDeProveedores);
+
+//		JMenu mnMateriasPrimas = new JMenu("Materias Primas");
+//		menuBar_1.add(mnMateriasPrimas);
+
+//		mntmNuevaSolicitud = new JMenuItem("Nueva Solicitud");
+//		mnMateriasPrimas.add(mntmNuevaSolicitud);
+
+//		mntmEditarSolicitudesGuardadas = new JMenuItem(
+//				"Editar Solicitudes Guardadas");
+//		mnMateriasPrimas.add(mntmEditarSolicitudesGuardadas);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 0, 526, 315);
+		scrollPane.setBounds(10, 8, 526, 307);
 		this.contentPane.add(scrollPane);
 
 		this.modelVentas = new WDefaultTableModel(null, this.nombreColumnas);
@@ -133,29 +133,29 @@ public class VentasVista extends JFrame {
 		this.contentPane.add(btnVolverInicio);
 	}
 
-	public JMenuItem getMntmReporteSemanal() {
-		return mntmReporteSemanal;
-	}
+//	public JMenuItem getMntmReporteSemanal() {
+//		return mntmReporteSemanal;
+//	}
 
-	public JMenuItem getMntmReporteMensual() {
-		return mntmReporteMensual;
-	}
+//	public JMenuItem getMntmReporteMensual() {
+//		return mntmReporteMensual;
+//	}
 
-	public JMenuItem getMntmNuevoProveedor() {
-		return mntmNuevoProveedor;
-	}
+//	public JMenuItem getMntmNuevoProveedor() {
+//		return mntmNuevoProveedor;
+//	}
 
-	public JMenuItem getMntmBusquedaDeProveedores() {
-		return mntmBusquedaDeProveedores;
-	}
+//	public JMenuItem getMntmBusquedaDeProveedores() {
+//		return mntmBusquedaDeProveedores;
+//	}
 
-	public JMenuItem getMntmNuevaSolicitud() {
-		return mntmNuevaSolicitud;
-	}
+//	public JMenuItem getMntmNuevaSolicitud() {
+//		return mntmNuevaSolicitud;
+//	}
 
-	public JMenuItem getMntmEditarSolicitudesGuardadas() {
-		return mntmEditarSolicitudesGuardadas;
-	}
+//	public JMenuItem getMntmEditarSolicitudesGuardadas() {
+//		return mntmEditarSolicitudesGuardadas;
+//	}
 
 	public void Open() {
 		this.setVisible(true);
@@ -169,9 +169,9 @@ public class VentasVista extends JFrame {
 		return this.tableVentas;
 	}
 
-	public JMenuItem getMntmReporteDiario() {
-		return mntmReporteDiario;
-	}
+//	public JMenuItem getMntmReporteDiario() {
+//		return mntmReporteDiario;
+//	}
 
 	public DefaultTableModel GetModelVenta() {
 		return this.modelVentas;

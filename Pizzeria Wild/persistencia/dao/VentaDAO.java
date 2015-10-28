@@ -37,4 +37,22 @@ public interface VentaDAO {
 
 	/* Se Obtienen todos los pedidos que se encuentran en estado Viaje */
 	public List<VentaDTO> GetVentasEnViaje();
+
+	/* Cantidad de Ventas Facturadas. */
+	public int GetCantidadFacturadas(String FromDate, String ToDate);
+
+	/* Lista de ventas Facturasa. */
+	public List<VentaDTO> GetFacturadas(String FromDate, String ToDate);
+
+	/* Total de Ganancias en las Ventas FActuradas. */
+	public int GetGananciaFacturadas(String FromDate, String ToDate);
+
+	/* Cantidad de Ventas Canceladas. */
+	public int GetCantidadCanceladas(String FromDate, String ToDate);
+
+	/* Cantidad de ventas Canceladas. */
+	public List<VentaDTO> GetCanceladas(String FromDate, String ToDate);
+
+	/* Total de Perdidas por Ventas Canceladas */
+	public int GetPerdidas(String FromDate, String ToDate);
 }

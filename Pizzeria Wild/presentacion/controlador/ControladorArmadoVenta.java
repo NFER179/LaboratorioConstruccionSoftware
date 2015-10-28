@@ -1,5 +1,6 @@
 package controlador;
 
+import utilidades.Fecha;
 import utilidades.Msj;
 import utilidades.Str;
 import validacionesCampos.Valida;
@@ -78,17 +79,13 @@ public class ControladorArmadoVenta implements ActionListener {
 
 	private void CargarFecha() {
 		Calendar c = Calendar.getInstance();
-		String fecha = "";
 		String hora = "";
 
-		fecha = fecha + c.get(Calendar.YEAR);
-		fecha = fecha + "/" + c.get(Calendar.MONTH);
-		fecha = fecha + "/" + c.get(Calendar.DATE);
 		hora = hora + c.get(Calendar.HOUR);
 		hora = hora + ":" + c.get(Calendar.MINUTE);
 		hora = hora + ":" + c.get(Calendar.SECOND);
 
-		this.vtArmadoPedido.getTxtFecha().setText(fecha);
+		this.vtArmadoPedido.getTxtFecha().setText(Fecha.CurrentDate());
 		this.vtArmadoPedido.getTxtHora().setText(hora);
 	}
 

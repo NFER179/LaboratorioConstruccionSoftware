@@ -323,7 +323,7 @@ public class VentaImp implements VentaDAO{
 			rs = stm.executeQuery(sqlString);
 			
 			while(rs.next()) {
-				ventas.add(new VentaDTO(rs.getString("fecha"), 
+				ventas.add(new VentaDTO(rs.getString("effdt"), 
 									rs.getInt("num_venta"), 
 									rs.getString("cliente"), 
 									rs.getString("direccion"), 
@@ -345,5 +345,185 @@ public class VentaImp implements VentaDAO{
 		}
 		
 		return ventas;
+	}
+
+	@Override
+	public int GetCantidadFacturadas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select count(*) as 'cantidad' from venta " +
+							"where estado = 'Facturado' " +
+							"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int Cantidad = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				Cantidad = rs.getInt("cantidad");
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return Cantidad;
+	}
+
+	@Override
+	public List<VentaDTO> GetFacturadas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from venta where estado = 'Facturado' " +
+				"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		List<VentaDTO> facturadas = new ArrayList<VentaDTO>();
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				facturadas.add(new VentaDTO(rs.getString("effdt"), 
+									rs.getInt("num_venta"), 
+									rs.getString("cliente"), 
+									rs.getString("direccion"), 
+									rs.getString("tel_cliente"), 
+									rs.getInt("precio"), 
+									rs.getString("hora"), 
+									rs.getString("estado"), 
+									rs.getString("observaciones"), 
+									this.toBoolean(rs.getString("delivery")),
+									rs.getString("obs_delivery")));
+			}
+				
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return facturadas;
+	}
+
+	@Override
+	public int GetGananciaFacturadas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select sum(precio) as 'ganancia' from venta " +
+							"where estado = 'Facturado' " +
+							"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int ganancia = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				ganancia = rs.getInt("ganancia");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return ganancia;
+	}
+
+	@Override
+	public int GetCantidadCanceladas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select count(*) as 'cantidad' from venta " +
+							"where estado = 'cancelado' " +
+							"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int cantidad = 0;
+
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				cantidad = rs.getInt("cantidad");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return 0;
+	}
+
+	@Override
+	public List<VentaDTO> GetCanceladas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from venta where estado = 'Cancelado' " +
+				"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		List<VentaDTO> canceladas = new ArrayList<VentaDTO>();
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				canceladas.add(new VentaDTO(rs.getString("effdt"), 
+									rs.getInt("num_venta"), 
+									rs.getString("cliente"), 
+									rs.getString("direccion"), 
+									rs.getString("tel_cliente"), 
+									rs.getInt("precio"), 
+									rs.getString("hora"), 
+									rs.getString("estado"), 
+									rs.getString("observaciones"), 
+									this.toBoolean(rs.getString("delivery")),
+									rs.getString("obs_delivery")));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return canceladas;
+	}
+
+	@Override
+	public int GetPerdidas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select sum(precio) as 'total' from venta where estado = 'Cancelado' " +
+				"and effdt between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int perdidas = 0;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				perdidas = rs.getInt("total");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return perdidas;
 	}
 }

@@ -16,6 +16,7 @@ public class Controlador implements ActionListener {
 		this.vista.getBtnMateriasPrimas().addActionListener(this);
 		this.vista.getBtnCategorias().addActionListener(this);
 		this.vista.getBtnSolicitud().addActionListener(this);
+		this.vista.getBtnReportes().addActionListener(this);
 		
 		this.ctrPedidosCocina = ControladorVentasCocina.GetInstancia();
 	}
@@ -52,6 +53,11 @@ public class Controlador implements ActionListener {
 		else if(arg0.getSource() == this.vista.getBtnSolicitud()) {
 			ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
 			ctrSolicitud.Inicializar();
+			this.vista.Close();
+		}
+		else if(arg0.getSource() == this.vista.getBtnReportes()) {
+			ControladorReporte ctrReporte = new ControladorReporte(this);
+			ctrReporte.Inicializar();
 			this.vista.Close();
 		}
 	}
