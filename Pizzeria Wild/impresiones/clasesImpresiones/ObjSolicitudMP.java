@@ -2,24 +2,24 @@ package clasesImpresiones;
 
 import java.util.ArrayList;
 
-public class ObjSolicitudMP extends ObjModel {
-
+public class ObjSolicitudMP extends ObjImprimible {
+	private static final int maxPag = 20;
+	private static final String tipo = "Solicitud de MP";
 	String fecha;
 	String hora;
-	String proveedor;
-	int numSolicitud;
+	String proveedor; 
 	ArrayList<ObjMateriaPrima> materiasPrimas;
 
 	public ObjSolicitudMP(String nombreArchivo, String fecha,
 			int id) {
-		super(nombreArchivo, fecha, "SolicitudMP", id);
+		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.materiasPrimas = new ArrayList<ObjMateriaPrima>();
 	}
 
 	public ObjSolicitudMP(String nombreArchivo, String fecha,
 			int id, String pHora, String pProveedor, int pNumSolicitud,
 			ArrayList<ObjMateriaPrima> pMateriasPrimas) {
-		super(nombreArchivo, fecha, "SolicitudMP", id);
+		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.hora = pHora;
 		this.proveedor = pProveedor;
 		this.materiasPrimas = pMateriasPrimas;
@@ -40,7 +40,7 @@ public class ObjSolicitudMP extends ObjModel {
 	}
 
 	@Override
-	public String[] getParametros() {
+	public String[] getParametros(int numPagina) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,27 +5,30 @@ import java.util.List;
 
 import dto.ProductoEnVentaDTO;
 
-public class ObjItinerario extends ObjModel {
+public class ObjItinerario extends ObjImprimible {
 
 	private List<objPuntoItinerario> puntos;
 	private ObjDatosRepartidor repartidor;
-
+	private static final int maxPag = 20;
+	private static final String tipo = "Itinerario";
+	
 	public ObjItinerario(String nombreArchivo, String fecha, int id) {
-		super(nombreArchivo, fecha, "Itinerario", id);
+		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.puntos = new ArrayList<objPuntoItinerario>();
 	}
 
 	public ObjItinerario(String nombreArchivo, String fecha, int id,
-			List<objPuntoItinerario> pPuntos) {
-		super(nombreArchivo, fecha, "Itinerario", id);
+			List<objPuntoItinerario> pPuntos,
+			ObjDatosRepartidor pDatosRepartidor) {
+		super(nombreArchivo, fecha, "Itinerario", id, maxPag);
 		this.puntos = pPuntos;
+		this.repartidor = pDatosRepartidor;
 	}
 
 	@Override
-	public String[] getParametros() {
-		return new String[] { getFecha(), getId() + "", getRepartidor().nombre,
-				getRepartidor().getDatosVehiculo(),
-				getRepartidor().getNumTelefono() };
+	public String[] getParametros(int numPagina) {
+		return new String[] { getFecha(), getId() + "",
+				getRepartidor().toString() };
 	}
 
 	public void addPunto(String pDireccion, String pObservaciones,
@@ -48,36 +51,6 @@ public class ObjItinerario extends ObjModel {
 
 	public void setRepartidor(ObjDatosRepartidor repartidor) {
 		this.repartidor = repartidor;
-	}
-
-	public class ObjDatosRepartidor {
-		private String nombre;
-		private String datosVehiculo;
-		private String numTelefono;
-
-		public String getNombre() {
-			return nombre;
-		}
-
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
-		}
-
-		public String getDatosVehiculo() {
-			return datosVehiculo;
-		}
-
-		public void setDatosVehiculo(String datosVehiculo) {
-			this.datosVehiculo = datosVehiculo;
-		}
-
-		public String getNumTelefono() {
-			return numTelefono;
-		}
-
-		public void setNumTelefono(String numTelefono) {
-			this.numTelefono = numTelefono;
-		}
 	}
 
 	public class objPuntoItinerario {

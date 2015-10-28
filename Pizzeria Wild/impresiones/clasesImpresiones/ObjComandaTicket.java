@@ -4,10 +4,12 @@ import java.util.List;
 
 import dto.ProductoEnVentaDTO;
 
-public class ObjComandaTicket extends ObjModel {
+public class ObjComandaTicket extends ObjImprimible {
 
+	private static final int maxPag = 20; 
+	private static final String tipo = "Commanda y Cliente";
 	public ObjComandaTicket(String nombreArchivo, String fecha, int id) {
-		super(nombreArchivo, fecha, "Commanda y Cliente", id);
+		super(nombreArchivo, fecha, tipo, id, maxPag);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -16,8 +18,9 @@ public class ObjComandaTicket extends ObjModel {
 	String fecha;
 	String hora;
 	String nombre;
+
 	@Override
-	public String[] getParametros() {
+	public String[] getParametros(int numPagina) {
 		// TODO Auto-generated method stub
 		return null;
 	}
