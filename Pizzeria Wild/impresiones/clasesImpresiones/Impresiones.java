@@ -1,6 +1,7 @@
 package clasesImpresiones;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -16,6 +17,9 @@ import clasesImpresiones.ObjDatosRepartidor;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.tool.xml.XMLWorkerHelper;
 
@@ -26,7 +30,9 @@ public class Impresiones {
 	public static void main(String[] args) throws FileNotFoundException,
 			IOException, com.lowagie.text.DocumentException, DocumentException {
 		// testReporteDiario();
-		itinerarioTest();
+		// itinerarioTest();
+		//generateAshwinFriends();
+		some();
 	}
 
 	private static void itinerarioTest() throws IOException,
@@ -69,7 +75,7 @@ public class Impresiones {
 		double puntosPorDocumento = 40;
 		double cantidadPuntos = 1.0;
 		double cantidadDocumentos = cantidadPuntos / puntosPorDocumento;
-		String tempPath = "C:\\" + objImprimible.getTipo() + "Temp.html";
+		String tempPath = objImprimible.getTipo() + "Temp.html";
 		System.out.println("Tengo " + cantidadPuntos + " y corresponden "
 				+ cantidadDocumentos);
 		for (int i = 0; i < cantidadDocumentos; i++) {
@@ -86,7 +92,7 @@ public class Impresiones {
 		double cantidadPuntos = itinerario.getPuntos().size() * 1.0;
 		double cantidadDocumentos = Math.ceil(cantidadPuntos
 				/ puntosPorDocumento);
-		String tempPath = "C:\\" + itinerario.getTipo() + "Temp.html";
+		String tempPath = "Templates/" + itinerario.getTipo() + "ff.html";
 		System.out.println("Tengo " + cantidadPuntos + " y corresponden "
 				+ cantidadDocumentos);
 		// for (int i = 0; i < cantidadDocumentos; i++) {
@@ -101,7 +107,8 @@ public class Impresiones {
 			IOException {
 		Document objDocument = new Document();
 		PdfWriter objPdfWriter = PdfWriter.getInstance(objDocument,
-				new FileOutputStream(itinerario.getRuta(numeroPagina)));
+				new FileOutputStream("Templates/TEST IT.pdf"// itinerario.getRuta(numeroPagina)
+				));
 		objDocument.open();
 		InputStream fis = new FileInputStream(tempPath);
 		// Magia
@@ -113,12 +120,13 @@ public class Impresiones {
 	private static void buildTempFile(ObjImprimible objImprimible,
 			String tempPath, int numPagina) throws FileNotFoundException,
 			IOException, UnsupportedEncodingException {
-		String textoHtml = getHtmlText(objImprimible.getTipo());
+		String textoHtml = getHtmlText("Templates/Itinerario.html");
 		// Debe agregar las filas que sean necesarias
-
-		textoHtml = String.format(textoHtml,
-				(Object[]) objImprimible.getParametros(numPagina), numPagina
-						+ "");
+		textoHtml = textoHtml.replace("***FECHA***", "12/12/12");
+		// textoHtml = String.format(textoHtml,"12/12/12"
+		// // (Object[]) objImprimible.getParametros(numPagina), numPagina
+		// // + ""
+		// );
 		PrintWriter writer = new PrintWriter(tempPath, "UTF-8");
 		writer.println(textoHtml);
 		writer.close();
@@ -132,8 +140,7 @@ public class Impresiones {
 			throws FileNotFoundException, IOException {
 		String sCurrentLine;
 		// Reemplazar por una ruta fija de donde pueda sacar siempre el template
-		BufferedReader br = new BufferedReader(new FileReader("C:\\" + tipo
-				+ ".html"));
+		BufferedReader br = new BufferedReader(new FileReader(tipo));
 		String textoHtml = "";
 		while ((sCurrentLine = br.readLine()) != null) {
 			textoHtml += sCurrentLine.trim();
@@ -142,4 +149,35 @@ public class Impresiones {
 		return textoHtml;
 	}
 
+	private static void generateAshwinFriends() throws IOException,
+			FileNotFoundException, DocumentException {
+		PdfReader pdfTemplate = new PdfReader("Templates/nuevo.pdf");
+		FileOutputStream fileOutputStream = new FileOutputStream(
+				"Templates/test.pdf"); 
+
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
+		stamper.setFormFlattening(true);
+
+		System.out.println("Hola"); 
+		stamper.getAcroFields().setField("txt", "SOME");
+
+		stamper.close();
+		pdfTemplate.close();     
+ 
+	}
+	
+	public static void some() throws IOException, DocumentException
+	{
+		PdfReader pdfTemplate = new PdfReader("Templates/template.pdf");
+		FileOutputStream out = new FileOutputStream(
+				"Templates/test.pdf"); 
+		PdfStamper stamper = new PdfStamper(pdfTemplate, out); 
+		stamper.setFormFlattening(false); 
+  
+		boolean a = stamper.getAcroFields().setField("txtFecha", "12/12/12");
+		 System.out.println(a);
+		stamper.close();
+		pdfTemplate.close();
+	}
 }

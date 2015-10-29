@@ -5,7 +5,7 @@ public abstract class ObjImprimible {
 	private String nombreArchivo;
 	private String fecha;
 	private int id;
-	public static String path = "C:/%s-%s.pdf";
+	public static String path = "Templates/%s-%d.pdf";
 	private String tipo;
 	private int maxPaginacion;
 
@@ -21,7 +21,7 @@ public abstract class ObjImprimible {
 	public abstract String[] getParametros(int numPagina);
 
 	public String getRuta(int numeroPagina) {
-		return String.format(path, nombreArchivo, numeroPagina + "");
+		return String.format(path, nombreArchivo, numeroPagina );
 	}
 
 	public String getFecha() {
