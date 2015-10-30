@@ -6,13 +6,15 @@ public class ObjProductoTicketComanda {
 	private double precio;
 	private String material;
 	private String und;
+	private String codigo;
 
 	public ObjProductoTicketComanda(int cantidad, double precio,
-			String materia, String und) {
+			String materia, String und, String codigo) {
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.material = materia;
 		this.und = und;
+		this.setCodigo(codigo);
 	}
 
 	public int getCantidad() {
@@ -45,5 +47,13 @@ public class ObjProductoTicketComanda {
 
 	public void setUnd(String und) {
 		this.und = und;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	};
 }

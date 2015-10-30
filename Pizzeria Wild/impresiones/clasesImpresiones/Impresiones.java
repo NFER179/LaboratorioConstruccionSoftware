@@ -1,6 +1,5 @@
 package clasesImpresiones;
-
-import java.io.ByteArrayOutputStream;
+ 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -62,10 +61,10 @@ public class Impresiones {
 
 	public static void ImprimirSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
-		int totalHojas = solicitud.getCantidadHojas();
-		for (int i = 1; i <= solicitud.getCantidadHojas(); i++) {
-			imprimirHojaSolicitudMP(solicitud, i);
-		}
+//		int totalHojas = solicitud.getCantidadHojas();
+//		for (int i = 1; i <= solicitud.getCantidadHojas(); i++) {
+//			imprimirHojaSolicitudMP(solicitud, i);
+//		}
 	}
 
 	public static void ImprimirItinerario(ObjItinerario itinerario)
@@ -129,26 +128,6 @@ public class Impresiones {
 
 	}
 
-	private static void imprimirHojaSolicitudMP(ObjSolicitudMP solicitud,
-			int numeroPagina) throws IOException, DocumentException {
-
-		String templatePath = String.format(tempPath,
-				solicitud.getTemplateName());
-
-		PdfReader pdfTemplate = new PdfReader(templatePath);
-		String pdfResultPath = String.format(resultPath,
-				solicitud.getNombreArchivo() + "_" + numeroPagina);
-		FileOutputStream pdfOut = new FileOutputStream(pdfResultPath);
-		PdfStamper stamper = getStamper(pdfTemplate, pdfOut);
-
-		// boolean a = stamper.getAcroFields().setField("txt",
-		// solicitud.getFecha());
-
-		stamper.close();
-		pdfTemplate.close();
-
-	}
-
 	private static void imprimirHojaItinerario(ObjItinerario itinerario,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
@@ -204,9 +183,40 @@ public class Impresiones {
 	}
 
 	private static double llenarComandaTicket(ObjComandaTicket comanda,
-			int numeroPagina, PdfStamper stamper) {
-		// TODO Auto-generated method stub
-		return 0;
+			int numeroPagina, PdfStamper stamper) throws IOException,
+			DocumentException {
+		double total = 0;
+		int desde = (numeroPagina - 1) * comanda.getMaxPaginacion();
+		int hasta = (numeroPagina * comanda.getMaxPaginacion()) - 1;
+		int puntos = comanda.getListaProductos().size();
+		hasta = (hasta > puntos) ? puntos : hasta;
+		int i = 0;
+		double subtotal = 0;
+		for (ObjProductoTicketComanda punto : comanda.getListaProductos()
+				.subList(desde, hasta)) {
+
+			stamper.getAcroFields().setField("txtCantidad" + i,
+					punto.getCantidad() + "");
+
+			stamper.getAcroFields().setField("txtMaterialRemito" + i,
+					punto.getMaterial());
+			stamper.getAcroFields().setField("txtMaterialComanda0" + i,
+					punto.getMaterial());
+
+			stamper.getAcroFields().setField("txtPrecio" + i,
+					punto.getPrecio() + "");
+
+			subtotal = punto.getPrecio() * punto.getCantidad();
+			total += subtotal;
+			stamper.getAcroFields().setField("txtSubTotal" + i, subtotal + "");
+
+			stamper.getAcroFields()
+					.setField("txtCodigo" + i, punto.getCodigo());
+			stamper.getAcroFields().setField("txtObservacion" + i,
+					punto.getUnd());
+			i++;
+		}
+		return total;
 	}
 
 	private static void llenarPieComandaTicket(ObjComandaTicket comanda,
@@ -215,10 +225,9 @@ public class Impresiones {
 		// GUARDO EL TOTAL
 		stamper.getAcroFields().setField("txtObservacionComanda",
 				"Observaciones: " + comanda.getObservaciones());
-		// PARA QUE RANCHO QUIERO OBS DE DELIVERY?
-		// stamper.getAcroFields().setField("txtObservacionDelivery",
-		// "Observaciones: " + comanda.getObservaciones());
 
+		stamper.getAcroFields().setField("txtObservacionDelivery",
+				"Observaciones: " + comanda.getObservacionDelivery());
 		stamper.getAcroFields().setField("txtObservacionTicket",
 				"Observaciones: " + comanda.getObservaciones());
 
@@ -226,7 +235,6 @@ public class Impresiones {
 				numeroPagina + " DE " + totalHojas);
 		stamper.getAcroFields().setField("txtPaginadoTicket",
 				numeroPagina + " DE " + totalHojas);
-
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
