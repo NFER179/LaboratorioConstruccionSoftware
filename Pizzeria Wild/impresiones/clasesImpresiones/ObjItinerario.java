@@ -3,36 +3,37 @@ package clasesImpresiones;
 import java.util.ArrayList;
 import java.util.List;
 
-import dto.ProductoEnVentaDTO;
-
 public class ObjItinerario extends ObjImprimible {
 
 	private List<objPuntoItinerario> puntos;
 	private ObjDatosRepartidor repartidor;
-	private static final int maxPag = 20;
-	private static final String tipo = "Itinerario";
+	private static final int maxPag = 9;
+	private static final String tipo = "template_itinerario";
+	private String observacionGral;
 
-	public ObjItinerario(String nombreArchivo, String fecha, int id) {
-		super(nombreArchivo, fecha, tipo, id, maxPag);
+	public ObjItinerario(String fecha, int id,
+			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
+		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
 		this.puntos = new ArrayList<objPuntoItinerario>();
+		this.repartidor = pDatosRepartidor;
 	}
 
-	public ObjItinerario(String nombreArchivo, String fecha, int id,
+	public ObjItinerario(String fecha, int id,
 			List<objPuntoItinerario> pPuntos,
-			ObjDatosRepartidor pDatosRepartidor) {
-		super(nombreArchivo, fecha, "Itinerario", id, maxPag);
+			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
+		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
 		this.puntos = pPuntos;
 		this.repartidor = pDatosRepartidor;
 	}
 
 	public int getCantidadHojas() {
-		return (int) (getPuntos().size() / getMaxPaginacion() * 1.0);
+		return (int) Math.ceil(getPuntos().size() / (getMaxPaginacion() * 1.0));
 	}
 
 	public void addPunto(String pDireccion, String pObservaciones,
-			List<ProductoEnVentaDTO> pProductos) {
+			int numPedido, double costo) {
 		this.puntos.add(new objPuntoItinerario(pDireccion, pObservaciones,
-				pProductos));
+				numPedido, costo));
 	}
 
 	public List<objPuntoItinerario> getPuntos() {
@@ -51,16 +52,26 @@ public class ObjItinerario extends ObjImprimible {
 		this.repartidor = repartidor;
 	}
 
+	public String getObservacionGral() {
+		return observacionGral;
+	}
+
+	public void setObservacionGral(String observacionGral) {
+		this.observacionGral = observacionGral;
+	}
+
 	public class objPuntoItinerario {
-		String direccion;
-		String observaciones;
-		List<ProductoEnVentaDTO> productos;
+		private String direccion;
+		private String observaciones;
+		private double costo;
+		private int numPedido;
 
 		public objPuntoItinerario(String pDireccion, String pObservaciones,
-				List<ProductoEnVentaDTO> pProductos) {
+				int numPedido, double costo) {
 			this.direccion = pDireccion;
 			this.observaciones = pObservaciones;
-			this.productos = pProductos;
+			this.numPedido = numPedido;
+			this.costo = costo;
 		}
 
 		public String getDireccion() {
@@ -79,12 +90,20 @@ public class ObjItinerario extends ObjImprimible {
 			this.observaciones = observaciones;
 		}
 
-		public List<ProductoEnVentaDTO> getProductos() {
-			return productos;
+		public double getCosto() {
+			return costo;
 		}
 
-		public void setProductos(List<ProductoEnVentaDTO> productos) {
-			this.productos = productos;
+		public void setCosto(double costo) {
+			this.costo = costo;
+		}
+
+		public int getNumPedido() {
+			return numPedido;
+		}
+
+		public void setNumPedido(int numPedido) {
+			this.numPedido = numPedido;
 		}
 	}
 

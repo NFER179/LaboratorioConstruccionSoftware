@@ -4,26 +4,22 @@ public abstract class ObjImprimible {
 
 	private String nombreArchivo;
 	private String fecha;
-	private int id;
-	public static String path = "Templates/%s-%d.pdf";
-	private String tipo;
+	private int id; 
+	private String templateName;
 	private int maxPaginacion;
 
-	public ObjImprimible(String nombreArchivo, String fecha, String tipo, int id,
+	public ObjImprimible(String nombreArchivo, String fecha,
+			String templateName, int id,
 			int maxPaginacion) {
 		this.nombreArchivo = nombreArchivo;
 		this.fecha = fecha;
 		this.id = id;
 		this.maxPaginacion = maxPaginacion;
-		this.tipo = tipo;
+		this.templateName = templateName;
 	}
 	
 	public abstract int getCantidadHojas();
-
-	public String getRuta(int numeroPagina) {
-		return String.format(path, nombreArchivo, numeroPagina );
-	}
-
+ 
 	public String getFecha() {
 		return fecha;
 	}
@@ -48,22 +44,14 @@ public abstract class ObjImprimible {
 		this.nombreArchivo = nombreArchivo;
 	}
 
-	public String getTipo() {
-		return tipo;
+	public String getTemplateName() {
+		return templateName;
 	}
 
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
+	public void setTemplateName(String tipo) {
+		this.templateName = tipo;
 	}
-
-	public static String getPath() {
-		return path;
-	}
-
-	public static void setPath(String path) {
-		ObjImprimible.path = path;
-	}
-
+	
 	public int getMaxPaginacion() {
 		return maxPaginacion;
 	}

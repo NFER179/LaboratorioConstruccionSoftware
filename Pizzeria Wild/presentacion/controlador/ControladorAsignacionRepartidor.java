@@ -188,13 +188,14 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	}
 
 	private ObjItinerario construirItinerario(int numDelivery) {
-		ObjItinerario itinerario = new ObjItinerario("Delivery Numero "
-				+ numDelivery, this.vtAsignacionRepartidores.getTxtFecha()
-				.getText(), numDelivery);
+		ObjItinerario itinerario = new ObjItinerario(
+				this.vtAsignacionRepartidores.getTxtFecha().getText(),
+				numDelivery, null, "");
 		for (VentaDTO venta : this.lVentas) {
 			List<ProductoEnVentaDTO> productos = venta.getProductos();
 			itinerario.addPunto(venta.getDireccion(),
-					venta.getObservacionDelivery(), productos);
+					venta.getObservacionDelivery(), venta.getNumVenta(),
+					venta.getPrecio());
 		}
 		return itinerario;
 	}
