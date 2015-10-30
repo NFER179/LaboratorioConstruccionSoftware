@@ -8,7 +8,7 @@ import dto.ProductoEnVentaDTO;
 
 public class ObjComandaTicket extends ObjImprimible {
 
-	private static final int maxPag = 10;
+	private static final int maxPag = 11;
 	private static final String tipo = "template_comanda_ticket";
 	private ObjDatosCliente cliente;
 	private String observaciones;
@@ -26,6 +26,7 @@ public class ObjComandaTicket extends ObjImprimible {
 		this.observacionDelivery = observacionDelivery;
 		this.observaciones = observaciones;
 		this.listaProductos = listaProductos;
+		this.cliente = cliente;
 	}
 
 	public int getCantidadHojas() {

@@ -1,5 +1,5 @@
 package clasesImpresiones;
- 
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,13 +16,14 @@ public class Impresiones {
 	private static String tempPath = "Templates/%s.pdf";
 	private static String resultPath = "reportesImpresiones/%s.pdf";
 
-	public static void main(String[] args) {
-		try {
-			// itinerarioTest();
-		} catch (Exception e) {
-			System.out.println("MACANAS");
-		}
-	}
+	// public static void main(String[] args) {
+	// try {
+	// // itinerarioTest();
+	// ticketComandaTest();
+	// } catch (Exception e) {
+	// System.out.println("MACANAS");
+	// }
+	// }
 
 	// private static void itinerarioTest() throws Exception {
 	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
@@ -37,10 +38,38 @@ public class Impresiones {
 	// itinerario.addPunto("la direccion", "la observacion", 7, 11);
 	// itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
 	// itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-	//
 	// itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
 	//
 	// ImprimirItinerario(itinerario);
+	// }
+	//
+	// private static void ticketComandaTest() throws Exception {
+	// ObjComandaTicket comanda = new ObjComandaTicket(new ObjDatosCliente(
+	// "Pepe", "CCC 888", "0303456"), "12/12/12", 33,
+	// "Objseraskjd clienbte ", "obs delivery", null);
+	// List<ObjProductoTicketComanda> a = new
+	// ArrayList<ObjProductoTicketComanda>();
+	// a.add(new ObjProductoTicketComanda(1, 50, "mat", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(2, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(30, 50, "materia", "unidad", "3"));
+	//
+	// a.add(new ObjProductoTicketComanda(40, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(50, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(60, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(70, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(80, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(90, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(100, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(110, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(120, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(130, 50, "materia", "unidad", "3"));
+	// a.add(new ObjProductoTicketComanda(140, 50, "materia", "unidad", "3"));
+	// comanda.setListaProductos(a);
+	//
+	// ImprimirComandaTicket(comanda);
 	// }
 
 	public static void ImprimirReporteDiario(ObjReporteDiario reporte)
@@ -61,10 +90,10 @@ public class Impresiones {
 
 	public static void ImprimirSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
-//		int totalHojas = solicitud.getCantidadHojas();
-//		for (int i = 1; i <= solicitud.getCantidadHojas(); i++) {
-//			imprimirHojaSolicitudMP(solicitud, i);
-//		}
+		// int totalHojas = solicitud.getCantidadHojas();
+		// for (int i = 1; i <= solicitud.getCantidadHojas(); i++) {
+		// imprimirHojaSolicitudMP(solicitud, i);
+		// }
 	}
 
 	public static void ImprimirItinerario(ObjItinerario itinerario)
@@ -186,7 +215,9 @@ public class Impresiones {
 			int numeroPagina, PdfStamper stamper) throws IOException,
 			DocumentException {
 		double total = 0;
-		int desde = (numeroPagina - 1) * comanda.getMaxPaginacion();
+		int desde = 0;
+		if (numeroPagina != 1)
+			desde = ((numeroPagina - 1) * comanda.getMaxPaginacion()) - 1;
 		int hasta = (numeroPagina * comanda.getMaxPaginacion()) - 1;
 		int puntos = comanda.getListaProductos().size();
 		hasta = (hasta > puntos) ? puntos : hasta;
@@ -200,7 +231,7 @@ public class Impresiones {
 
 			stamper.getAcroFields().setField("txtMaterialRemito" + i,
 					punto.getMaterial());
-			stamper.getAcroFields().setField("txtMaterialComanda0" + i,
+			stamper.getAcroFields().setField("txtMaterialComanda" + i,
 					punto.getMaterial());
 
 			stamper.getAcroFields().setField("txtPrecio" + i,
@@ -212,8 +243,7 @@ public class Impresiones {
 
 			stamper.getAcroFields()
 					.setField("txtCodigo" + i, punto.getCodigo());
-			stamper.getAcroFields().setField("txtObservacion" + i,
-					punto.getUnd());
+			stamper.getAcroFields().setField("txtUnd" + i, punto.getUnd());
 			i++;
 		}
 		return total;
@@ -222,7 +252,12 @@ public class Impresiones {
 	private static void llenarPieComandaTicket(ObjComandaTicket comanda,
 			PdfStamper stamper, double total, int numeroPagina, int totalHojas)
 			throws IOException, DocumentException {
+
 		// GUARDO EL TOTAL
+
+		stamper.getAcroFields().setField("txtTotalComanda", total + "");
+		stamper.getAcroFields().setField("txtTotalTicket", total + "");
+
 		stamper.getAcroFields().setField("txtObservacionComanda",
 				"Observaciones: " + comanda.getObservaciones());
 
@@ -263,7 +298,9 @@ public class Impresiones {
 			int numeroPagina, PdfStamper stamper) throws IOException,
 			DocumentException {
 		double total = 0;
-		int desde = (numeroPagina - 1) * itinerario.getMaxPaginacion();
+		int desde = 0;
+		if (numeroPagina != 1)
+			desde = ((numeroPagina - 1) * itinerario.getMaxPaginacion()) - 1;
 		int hasta = (numeroPagina * itinerario.getMaxPaginacion()) - 1;
 		int puntos = itinerario.getPuntos().size();
 		hasta = (hasta > puntos) ? puntos : hasta;
