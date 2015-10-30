@@ -12,11 +12,20 @@ public class ObjComandaTicket extends ObjImprimible {
 	private static final String tipo = "template_comanda_ticket";
 	private ObjDatosCliente cliente;
 	private String observaciones;
+	private String observacionDelivery;
 	private List<ObjProductoTicketComanda> listaProductos;
 
 	public ObjComandaTicket(ObjDatosCliente cliente, String fecha, int id) {
 		super(cliente.getNombre() + "_" + id, fecha, tipo, id, maxPag);
+	}
 
+	public ObjComandaTicket(ObjDatosCliente cliente, String fecha, int id,
+			String observaciones, String observacionDelivery,
+			List<ObjProductoTicketComanda> listaProductos) {
+		super(cliente.getNombre() + "_" + id, fecha, tipo, id, maxPag);
+		this.observacionDelivery = observacionDelivery;
+		this.observaciones = observaciones;
+		this.listaProductos = listaProductos;
 	}
 
 	public int getCantidadHojas() {
@@ -46,6 +55,14 @@ public class ObjComandaTicket extends ObjImprimible {
 
 	public void setListaProductos(List<ObjProductoTicketComanda> listaProductos) {
 		this.listaProductos = listaProductos;
+	}
+
+	public String getObservacionDelivery() {
+		return observacionDelivery;
+	}
+
+	public void setObservacionDelivery(String observacionDelivery) {
+		this.observacionDelivery = observacionDelivery;
 	}
 
 }

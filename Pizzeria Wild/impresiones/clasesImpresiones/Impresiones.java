@@ -167,8 +167,7 @@ public class Impresiones {
 			ObjComandaTicket comanda, int numeroPagina, int totalHojas,
 			PdfStamper stamper) throws IOException, DocumentException {
 		llenarCabeceraComandaTicket(comanda, stamper);
-		double total = llenarItinerarioComandaTicket(comanda, numeroPagina,
-				stamper);
+		double total = llenarComandaTicket(comanda, numeroPagina, stamper);
 		llenarPieComandaTicket(comanda, stamper, total, numeroPagina,
 				totalHojas);
 	}
@@ -181,22 +180,31 @@ public class Impresiones {
 		stamper.getAcroFields().setField("txtIdTicket", comanda.getId() + "");
 
 		ObjDatosPizzeria wild = ObjDatosPizzeria.getDatos();
-		
+
+		stamper.getAcroFields().setField("txtTelefonoTicket",
+				wild.getTelefono());
+		stamper.getAcroFields().setField("txtDireccionWild",
+				wild.getDireccion());
+
 		ObjDatosCliente repartidor = comanda.getCliente();
 
-		stamper.getAcroFields().setField("txtRepartidor",
+		stamper.getAcroFields().setField("txtClienteTicket",
+				repartidor.getNombre());
+		stamper.getAcroFields().setField("txtClienteComanda",
 				repartidor.getNombre());
 
-//		stamper.getAcroFields().setField("txtVehiculo",
-//				repartidor.getDatosVehiculo());
-//
-//		stamper.getAcroFields().setField("txtTelefono",
-//				repartidor.getNumTelefono());
+		stamper.getAcroFields().setField("txtDireccionClienteTicket",
+				repartidor.getDireccion());
+		stamper.getAcroFields().setField("txtDireccionClienteComanda",
+				repartidor.getDireccion());
+
+		stamper.getAcroFields().setField("txtTelefonoComanda",
+				repartidor.getTelefono());
 
 	}
 
-	private static double llenarItinerarioComandaTicket(
-			ObjComandaTicket comanda, int numeroPagina, PdfStamper stamper) {
+	private static double llenarComandaTicket(ObjComandaTicket comanda,
+			int numeroPagina, PdfStamper stamper) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -205,11 +213,18 @@ public class Impresiones {
 			PdfStamper stamper, double total, int numeroPagina, int totalHojas)
 			throws IOException, DocumentException {
 		// GUARDO EL TOTAL
-		stamper.getAcroFields().setField("txtTotal", total + "");
-		// OBS GRAL
-		stamper.getAcroFields().setField("txtObservaciones",
+		stamper.getAcroFields().setField("txtObservacionComanda",
 				"Observaciones: " + comanda.getObservaciones());
-		stamper.getAcroFields().setField("txtPaginacion",
+		// PARA QUE RANCHO QUIERO OBS DE DELIVERY?
+		// stamper.getAcroFields().setField("txtObservacionDelivery",
+		// "Observaciones: " + comanda.getObservaciones());
+
+		stamper.getAcroFields().setField("txtObservacionTicket",
+				"Observaciones: " + comanda.getObservaciones());
+
+		stamper.getAcroFields().setField("txtPaginadoComanda",
+				numeroPagina + " DE " + totalHojas);
+		stamper.getAcroFields().setField("txtPaginadoTicket",
 				numeroPagina + " DE " + totalHojas);
 
 	}
