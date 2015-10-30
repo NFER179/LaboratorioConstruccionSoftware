@@ -5,16 +5,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import clasesImpresiones.Impresiones;
+import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjItinerario;
 
 //import clasesImpresiones.ImpresionDocx;
 import modelo.DeliveryModelo;
 import modelo.VentaModelo;
 import modelo.RepartidorModelo;
-import dto.ProductoEnVentaDTO;
 import dto.VentaDTO;
 import dto.RepartidorDTO;
 import utilidades.Msj;
@@ -188,11 +189,18 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	}
 
 	private ObjItinerario construirItinerario(int numDelivery) {
+		String[] arr = { "Motomel 110 / Patente ZJD-185",
+				"Motomel 110 / Patente DZJ-158",
+				"Motomel 110 / Patente ZJD-815" };
+		String[] arr1 = { "0303456", "0203456", "3030456" };
+		Random ran = new Random();
+		ObjDatosRepartidor repartidor = new ObjDatosRepartidor(
+				vtAsignacionRepartidores.getTxtNombrerepartidor().getText(),
+				arr[ran.nextInt(arr.length)], arr1[ran.nextInt(arr.length)]);
 		ObjItinerario itinerario = new ObjItinerario(
 				this.vtAsignacionRepartidores.getTxtFecha().getText(),
-				numDelivery, null, "");
+				numDelivery, repartidor, " ");
 		for (VentaDTO venta : this.lVentas) {
-			List<ProductoEnVentaDTO> productos = venta.getProductos();
 			itinerario.addPunto(venta.getDireccion(),
 					venta.getObservacionDelivery(), venta.getNumVenta(),
 					venta.getPrecio());

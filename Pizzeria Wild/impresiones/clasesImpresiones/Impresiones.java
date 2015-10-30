@@ -3,8 +3,7 @@ package clasesImpresiones;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.IOException; 
 
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjItinerario.objPuntoItinerario;
@@ -13,8 +12,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
-import dto.ProductoEnVentaDTO;
-
 public class Impresiones {
 
 	private static String tempPath = "Templates/%s.pdf";
@@ -22,43 +19,30 @@ public class Impresiones {
 
 	public static void main(String[] args) {
 		try {
-			itinerarioTest();
+//			itinerarioTest();
 		} catch (Exception e) {
 			System.out.println("MACANAS");
 		}
 	}
 
-	private static void itinerarioTest() throws Exception {
-		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
-				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
-				"lleva cambio ");
-		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
-		itinerario.addPunto("la direccion", "la observacion", 2, 100);
-		itinerario.addPunto("la direccion", "la observacion", 3, 454);
-		itinerario.addPunto("la direccion", "la observacion", 4, 11);
-		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
-		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
-		itinerario.addPunto("la direccion", "la observacion", 7, 11);
-		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
-		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-
-		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
-
-		ImprimirItinerario(itinerario);
-	}
-
-	private static void testReporteDiario() throws IOException,
-			DocumentException {
-		ObjReporteDiario reporte = new ObjReporteDiario("SomeName",
-				"13/10/2015", 4);
-		reporte.total = 340.4;
-		reporte.productos = new ArrayList<ProductoEnVentaDTO>();
-		reporte.productos.add(new ProductoEnVentaDTO("Pizza", "Fugazetta", 2));
-		reporte.productos.add(new ProductoEnVentaDTO("Faina", "Simple", 14));
-		reporte.productos.add(new ProductoEnVentaDTO("Empanada", "Carne", 8));
-		reporte.productos.add(new ProductoEnVentaDTO("Pizza", "Muzza", 3));
-		ImprimirReporteDiario(reporte);
-	}
+//	private static void itinerarioTest() throws Exception {
+//		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
+//				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
+//				"lleva cambio ");
+//		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
+//		itinerario.addPunto("la direccion", "la observacion", 2, 100);
+//		itinerario.addPunto("la direccion", "la observacion", 3, 454);
+//		itinerario.addPunto("la direccion", "la observacion", 4, 11);
+//		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
+//		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
+//		itinerario.addPunto("la direccion", "la observacion", 7, 11);
+//		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
+//		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
+//
+//		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
+//
+//		ImprimirItinerario(itinerario);
+//	}
 
 	public static void ImprimirReporteDiario(ObjReporteDiario reporte)
 			throws IOException, DocumentException {
@@ -89,23 +73,23 @@ public class Impresiones {
 		}
 	}
 
-	public static void generateAshwinFriends() throws IOException,
-			FileNotFoundException, DocumentException {
-		PdfReader pdfTemplate = new PdfReader("Templates/template_.pdf");
-		FileOutputStream fileOutputStream = new FileOutputStream(
-				"Templates/test.pdf");
-
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
-		stamper.setFormFlattening(true);
-
-		System.out.println("Hola");
-		stamper.getAcroFields().setField("txt", "SOME");
-
-		stamper.close();
-		pdfTemplate.close();
-
-	}
+//	public static void generateAshwinFriends() throws IOException,
+//			FileNotFoundException, DocumentException {
+//		PdfReader pdfTemplate = new PdfReader("Templates/template_.pdf");
+//		FileOutputStream fileOutputStream = new FileOutputStream(
+//				"Templates/test.pdf");
+//
+//		ByteArrayOutputStream out = new ByteArrayOutputStream();
+//		PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
+//		stamper.setFormFlattening(true);
+//
+//		System.out.println("Hola");
+//		stamper.getAcroFields().setField("txt", "SOME");
+//
+//		stamper.close();
+//		pdfTemplate.close();
+//
+//	}
 
 	private static void imprimirHojaReporteDiario(ObjReporteDiario reporte,
 			int numeroPagina) throws IOException, DocumentException {
