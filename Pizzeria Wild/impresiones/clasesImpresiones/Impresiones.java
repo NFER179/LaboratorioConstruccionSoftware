@@ -1,38 +1,27 @@
 package clasesImpresiones;
-
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
+ 
+import java.io.ByteArrayOutputStream; 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.io.FileOutputStream; 
+import java.io.IOException; 
 import java.util.ArrayList;
 
 import clasesImpresiones.ObjDatosRepartidor;
-
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.AcroFields;
+ 
+import com.itextpdf.text.DocumentException; 
 import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.tool.xml.XMLWorkerHelper;
+import com.itextpdf.text.pdf.PdfStamper; 
 
 import dto.ProductoEnVentaDTO;
 
 public class Impresiones {
 
-	public static void main(String[] args) throws FileNotFoundException,
-			IOException, com.lowagie.text.DocumentException, DocumentException {
-		// testReporteDiario();
-		// itinerarioTest();
-		//generateAshwinFriends();
-		some();
+	public static void main(String[] args) {
+		try {
+			itinerarioTest();
+		} catch (Exception e) {
+			System.out.println("MACANAS");
+		}
 	}
 
 	private static void itinerarioTest() throws IOException,
@@ -69,114 +58,51 @@ public class Impresiones {
 	public static void ImprimirSolicitudMP(ObjSolicitudMP solicitud) {
 	}
 
-	public static void Imprimir(ObjImprimible objImprimible)
-			throws IOException, com.lowagie.text.DocumentException,
-			DocumentException {
-		double puntosPorDocumento = 40;
-		double cantidadPuntos = 1.0;
-		double cantidadDocumentos = cantidadPuntos / puntosPorDocumento;
-		String tempPath = objImprimible.getTipo() + "Temp.html";
-		System.out.println("Tengo " + cantidadPuntos + " y corresponden "
-				+ cantidadDocumentos);
-		for (int i = 0; i < cantidadDocumentos; i++) {
-			buildTempFile(objImprimible, tempPath, 1);
-			buildPDF(objImprimible, tempPath, 1);
-			deleteTemporaryFile(tempPath);
-		}
-	}
-
-	public static void ImprimirItinerario(ObjItinerario itinerario)
-			throws IOException, com.lowagie.text.DocumentException,
-			DocumentException {
-		double puntosPorDocumento = 40;
-		double cantidadPuntos = itinerario.getPuntos().size() * 1.0;
-		double cantidadDocumentos = Math.ceil(cantidadPuntos
-				/ puntosPorDocumento);
-		String tempPath = "Templates/" + itinerario.getTipo() + "ff.html";
-		System.out.println("Tengo " + cantidadPuntos + " y corresponden "
-				+ cantidadDocumentos);
-		// for (int i = 0; i < cantidadDocumentos; i++) {
-		buildTempFile(itinerario, tempPath, 1);
-		buildPDF(itinerario, tempPath, 1);
-		deleteTemporaryFile(tempPath);
-		// }
-	}
-
-	private static void buildPDF(ObjImprimible itinerario, String tempPath,
-			int numeroPagina) throws DocumentException, FileNotFoundException,
-			IOException {
-		Document objDocument = new Document();
-		PdfWriter objPdfWriter = PdfWriter.getInstance(objDocument,
-				new FileOutputStream("Templates/TEST IT.pdf"// itinerario.getRuta(numeroPagina)
-				));
-		objDocument.open();
-		InputStream fis = new FileInputStream(tempPath);
-		// Magia
-		XMLWorkerHelper.getInstance()
-				.parseXHtml(objPdfWriter, objDocument, fis);
-		objDocument.close();
-	}
-
-	private static void buildTempFile(ObjImprimible objImprimible,
-			String tempPath, int numPagina) throws FileNotFoundException,
-			IOException, UnsupportedEncodingException {
-		String textoHtml = getHtmlText("Templates/Itinerario.html");
-		// Debe agregar las filas que sean necesarias
-		textoHtml = textoHtml.replace("***FECHA***", "12/12/12");
-		// textoHtml = String.format(textoHtml,"12/12/12"
-		// // (Object[]) objImprimible.getParametros(numPagina), numPagina
-		// // + ""
-		// );
-		PrintWriter writer = new PrintWriter(tempPath, "UTF-8");
-		writer.println(textoHtml);
-		writer.close();
-	}
-
-	private static void deleteTemporaryFile(String path) {
-		new File(path).delete();
-	}
-
-	private static String getHtmlText(String tipo)
-			throws FileNotFoundException, IOException {
-		String sCurrentLine;
-		// Reemplazar por una ruta fija de donde pueda sacar siempre el template
-		BufferedReader br = new BufferedReader(new FileReader(tipo));
-		String textoHtml = "";
-		while ((sCurrentLine = br.readLine()) != null) {
-			textoHtml += sCurrentLine.trim();
-		}
-		br.close();
-		return textoHtml;
-	}
-
-	private static void generateAshwinFriends() throws IOException,
+	public static void generateAshwinFriends() throws IOException,
 			FileNotFoundException, DocumentException {
-		PdfReader pdfTemplate = new PdfReader("Templates/nuevo.pdf");
+		PdfReader pdfTemplate = new PdfReader("Templates/template_.pdf");
 		FileOutputStream fileOutputStream = new FileOutputStream(
-				"Templates/test.pdf"); 
+				"Templates/test.pdf");
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
 		stamper.setFormFlattening(true);
 
-		System.out.println("Hola"); 
+		System.out.println("Hola");
 		stamper.getAcroFields().setField("txt", "SOME");
 
 		stamper.close();
-		pdfTemplate.close();     
- 
+		pdfTemplate.close();
+
 	}
-	
-	public static void some() throws IOException, DocumentException
-	{
-		PdfReader pdfTemplate = new PdfReader("Templates/template.pdf");
-		FileOutputStream out = new FileOutputStream(
-				"Templates/test.pdf"); 
-		PdfStamper stamper = new PdfStamper(pdfTemplate, out); 
-		stamper.setFormFlattening(false); 
-  
-		boolean a = stamper.getAcroFields().setField("txtFecha", "12/12/12");
-		 System.out.println(a);
+
+	public static void ImprimirItinerario(ObjItinerario itinerario)
+			throws IOException, DocumentException {
+		int maxItems = itinerario.getMaxPaginacion();
+		Object cantidadHojas = itinerario.getPuntos().size();
+		for (int i = 0; i < maxItems; i++) {
+			imprimirHojaItinerario(itinerario, i);
+		}
+
+	}
+
+	private static void imprimirHojaItinerario(ObjItinerario itinerario,
+			int numeroPagina) throws IOException, DocumentException {
+		PdfReader pdfTemplate = new PdfReader(
+				"Templates/template_itinerario.pdf");
+		FileOutputStream pdfOut = new FileOutputStream("reportesImpresiones/"
+				+ itinerario.getFecha() + ".pdf");
+		PdfStamper stamper = new PdfStamper(pdfTemplate, pdfOut);
+		stamper.setFormFlattening(false);
+
+		boolean a = stamper.getAcroFields().setField("txtFecha",
+				itinerario.getFecha());
+		boolean b = stamper.getAcroFields().setField("txtId",
+				itinerario.getId() + "");
+		boolean c = stamper.getAcroFields().setField("txtFecha",
+				itinerario.getFecha());
+		boolean d = stamper.getAcroFields().setField("txtFecha",
+				itinerario.getFecha());
 		stamper.close();
 		pdfTemplate.close();
 	}

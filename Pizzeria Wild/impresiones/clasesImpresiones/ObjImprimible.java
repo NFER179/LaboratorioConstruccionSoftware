@@ -17,8 +17,8 @@ public abstract class ObjImprimible {
 		this.maxPaginacion = maxPaginacion;
 		this.tipo = tipo;
 	}
-
-	public abstract String[] getParametros(int numPagina);
+	
+	public abstract int getCantidadHojas();
 
 	public String getRuta(int numeroPagina) {
 		return String.format(path, nombreArchivo, numeroPagina );

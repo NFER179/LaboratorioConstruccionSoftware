@@ -7,17 +7,16 @@ public class ObjSolicitudMP extends ObjImprimible {
 	private static final String tipo = "Solicitud de MP";
 	String fecha;
 	String hora;
-	String proveedor; 
+	String proveedor;
 	ArrayList<ObjMateriaPrima> materiasPrimas;
 
-	public ObjSolicitudMP(String nombreArchivo, String fecha,
-			int id) {
+	public ObjSolicitudMP(String nombreArchivo, String fecha, int id) {
 		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.materiasPrimas = new ArrayList<ObjMateriaPrima>();
 	}
 
-	public ObjSolicitudMP(String nombreArchivo, String fecha,
-			int id, String pHora, String pProveedor, int pNumSolicitud,
+	public ObjSolicitudMP(String nombreArchivo, String fecha, int id,
+			String pHora, String pProveedor, int pNumSolicitud,
 			ArrayList<ObjMateriaPrima> pMateriasPrimas) {
 		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.hora = pHora;
@@ -39,10 +38,8 @@ public class ObjSolicitudMP extends ObjImprimible {
 		}
 	}
 
-	@Override
-	public String[] getParametros(int numPagina) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getCantidadHojas() {
+		return 0;
 	}
 
 }

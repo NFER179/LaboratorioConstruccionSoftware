@@ -15,10 +15,8 @@ public class ObjReporteDiario extends ObjImprimible {
 	List<ProductoEnVentaDTO> productos; 
 	double total;
 
-	@Override
-	public String[] getParametros(int numPagina) {
-		// TODO Auto-generated method stub
-		return null;
+	public int getCantidadHojas() {
+		return 0;
 	}
 
 }

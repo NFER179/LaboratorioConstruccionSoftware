@@ -11,7 +11,7 @@ public class ObjItinerario extends ObjImprimible {
 	private ObjDatosRepartidor repartidor;
 	private static final int maxPag = 20;
 	private static final String tipo = "Itinerario";
-	
+
 	public ObjItinerario(String nombreArchivo, String fecha, int id) {
 		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.puntos = new ArrayList<objPuntoItinerario>();
@@ -25,10 +25,8 @@ public class ObjItinerario extends ObjImprimible {
 		this.repartidor = pDatosRepartidor;
 	}
 
-	@Override
-	public String[] getParametros(int numPagina) {
-		return new String[] { getFecha(), getId() + "",
-				getRepartidor().toString() };
+	public int getCantidadHojas() {
+		return (int) (getPuntos().size() / getMaxPaginacion() * 1.0);
 	}
 
 	public void addPunto(String pDireccion, String pObservaciones,
