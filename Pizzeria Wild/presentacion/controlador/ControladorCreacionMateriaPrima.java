@@ -7,11 +7,13 @@ import dto.MateriaPrimaDTO;
 
 import modelo.MateriaPrimaModelo;
 
+import validacion.ValidacionCreacionMateriaPrima;
 import vista.CreacionMateriaPrimaVista;
 import vista.MateriaPrimaVista;
 
 public class ControladorCreacionMateriaPrima implements ActionListener {
 
+	private ValidacionCreacionMateriaPrima vldMT;
 	private CreacionMateriaPrimaVista vtCreacion;
 	private MateriaPrimaModelo mdlMateriaPrima;
 	private ControladorMateriaPrima ctrMateriaPrima;
@@ -21,6 +23,7 @@ public class ControladorCreacionMateriaPrima implements ActionListener {
 		this.vtCreacion.getBtnCrear().addActionListener(this);
 		this.vtCreacion.getBtnCancelar().addActionListener(this);
 		
+		this.vldMT = new ValidacionCreacionMateriaPrima(this.vtCreacion);
 		this.mdlMateriaPrima = new MateriaPrimaModelo();
 		this.ctrMateriaPrima = CtrMP;
 	}
@@ -41,9 +44,11 @@ public class ControladorCreacionMateriaPrima implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtCreacion.getBtnCrear()) {
-			this.CargarNuevaMateriaPrima();
-			this.ctrMateriaPrima.ActualizarTabla();
-			this.vtCreacion.Close();
+			if(this.vldMT.CreacionValida()){
+				this.CargarNuevaMateriaPrima();
+				this.ctrMateriaPrima.ActualizarTabla();
+				this.vtCreacion.Close();
+			}
 		}
 		else if (arg0.getSource() == this.vtCreacion.getBtnCancelar()) {
 			this.vtCreacion.Close();

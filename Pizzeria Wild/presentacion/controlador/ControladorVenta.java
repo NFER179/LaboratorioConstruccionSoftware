@@ -208,7 +208,9 @@ public class ControladorVenta implements ActionListener {
 		} else if (source == vista.GetBtnEnMostrador()) {
 			accionEnMostrador();
 		} else if (source == vista.GetBtnModificar()) {
-			accionModificar();
+			if(this.vldVenta.ModificarValido()) {
+				accionModificar();
+			}
 		} else if (source == vista.GetBtnNuevaVenta()) {
 			accionNuevaVenta();
 		} else if (source == vista.GetBtnCancelarVenta()) {
@@ -303,39 +305,39 @@ public class ControladorVenta implements ActionListener {
 
 	/** Boton para poder modificar una venta. */
 	private void accionModificar() {
-		JTable tabla = this.vtVenta.GetTable();
+//		JTable tabla = this.vtVenta.GetTable();
 		// Si marco una fila ??
-		boolean seleccionoUnaVenta = tabla.getSelectedRow() >= 0;
+//		boolean seleccionoUnaVenta = tabla.getSelectedRow() >= 0;
 		// Si es exactamente una
-		seleccionoUnaVenta = seleccionoUnaVenta
-				&& tabla.getSelectedRows().length == 1;
-		if (seleccionoUnaVenta) {
+//		seleccionoUnaVenta = seleccionoUnaVenta
+//				&& tabla.getSelectedRows().length == 1;
+//		if (seleccionoUnaVenta) {
 			revisarVentaEnViaje();
-		} else {
-			Msj.advertencia("Atencion", "Debe Seleccionar una Unica Venta.");
-		}
+//		} else {
+//			Msj.advertencia("Atencion", "Debe Seleccionar una Unica Venta.");
+//		}
 
 	}
 
 	private void revisarVentaEnViaje() {
-		VentaDTO ventaMarcada = GetVentaSeleccionada();
-		boolean noEstaEnViaje = !esVentaEnViaje(ventaMarcada);
-		if (noEstaEnViaje) {
+//		VentaDTO ventaMarcada = GetVentaSeleccionada();
+//		boolean noEstaEnViaje = !esVentaEnViaje(ventaMarcada);
+//		if (noEstaEnViaje) {
 			verificarVentaPendiente();
-		} else {
-			Msj.error("Error de Modificación",
-					"No Puede Modificar Ventas que Esten en Viaje");
-		}
+//		} else {
+//			Msj.error("Error de Modificación",
+//					"No Puede Modificar Ventas que Esten en Viaje");
+//		}
 	}
 
 	private void verificarVentaPendiente() {
-		VentaDTO ventaMarcada = GetVentaSeleccionada();
-		if (!esVentaPendiente(ventaMarcada)) {
+//		VentaDTO ventaMarcada = GetVentaSeleccionada();
+//		if (!esVentaPendiente(ventaMarcada)) {
 			modificarVenta();
-		} else {
-			Msj.error("Error Estado Ventas",
-					"No se pueden modificar las Ventas Armadas.");
-		}
+//		} else {
+//			Msj.error("Error Estado Ventas",
+//					"No se pueden modificar las Ventas Armadas.");
+//		}
 	}
 
 	private void modificarVenta() {

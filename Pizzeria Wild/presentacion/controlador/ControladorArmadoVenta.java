@@ -409,16 +409,15 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private void revisoDireccion() {
-		ArmadoVentaVista vista = this.vtArmadoPedido;
-		String textoDireccion = Str.trim(vista.getTxtDireccion().getText());
-		boolean textoDireccionVacio = Valida.esNullOVacio(textoDireccion);
-		if (!textoDireccionVacio) {
+//		ArmadoVentaVista vista = this.vtArmadoPedido;
+//		String textoDireccion = Str.trim(vista.getTxtDireccion().getText());
+//		boolean textoDireccionVacio = Valida.esNullOVacio(textoDireccion);
+//		if (!textoDireccionVacio) {
 			revisoProductos();
-		} else {
-			Msj.advertencia("Atencion",
-					"Debe ingresar la direccion del cliente");
-		}
-
+//		} else {
+//			Msj.advertencia("Atencion",
+//					"Debe ingresar la direccion del cliente");
+//		}
 	}
 
 	private void revisoProductos() {

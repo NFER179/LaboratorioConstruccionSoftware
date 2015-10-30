@@ -3,6 +3,12 @@ package modelo;
 import java.util.Calendar;
 import java.util.List;
 
+import org.jfree.chart.plot.MeterInterval;
+
+import mail.MailWildPizzeria;
+
+import utilidades.Fecha;
+
 import dao.SolicitudDAO;
 import daoImplementacion.SolicitudImp;
 import dto.MateriaPrimaSolicitudDTO;
@@ -26,19 +32,8 @@ public class SolicitudModelo {
 	}
 
 	public void EnviarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
-		Calendar c = Calendar.getInstance();
-		
-		String año = Integer.toString(c.get(Calendar.YEAR));
-		String mes = Integer.toString(c.get(Calendar.MONTH));
-		if(mes.length() == 1) 
-			mes = "0" +  mes;
-		String dia = Integer.toString(c.get(Calendar.DATE));
-		if(dia.length() == 1) 
-			dia = "0" + dia;
-		
-		String CurrentDate = año + "-" + mes + "-" + dia;
-		
-		if(Solicitud.getEffdt().equals(CurrentDate)) {
+			
+		if(Solicitud.getEffdt().equals(Fecha.CurrentDate())) {
 			if(this.solicitud.Existe(Solicitud)) {
 				this.solicitud.ActualizarSolicitud(Solicitud, Proveedor, MateriasPrimas);
 			}
@@ -47,8 +42,8 @@ public class SolicitudModelo {
 			}
 		}
 		else {
-			Solicitud.setFecha_envio(CurrentDate);
-			Solicitud.setReferenciaNumPedido(this.solicitud.GetNuevoNumeroSolicitud(CurrentDate));
+			Solicitud.setFecha_envio(Fecha.CurrentDate());
+			Solicitud.setReferenciaNumPedido(this.solicitud.GetNuevoNumeroSolicitud(Fecha.CurrentDate()));
 			this.solicitud.ActualizarSolicitud(Solicitud, Proveedor, MateriasPrimas);
 			
 			SolicitudDTO soli = this.SolicitudReferenteA(Solicitud);
@@ -56,8 +51,27 @@ public class SolicitudModelo {
 			this.solicitud.Enviar(soli);
 		}
 		this.solicitud.Enviar(Solicitud);
+		this.EnviarMailDolicitud(Solicitud, Proveedor, MateriasPrimas);
 	}
 	
+	private void EnviarMailDolicitud(SolicitudDTO solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
+		/* Conseguir el mail del proveedor */
+		String[] pReceptor= {};
+		
+		/* Armar mensaje */
+		String enter = "\n";
+		String tab = "\t";
+		String pMensaje = "Por medio del presente hago pedido de productos." + enter + enter;
+		
+		for(MateriaPrimaSolicitudDTO mps:MateriasPrimas) {
+			pMensaje = pMensaje + mps.getMateriaPrima() + tab + mps.getCantidad() + enter; 
+		}
+		
+		pMensaje = pMensaje + enter + "Desde ya muchas gracias." + enter + "PizzeriaWild";
+		
+		MailWildPizzeria Sender = new MailWildPizzeria(pReceptor, "Solicitud Materia Prima", pMensaje);
+	}
+
 	public void GuardarSolicitud(SolicitudDTO Solicitud, String Proveedor, List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		if(this.solicitud.Existe(Solicitud)){
 			this.solicitud.ActualizarSolicitud(Solicitud, Proveedor, MateriasPrimas);

@@ -105,6 +105,31 @@ public class MateriaPrimaImp implements MateriaPrimaDAO{
 		return unidad;
 	}
 
+	@Override
+	public int GetCantMT(String NombreMT) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select count(*) as 'cantidad' from materia_prima " +
+							"where materia_prima = '" + NombreMT + "'";
+		ResultSet rs = null;
+		int cantidad = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				cantidad = rs.getInt("cantidad");
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally{
+			this.conector.CloseConnection();
+		}
+		
+		return cantidad;
+	}
+
 //	@Override
 //	public void AsignarMTaCategoria(String MateriaPrima, String Categoria) {
 //		

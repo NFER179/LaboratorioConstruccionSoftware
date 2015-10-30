@@ -30,6 +30,14 @@ public class MateriaPrimaModelo {
 		return this.materiaPrima.GetUnidad(MateriaPrima);
 	}
 
+	public boolean Existe(String NombreMT) {
+		if(this.materiaPrima.GetCantMT(NombreMT) > 0)
+			return true;
+		else{
+			return false;	
+		}
+	}
+
 //	public void AsignarACategoria(String MateriaPrima, String Categoria) {
 //		this.materiaPrima.AsignarMTaCategoria(MateriaPrima, Categoria);
 //	}

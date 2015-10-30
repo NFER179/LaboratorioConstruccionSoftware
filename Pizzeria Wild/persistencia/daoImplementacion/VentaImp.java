@@ -443,7 +443,7 @@ public class VentaImp implements VentaDAO{
 		
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "select count(*) as 'cantidad' from venta " +
-							"where estado = 'cancelado' " +
+							"where estado = 'Cancelado' " +
 							"and effdt between '" + FromDate + "' and '" + ToDate + "'";
 		ResultSet rs = null;
 		int cantidad = 0;
@@ -462,7 +462,7 @@ public class VentaImp implements VentaDAO{
 			this.conector.CloseConnection();
 		}
 		
-		return 0;
+		return cantidad;
 	}
 
 	@Override

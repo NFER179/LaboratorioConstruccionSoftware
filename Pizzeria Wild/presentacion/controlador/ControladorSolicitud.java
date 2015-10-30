@@ -9,6 +9,7 @@ import modelo.SolicitudModelo;
 
 import dto.SolicitudDTO;
 
+import validacion.ValidacionSolicitud;
 import vista.SolicitudCompraVista;
 
 public class ControladorSolicitud implements ActionListener {
@@ -16,6 +17,7 @@ public class ControladorSolicitud implements ActionListener {
 	private Controlador ctr;
 	private SolicitudCompraVista vtSolicitudCompra;
 	private SolicitudModelo mdlSolicitud;
+	private ValidacionSolicitud vldSolicitud;
 
 	public ControladorSolicitud(Controlador Controlador) {
 		this.vtSolicitudCompra = new SolicitudCompraVista();
@@ -25,6 +27,7 @@ public class ControladorSolicitud implements ActionListener {
 
 		this.ctr = Controlador;
 		this.mdlSolicitud = new SolicitudModelo();
+		this.vldSolicitud = new ValidacionSolicitud(this.vtSolicitudCompra);
 	}
 
 	public void Inicializar() {
@@ -44,20 +47,26 @@ public class ControladorSolicitud implements ActionListener {
 		this.vtSolicitudCompra.getTable().setModel(this.vtSolicitudCompra.getModelTable());
 	}
 
+	private void modificar() {
+		ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
+		
+		JTable table = this.vtSolicitudCompra.getTable();
+		int filaSeleccionada = table.getSelectedRow();
+		String FechaSolicitud = table.getValueAt(filaSeleccionada, 0).toString().trim();
+		String NumeroSolicitud = table.getValueAt(filaSeleccionada, 1).toString().trim();
+		
+		ctrCreacionSolicitud.InicializarModificacion(FechaSolicitud, NumeroSolicitud);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtSolicitudCompra.getBtnNuevaSolicitud()) {
 			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
 			ctrCreacionSolicitud.Inicializar();
 		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnModificar()) {
-			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
-			
-			JTable table = this.vtSolicitudCompra.getTable();
-			int filaSeleccionada = table.getSelectedRow();
-			String FechaSolicitud = table.getValueAt(filaSeleccionada, 0).toString().trim();
-			String NumeroSolicitud = table.getValueAt(filaSeleccionada, 1).toString().trim();
-			
-			ctrCreacionSolicitud.InicializarModificacion(FechaSolicitud, NumeroSolicitud);
+			if(this.vldSolicitud.ModificarValido()) {
+				this.modificar();
+			}
 		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnVolver()) {
 			this.ctr.Return();
 			this.vtSolicitudCompra.Close();
