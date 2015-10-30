@@ -2,27 +2,50 @@ package clasesImpresiones;
 
 import java.util.List;
 
+import clasesImpresiones.ObjItinerario.objPuntoItinerario;
+
 import dto.ProductoEnVentaDTO;
 
 public class ObjComandaTicket extends ObjImprimible {
 
-	private static final int maxPag = 20;
-	private static final String tipo = "Commanda y Cliente";
+	private static final int maxPag = 10;
+	private static final String tipo = "template_comanda_ticket";
+	private ObjDatosCliente cliente;
+	private String observaciones;
+	private List<ObjProductoTicketComanda> listaProductos;
 
-	public ObjComandaTicket(String nombreArchivo, String fecha, int id) {
-		super(nombreArchivo, fecha, tipo, id, maxPag);
-		// TODO Auto-generated constructor stub
+	public ObjComandaTicket(ObjDatosCliente cliente, String fecha, int id) {
+		super(cliente.getNombre() + "_" + id, fecha, tipo, id, maxPag);
+
 	}
 
-	List<ProductoEnVentaDTO> listaProductos;
-	String observaciones;
-	String fecha;
-	String hora;
-	String nombre;
- 
-
 	public int getCantidadHojas() {
-		return 0;
+		return (int) Math.ceil(getListaProductos().size()
+				/ (getMaxPaginacion() * 1.0));
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
+
+	public ObjDatosCliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ObjDatosCliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<ObjProductoTicketComanda> getListaProductos() {
+		return listaProductos;
+	}
+
+	public void setListaProductos(List<ObjProductoTicketComanda> listaProductos) {
+		this.listaProductos = listaProductos;
 	}
 
 }

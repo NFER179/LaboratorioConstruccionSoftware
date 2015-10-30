@@ -3,7 +3,7 @@ package clasesImpresiones;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException; 
+import java.io.IOException;
 
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjItinerario.objPuntoItinerario;
@@ -19,47 +19,50 @@ public class Impresiones {
 
 	public static void main(String[] args) {
 		try {
-//			itinerarioTest();
+			// itinerarioTest();
 		} catch (Exception e) {
 			System.out.println("MACANAS");
 		}
 	}
 
-//	private static void itinerarioTest() throws Exception {
-//		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
-//				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
-//				"lleva cambio ");
-//		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
-//		itinerario.addPunto("la direccion", "la observacion", 2, 100);
-//		itinerario.addPunto("la direccion", "la observacion", 3, 454);
-//		itinerario.addPunto("la direccion", "la observacion", 4, 11);
-//		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
-//		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
-//		itinerario.addPunto("la direccion", "la observacion", 7, 11);
-//		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
-//		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-//
-//		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
-//
-//		ImprimirItinerario(itinerario);
-//	}
+	// private static void itinerarioTest() throws Exception {
+	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
+	// new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
+	// "lleva cambio ");
+	// itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
+	// itinerario.addPunto("la direccion", "la observacion", 2, 100);
+	// itinerario.addPunto("la direccion", "la observacion", 3, 454);
+	// itinerario.addPunto("la direccion", "la observacion", 4, 11);
+	// itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 7, 11);
+	// itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
+	//
+	// itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
+	//
+	// ImprimirItinerario(itinerario);
+	// }
 
 	public static void ImprimirReporteDiario(ObjReporteDiario reporte)
 			throws IOException, DocumentException {
-		for (int i = 1; i <= reporte.getCantidadHojas(); i++) {
+		int totalHojas = reporte.getCantidadHojas();
+		for (int i = 1; i <= totalHojas; i++) {
 			imprimirHojaReporteDiario(reporte, i);
 		}
 	}
 
 	public static void ImprimirComandaTicket(ObjComandaTicket comanda)
 			throws IOException, DocumentException {
-		for (int i = 1; i <= comanda.getCantidadHojas(); i++) {
-			imprimirHojaComandaTicket(comanda, i);
+		int totalHojas = comanda.getCantidadHojas();
+		for (int i = 1; i <= totalHojas; i++) {
+			imprimirHojaComandaTicket(comanda, i, totalHojas);
 		}
 	}
 
 	public static void ImprimirSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
+		int totalHojas = solicitud.getCantidadHojas();
 		for (int i = 1; i <= solicitud.getCantidadHojas(); i++) {
 			imprimirHojaSolicitudMP(solicitud, i);
 		}
@@ -73,23 +76,23 @@ public class Impresiones {
 		}
 	}
 
-//	public static void generateAshwinFriends() throws IOException,
-//			FileNotFoundException, DocumentException {
-//		PdfReader pdfTemplate = new PdfReader("Templates/template_.pdf");
-//		FileOutputStream fileOutputStream = new FileOutputStream(
-//				"Templates/test.pdf");
-//
-//		ByteArrayOutputStream out = new ByteArrayOutputStream();
-//		PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
-//		stamper.setFormFlattening(true);
-//
-//		System.out.println("Hola");
-//		stamper.getAcroFields().setField("txt", "SOME");
-//
-//		stamper.close();
-//		pdfTemplate.close();
-//
-//	}
+	// public static void generateAshwinFriends() throws IOException,
+	// FileNotFoundException, DocumentException {
+	// PdfReader pdfTemplate = new PdfReader("Templates/template_.pdf");
+	// FileOutputStream fileOutputStream = new FileOutputStream(
+	// "Templates/test.pdf");
+	//
+	// ByteArrayOutputStream out = new ByteArrayOutputStream();
+	// PdfStamper stamper = new PdfStamper(pdfTemplate, fileOutputStream);
+	// stamper.setFormFlattening(true);
+	//
+	// System.out.println("Hola");
+	// stamper.getAcroFields().setField("txt", "SOME");
+	//
+	// stamper.close();
+	// pdfTemplate.close();
+	//
+	// }
 
 	private static void imprimirHojaReporteDiario(ObjReporteDiario reporte,
 			int numeroPagina) throws IOException, DocumentException {
@@ -112,18 +115,14 @@ public class Impresiones {
 	}
 
 	private static void imprimirHojaComandaTicket(ObjComandaTicket comanda,
-			int numeroPagina) throws IOException, DocumentException {
-
-		String templatePath = String
-				.format(tempPath, comanda.getTemplateName());
-
-		PdfReader pdfTemplate = new PdfReader(templatePath);
-		String pdfResultPath = String.format(resultPath,
-				comanda.getNombreArchivo() + "_" + numeroPagina);
-		FileOutputStream pdfOut = new FileOutputStream(pdfResultPath);
+			int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
+		PdfReader pdfTemplate = getPdfreader(comanda);
+		FileOutputStream pdfOut = getPdfOut(comanda, numeroPagina);
 		PdfStamper stamper = getStamper(pdfTemplate, pdfOut);
 
-		boolean a = stamper.getAcroFields().setField("txt", comanda.getFecha());
+		llenarStamperTicketComandaTicket(comanda, numeroPagina, totalHojas,
+				stamper);
 
 		stamper.close();
 		pdfTemplate.close();
@@ -164,15 +163,50 @@ public class Impresiones {
 		pdfTemplate.close();
 	}
 
+	private static void llenarStamperTicketComandaTicket(
+			ObjComandaTicket comanda, int numeroPagina, int totalHojas,
+			PdfStamper stamper) throws IOException, DocumentException {
+		llenarCabeceraComandaTicket(comanda, stamper);
+		double total = llenarItinerarioComandaTicket(comanda, numeroPagina,
+				stamper);
+		llenarPieComandaTicket(comanda, stamper, total, numeroPagina,
+				totalHojas);
+	}
+
+	private static void llenarPieComandaTicket(ObjComandaTicket comanda,
+			PdfStamper stamper, double total, int numeroPagina, int totalHojas)
+			throws IOException, DocumentException {
+		// GUARDO EL TOTAL
+		stamper.getAcroFields().setField("txtTotal", total + "");
+		// OBS GRAL
+		stamper.getAcroFields().setField("txtObservaciones",
+				"Observaciones: " + comanda.getObservaciones());
+		stamper.getAcroFields().setField("txtPaginacion",
+				numeroPagina + " DE " + totalHojas);
+
+	}
+
+	private static double llenarItinerarioComandaTicket(
+			ObjComandaTicket comanda, int numeroPagina, PdfStamper stamper) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private static void llenarCabeceraComandaTicket(ObjComandaTicket comanda,
+			PdfStamper stamper) {
+		// TODO Auto-generated method stub
+
+	}
+
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
 			int numeroPagina, int totalHojas, PdfStamper stamper)
 			throws IOException, DocumentException {
-		llenarCabecera(itinerario, stamper);
+		llenarCabeceraItinerario(itinerario, stamper);
 		double total = llenarItinerario(itinerario, numeroPagina, stamper);
 		llenarPie(itinerario, stamper, total, numeroPagina, totalHojas);
 	}
 
-	private static void llenarCabecera(ObjItinerario itinerario,
+	private static void llenarCabeceraItinerario(ObjItinerario itinerario,
 			PdfStamper stamper) throws IOException, DocumentException {
 		stamper.getAcroFields().setField("txtFecha", itinerario.getFecha());
 		stamper.getAcroFields().setField("txtId", itinerario.getId() + "");
