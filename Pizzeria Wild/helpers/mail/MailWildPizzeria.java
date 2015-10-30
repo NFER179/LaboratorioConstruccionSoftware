@@ -59,9 +59,9 @@ public class MailWildPizzeria extends Mail {
 
 	private boolean isValidMail() {
 		boolean ret = true;
-		ret &= Valida.esEnteroPositivo(this.para.length+"");
-		ret &= Valida.esNullOVacio(this.asunto);
-		ret &= Valida.esNullOVacio(this.mensaje);
+		ret &= Valida.esEnteroPositivo(this.para.length + "");
+		ret &= !Valida.esNullOVacio(this.asunto);
+		ret &= !Valida.esNullOVacio(this.mensaje);
 		return ret;
 	}
 

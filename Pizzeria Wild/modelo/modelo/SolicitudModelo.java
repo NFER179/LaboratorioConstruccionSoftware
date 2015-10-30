@@ -55,10 +55,10 @@ public class SolicitudModelo {
 			this.solicitud.Enviar(soli);
 		}
 		this.solicitud.Enviar(Solicitud);
-		this.EnviarMailDolicitud(Solicitud, Proveedor, MateriasPrimas);
+		this.EnviarMailSolicitud(Solicitud, Proveedor, MateriasPrimas);
 	}
 
-	private void EnviarMailDolicitud(SolicitudDTO solicitud, String Proveedor,
+	private void EnviarMailSolicitud(SolicitudDTO solicitud, String Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		/* Conseguir el mail del proveedor */
 		String[] pReceptor = {"nicofer179@gmail.com"};// JNVR ADD RECEPTORES!
