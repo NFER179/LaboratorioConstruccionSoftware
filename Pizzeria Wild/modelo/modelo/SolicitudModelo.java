@@ -61,7 +61,7 @@ public class SolicitudModelo {
 	private void EnviarMailDolicitud(SolicitudDTO solicitud, String Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		/* Conseguir el mail del proveedor */
-		String[] pReceptor = {};// JNVR ADD RECEPTORES!
+		String[] pReceptor = {"nicofer179@gmail.com"};// JNVR ADD RECEPTORES!
 
 		/* Armar mensaje */
 		String enter = "\n";
