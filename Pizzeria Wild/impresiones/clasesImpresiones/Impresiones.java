@@ -173,6 +173,34 @@ public class Impresiones {
 				totalHojas);
 	}
 
+	private static void llenarCabeceraComandaTicket(ObjComandaTicket comanda,
+			PdfStamper stamper) throws IOException, DocumentException {
+		stamper.getAcroFields().setField("txtFechaTicket", comanda.getFecha());
+		stamper.getAcroFields().setField("txtFechaComanda", comanda.getFecha());
+		stamper.getAcroFields().setField("txtIdComanda", comanda.getId() + "");
+		stamper.getAcroFields().setField("txtIdTicket", comanda.getId() + "");
+
+		ObjDatosPizzeria wild = ObjDatosPizzeria.getDatos();
+		
+		ObjDatosCliente repartidor = comanda.getCliente();
+
+		stamper.getAcroFields().setField("txtRepartidor",
+				repartidor.getNombre());
+
+//		stamper.getAcroFields().setField("txtVehiculo",
+//				repartidor.getDatosVehiculo());
+//
+//		stamper.getAcroFields().setField("txtTelefono",
+//				repartidor.getNumTelefono());
+
+	}
+
+	private static double llenarItinerarioComandaTicket(
+			ObjComandaTicket comanda, int numeroPagina, PdfStamper stamper) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	private static void llenarPieComandaTicket(ObjComandaTicket comanda,
 			PdfStamper stamper, double total, int numeroPagina, int totalHojas)
 			throws IOException, DocumentException {
@@ -183,18 +211,6 @@ public class Impresiones {
 				"Observaciones: " + comanda.getObservaciones());
 		stamper.getAcroFields().setField("txtPaginacion",
 				numeroPagina + " DE " + totalHojas);
-
-	}
-
-	private static double llenarItinerarioComandaTicket(
-			ObjComandaTicket comanda, int numeroPagina, PdfStamper stamper) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private static void llenarCabeceraComandaTicket(ObjComandaTicket comanda,
-			PdfStamper stamper) {
-		// TODO Auto-generated method stub
 
 	}
 

@@ -9,7 +9,7 @@ public class ObjDatosPizzeria {
 		this.setTelefono(telefono);
 	}
 
-	public ObjDatosPizzeria getDatos() {
+	public static ObjDatosPizzeria getDatos() {
 		return new ObjDatosPizzeria("Av. Siempreviva 159", "0303456");
 	}
 
