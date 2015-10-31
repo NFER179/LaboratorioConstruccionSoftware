@@ -61,7 +61,7 @@ public class SolicitudModelo {
 	private void EnviarMailSolicitud(SolicitudDTO solicitud, String Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		/* Conseguir el mail del proveedor */
-		String[] pReceptor = {"nicofer179@gmail.com"};// JNVR ADD RECEPTORES!
+		String[] pReceptor = { "nicofer179@gmail.com" };// JNVR ADD RECEPTORES!
 
 		/* Armar mensaje */
 		String enter = "\n";
@@ -83,7 +83,8 @@ public class SolicitudModelo {
 		try {
 			Sender.mandarMail();
 		} catch (Exception e) {
-			Msj.advertencia("Atencion", "No se pudo enviar el mail");
+			Msj.advertencia("Atencion",
+					"No se pudo enviar el mail\n" + e.toString());
 		}
 	}
 

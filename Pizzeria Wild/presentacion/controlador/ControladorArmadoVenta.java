@@ -10,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
-import javax.swing.JFrame; 
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -276,6 +276,8 @@ public class ControladorArmadoVenta implements ActionListener {
 		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
 			String fecha = this.vtArmadoPedido.getTxtFecha().getText().trim();
 			int numPedido = this.mdlPedido.GetNuevoNumeroVenta();
+			this.vtArmadoPedido.getTxtNumVenta().setText(
+					Integer.toString(numPedido));
 			VentaDTO NewPedido = new VentaDTO(fecha, numPedido,
 					this.vtArmadoPedido.getTxtCliente().getText(),
 					this.vtArmadoPedido.getTxtDireccion().getText(),
@@ -409,15 +411,15 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private void revisoDireccion() {
-//		ArmadoVentaVista vista = this.vtArmadoPedido;
-//		String textoDireccion = Str.trim(vista.getTxtDireccion().getText());
-//		boolean textoDireccionVacio = Valida.esNullOVacio(textoDireccion);
-//		if (!textoDireccionVacio) {
-			revisoProductos();
-//		} else {
-//			Msj.advertencia("Atencion",
-//					"Debe ingresar la direccion del cliente");
-//		}
+		// ArmadoVentaVista vista = this.vtArmadoPedido;
+		// String textoDireccion = Str.trim(vista.getTxtDireccion().getText());
+		// boolean textoDireccionVacio = Valida.esNullOVacio(textoDireccion);
+		// if (!textoDireccionVacio) {
+		revisoProductos();
+		// } else {
+		// Msj.advertencia("Atencion",
+		// "Debe ingresar la direccion del cliente");
+		// }
 	}
 
 	private void revisoProductos() {
@@ -436,5 +438,6 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.ctrPedido.RecargarTabla();
 		this.ctrPedidoCocina.RecargarTablas();
 		this.vtArmadoPedido.Close();
+		this.mdlPedido.crearComanda(vtArmadoPedido);
 	}
 }
