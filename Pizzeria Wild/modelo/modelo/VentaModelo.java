@@ -6,8 +6,7 @@ import java.util.List;
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjComandaTicket;
 import clasesImpresiones.ObjDatosCliente;
-import clasesImpresiones.ObjProductoTicketComanda;
-import clasesImpresiones.ObjTicketCliente;
+import clasesImpresiones.ObjProductoTicketComanda; 
 
 import utilidades.Fecha;
 import dto.VentaDTO;

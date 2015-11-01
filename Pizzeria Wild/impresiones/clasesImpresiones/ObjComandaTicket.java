@@ -1,10 +1,6 @@
 package clasesImpresiones;
 
-import java.util.List;
-
-import clasesImpresiones.ObjItinerario.objPuntoItinerario;
-
-import dto.ProductoEnVentaDTO;
+import java.util.List; 
 
 public class ObjComandaTicket extends ObjImprimible {
 

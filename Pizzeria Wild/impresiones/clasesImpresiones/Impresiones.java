@@ -153,7 +153,7 @@ public class Impresiones {
 		llenarStamperTicketComandaTicket(comanda, numeroPagina, totalHojas,
 				stamper);
 
-		stamper.close();
+		stamper.close(); 
 		pdfTemplate.close();
 
 	}
@@ -358,4 +358,5 @@ public class Impresiones {
 		PdfReader pdfTemplate = new PdfReader(templatePath);
 		return pdfTemplate;
 	}
+
 }
