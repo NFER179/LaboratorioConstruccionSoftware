@@ -1,5 +1,6 @@
 package clasesImpresiones;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjItinerario extends ObjImprimible {
@@ -22,6 +23,7 @@ public class ObjItinerario extends ObjImprimible {
 			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
 		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
 		this.repartidor = pDatosRepartidor;
+		this.puntos = new ArrayList<objPuntoItinerario>();
 	}
 
 	public int getCantidadHojas() {
@@ -32,6 +34,13 @@ public class ObjItinerario extends ObjImprimible {
 			int numPedido, double costo) {
 		this.puntos.add(new objPuntoItinerario(pDireccion, pObservaciones,
 				numPedido, costo));
+	}
+
+	public double getTotal() {
+		double total = 0;
+		for (objPuntoItinerario punto : puntos)
+			total += punto.getCosto();
+		return total;
 	}
 
 	public List<objPuntoItinerario> getPuntos() {

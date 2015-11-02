@@ -148,20 +148,9 @@ public class ControladorVentasEnViaje implements ActionListener {
 			}
 			if (!existeFila)
 				agregoFila(dv);
-			else
-				sumarizoFila(dv);
-
 		}
 		this.vtVentasEnViaje.getTableVentas().setModel(
 				this.vtVentasEnViaje.getModelTableVentas());
-	}
-
-	private void sumarizoFila(DeliveryVentaDTO dv) {
-		// JNVR TODO
-		Object[] fila = { dv.getFechaVenta(),
-				Integer.toString(dv.getNumVenta()) };
-		DefaultTableModel tabla = this.vtVentasEnViaje.getModelTableVentas();
-		tabla.addRow(fila);
 	}
 
 	private void agregoFila(DeliveryVentaDTO dv) {
