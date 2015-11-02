@@ -33,7 +33,6 @@ public class ThreadCocina extends Thread {
 			pos++;
 			if(pos >= this.vbar.getMaximum())
 				pos = this.vbar.getMinimum();
-			System.out.println(pos);
 		}
 	}
 }
