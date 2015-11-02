@@ -4,13 +4,14 @@ public class ObjDatosPizzeria {
 	private String direccion;
 	private String telefono;
 
-	private ObjDatosPizzeria(String direccion, String telefono) {
-		this.setDireccion(direccion);
-		this.setTelefono(telefono);
+	public ObjDatosPizzeria() {
+		this.setDireccion("Av. Siempreviva 159");
+		this.setTelefono("0303456");
 	}
 
-	public static ObjDatosPizzeria getDatos() {
-		return new ObjDatosPizzeria("Av. Siempreviva 159", "0303456");
+	public ObjDatosPizzeria(String direccion, String telefono) {
+		this.direccion = direccion;
+		this.telefono = telefono;
 	}
 
 	public String getTelefono() {

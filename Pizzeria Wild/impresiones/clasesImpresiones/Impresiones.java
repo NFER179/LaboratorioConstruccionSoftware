@@ -31,6 +31,7 @@ public class Impresiones {
 	private static PdfReader pdfTemplate;
 	private static FileOutputStream pdfOut;
 	private static PdfStamper stamper;
+	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
 
 	public static void main(String[] args) {
 		try {
@@ -130,7 +131,7 @@ public class Impresiones {
 		llenarStamperReporteDiario(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		// JNVR TO TEST imprimir();
+		imprimir();
 	}
 
 	private static void llenarStamperReporteDiario(ObjReporteDiario reporte,
@@ -167,6 +168,7 @@ public class Impresiones {
 		llenarStamperSolicitudMP(solicitud, numeroPagina, totalHojas);
 
 		closeAll();
+		imprimir();
 	}
 
 	private static void llenarStamperSolicitudMP(ObjSolicitudMP solicitud,
@@ -186,8 +188,6 @@ public class Impresiones {
 		stamper.getAcroFields()
 				.setField("txtIdComanda", solicitud.getId() + "");
 		stamper.getAcroFields().setField("txtIdTicket", solicitud.getId() + "");
-
-		ObjDatosPizzeria wild = ObjDatosPizzeria.getDatos();
 
 		stamper.getAcroFields().setField("txtTelefonoTicket",
 				wild.getTelefono());
@@ -296,8 +296,6 @@ public class Impresiones {
 		stamper.getAcroFields().setField("txtIdComanda", comanda.getId() + "");
 		stamper.getAcroFields().setField("txtIdTicket", comanda.getId() + "");
 
-		ObjDatosPizzeria wild = ObjDatosPizzeria.getDatos();
-
 		stamper.getAcroFields().setField("txtTelefonoTicket",
 				wild.getTelefono());
 		stamper.getAcroFields().setField("txtDireccionWild",
@@ -386,6 +384,7 @@ public class Impresiones {
 		llenarStamperItinerario(itinerario, numeroPagina, totalHojas);
 
 		closeAll();
+		imprimir();
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
