@@ -15,6 +15,7 @@ import dto.VentaDTO;
 import modelo.DeliveryModelo;
 import modelo.DeliveryVentaModelo;
 import modelo.VentaModelo;
+import utilidades.Msj;
 import utilidades.Str;
 import vista.VentasEnViajeVista;
 
@@ -131,18 +132,43 @@ public class ControladorVentasEnViaje implements ActionListener {
 	}
 
 	private void CargarTablaVentasSumarizando() {
-		// this.vtVentasEnViaje.getModelTableVentas().setRowCount(0);
-		// this.vtVentasEnViaje.getModelTableVentas().setColumnCount(0);
-		// this.vtVentasEnViaje.getModelTableVentas().setColumnIdentifiers(
-		// this.vtVentasEnViaje.getNombreColumnasVentas());
 		for (DeliveryVentaDTO dv : this.mdlDeliveryVenta.GetVentasPara(
 				this.fechadeliverySeleccionado, this.numPedidoSeleccionado)) {
-			Object[] fila = { dv.getFechaVenta(),
-					Integer.toString(dv.getNumVenta()) };
-			this.vtVentasEnViaje.getModelTableVentas().addRow(fila);
+			boolean existeFila = false;
+			DefaultTableModel tabla = this.vtVentasEnViaje
+					.getModelTableVentas();
+			int cantFilas = tabla.getRowCount();
+			for (int i = 0; i < cantFilas; i++) {
+				boolean esLaFila = tabla.getValueAt(i, 0).equals(
+						dv.getFechaVenta());
+				esLaFila &= tabla.getValueAt(i, 1).equals(
+						Integer.toString(dv.getNumVenta()));
+				if (esLaFila)
+					existeFila = true;
+			}
+			if (!existeFila)
+				agregoFila(dv);
+			else
+				sumarizoFila(dv);
+
 		}
 		this.vtVentasEnViaje.getTableVentas().setModel(
 				this.vtVentasEnViaje.getModelTableVentas());
+	}
+
+	private void sumarizoFila(DeliveryVentaDTO dv) {
+		// JNVR TODO
+		Object[] fila = { dv.getFechaVenta(),
+				Integer.toString(dv.getNumVenta()) };
+		DefaultTableModel tabla = this.vtVentasEnViaje.getModelTableVentas();
+		tabla.addRow(fila);
+	}
+
+	private void agregoFila(DeliveryVentaDTO dv) {
+		Object[] fila = { dv.getFechaVenta(),
+				Integer.toString(dv.getNumVenta()) };
+		DefaultTableModel tabla = this.vtVentasEnViaje.getModelTableVentas();
+		tabla.addRow(fila);
 	}
 
 	@Override
@@ -179,9 +205,9 @@ public class ControladorVentasEnViaje implements ActionListener {
 			this.VentaNoEntregada(this.mdlVenta.GetVenta(fecha, numVenta), obs);
 			this.CargarTablaVentas();
 		} else {
-			JOptionPane.showMessageDialog(null,
-					"Solo Puede Cancelar de a una Venta.",
-					"Error Seleccion Venta.", JOptionPane.ERROR_MESSAGE);
+			String titulo = "Error Seleccion Venta.";
+			String mensaje = "Solo Puede Cancelar de a una Venta.";
+			Msj.error(titulo, mensaje);
 		}
 	}
 
@@ -191,9 +217,9 @@ public class ControladorVentasEnViaje implements ActionListener {
 			this.VentasEntregados(ventas);
 			this.CargarTablaVentas();
 		} else {
-			JOptionPane.showMessageDialog(null,
-					"Debe Seleccionar al Menos una Venta",
-					"Error Seleccion Venta", JOptionPane.ERROR_MESSAGE);
+			String titulo = "Error Seleccion Venta.";
+			String mensaje = "Debe Seleccionar al Menos una Venta";
+			Msj.error(titulo, mensaje);
 		}
 	}
 

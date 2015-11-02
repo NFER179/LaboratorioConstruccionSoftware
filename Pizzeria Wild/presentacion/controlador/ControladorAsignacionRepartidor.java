@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JFrame;
 import clasesImpresiones.Impresiones;
@@ -189,17 +188,13 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	}
 
 	private ObjItinerario construirItinerario(int numDelivery) {
-		String[] arr = { "Motomel 110 / Patente ZJD-185",
-				"Motomel 110 / Patente DZJ-158",
-				"Motomel 110 / Patente ZJD-815" };
-		String[] arr1 = { "0303456", "0203456", "3030456" };
-		Random ran = new Random();
+		String descripcion = " ";
 		ObjDatosRepartidor repartidor = new ObjDatosRepartidor(
 				vtAsignacionRepartidores.getTxtNombrerepartidor().getText(),
-				arr[ran.nextInt(arr.length)], arr1[ran.nextInt(arr.length)]);
+				"datos del vehiculo", "numero de tel");
 		ObjItinerario itinerario = new ObjItinerario(
 				this.vtAsignacionRepartidores.getTxtFecha().getText(),
-				numDelivery, repartidor, " ");
+				numDelivery, repartidor, descripcion);
 		for (VentaDTO venta : this.lVentas) {
 			itinerario.addPunto(venta.getDireccion(),
 					venta.getObservacionDelivery(), venta.getNumVenta(),

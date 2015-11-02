@@ -7,58 +7,78 @@ import java.awt.event.ActionListener;
 public class Controlador implements ActionListener {
 
 	private Vista vista;
-//	private Log log;
+	// private Log log;
 	private ControladorVentasCocina ctrPedidosCocina;
-	
+
 	public Controlador(Vista vista) {
 		this.vista = vista;
+		addListeners();
+		this.ctrPedidosCocina = ControladorVentasCocina.GetInstancia();
+	}
+
+	private void addListeners() {
 		this.vista.getBtnPedidos().addActionListener(this);
 		this.vista.getBtnMateriasPrimas().addActionListener(this);
 		this.vista.getBtnCategorias().addActionListener(this);
 		this.vista.getBtnSolicitud().addActionListener(this);
 		this.vista.getBtnReportes().addActionListener(this);
-		
-		this.ctrPedidosCocina = ControladorVentasCocina.GetInstancia();
 	}
-	
+
 	public void Inicializar() {
 		this.ctrPedidosCocina.Inicializar();
-//		this.vista.Close();
+		// this.vista.Close();
 		this.vista.Open();
-//		this.log = new Log();
-//		this.log.Open();
+		// this.log = new Log();
+		// this.log.Open();
 	}
-	
+
 	public void Return() {
 		this.vista.Open();
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == this.vista.getBtnPedidos()) {
-			ControladorVenta cp = new ControladorVenta(this);
-			cp.Inicializar();
-			this.vista.Close();
+		Object source = arg0.getSource();
+		if (source == this.vista.getBtnPedidos()) {
+			accionPedidos();
+		} else if (source == this.vista.getBtnMateriasPrimas()) {
+			accionMateriaPrima();
+		} else if (source == this.vista.getBtnCategorias()) {
+			accionCategorias();
+		} else if (source == this.vista.getBtnSolicitud()) {
+			accionSolicitud();
+		} else if (source == this.vista.getBtnReportes()) {
+			accionReportes();
 		}
-		else if (arg0.getSource() == this.vista.getBtnMateriasPrimas()) {
-			ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
-			ctrMP.Inicializar();
-			this.vista.Close();
-		}
-		else if (arg0.getSource() == this.vista.getBtnCategorias()) {
-			ControladorCategoria ctrCategoria = new ControladorCategoria(this);
-			ctrCategoria.Inicializar();
-			this.vista.Close();
-		}
-		else if(arg0.getSource() == this.vista.getBtnSolicitud()) {
-			ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
-			ctrSolicitud.Inicializar();
-			this.vista.Close();
-		}
-		else if(arg0.getSource() == this.vista.getBtnReportes()) {
-			ControladorReporte ctrReporte = new ControladorReporte(this);
-			ctrReporte.Inicializar();
-			this.vista.Close();
-		}
+	}
+
+	private void accionPedidos() {
+		ControladorVenta cp = new ControladorVenta(this);
+		cp.Inicializar();
+		this.vista.Close();
+	}
+
+	private void accionMateriaPrima() {
+		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
+		ctrMP.Inicializar();
+		this.vista.Close();
+	}
+
+	private void accionCategorias() {
+		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
+		ctrCategoria.Inicializar();
+		this.vista.Close();
+	}
+
+	private void accionSolicitud() {
+		ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
+		ctrSolicitud.Inicializar();
+		this.vista.Close();
+	}
+
+	private void accionReportes() {
+		ControladorReporte ctrReporte = new ControladorReporte(this);
+		ctrReporte.Inicializar();
+		this.vista.Close();
 	}
 }

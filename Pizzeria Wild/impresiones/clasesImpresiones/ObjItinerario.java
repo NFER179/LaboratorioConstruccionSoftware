@@ -1,6 +1,5 @@
 package clasesImpresiones;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ObjItinerario extends ObjImprimible {
@@ -12,17 +11,16 @@ public class ObjItinerario extends ObjImprimible {
 	private String observacionGral;
 
 	public ObjItinerario(String fecha, int id,
-			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
-		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
-		this.puntos = new ArrayList<objPuntoItinerario>();
-		this.repartidor = pDatosRepartidor;
-	}
-
-	public ObjItinerario(String fecha, int id,
 			List<objPuntoItinerario> pPuntos,
 			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
 		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
 		this.puntos = pPuntos;
+		this.repartidor = pDatosRepartidor;
+	}
+
+	public ObjItinerario(String fecha, int id,
+			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
+		super(pDatosRepartidor.getNombre() + "_" + id, fecha, tipo, id, maxPag);
 		this.repartidor = pDatosRepartidor;
 	}
 

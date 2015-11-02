@@ -9,15 +9,11 @@ public class ObjSolicitudMP extends ObjImprimible {
 	private static final int maxPag = 20;
 	private static final String tipo = "template_solicitud_mp";
 	private ProveedorDTO proveedor;
+	private ObjDatosCliente cliente;
 	private ArrayList<MateriaPrimaDTO> materiasPrimas;
 
-	public ObjSolicitudMP(String nombreArchivo, String fecha, int id) {
-		super(nombreArchivo, fecha, tipo, id, maxPag);
-		this.materiasPrimas = new ArrayList<MateriaPrimaDTO>();
-	}
-
 	public ObjSolicitudMP(String nombreArchivo, String fecha, int id,
-			ProveedorDTO pProveedor, int pNumSolicitud,
+			ProveedorDTO pProveedor, ObjDatosCliente cliente,
 			ArrayList<MateriaPrimaDTO> pMateriasPrimas) {
 		super(nombreArchivo, fecha, tipo, id, maxPag);
 		this.proveedor = pProveedor;
@@ -47,6 +43,14 @@ public class ObjSolicitudMP extends ObjImprimible {
 
 	public void setProveedor(ProveedorDTO proveedor) {
 		this.proveedor = proveedor;
+	}
+
+	public ObjDatosCliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(ObjDatosCliente cliente) {
+		this.cliente = cliente;
 	}
 
 }
