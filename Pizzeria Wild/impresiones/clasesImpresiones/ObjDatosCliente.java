@@ -35,5 +35,4 @@ public class ObjDatosCliente {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-
 }
