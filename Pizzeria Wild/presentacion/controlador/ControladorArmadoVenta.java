@@ -3,6 +3,7 @@ package controlador;
 import utilidades.Fecha;
 import utilidades.Msj;
 import utilidades.Str;
+import validacion.ValidacionArmadoPedido;
 import validacionesCampos.Valida;
 import vista.ArmadoVentaVista;
 
@@ -28,6 +29,7 @@ public class ControladorArmadoVenta implements ActionListener {
 	private SaborModelo mdlSabor;
 	private VentaModelo mdlPedido;
 	private ControladorVentasCocina ctrPedidoCocina;
+	private ValidacionArmadoPedido vldArmado;
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
 			JFrame Frame) {
@@ -44,6 +46,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.mdlSabor = new SaborModelo();
 		this.mdlPedido = new VentaModelo();
 		this.ctrPedidoCocina = ControladorVentasCocina.GetInstancia();
+		this.vldArmado = new ValidacionArmadoPedido(this.vtArmadoPedido);
 	}
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
@@ -64,6 +67,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.mdlSabor = new SaborModelo();
 		this.mdlPedido = new VentaModelo();
 		this.ctrPedidoCocina = ControladorVentasCocina.GetInstancia();
+		this.vldArmado = new ValidacionArmadoPedido(this.vtArmadoPedido);
 	}
 
 	public void Inicializar() {
@@ -76,17 +80,32 @@ public class ControladorArmadoVenta implements ActionListener {
 			this.vtArmadoPedido.Open();
 		}
 	}
+	
+	public void InicializarInformacion() {
+		this.CargarPedido();
+		this.AbrirModoInformacion();
+		this.vtArmadoPedido.Open();
+	}
+
+	private void AbrirModoInformacion() {
+		this.vtArmadoPedido.getTxtCliente().setEnabled(false);
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnBusquedaCliente());
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnAgregar());
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnQuitar());
+		this.vtArmadoPedido.getTxtPrecio().setEnabled(false);
+		this.vtArmadoPedido.getChckbxDelivery().setEnabled(false);
+		this.vtArmadoPedido.getTxtDireccion().setEnabled(false);
+		this.vtArmadoPedido.getTxtrObservacionDelivery().setEnabled(false);
+		this.vtArmadoPedido.getTxtTel().setEnabled(false);
+		this.vtArmadoPedido.getTxtrObservacion().setEnabled(false);
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnArmar());
+		
+		this.vtArmadoPedido.getBtnCancelar().setText("Volver");
+	}
 
 	private void CargarFecha() {
-		Calendar c = Calendar.getInstance();
-		String hora = "";
-
-		hora = hora + c.get(Calendar.HOUR);
-		hora = hora + ":" + c.get(Calendar.MINUTE);
-		hora = hora + ":" + c.get(Calendar.SECOND);
-
 		this.vtArmadoPedido.getTxtFecha().setText(Fecha.CurrentDate());
-		this.vtArmadoPedido.getTxtHora().setText(hora);
+		this.vtArmadoPedido.getTxtHora().setText(Fecha.CurrentTime());
 	}
 
 	private void CargarPedido() {
@@ -276,28 +295,21 @@ public class ControladorArmadoVenta implements ActionListener {
 		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
 			String fecha = this.vtArmadoPedido.getTxtFecha().getText().trim();
 			int numPedido = this.mdlPedido.GetNuevoNumeroVenta();
-			this.vtArmadoPedido.getTxtNumVenta().setText(
-					Integer.toString(numPedido));
+			this.vtArmadoPedido.getTxtNumVenta().setText(Integer.toString(numPedido));
+			
 			VentaDTO NewPedido = new VentaDTO(fecha, numPedido,
 					this.vtArmadoPedido.getTxtCliente().getText(),
 					this.vtArmadoPedido.getTxtDireccion().getText(),
 					this.vtArmadoPedido.getTxtTel().getText(),
-					Integer.parseInt(this.QuitarMoneda(this.vtArmadoPedido
-							.getTxtPrecio().getText().trim())),
+					Integer.parseInt(this.QuitarMoneda(this.vtArmadoPedido.getTxtPrecio().getText().trim())),
 					this.vtArmadoPedido.getTxtHora().getText(), "Pendiente",
 					this.vtArmadoPedido.getTxtrObservacion().getText(),
-					CheckDelivery(), this.vtArmadoPedido
-							.getTxtrObservacionDelivery().getText());
+					CheckDelivery(), this.vtArmadoPedido.getTxtrObservacionDelivery().getText());
 
-			for (int i = 0; i < this.vtArmadoPedido.getModelProductos()
-					.getRowCount(); i++) {
-				NewPedido.agregarProducto(
-						this.vtArmadoPedido.getTblProductos().getValueAt(i, 0)
-								.toString(),
-						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1)
-								.toString(),
-						Integer.parseInt(this.vtArmadoPedido.getTblProductos()
-								.getValueAt(i, 2).toString()));
+			for (int i = 0; i < this.vtArmadoPedido.getModelProductos().getRowCount(); i++) {
+				NewPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(),
+						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1).toString(),
+						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
 			}
 			this.mdlPedido.AgregarVenta(NewPedido);
 		} else {
@@ -314,15 +326,10 @@ public class ControladorArmadoVenta implements ActionListener {
 					this.vtArmadoPedido.getTxtrObservacionDelivery().getText()
 							.trim());
 
-			for (int i = 0; i < this.vtArmadoPedido.getModelProductos()
-					.getRowCount(); i++) {
-				OldPedido.agregarProducto(
-						this.vtArmadoPedido.getTblProductos().getValueAt(i, 0)
-								.toString(),
-						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1)
-								.toString(),
-						Integer.parseInt(this.vtArmadoPedido.getTblProductos()
-								.getValueAt(i, 2).toString()));
+			for (int i = 0; i < this.vtArmadoPedido.getModelProductos().getRowCount(); i++) {
+				OldPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(),
+						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1).toString(),
+						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
 			}
 			this.mdlPedido.ModificarVenta(OldPedido);
 		}
@@ -362,18 +369,7 @@ public class ControladorArmadoVenta implements ActionListener {
 			}
 			/* Verifica si la venta es a domicilio. */
 		} else if (arg0.getSource() == this.vtArmadoPedido.getChckbxDelivery()) {
-			if (this.vtArmadoPedido.getChckbxDelivery().isSelected()) {
-				this.vtArmadoPedido.getTxtrObservacionDelivery().setEditable(
-						true);
-				this.vtArmadoPedido.getTxtrObservacionDelivery().setEnabled(
-						true);
-			} else {
-				this.vtArmadoPedido.getTxtrObservacionDelivery().setText("");
-				this.vtArmadoPedido.getTxtrObservacionDelivery().setEditable(
-						false);
-				this.vtArmadoPedido.getTxtrObservacionDelivery().setEnabled(
-						false);
-			}
+			this.PresionarCheck();
 			/* Boton para terminar con el armado de la venta. */
 		} else if (arg0.getSource() == this.vtArmadoPedido.getBtnArmar()) {
 			// if (!vtArmadoPedido.getTxtCliente().getText().equals("")
@@ -392,22 +388,39 @@ public class ControladorArmadoVenta implements ActionListener {
 			// JOptionPane.showMessageDialog(null,
 			// "Ingrese un cliente nuevo o seleccione uno existente");
 			// }
-			accionArmar();
+			if(this.vldArmado.ArmadoValido()){
+				accionArmar();
+			}
 			/* Boton para salir del armado de la venta, sin crearla. */
 		} else if (arg0.getSource() == this.vtArmadoPedido.getBtnCancelar()) {
 			this.vtArmadoPedido.Close();
 		}
 	}
 
-	private void accionArmar() {
-		ArmadoVentaVista vista = this.vtArmadoPedido;
-		String textoCliente = Str.trim(vista.getTxtCliente().getText());
-		boolean textoClienteVacio = Valida.esNullOVacio(textoCliente);
-		if (!textoClienteVacio) {
-			revisoDireccion();
+	private void PresionarCheck() {
+		if (this.vtArmadoPedido.getChckbxDelivery().isSelected()) {
+			this.vtArmadoPedido.getTxtrObservacionDelivery().setEditable(
+					true);
+			this.vtArmadoPedido.getTxtrObservacionDelivery().setEnabled(
+					true);
 		} else {
-			Msj.advertencia("Atencion", "Debe ingresar el nombre del cliente");
+			this.vtArmadoPedido.getTxtrObservacionDelivery().setText("");
+			this.vtArmadoPedido.getTxtrObservacionDelivery().setEditable(
+					false);
+			this.vtArmadoPedido.getTxtrObservacionDelivery().setEnabled(
+					false);
 		}
+	}
+
+	private void accionArmar() {
+//		ArmadoVentaVista vista = this.vtArmadoPedido;
+//		String textoCliente = Str.trim(vista.getTxtCliente().getText());
+//		boolean textoClienteVacio = Valida.esNullOVacio(textoCliente);
+//		if (!textoClienteVacio) {
+			revisoDireccion();
+//		} else {
+//			Msj.advertencia("Atencion", "Debe ingresar el nombre del cliente");
+//		}
 	}
 
 	private void revisoDireccion() {
@@ -423,14 +436,14 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private void revisoProductos() {
-		ArmadoVentaVista vista = this.vtArmadoPedido;
-		DefaultTableModel tabla = vista.getModelProductos();
-		boolean seleccionoProducto = tabla.getRowCount() > 0;
-		if (seleccionoProducto) {
+//		ArmadoVentaVista vista = this.vtArmadoPedido;
+//		DefaultTableModel tabla = vista.getModelProductos();
+//		boolean seleccionoProducto = tabla.getRowCount() > 0;
+//		if (seleccionoProducto) {
 			armarPedido();
-		} else {
-			Msj.advertencia("Atencion", "Debe Ingresar al Menos un Producto.");
-		}
+//		} else {
+//			Msj.advertencia("Atencion", "Debe Ingresar al Menos un Producto.");
+//		}
 	}
 
 	private void armarPedido() {

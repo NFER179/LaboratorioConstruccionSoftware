@@ -11,7 +11,7 @@ public interface DeliveryDAO {
 	public int GetNumNuevoDelivery(String Fecha);
 	
 	/* Ingresa un nuevo pedido de delivery. */
-	public void InsertDelivery(String Fecha, int NumDelivery, int Repartidor, String Hora);
+	public void InsertDelivery(String Fecha, int NumDelivery, int Repartidor, String Hora, String Observaciones);
 
 	/* Inserta las ventas en un determinado delivery */
 	public void InsertVentaIn(String Fecha, int NumDelivery, List<VentaDTO> Venta);

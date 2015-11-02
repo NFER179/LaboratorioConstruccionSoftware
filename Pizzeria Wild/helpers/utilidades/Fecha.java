@@ -31,4 +31,25 @@ public class Fecha {
 		
 		return Date;
 	}
+
+	public static String CurrentTime() {
+		Calendar c = Calendar.getInstance();
+		String time = "";
+
+		String hora = Integer.toString(c.get(Calendar.HOUR));
+		if(hora.length() == 1)
+			hora = "0" + hora;
+		
+		String min = Integer.toString(c.get(Calendar.MINUTE));
+		if(min.length() == 1)
+			min = "0" + min;
+		
+		String seg = Integer.toString(c.get(Calendar.SECOND));
+		if(seg.length() == 1)
+			seg = "0" + seg;
+		
+		time = hora + ":" + min + ":" + seg;
+		
+		return time;
+	}
 }

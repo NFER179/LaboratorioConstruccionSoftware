@@ -19,8 +19,8 @@ public class DeliveryModelo {
 		return this.delivery.GetNumNuevoDelivery(Fecha);
 	}
 	
-	public void IngresarNuevodelivery(String Fecha, int NumDelivery, int Repartidor, String Hora) {
-		this.delivery.InsertDelivery(Fecha, NumDelivery, Repartidor, Hora);
+	public void IngresarNuevodelivery(String Fecha, int NumDelivery, int Repartidor, String Hora, String Observaciones) {
+		this.delivery.InsertDelivery(Fecha, NumDelivery, Repartidor, Hora, Observaciones);
 	}
 
 	public void AgregarVentas(String Fecha, int NumDelivery, List<VentaDTO> Ventas) {

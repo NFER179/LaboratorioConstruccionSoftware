@@ -97,10 +97,10 @@ public class VentaImp implements VentaDAO{
 	}
 
 	@Override
-	public int UltimoNumVenta() {
+	public int UltimoNumVenta(String Fecha) {
 		
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "select max(num_venta) from venta";
+		String sqlString = "select max(num_venta) from venta where effdt = '" + Fecha + "'";
 		ResultSet rs = null;
 		int NumVenta = 0;
 		
@@ -525,5 +525,40 @@ public class VentaImp implements VentaDAO{
 		}
 		
 		return perdidas;
+	}
+
+	@Override
+	public List<VentaDTO> GetAllVentas() {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from venta";
+		ResultSet rs = null;
+		List<VentaDTO> ventas = new ArrayList<VentaDTO>();
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String Fecha = rs.getString("effdt");
+				int NumVenta = rs.getInt("num_venta");
+				String Cliente = rs.getString("cliente");
+				String Direccion = rs.getString("direccion");
+				String Tel = rs.getString("tel_cliente");
+				int Precio = rs.getInt("precio");
+				String Hora = rs.getString("hora");
+				String Estado = rs.getString("estado");
+				String Observacion = rs.getString("Observaciones");
+				boolean Delivery = this.toBoolean(rs.getString("delivery"));
+				String ObservacionDelivery = rs.getString("obs_delivery");
+				
+				ventas.add(new VentaDTO(Fecha, NumVenta, Cliente, Direccion, Tel, Precio, Hora, Estado, Observacion, Delivery, ObservacionDelivery));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		return ventas;
 	}
 }

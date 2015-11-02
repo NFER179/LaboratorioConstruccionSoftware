@@ -45,12 +45,13 @@ public class DeliveryImp implements DeliveryDAO {
 	}
 
 	@Override
-	public void InsertDelivery(String Fecha, int NumDelivery, int Repartidor, String Hora) {
+	public void InsertDelivery(String Fecha, int NumDelivery, int Repartidor, String Hora, String Observaciones) {
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "insert into delivery value('" + Fecha + "', " + 
 														NumDelivery + ", " + 
 														Repartidor + ", '" +
-														Hora + "')";
+														Hora + "', '" +
+														Observaciones + "')";
 		
 		try {
 			stm.executeUpdate(sqlString);
@@ -105,7 +106,8 @@ public class DeliveryImp implements DeliveryDAO {
 				Deliverys.add(new DeliveryDTO(rs.getString("effdt"), 
 								rs.getInt("num_delivery"), 
 								rs.getInt("empleado_id"), 
-								rs.getString("hora")));
+								rs.getString("hora"),
+								rs.getString("obs")));
 			}
 		}
 		catch(Exception e) {

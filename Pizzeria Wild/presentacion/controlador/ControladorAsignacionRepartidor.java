@@ -166,8 +166,9 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 					.getTxtRepartidor().getText().trim());
 			String hora = this.vtAsignacionRepartidores.getTxtHora().getText()
 					.trim();
+			String obs = this.vtAsignacionRepartidores.getTxtObservacion().getText().trim();
 			this.mdlDelivery.IngresarNuevodelivery(fecha, numDelivery,
-					repartidorId, hora);
+					repartidorId, hora, obs);
 
 			this.mdlDelivery.AgregarVentas(fecha, numDelivery, this.lVentas);
 

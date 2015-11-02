@@ -361,4 +361,56 @@ public class CocinaVista extends JFrame {
 	public JTextPane getTxtPane6() {
 		return txtPane6;
 	}
+
+	public JScrollPane getScrollPane1() {
+		return scrollPane1;
+	}
+
+	public JScrollPane getScrollPaneTxt1() {
+		return scrollPaneTxt1;
+	}
+
+	public JScrollPane getScrollPane2() {
+		return scrollPane2;
+	}
+
+	public JScrollPane getScrollPaneTxt2() {
+		return scrollPaneTxt2;
+	}
+
+	public JScrollPane getScrollPane3() {
+		return scrollPane3;
+	}
+
+	public JScrollPane getScrollPaneTxt3() {
+		return scrollPaneTxt3;
+	}
+
+	public JScrollPane getScrollPane4() {
+		return scrollPane4;
+	}
+
+	public JScrollPane getScrollPaneTxt4() {
+		return scrollPaneTxt4;
+	}
+
+	public JScrollPane getScrollPane5() {
+		return scrollPane5;
+	}
+
+	public JScrollPane getScrollPaneTxt5() {
+		return scrollPaneTxt5;
+	}
+
+	public JScrollPane getScrollPane6() {
+		return scrollPane6;
+	}
+
+	public JScrollPane getScrollPaneTxt6() {
+		return scrollPaneTxt6;
+	}
+
+	public JScrollPane getScrollPanePedidosPendientes() {
+		return scrollPanePedidosPendientes;
+	}
 }

@@ -12,7 +12,7 @@ public interface VentaDAO {
 	public List<VentaDTO> VentasPendientesCocina();
 	
 	/* Ultimo Num de Pedido */
-	public int UltimoNumVenta();
+	public int UltimoNumVenta(String Fecha);
 	
 	/* Agregar un nuevo pedido */
 	public void CrearNuevaVenta(VentaDTO Venta);
@@ -55,4 +55,7 @@ public interface VentaDAO {
 
 	/* Total de Perdidas por Ventas Canceladas */
 	public int GetPerdidas(String FromDate, String ToDate);
+
+	/* Todos los pedidos. */
+	public List<VentaDTO> GetAllVentas();
 }

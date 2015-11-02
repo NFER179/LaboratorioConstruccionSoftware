@@ -22,7 +22,9 @@ public class ProductoEnVentaImp implements ProductoEnVentaDAO {
 	public List<ProductoEnVentaDTO> GetProductosPara(String Fecha, int Venta) {
 		
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "select * from venta_producto where effdt = '" + Fecha + "' and num_venta = " + Venta;
+		String sqlString = "select vp.* from venta_producto vp where " +
+							"vp.producto in (select p.product_id from producto p where p.cocina = 'Y') " +
+							"and vp.effdt = '" + Fecha + "' and vp.num_venta = " + Venta;
 		ResultSet rs = null;
 		List<ProductoEnVentaDTO> productos = new ArrayList<ProductoEnVentaDTO>();
 		
@@ -55,6 +57,7 @@ public class ProductoEnVentaImp implements ProductoEnVentaDAO {
 							"where p.effdt = vp.effdt " +
 							"and p.num_venta = vp.num_venta " +
 							"and p.estado = 'Pendiente' " +
+							"and vp.producto in (select p1.product_id from producto p1 where p1.cocina = 'Y') " +
 							"group by vp.producto, vp.sabor";
 		ResultSet rs = null;
 		List<ProductoEnVentaDTO> productos = new ArrayList<ProductoEnVentaDTO>();

@@ -1,6 +1,7 @@
 package vista;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -65,7 +66,7 @@ public class ArmadoVentaVista extends JDialog {
 		
 		this.txtNumVenta = new JTextField();
 		this.txtNumVenta.setEditable(false);
-		this.txtNumVenta.setEditable(false);
+		this.txtNumVenta.setEnabled(false);
 		this.txtNumVenta.setBounds(103, 5, 86, 20);
 		this.contentPanel.add(txtNumVenta);
 		this.txtNumVenta.setColumns(10);
@@ -87,7 +88,7 @@ public class ArmadoVentaVista extends JDialog {
 		
 		this.txtHora = new JTextField();
 		this.txtHora.setEditable(false);
-		this.txtHora.setEditable(false);
+		this.txtHora.setEnabled(false);
 		this.txtHora.setBounds(457, 5, 75, 20);
 		this.contentPanel.add(txtHora);
 		this.txtHora.setColumns(10);
@@ -128,6 +129,7 @@ public class ArmadoVentaVista extends JDialog {
 		
 		this.txtPrecio = new JTextField();
 		this.txtPrecio.setEditable(false);
+		this.txtPrecio.setEnabled(false);
 		this.txtPrecio.setBounds(103, 233, 86, 20);
 		this.contentPanel.add(txtPrecio);
 		this.txtPrecio.setColumns(10);
@@ -195,6 +197,10 @@ public class ArmadoVentaVista extends JDialog {
 	
 	public void Close() {
 		this.setVisible(false);
+	}
+	
+	public void Quitar(Component Componente) {
+		this.contentPanel.remove(Componente);
 	}
 
 	public JTextField getTxtNumVenta() {

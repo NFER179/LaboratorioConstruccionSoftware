@@ -37,9 +37,9 @@ public class VentaDTO {
 		boolean noEstaenPedido = true;
 		
 		for (ProductoEnVentaDTO pp:this.productos){
-			if (pp.getProducto().equals(Producto)){	
-			pp.setCantidad(Cantidad);
-			noEstaenPedido = false;
+			if (pp.getProducto().equals(Producto) & pp.getSabor().equals(Sabor)){	
+				pp.setCantidad(Cantidad);
+				noEstaenPedido = false;
 			}
 		}
 		

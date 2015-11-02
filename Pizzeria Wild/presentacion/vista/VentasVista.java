@@ -22,14 +22,15 @@ public class VentasVista extends JFrame {
 	private DefaultTableModel modelVentas;
 	private String[] nombreColumnas = { "Fecha", "Nº Venta", "Cliente",
 			"Valor a Cobrar", "Estado", "A Domicilio" };
-	private JButton btnNuevaVenta;
-	private JButton btnCancelarVenta;
-	private JButton btnVentaEntregada;
 	private JButton btnEnviar;
 	private JButton btnEnViaje;
 	private JButton btnEnMostrador;
 	private JButton btnInformacin;
 	private JButton btnModificar;
+	private JButton btnTodasLasVentas;
+	private JButton btnNuevaVenta;
+	private JButton btnCancelarVenta;
+	private JButton btnVentaEntregada;
 	private JButton btnVolverInicio;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
@@ -95,19 +96,6 @@ public class VentasVista extends JFrame {
 		this.tableVentas = new WTable(this.modelVentas);
 		scrollPane.setViewportView(tableVentas);
 
-		this.btnNuevaVenta = new JButton("Nueva Venta");
-		this.btnNuevaVenta.setBounds(10, 326, 140, 23);
-
-		this.contentPane.add(btnNuevaVenta);
-
-		this.btnCancelarVenta = new JButton("Cancelar Venta");
-		this.btnCancelarVenta.setBounds(160, 326, 140, 23);
-		this.contentPane.add(btnCancelarVenta);
-
-		this.btnVentaEntregada = new JButton("Venta Entregada");
-		this.btnVentaEntregada.setBounds(310, 326, 140, 23);
-		this.contentPane.add(btnVentaEntregada);
-
 		this.btnEnviar = new JButton("Enviar");
 		this.btnEnviar.setBounds(546, 8, 140, 23);
 		this.contentPane.add(btnEnviar);
@@ -127,6 +115,22 @@ public class VentasVista extends JFrame {
 		this.btnModificar = new JButton("Modificar");
 		this.btnModificar.setBounds(546, 144, 140, 23);
 		this.contentPane.add(btnModificar);
+		
+		btnTodasLasVentas = new JButton("Todas las Ventas");
+		btnTodasLasVentas.setBounds(546, 178, 140, 23);
+		contentPane.add(btnTodasLasVentas);
+		
+		this.btnNuevaVenta = new JButton("Nueva Venta");
+		this.btnNuevaVenta.setBounds(10, 326, 140, 23);
+		this.contentPane.add(btnNuevaVenta);
+		
+		this.btnCancelarVenta = new JButton("Cancelar Venta");
+		this.btnCancelarVenta.setBounds(160, 326, 140, 23);
+		this.contentPane.add(btnCancelarVenta);
+		
+		this.btnVentaEntregada = new JButton("Venta Entregada");
+		this.btnVentaEntregada.setBounds(310, 326, 140, 23);
+		this.contentPane.add(btnVentaEntregada);
 
 		this.btnVolverInicio = new JButton("Volver Inicio");
 		this.btnVolverInicio.setBounds(460, 326, 140, 23);
@@ -216,4 +220,10 @@ public class VentasVista extends JFrame {
 	public JButton GetBtnVolverInicio() {
 		return this.btnVolverInicio;
 	}
+
+	public JButton getBtnTodasLasVentas() {
+		return btnTodasLasVentas;
+	}
+	
+	
 }

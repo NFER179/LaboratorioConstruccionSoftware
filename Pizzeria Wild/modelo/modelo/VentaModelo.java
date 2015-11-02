@@ -35,7 +35,7 @@ public class VentaModelo {
 	}
 
 	public int GetNuevoNumeroVenta() {
-		return this.venta.UltimoNumVenta() + 1;
+		return this.venta.UltimoNumVenta(Fecha.CurrentDate()) + 1;
 	}
 
 	public void AgregarVenta(VentaDTO NuevaVenta) {
@@ -151,5 +151,9 @@ public class VentaModelo {
 		} catch (Exception e) {
 			System.out.println("MAcanas");
 		}
+	}
+
+	public List<VentaDTO> ObtenerTodasLasVentas() {
+		return this.venta.GetAllVentas();
 	}
 }

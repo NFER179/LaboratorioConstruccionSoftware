@@ -47,7 +47,7 @@ create table cliente(id_cliente integer, nombres char(50), apellido char(30), di
 					primary key (id_cliente));
 					
 /* Para poder seleccionar diferentes productos y diferentes variedades de gustos. */					
-create table producto(product_id char(4), descripcion char(100) unique,
+create table producto(product_id char(4), descripcion char(100) unique, mixta char(1), cocina char(1),
 					primary key (product_id));
 					
 create table sabor_producto(product_id char(4), sabor char(100), precio integer,
@@ -75,7 +75,7 @@ create table repartidor(empleado_id integer, nombre char(30), apellido char(30),
 					primary key(id_empleado, num_pedido),
 					foreign key (id_empleado) references repartidor(id_empleado),
 					foreign key (num_pedido) references pedido(num_pedido));*/
-create table delivery(effdt date, num_delivery integer, empleado_id integer, hora time,
+create table delivery(effdt date, num_delivery integer, empleado_id integer, hora time, obs long,
 					primary key(effdt, num_delivery));
 					
 /*create table delivery_repartidor(effdt date, num_delivery integer, empleado_id integer,

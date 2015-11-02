@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import modelo.VentaModelo;
 import utilidades.Msj;
@@ -24,6 +25,7 @@ public class ControladorVenta implements ActionListener {
 	private ValidacionVenta vldVenta;
 	private static int columnaFecha = 0;
 	private static int columnaNVenta = 1;
+	private boolean ventasDelDia;
 
 	public ControladorVenta(Controlador controlador) {
 		this.vtVenta = new VentasVista();
@@ -34,6 +36,7 @@ public class ControladorVenta implements ActionListener {
 		this.ventasEnTabla = null;
 		this.vldVenta = new ValidacionVenta(this.vtVenta);
 		this.ctrVentasCocina = ControladorVentasCocina.GetInstancia();
+		this.ventasDelDia = true;
 	}
 
 	public void Inicializar() {
@@ -45,7 +48,9 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.GetBtnEnviar().addActionListener(this);
 		this.vtVenta.GetBtnEnViaje().addActionListener(this);
 		this.vtVenta.GetBtnModificar().addActionListener(this);
+		this.vtVenta.GetBtnInformacin().addActionListener(this);
 		this.vtVenta.GetBtnEnMostrador().addActionListener(this);
+		this.vtVenta.getBtnTodasLasVentas().addActionListener(this);
 		this.vtVenta.GetBtnNuevaVenta().addActionListener(this);
 		this.vtVenta.GetBtnCancelarVenta().addActionListener(this);
 		this.vtVenta.GetBtnVentaEntregada().addActionListener(this);
@@ -77,7 +82,7 @@ public class ControladorVenta implements ActionListener {
 		this.ventasEnTabla = this.mdlVenta.GetVentaSinFacturar();
 		for (VentaDTO p : this.ventasEnTabla) {
 			Object[] fila = { p.getFecha(), Integer.toString(p.getNumVenta()),
-					p.getCliente(), Integer.toString(p.getPrecio()) + " $",
+					p.getCliente(), "$ " + Integer.toString(p.getPrecio()),
 					p.getEstado(), this.Delivery(p.isDelivery()) };
 			this.vtVenta.GetModelVenta().addRow(fila);
 		}
@@ -196,29 +201,55 @@ public class ControladorVenta implements ActionListener {
 				ventasDelivery = false;
 		return ventasDelivery;
 	}
+	
+	private void InformacionProducto() {
+		JTable tabla = this.vtVenta.GetTable();
+		
+		String Fecha = tabla.getValueAt(tabla.getSelectedRow(), columnaFecha).toString().trim();
+		String StrNumPedido = tabla.getValueAt(tabla.getSelectedRow(), columnaNVenta).toString().trim();
+		int NumPedido = Integer.parseInt(StrNumPedido);
+		ControladorArmadoVenta ctr = new ControladorArmadoVenta(this, this.vtVenta, Fecha, NumPedido);
+		
+		ctr.InicializarInformacion();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		VentasVista vista = this.vtVenta;
 		Object source = arg0.getSource();
 		if (source == vista.GetBtnEnviar()) {
-			accionEnviar();
+			if(this.ViendoVentasDelDia()){
+				accionEnviar();
+			}
 		} else if (source == vista.GetBtnEnViaje()) {
-			accionEnViaje();
+			if(this.ViendoVentasDelDia()) {
+				accionEnViaje();
+			}
 		} else if (source == vista.GetBtnEnMostrador()) {
-			accionEnMostrador();
+			if(this.ViendoVentasDelDia()) {
+				accionEnMostrador();
+			}
 		} else if (source == vista.GetBtnModificar()) {
-			if(this.vldVenta.ModificarValido()) {
+			if(this.ViendoVentasDelDia() && this.vldVenta.ModificarValido()) {
 				accionModificar();
 			}
-		} else if (source == vista.GetBtnNuevaVenta()) {
-			accionNuevaVenta();
+		} 
+		else if(source == vista.GetBtnInformacin()) {
+			if(this.vldVenta.InformarValido()) {
+				this.InformacionProducto();
+			}
+		}else if(source == vista.getBtnTodasLasVentas()){
+			this.CambiarTabla();
+		}else if (source == vista.GetBtnNuevaVenta()) {
+			if(this.ViendoVentasDelDia()) {
+				accionNuevaVenta();	
+			}
 		} else if (source == vista.GetBtnCancelarVenta()) {
-			if(this.vldVenta.CancelarValido()) {
+			if(this.ViendoVentasDelDia() && this.vldVenta.CancelarValido()) {
 				accionCancelarVenta();
 			}
 		} else if (source == vista.GetBtnVentaEntregada()) {
-			if(this.vldVenta.EntregarValido()) {
+			if(this.ViendoVentasDelDia() && this.vldVenta.EntregarValido()) {
 				accionVentaEntregada();
 			}
 		} else if (source == vista.GetBtnVolverInicio()) {
@@ -263,6 +294,51 @@ public class ControladorVenta implements ActionListener {
 //
 //	private void accionReporteDiario() {
 //	}
+
+	private void CambiarTabla() {
+		if(this.ventasDelDia) {
+			this.ventasDelDia = false;
+			this.LlenarTablaTodosLosPedidos();
+			this.PantallaVentasDia(false);
+		}
+		else{
+			this.ventasDelDia = true;
+			this.llenarTabla();
+			this.PantallaVentasDia(true);
+		}
+	}
+
+	private void PantallaVentasDia(boolean b) {
+		if(b)
+			this.vtVenta.getBtnTodasLasVentas().setText("Todas las Ventas");
+		else
+			this.vtVenta.getBtnTodasLasVentas().setText("Ventas del Dia");
+	}
+	
+	private boolean ViendoVentasDelDia(){
+		if(this.ventasDelDia) {
+			return true;
+		}
+		else{
+			String titulo = "Error De Ventas";
+			String mensaje = "Debe Encontrarse en las Ventas Del Dia para Realizar Ciertas Acciones.";
+			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+	}
+
+	private void LlenarTablaTodosLosPedidos() {
+		this.vtVenta.GetModelVenta().setRowCount(0);
+		this.vtVenta.GetModelVenta().setColumnCount(0);
+		this.vtVenta.GetModelVenta().setColumnIdentifiers(this.vtVenta.GetNombreColumnas());
+		for(VentaDTO v:this.mdlVenta.ObtenerTodasLasVentas()) {
+			Object[] fila = {v.getFecha(), Integer.toString(v.getNumVenta()),
+					v.getCliente(), "$ " + Integer.toString(v.getPrecio()) + " $",
+					v.getEstado(), this.Delivery(v.isDelivery())};
+			this.vtVenta.GetModelVenta().addRow(fila);
+		}
+		this.vtVenta.GetTable().setModel(this.vtVenta.GetModelVenta());
+	}
 
 	private void accionVolverInicio() {
 		this.controlador.Return();

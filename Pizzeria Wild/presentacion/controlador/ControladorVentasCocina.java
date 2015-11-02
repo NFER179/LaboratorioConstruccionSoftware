@@ -4,12 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JScrollBar;
+
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
 
 import modelo.ProductoModelo;
 import modelo.VentaModelo;
 
+import thread.ThreadCocina;
 import vista.CocinaVista;
 
 public class ControladorVentasCocina implements ActionListener {
@@ -37,9 +41,10 @@ public class ControladorVentasCocina implements ActionListener {
 	
 	public void Inicializar() {
 		this.CargarTablas();
+		this.LanzarHilos();
 		this.vtCocina.Open();
 	}
-	
+
 	private void CargarTablas() {
 		this.ventas = this.mdlVenta.GetVentasPendientesCocina();
 		/* Carga de la primera venta, si existe. */
@@ -112,7 +117,7 @@ public class ControladorVentasCocina implements ActionListener {
 		}
 		this.vtCocina.getTblPedido3().getColumnModel().getColumn(0).setPreferredWidth(200);
 		this.vtCocina.getTblPedido3().getColumnModel().getColumn(1).setPreferredWidth(10);
-		
+
 		/* Carga del cuarto pedido, si existe. */
 		this.vtCocina.getModelTable4().setRowCount(0);
 		this.vtCocina.getModelTable4().setColumnCount(0);
@@ -193,6 +198,41 @@ public class ControladorVentasCocina implements ActionListener {
 	
 	public void RecargarTablas() {
 		this.CargarTablas();
+	}
+	
+	private void LanzarHilos() {	
+		ThreadCocina thrTabla1 = new ThreadCocina(this.vtCocina.getScrollPane1().getVerticalScrollBar());
+		thrTabla1.start();
+		ThreadCocina thrTxtArea1 = new ThreadCocina(this.vtCocina.getScrollPaneTxt1().getVerticalScrollBar());
+		thrTxtArea1.start();
+		
+		ThreadCocina thrTabla2 = new ThreadCocina(this.vtCocina.getScrollPane2().getVerticalScrollBar());
+		thrTabla2.start();
+		ThreadCocina thrTxtArea2 = new ThreadCocina(this.vtCocina.getScrollPaneTxt2().getVerticalScrollBar());
+		thrTxtArea2.start();
+		
+		ThreadCocina thrTabla3 = new ThreadCocina(this.vtCocina.getScrollPane3().getVerticalScrollBar());
+		thrTabla3.start();
+		ThreadCocina thrTxtArea3 = new ThreadCocina(this.vtCocina.getScrollPaneTxt3().getVerticalScrollBar());
+		thrTxtArea3.start();
+		
+		ThreadCocina thrTabla4 = new ThreadCocina(this.vtCocina.getScrollPane4().getVerticalScrollBar());
+		thrTabla4.start();
+		ThreadCocina thrTxtArea4 = new ThreadCocina(this.vtCocina.getScrollPaneTxt4().getVerticalScrollBar());
+		thrTxtArea4.start();
+		
+		ThreadCocina thrTabla5 = new ThreadCocina(this.vtCocina.getScrollPane5().getVerticalScrollBar());
+		thrTabla5.start();
+		ThreadCocina thrTxtArea5 = new ThreadCocina(this.vtCocina.getScrollPaneTxt5().getVerticalScrollBar());
+		thrTxtArea5.start();
+		
+		ThreadCocina thrTabla6 = new ThreadCocina(this.vtCocina.getScrollPane6().getVerticalScrollBar());
+		thrTabla6.start();
+		ThreadCocina thrTxtArea6 = new ThreadCocina(this.vtCocina.getScrollPaneTxt6().getVerticalScrollBar());
+		thrTxtArea6.start();
+		
+		ThreadCocina thrFaltante = new ThreadCocina(this.vtCocina.getScrollPanePedidosPendientes().getVerticalScrollBar());
+		thrFaltante.start();
 	}
 	
 	@Override

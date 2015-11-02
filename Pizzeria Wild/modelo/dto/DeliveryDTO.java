@@ -6,12 +6,14 @@ public class DeliveryDTO {
 	int numDelivery;
 	int repartidor;
 	String hora;
+	String observacion;
 	
-	public DeliveryDTO(String Fecha, int numDelivery, int Repartidor, String Hora) {
+	public DeliveryDTO(String Fecha, int numDelivery, int Repartidor, String Hora, String Observacion) {
 		this.fecha = Fecha;
 		this.numDelivery = numDelivery;
 		this.repartidor = Repartidor;
 		this.hora = Hora;
+		this.observacion = Observacion;
 	}
 
 	public String getFecha() {
@@ -44,5 +46,13 @@ public class DeliveryDTO {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getObservacion() {
+		return observacion;
+	}
+
+	public void setObservacion(String observacion) {
+		this.observacion = observacion;
 	}
 }

@@ -101,4 +101,18 @@ public class ValidacionVenta {
 		ret = this.mdlVenta.GetVenta(fecha, numVenta);
 		return ret;
 	}
+
+	public boolean InformarValido() {
+		boolean Informar = true;
+		JTable tabla = this.vtVenta.GetTable();
+		
+		if(tabla.getSelectedRowCount() != 1) {
+			String titulo = "Informacion de Seleccion";
+			String mensaje = "Debe Seleccionar una Venta Para Ver su Informacion";
+			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
+			Informar = false;
+		}
+		
+		return Informar;
+	}
 }

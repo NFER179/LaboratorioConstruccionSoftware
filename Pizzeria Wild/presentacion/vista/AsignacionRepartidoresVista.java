@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class AsignacionRepartidoresVista extends JDialog {
@@ -31,6 +33,7 @@ public class AsignacionRepartidoresVista extends JDialog {
 	private DefaultTableModel ModelTable;
 	private String[] NombreColumnas = {"Fecha Pedido","Pedido","Direccion","Observacion Delivery"};
 	private JTable table;
+	private JTextArea txtObservacion;
 	private JButton btnAsignar;
 	private JButton btnCancelar;
 	
@@ -39,7 +42,7 @@ public class AsignacionRepartidoresVista extends JDialog {
 		super(Frame, true);
 		
 		this.setTitle("Armar Delivery");
-		this.setBounds(100, 100, 472, 393);
+		this.setBounds(100, 100, 472, 436);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -107,7 +110,7 @@ public class AsignacionRepartidoresVista extends JDialog {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setEnabled(false);
-		scrollPane.setBounds(10, 122, 444, 193);
+		scrollPane.setBounds(10, 122, 444, 118);
 		this.contentPanel.add(scrollPane);
 		
 		this.ModelTable = new WDefaultTableModel(null, this.NombreColumnas);
@@ -116,12 +119,25 @@ public class AsignacionRepartidoresVista extends JDialog {
 		table.getColumnModel().getColumn(1).setPreferredWidth(76);
 		scrollPane.setViewportView(this.table);
 		
+		JLabel lblObservacionDelivery = new JLabel("Observacion Delivery: ");
+		lblObservacionDelivery.setBounds(10, 251, 142, 14);
+		contentPanel.add(lblObservacionDelivery);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 276, 444, 81);
+		contentPanel.add(scrollPane_1);
+		
+		txtObservacion = new JTextArea();
+		txtObservacion.setLineWrap(true);
+		txtObservacion.setWrapStyleWord(true);
+		scrollPane_1.setViewportView(txtObservacion);
+		
 		this.btnAsignar = new JButton("Asignar");
-		this.btnAsignar.setBounds(266, 324, 89, 23);
+		this.btnAsignar.setBounds(266, 368, 89, 23);
 		this.contentPanel.add(this.btnAsignar);
 		
 		this.btnCancelar = new JButton("Cancelar");
-		this.btnCancelar.setBounds(365, 324, 89, 23);
+		this.btnCancelar.setBounds(365, 368, 89, 23);
 		this.contentPanel.add(this.btnCancelar);
 	}
 	
@@ -175,6 +191,10 @@ public class AsignacionRepartidoresVista extends JDialog {
 
 	public JTable getTable() {
 		return table;
+	}
+	
+	public JTextArea getTxtObservacion() {
+		return txtObservacion;
 	}
 
 	public JButton getBtnAsignar() {

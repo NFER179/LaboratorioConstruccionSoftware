@@ -36,9 +36,10 @@ insert into cliente values
 (000000005,	'Mauro',	'Abella',		'Corrientes 5000',	'1125794638');
 
 insert into producto values
-('PIZZ','Pizza'),
-('EMPA','Empanada'),
-('FAIN','Faina');
+('PIZZ','Pizza','Y','Y'),
+('EMPA','Empanada','N','Y'),
+('FAIN','Faina','N','Y'),
+('BEBI','Bebida','N','N');
 
 insert into sabor_producto values
 ('PIZZ','Muzzarella'						,100),
@@ -46,7 +47,9 @@ insert into sabor_producto values
 ('EMPA','Horno Carnes Picada'				,7),
 ('EMPA','Horno Carne Cortada a Cuchillo'	,8),
 ('EMPA','Frita Carne Cortada a Cuchillo'	,8),
-('FAIN','Apio'								,7);
+('FAIN','Apio'								,7),
+('BEBI','Coca-Cola 1,5 Lts'					,16),
+('BEBI','Coca-Cola 600 cc'					,11);
 
 insert into venta values
 ('2015-07-21', 1, "nicolas", "bolivia 2577", "011-15-66149730", 120, "22:27:36", "Pendiente", "ninguna.", "N", '');
