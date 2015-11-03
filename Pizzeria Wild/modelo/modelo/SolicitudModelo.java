@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.Calendar;
 import java.util.List;
- 
 
 import mail.MailWildPizzeria;
 
@@ -82,8 +81,7 @@ public class SolicitudModelo {
 		try {
 			Sender.mandarMail();
 		} catch (Exception e) {
-			Msj.advertencia("Atencion",
-					"No se pudo enviar el mail\n" + e.toString());
+			Msj.advertencia("Atencion", "No se pudo enviar el mail");
 		}
 	}
 

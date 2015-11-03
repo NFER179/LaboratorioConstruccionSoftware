@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.swing.JTable;
 
+import clasesImpresiones.Impresiones;
+import clasesImpresiones.ObjSolicitudMP;
+
 import dto.MateriaPrimaSolicitudDTO;
 import dto.ProveedorDTO;
 import dto.SolicitudDTO;
@@ -30,18 +33,23 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	public ControladorCreacionSolicitud(ControladorSolicitud Ctr,
 			SolicitudCompraVista vista) {
 		this.vtCreacionSolicitud = new CreacionSolicitudVista(vista);
-		this.vtCreacionSolicitud.getBtnBuscar().addActionListener(this);
-		this.vtCreacionSolicitud.getBtnAgregar().addActionListener(this);
-		this.vtCreacionSolicitud.getBtnQuitar().addActionListener(this);
-		this.vtCreacionSolicitud.getBtnEnviar().addActionListener(this);
-		this.vtCreacionSolicitud.getBtnGuardar().addActionListener(this);
-		this.vtCreacionSolicitud.getBtnVolver().addActionListener(this);
+		addListeners();
 
 		this.ctrSolicitud = Ctr;
 		this.vldCreacion = new ValidacionCreacionSolicitud(
 				this.vtCreacionSolicitud);
 		this.mdlSolicitud = new SolicitudModelo();
 		this.mdlMateriaPrima = new MateriaPrimaModelo();
+	}
+
+	private void addListeners() {
+		this.vtCreacionSolicitud.getBtnBuscar().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnAgregar().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnQuitar().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnEnviar().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnGuardar().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnVolver().addActionListener(this);
+		this.vtCreacionSolicitud.getBtnImprimir().addActionListener(this);
 	}
 
 	public void Inicializar() {
@@ -234,31 +242,87 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtCreacionSolicitud.getBtnBuscar()) {
-			ControladorSeleccionProveedor ctrSP = new ControladorSeleccionProveedor(
-					this, this.vtCreacionSolicitud);
-			ctrSP.Inicializar();
+			accionBuscar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnAgregar()) {
-			if (this.vldCreacion.SeleccionMateriasPrimas()) {
-				ControladorSeleccionMateriaPrimaSolicitud ctrSMPS = new ControladorSeleccionMateriaPrimaSolicitud(
-						this, this.vtCreacionSolicitud);
-				ctrSMPS.Inicializar();
-			}
+			accionAgregar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnQuitar()) {
-			if (this.vldCreacion.QuitarValido()) {
-				this.Quitar();
-			}
+			accionQuitar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnEnviar()) {
-			this.EnviarSolicitud();
-			this.ctrSolicitud.CargarTabla();
-			this.vtCreacionSolicitud.Close();
-		}
-
-		else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnGuardar()) {
-			this.GuardarPedido();
-			this.ctrSolicitud.CargarTabla();
-			this.vtCreacionSolicitud.Close();
+			accionEnviar();
+		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnGuardar()) {
+			accionGuardar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnVolver()) {
 			this.vtCreacionSolicitud.Close();
+		} else if (arg0.getSource() == this.vtCreacionSolicitud
+				.getBtnImprimir()) {
+			accionImprimir();
 		}
+	}
+
+	private void accionImprimir() {
+		ObjSolicitudMP solicitud = buildSolicitudMP();
+		try {
+			Impresiones.ImprimirSolicitudMP(solicitud);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private ObjSolicitudMP buildSolicitudMP() {
+		ProveedorDTO proveedor = buildProveedor();
+		String fecha = vtCreacionSolicitud.getTxtFecha().getText();
+		// NICOF TODO
+		int id = 0;// Integer.parseInt(vtCreacionSolicitud.getTxtNumpedido()
+					// .getText());
+		ObjSolicitudMP solicitud = new ObjSolicitudMP(fecha, id, proveedor);
+		for (MateriaPrimaSolicitudDTO mp : GetMateriasPrimas()) {
+			solicitud.addMateriaPrima(mp.getMateriaPrima(), mp.getCantidad()
+					+ "");
+		}
+		return solicitud;
+	}
+
+	// NICOF TODO
+	/**
+	 * Debe retornar el proveedor
+	 * */
+	private ProveedorDTO buildProveedor() {
+		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
+		int numPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(fecha);
+		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(fecha,
+				numPedido + "");
+		return proveedor;
+	}
+
+	private void accionBuscar() {
+		ControladorSeleccionProveedor ctrSP = new ControladorSeleccionProveedor(
+				this, this.vtCreacionSolicitud);
+		ctrSP.Inicializar();
+	}
+
+	private void accionAgregar() {
+		if (this.vldCreacion.SeleccionMateriasPrimas()) {
+			ControladorSeleccionMateriaPrimaSolicitud ctrSMPS = new ControladorSeleccionMateriaPrimaSolicitud(
+					this, this.vtCreacionSolicitud);
+			ctrSMPS.Inicializar();
+		}
+	}
+
+	private void accionQuitar() {
+		if (this.vldCreacion.QuitarValido()) {
+			this.Quitar();
+		}
+	}
+
+	private void accionEnviar() {
+		this.EnviarSolicitud();
+		this.ctrSolicitud.CargarTabla();
+		this.vtCreacionSolicitud.Close();
+	}
+
+	private void accionGuardar() {
+		this.GuardarPedido();
+		this.ctrSolicitud.CargarTabla();
+		this.vtCreacionSolicitud.Close();
 	}
 }

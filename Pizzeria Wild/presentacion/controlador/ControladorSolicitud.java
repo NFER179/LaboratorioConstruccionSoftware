@@ -20,37 +20,37 @@ public class ControladorSolicitud implements ActionListener {
 	private ValidacionSolicitud vldSolicitud;
 
 	public ControladorSolicitud(Controlador Controlador) {
-		this.vtSolicitudCompra = new SolicitudCompraVista();
-		this.vtSolicitudCompra.getBtnNuevaSolicitud().addActionListener(this);
-		this.vtSolicitudCompra.getBtnModificar().addActionListener(this);
-		this.vtSolicitudCompra.getBtnVolver().addActionListener(this);
+		this.setVtSolicitudCompra(new SolicitudCompraVista());
+		this.getVtSolicitudCompra().getBtnNuevaSolicitud().addActionListener(this);
+		this.getVtSolicitudCompra().getBtnModificar().addActionListener(this);
+		this.getVtSolicitudCompra().getBtnVolver().addActionListener(this);
 
 		this.ctr = Controlador;
 		this.mdlSolicitud = new SolicitudModelo();
-		this.vldSolicitud = new ValidacionSolicitud(this.vtSolicitudCompra);
+		this.vldSolicitud = new ValidacionSolicitud(this.getVtSolicitudCompra());
 	}
 
 	public void Inicializar() {
 		this.CargarTabla();
-		this.vtSolicitudCompra.Open();
+		this.getVtSolicitudCompra().Open();
 	}
 
 	public void CargarTabla() {
-		this.vtSolicitudCompra.getModelTable().setRowCount(0);
-		this.vtSolicitudCompra.getModelTable().setColumnCount(0);
-		this.vtSolicitudCompra.getModelTable().setColumnIdentifiers(this.vtSolicitudCompra.getNombreColumnas());
+		this.getVtSolicitudCompra().getModelTable().setRowCount(0);
+		this.getVtSolicitudCompra().getModelTable().setColumnCount(0);
+		this.getVtSolicitudCompra().getModelTable().setColumnIdentifiers(this.getVtSolicitudCompra().getNombreColumnas());
 		
 		for(SolicitudDTO soli:this.mdlSolicitud.ObtenerSolicitudes()) {
 			Object[] fila = {soli.getEffdt(), Integer.toString(soli.getNumPedido()), soli.GetEstado()};
-			this.vtSolicitudCompra.getModelTable().addRow(fila);
+			this.getVtSolicitudCompra().getModelTable().addRow(fila);
 		}
-		this.vtSolicitudCompra.getTable().setModel(this.vtSolicitudCompra.getModelTable());
+		this.getVtSolicitudCompra().getTable().setModel(this.getVtSolicitudCompra().getModelTable());
 	}
 
 	private void modificar() {
-		ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
+		ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.getVtSolicitudCompra());
 		
-		JTable table = this.vtSolicitudCompra.getTable();
+		JTable table = this.getVtSolicitudCompra().getTable();
 		int filaSeleccionada = table.getSelectedRow();
 		String FechaSolicitud = table.getValueAt(filaSeleccionada, 0).toString().trim();
 		String NumeroSolicitud = table.getValueAt(filaSeleccionada, 1).toString().trim();
@@ -60,16 +60,24 @@ public class ControladorSolicitud implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == this.vtSolicitudCompra.getBtnNuevaSolicitud()) {
-			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
+		if (arg0.getSource() == this.getVtSolicitudCompra().getBtnNuevaSolicitud()) {
+			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.getVtSolicitudCompra());
 			ctrCreacionSolicitud.Inicializar();
-		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnModificar()) {
+		} else if (arg0.getSource() == this.getVtSolicitudCompra().getBtnModificar()) {
 			if(this.vldSolicitud.ModificarValido()) {
 				this.modificar();
 			}
-		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnVolver()) {
+		} else if (arg0.getSource() == this.getVtSolicitudCompra().getBtnVolver()) {
 			this.ctr.Return();
-			this.vtSolicitudCompra.Close();
+			this.getVtSolicitudCompra().Close();
 		}
+	}
+
+	public SolicitudCompraVista getVtSolicitudCompra() {
+		return vtSolicitudCompra;
+	}
+
+	public void setVtSolicitudCompra(SolicitudCompraVista vtSolicitudCompra) {
+		this.vtSolicitudCompra = vtSolicitudCompra;
 	}
 }

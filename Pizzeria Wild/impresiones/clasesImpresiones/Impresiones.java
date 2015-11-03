@@ -87,25 +87,25 @@ public class Impresiones {
 	// }
 	//
 	// private static void itinerarioTest() throws Exception {
-	//		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
-//				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
-//				"lleva cambio ");
-//		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
-//		itinerario.addPunto("la direccion", "la observacion", 2, 100);
-//		itinerario.addPunto("la direccion", "la observacion", 3, 454);
-//		itinerario.addPunto("la direccion", "la observacion", 4, 11);
-//		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
-//		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
-//		itinerario.addPunto("la direccion", "la observacion", 7, 11);
-//		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
-//		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-//		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
-//		itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
-//		itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
-//		itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
-//
-//		ImprimirItinerario(itinerario);
-//	}
+	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
+	// new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
+	// "lleva cambio ");
+	// itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
+	// itinerario.addPunto("la direccion", "la observacion", 2, 100);
+	// itinerario.addPunto("la direccion", "la observacion", 3, 454);
+	// itinerario.addPunto("la direccion", "la observacion", 4, 11);
+	// itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 7, 11);
+	// itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
+	// itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
+	// itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
+	//
+	// ImprimirItinerario(itinerario);
+	// }
 
 	/*
 	 * private static void ticketComandaTest() throws Exception {
@@ -225,10 +225,11 @@ public class Impresiones {
 
 	private static void llenarCabeceraSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
-		 stamper.getAcroFields().setField("txtFecha", solicitud.getFecha());
+		stamper.getAcroFields().setField("txtFecha", solicitud.getFecha());
 		stamper.getAcroFields().setField("txtId", solicitud.getId() + "");
 
-		stamper.getAcroFields().setField("txtTelefonoPizzeria", wild.getTelefono());
+		stamper.getAcroFields().setField("txtTelefonoPizzeria",
+				wild.getTelefono());
 		stamper.getAcroFields().setField("txtDireccionWild",
 				wild.getDireccion());
 		ProveedorDTO proveedor = solicitud.getProveedor();

@@ -25,10 +25,6 @@ public class ObjSolicitudMP extends ObjImprimible {
 		this.materiasPrimas = new ArrayList<MateriaPrimaDTO>();
 	}
 
-	public void addMP(String nombre, String unidad) {
-		this.materiasPrimas.add(new MateriaPrimaDTO(nombre, unidad));
-	}
-
 	public ArrayList<MateriaPrimaDTO> getMateriasPrimas() {
 		return materiasPrimas;
 	}
