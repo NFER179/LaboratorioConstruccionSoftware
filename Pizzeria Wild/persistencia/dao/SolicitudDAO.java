@@ -32,4 +32,7 @@ public interface SolicitudDAO {
 
 	/* Obtienelas mateias primas para un pedido */
 	public List<MateriaPrimaSolicitudDTO> GetMaterasPrimasPara(String fecha, String numPedido);
+
+	/* Recepcionar Solicitudes. */
+	public void Recepcionar(String fecha, String numSolicitud, int Costo);
 }

@@ -197,10 +197,51 @@ public class ControladorVentasCocina implements ActionListener {
 	}
 	
 	public void RecargarTablas() {
+		this.ClearAll();
 		this.CargarTablas();
 		LanzarHilos();
 	}
 	
+	private void ClearAll() {
+		this.ClearAllTables();
+		
+		this.vtCocina.getTxtPane1().setText("");
+		this.vtCocina.getTxtPane2().setText("");
+		this.vtCocina.getTxtPane3().setText("");
+		this.vtCocina.getTxtPane4().setText("");
+		this.vtCocina.getTxtPane5().setText("");
+		this.vtCocina.getTxtPane6().setText("");
+	}
+	
+	private void ClearAllTables() {
+		this.vtCocina.getModelTable1().setRowCount(0);
+		this.vtCocina.getModelTable1().setColumnCount(0);
+		this.vtCocina.getModelTable1().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTable2().setRowCount(0);
+		this.vtCocina.getModelTable2().setColumnCount(0);
+		this.vtCocina.getModelTable2().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTable3().setRowCount(0);
+		this.vtCocina.getModelTable3().setColumnCount(0);
+		this.vtCocina.getModelTable3().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTable4().setRowCount(0);
+		this.vtCocina.getModelTable4().setColumnCount(0);
+		this.vtCocina.getModelTable4().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTable5().setRowCount(0);
+		this.vtCocina.getModelTable5().setColumnCount(0);
+		this.vtCocina.getModelTable5().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTable6().setRowCount(0);
+		this.vtCocina.getModelTable6().setColumnCount(0);
+		this.vtCocina.getModelTable6().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+		
+		this.vtCocina.getModelTablePendientes().setRowCount(0);
+		this.vtCocina.getModelTablePendientes().setColumnCount(0);
+		this.vtCocina.getModelTablePendientes().setColumnIdentifiers(this.vtCocina.getNombreColumnasPedidos());
+	}
 	private void LanzarHilos() {	
 		ThreadCocina thrTabla1 = new ThreadCocina(this.vtCocina.getScrollPane1().getVerticalScrollBar());
 		thrTabla1.start();

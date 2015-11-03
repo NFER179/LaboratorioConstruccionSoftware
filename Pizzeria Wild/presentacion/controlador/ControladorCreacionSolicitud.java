@@ -18,6 +18,7 @@ import dto.SolicitudDTO;
 import modelo.MateriaPrimaModelo;
 import modelo.SolicitudModelo;
 
+import utilidades.Fecha;
 import validacion.ValidacionCreacionSolicitud;
 import vista.CreacionSolicitudVista;
 import vista.SolicitudCompraVista;
@@ -54,27 +55,50 @@ public class ControladorCreacionSolicitud implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarFecha();
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnImprimir());
 		this.vtCreacionSolicitud.Open();
 	}
 
-	public void InicializarModificacion(String FechaSolicitud,
-			String NumeroSolicitud) {
+	public void InicializarModificacion(String FechaSolicitud, String NumeroSolicitud) {
 		this.vtCreacionSolicitud.getTxtFecha().setText(FechaSolicitud);
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumeroSolicitud);
 
-		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(
-				FechaSolicitud, NumeroSolicitud);
+		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(FechaSolicitud, NumeroSolicitud);
 
-		this.vtCreacionSolicitud.getTxtIdproveedor().setText(
-				proveedor.getProveedorId());
-		this.vtCreacionSolicitud.getTxtDescrproveedor().setText(
-				proveedor.getNombre());
+		this.vtCreacionSolicitud.getTxtIdproveedor().setText(proveedor.getProveedorId());
+		this.vtCreacionSolicitud.getTxtDescrproveedor().setText(proveedor.getNombre());
 
 		this.CargarTabla();
+		
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnImprimir());
 
 		this.vtCreacionSolicitud.Open();
 	}
 
+	public void InicializarInformacionPedido(String FechaSolicitud, String NumeroSolicitud, boolean Enviado) {
+		this.vtCreacionSolicitud.getTxtFecha().setText(FechaSolicitud);
+		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumeroSolicitud);
+
+		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(FechaSolicitud, NumeroSolicitud);
+
+		this.vtCreacionSolicitud.getTxtIdproveedor().setText(proveedor.getProveedorId());
+		this.vtCreacionSolicitud.getTxtDescrproveedor().setText(proveedor.getNombre());
+
+		this.CargarTabla();
+		
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnBuscar());
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnAgregar());
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnQuitar());
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnEnviar());
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnGuardar());
+		
+		if(!Enviado) {
+			this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnImprimir());
+		}
+		
+		this.vtCreacionSolicitud.Open();
+	}
+	
 	private void CargarTabla() {
 		this.vtCreacionSolicitud.getModelTable().setRowCount(0);
 		this.vtCreacionSolicitud.getModelTable().setColumnCount(0);
@@ -98,21 +122,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	}
 
 	private void CargarFecha() {
-		Calendar c = Calendar.getInstance();
-		String fecha = Integer.toString(c.get(Calendar.YEAR));
-
-		String mes = Integer.toString(c.get(Calendar.MONTH));
-		if (mes.length() == 1)
-			mes = "0" + mes;
-		fecha = fecha + "-" + mes;
-
-		String dia = Integer.toString(c.get(Calendar.DATE));
-		if (dia.length() == 1)
-			dia = "0" + dia;
-
-		fecha = fecha + "-" + dia;
-
-		this.vtCreacionSolicitud.getTxtFecha().setText(fecha);
+		this.vtCreacionSolicitud.getTxtFecha().setText(Fecha.CurrentDate());
 	}
 
 	public String ObtenerProveedor() {
@@ -190,14 +200,16 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		String FechaEnvio = FechaCreacion;
 		int referenciaNumeroPedido = NumPedido;
 
-		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, true,
-				FechaEnvio, referenciaNumeroPedido);
+		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, "Enviado",
+				FechaEnvio, referenciaNumeroPedido, 0);
 
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
 				.getText().trim();
 
 		this.mdlSolicitud.EnviarSolicitud(sol, proveedor,
 				this.GetMateriasPrimas());
+		
+		this.vtCreacionSolicitud.getContentPane().add(this.vtCreacionSolicitud.getBtnImprimir());
 	}
 
 	private List<MateriaPrimaSolicitudDTO> GetMateriasPrimas() {
@@ -229,8 +241,8 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		String FechaEnvio = FechaCreacion;
 		int referenciaNumeroPedido = NumPedido;
 
-		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, false,
-				FechaEnvio, referenciaNumeroPedido);
+		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, "Guardado",
+				FechaEnvio, referenciaNumeroPedido, 0);
 
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
 				.getText().trim();
@@ -253,8 +265,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 			accionGuardar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnVolver()) {
 			this.vtCreacionSolicitud.Close();
-		} else if (arg0.getSource() == this.vtCreacionSolicitud
-				.getBtnImprimir()) {
+		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnImprimir()) {
 			accionImprimir();
 		}
 	}
@@ -270,10 +281,9 @@ public class ControladorCreacionSolicitud implements ActionListener {
 
 	private ObjSolicitudMP buildSolicitudMP() {
 		ProveedorDTO proveedor = buildProveedor();
-		String fecha = vtCreacionSolicitud.getTxtFecha().getText();
+		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
 		// NICOF TODO
-		int id = 0;// Integer.parseInt(vtCreacionSolicitud.getTxtNumpedido()
-					// .getText());
+		int id = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
 		ObjSolicitudMP solicitud = new ObjSolicitudMP(fecha, id, proveedor);
 		for (MateriaPrimaSolicitudDTO mp : GetMateriasPrimas()) {
 			solicitud.addMateriaPrima(mp.getMateriaPrima(), mp.getCantidad()
@@ -288,9 +298,10 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	 * */
 	private ProveedorDTO buildProveedor() {
 		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
-		int numPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(fecha);
+//		int numPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(fecha);
+		String numPedido = this.vtCreacionSolicitud.getTxtNumpedido().getText().trim();
 		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(fecha,
-				numPedido + "");
+				numPedido);
 		return proveedor;
 	}
 

@@ -4,28 +4,24 @@ public class SolicitudDTO {
 
 	private String effdt;
 	private int numPedido;
-	private boolean enviado;
+	private String estado;
 	private String fecha_envio;
 	private int referenciaNumPedido;
+	private int costo;
 	
-	public SolicitudDTO(String Fecha, int NumPedido, boolean Enviado, String FechaEnvio, int ReferenciaNumeroPedido){
+	public SolicitudDTO(String Fecha, int NumPedido, String Estado, String FechaEnvio, int ReferenciaNumeroPedido, int Costo){
 		this.effdt = Fecha;
 		this.numPedido = NumPedido;
-		this.enviado = Enviado;
+		this.estado = Estado;
 		this.fecha_envio = FechaEnvio;
 		this.referenciaNumPedido = ReferenciaNumeroPedido;
+		this.costo = Costo;
 	}
 	
 	public static boolean StringToBoolean(String arg0) {
 		if(arg0.equals("Y"))
 			return true;
 		return false;
-	}
-	
-	public String GetEstado() {
-		if (this.enviado)
-			return "Enviado";
-		return "Guardado";
 	}
 
 	public String getEffdt() {
@@ -44,25 +40,12 @@ public class SolicitudDTO {
 		this.numPedido = numPedido;
 	}
 
-	public boolean isEnviado() {
-		return enviado;
+	public String getEstado() {
+		return estado;
 	}
 
-	public void setEnviado(boolean enviado) {
-		this.enviado = enviado;
-	}
-	
-	public String GetYesNo() {
-		if (this.enviado)
-			return "Y";
-		return "N";
-	}
-	
-	public void setEnviado(String arg0) {
-		if (arg0.equals("Y"))
-			this.enviado = true;
-		else
-			this.enviado = false;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	public String getFecha_envio() {
@@ -79,6 +62,14 @@ public class SolicitudDTO {
 
 	public void setReferenciaNumPedido(int referenciaNumPedido) {
 		this.referenciaNumPedido = referenciaNumPedido;
+	}
+
+	public int getCosto() {
+		return costo;
+	}
+
+	public void setCosto(int costo) {
+		this.costo = costo;
 	}
 	
 }

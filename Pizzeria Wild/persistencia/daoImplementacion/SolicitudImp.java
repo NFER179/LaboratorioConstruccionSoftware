@@ -24,8 +24,8 @@ public class SolicitudImp implements SolicitudDAO {
 		
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "select p.* from pedido p " +
-							"where p.effdt = curdate() " +
-							"or p.enviado = 'N'";
+							"where (p.effdt = curdate() and p.estado = 'Enviado') " +
+							"or p.estado = 'Guardado'";
 		ResultSet rs = null;
 		List<SolicitudDTO> solicitudes = new ArrayList<SolicitudDTO>();
 		
@@ -35,11 +35,12 @@ public class SolicitudImp implements SolicitudDAO {
 			while(rs.next()) {
 				String fechaPedido = rs.getString("effdt");
 				int numPedido = Integer.parseInt(rs.getString("num_pedido"));
-				boolean enviado = SolicitudDTO.StringToBoolean(rs.getString("enviado"));
+				String enviado = (rs.getString("estado"));
 				String fecha_envio = rs.getString("fecha_envio");
 				int refNumPedido = rs.getInt("ref_num_pedido");
+				int costo = rs.getInt("costo");
 				
-				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio, refNumPedido));
+				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio, refNumPedido, costo));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -81,9 +82,10 @@ public class SolicitudImp implements SolicitudDAO {
 		Statement stm = this.conector.GetStatement();
 		String sqlStringPedido = "insert into pedido value('" + Solicitud.getEffdt() + "', " +
 															Solicitud.getNumPedido() + ", '" +
-															"N', '" +
+															Solicitud.getEstado() + "', '" +
 															Solicitud.getFecha_envio() + "', " +
-															Solicitud.getReferenciaNumPedido() + ")";
+															Solicitud.getReferenciaNumPedido() + ", " +
+															Solicitud.getCosto() + ")";
 		String sqlStringPedidoProveedor = "insert into pedido_proveedor value('" + Solicitud.getEffdt() + "'," +
 															Solicitud.getNumPedido() + " , '" +
 															Proveedor + "')";
@@ -158,7 +160,7 @@ public class SolicitudImp implements SolicitudDAO {
 	public void Enviar(SolicitudDTO Solicitud) {
 		
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "update pedido set enviado = 'Y' " +
+		String sqlString = "update pedido set estado = 'Enviado' " +
 							"where effdt = '" + Solicitud.getEffdt() + "' " +
 							"and num_pedido = " + Solicitud.getNumPedido();
 		
@@ -230,5 +232,23 @@ public class SolicitudImp implements SolicitudDAO {
 		}
 		
 		return solicitudes;
+	}
+
+	
+	@Override
+	public void Recepcionar(String Fecha, String NumSolicitud, int Costo) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update pedido set estado = 'Recibido', costo = " + Costo + " " +
+							"where effdt = '" + Fecha + "' " +
+							"and num_pedido = '" + NumSolicitud + "'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
 	}
 }

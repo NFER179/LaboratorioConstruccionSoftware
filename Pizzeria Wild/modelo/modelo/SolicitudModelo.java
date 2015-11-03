@@ -97,8 +97,8 @@ public class SolicitudModelo {
 
 	private SolicitudDTO SolicitudReferenteA(SolicitudDTO arg0) {
 		return new SolicitudDTO(arg0.getFecha_envio(),
-				arg0.getReferenciaNumPedido(), arg0.isEnviado(),
-				arg0.getFecha_envio(), arg0.getReferenciaNumPedido());
+				arg0.getReferenciaNumPedido(), arg0.getEstado(),
+				arg0.getFecha_envio(), arg0.getReferenciaNumPedido(), arg0.getCosto());
 	}
 
 	public ProveedorDTO ObtenerProveedor(String FechaSolicitud,
@@ -109,5 +109,9 @@ public class SolicitudModelo {
 	public List<MateriaPrimaSolicitudDTO> GetMateriasPrimas(String Fecha,
 			String NumPedido) {
 		return this.solicitud.GetMaterasPrimasPara(Fecha, NumPedido);
+	}
+
+	public void RecepcionarSolicitud(String Fecha, String NumSolicitud, int Costo) {
+		this.solicitud.Recepcionar(Fecha, NumSolicitud, Costo);
 	}
 }
