@@ -22,6 +22,7 @@ import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
 import dto.MateriaPrimaDTO;
+import dto.ProveedorDTO;
 
 public class Impresiones {
 
@@ -33,35 +34,78 @@ public class Impresiones {
 	private static PdfStamper stamper;
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
 
-	public static void main(String[] args) {
-		try {
-			itinerarioTest();
-		} catch (Exception e) {
-			System.out.println("MACANAS");
-			System.out.println(e.toString());
-		}
-	}
-
-	private static void itinerarioTest() throws Exception {
-		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
-				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
-				"lleva cambio ");
-		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
-		itinerario.addPunto("la direccion", "la observacion", 2, 100);
-		itinerario.addPunto("la direccion", "la observacion", 3, 454);
-		itinerario.addPunto("la direccion", "la observacion", 4, 11);
-		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
-		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
-		itinerario.addPunto("la direccion", "la observacion", 7, 11);
-		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
-		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
-		itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
-		itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
-		itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
-
-		ImprimirItinerario(itinerario);
-	}
+	// public static void main(String[] args) {
+	// try {
+	// solicitudMPTest();
+	// } catch (Exception e) {
+	// System.out.println("MACANAS");
+	// System.out.println(e.toString());
+	// }
+	// }
+	//
+	// private static void solicitudMPTest() throws Exception {
+	// ProveedorDTO proveedor = new ProveedorDTO("IDPROVEEDOR", "NOmbre",
+	// "1234", "micho@gmail.com");
+	// ObjSolicitudMP solicitud = new ObjSolicitudMP("12-12-12", 22, proveedor);
+	// solicitud.addMateriaPrima("LECHE", "Unidad1");
+	// solicitud.addMateriaPrima("LECHE", "Unidad2");
+	// solicitud.addMateriaPrima("LECHE", "Unidad3");
+	// solicitud.addMateriaPrima("LECHE", "Unidad4");
+	// solicitud.addMateriaPrima("LECHE", "Unidad5");
+	// solicitud.addMateriaPrima("LECHE", "Unidad6");
+	// solicitud.addMateriaPrima("LECHE", "Unidad7");
+	// solicitud.addMateriaPrima("LECHE", "Unidad8");
+	// solicitud.addMateriaPrima("LECHE", "Unidad9");
+	// solicitud.addMateriaPrima("LECHE", "Unidad10");
+	// solicitud.addMateriaPrima("LECHE", "Unidad11");
+	// solicitud.addMateriaPrima("LECHE", "Unidad12");
+	// solicitud.addMateriaPrima("LECHE", "Unidad13");
+	// solicitud.addMateriaPrima("LECHE", "Unidad14");
+	// solicitud.addMateriaPrima("LECHE", "Unidad15");
+	// solicitud.addMateriaPrima("LECHE", "Unidad16");
+	// solicitud.addMateriaPrima("LECHE", "Unidad17");
+	// solicitud.addMateriaPrima("LECHE", "Unidad18");
+	// solicitud.addMateriaPrima("LECHE", "Unidad19");
+	// solicitud.addMateriaPrima("LECHE", "Unidad20");
+	// solicitud.addMateriaPrima("LECHE", "Unidad21");
+	// solicitud.addMateriaPrima("LECHE", "Unidad22");
+	// solicitud.addMateriaPrima("LECHE", "Unidad23");
+	// solicitud.addMateriaPrima("LECHE", "Unidad24");
+	// solicitud.addMateriaPrima("LECHE", "Unidad25");
+	// solicitud.addMateriaPrima("LECHE", "Unidad26");
+	// solicitud.addMateriaPrima("LECHE", "Unidad27");
+	// solicitud.addMateriaPrima("LECHE", "Unidad28");
+	// solicitud.addMateriaPrima("LECHE", "Unidad29");
+	// solicitud.addMateriaPrima("LECHE", "Unidad30");
+	// solicitud.addMateriaPrima("LECHE", "Unidad31");
+	// solicitud.addMateriaPrima("LECHE", "Unidad32");
+	// solicitud.addMateriaPrima("LECHE", "Unidad33");
+	// solicitud.addMateriaPrima("LECHE", "Unidad34");
+	// solicitud.addMateriaPrima("LECHE", "Unidad35");
+	// solicitud.addMateriaPrima("LECHE", "Unidad36");
+	// ImprimirSolicitudMP(solicitud);
+	// }
+	//
+	// private static void itinerarioTest() throws Exception {
+	//		ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
+//				new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
+//				"lleva cambio ");
+//		itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
+//		itinerario.addPunto("la direccion", "la observacion", 2, 100);
+//		itinerario.addPunto("la direccion", "la observacion", 3, 454);
+//		itinerario.addPunto("la direccion", "la observacion", 4, 11);
+//		itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
+//		itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
+//		itinerario.addPunto("la direccion", "la observacion", 7, 11);
+//		itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
+//		itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
+//		itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
+//		itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
+//		itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
+//		itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
+//
+//		ImprimirItinerario(itinerario);
+//	}
 
 	/*
 	 * private static void ticketComandaTest() throws Exception {
@@ -175,45 +219,29 @@ public class Impresiones {
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
 		llenarCabeceraSolicitudMP(solicitud);
-		double total = llenarSolicitudMP(solicitud, numeroPagina);
-		llenarPieSolicitudMP(solicitud, total, numeroPagina, totalHojas);
+		llenarSolicitudMP(solicitud, numeroPagina);
+		llenarPieSolicitudMP(numeroPagina, totalHojas);
 	}
 
 	private static void llenarCabeceraSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
-		stamper.getAcroFields()
-				.setField("txtFechaTicket", solicitud.getFecha());
-		stamper.getAcroFields().setField("txtFechaComanda",
-				solicitud.getFecha());
-		stamper.getAcroFields()
-				.setField("txtIdComanda", solicitud.getId() + "");
-		stamper.getAcroFields().setField("txtIdTicket", solicitud.getId() + "");
+		 stamper.getAcroFields().setField("txtFecha", solicitud.getFecha());
+		stamper.getAcroFields().setField("txtId", solicitud.getId() + "");
 
-		stamper.getAcroFields().setField("txtTelefonoTicket",
-				wild.getTelefono());
+		stamper.getAcroFields().setField("txtTelefonoPizzeria", wild.getTelefono());
 		stamper.getAcroFields().setField("txtDireccionWild",
 				wild.getDireccion());
-
-		ObjDatosCliente repartidor = solicitud.getCliente();
-
-		stamper.getAcroFields().setField("txtClienteTicket",
-				repartidor.getNombre());
-		stamper.getAcroFields().setField("txtClienteComanda",
-				repartidor.getNombre());
-
-		stamper.getAcroFields().setField("txtDireccionClienteTicket",
-				repartidor.getDireccion());
-		stamper.getAcroFields().setField("txtDireccionClienteComanda",
-				repartidor.getDireccion());
-
-		stamper.getAcroFields().setField("txtTelefonoComanda",
-				repartidor.getTelefono());
+		ProveedorDTO proveedor = solicitud.getProveedor();
+		stamper.getAcroFields().setField("txtMail", proveedor.getMail());
+		stamper.getAcroFields().setField("txtTelefonoProveedor",
+				proveedor.getTelefono());
+		stamper.getAcroFields().setField("txtSolicitante",
+				proveedor.getNombre());
 
 	}
 
-	private static double llenarSolicitudMP(ObjSolicitudMP solicitud,
+	private static void llenarSolicitudMP(ObjSolicitudMP solicitud,
 			int numeroPagina) throws IOException, DocumentException {
-		double total = 0;
 		int desde = 0;
 		if (numeroPagina != 1)
 			desde = ((numeroPagina - 1) * solicitud.getMaxPaginacion()) - 1;
@@ -221,52 +249,22 @@ public class Impresiones {
 		int puntos = solicitud.getMateriasPrimas().size();
 		hasta = (hasta > puntos) ? puntos : hasta;
 		int i = 0;
-		double subtotal = 0;
 		for (MateriaPrimaDTO materiaPrima : solicitud.getMateriasPrimas()
 				.subList(desde, hasta)) {
 
-			// stamper.getAcroFields().setField("txtCantidad" + i,
-			// punto.getCantidad() + "");
-			//
-			// stamper.getAcroFields().setField("txtMaterialRemito" + i,
-			// punto.getMaterial());
-			// stamper.getAcroFields().setField("txtMaterialComanda" + i,
-			// punto.getMaterial());
-			//
-			// stamper.getAcroFields().setField("txtPrecio" + i,
-			// punto.getPrecio() + "");
-			//
-			// subtotal = punto.getPrecio() * punto.getCantidad();
-			// total += subtotal;
-			// stamper.getAcroFields().setField("txtSubTotal" + i, subtotal +
-			// "");
-			//
-			// stamper.getAcroFields()
-			// .setField("txtCodigo" + i, punto.getCodigo());
-			// stamper.getAcroFields().setField("txtUnd" + i, punto.getUnd());
+			stamper.getAcroFields().setField("txtMP" + i,
+					materiaPrima.getNombre());
+			stamper.getAcroFields().setField("txtCantidad" + i,
+					materiaPrima.getUnidad());
 			i++;
 		}
-		return total;
 	}
 
-	private static void llenarPieSolicitudMP(ObjSolicitudMP solicitud,
-			double total, int numeroPagina, int totalHojas) throws IOException,
-			DocumentException {
-		// stamper.getAcroFields().setField("txtTotalComanda", total + "");
-		// stamper.getAcroFields().setField("txtTotalTicket", total + "");
-		//
-		// stamper.getAcroFields().setField("txtObservacionComanda",
-		// "Observaciones: " + comanda.getObservaciones());
-		//
-		// stamper.getAcroFields().setField("txtObservacionDelivery",
-		// "Observaciones: " + comanda.getObservacionDelivery());
-		// stamper.getAcroFields().setField("txtObservacionTicket",
-		// "Observaciones: " + comanda.getObservaciones());
-		//
-		// stamper.getAcroFields().setField("txtPaginadoComanda",
-		// numeroPagina + " DE " + totalHojas);
-		// stamper.getAcroFields().setField("txtPaginadoTicket",
-		// numeroPagina + " DE " + totalHojas);
+	private static void llenarPieSolicitudMP(int numeroPagina, int totalHojas)
+			throws IOException, DocumentException {
+
+		stamper.getAcroFields().setField("txtPaginado",
+				numeroPagina + " DE " + totalHojas);
 	}
 
 	// REGION TICKET-COMANDA
@@ -435,18 +433,15 @@ public class Impresiones {
 	private static void llenarPieItinerario(ObjItinerario itinerario,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
-		set("txtTotal", itinerario.getTotal() + "");
-		set("txtObservaciones",
+		stamper.getAcroFields()
+				.setField("txtTotal", itinerario.getTotal() + "");
+		stamper.getAcroFields().setField("txtObservaciones",
 				"Observaciones: " + itinerario.getObservacionGral());
-		set("txtPaginacion", numeroPagina + " DE " + totalHojas);
+		stamper.getAcroFields().setField("txtPaginacion",
+				numeroPagina + " DE " + totalHojas);
 	}
 
 	// REGION GENERAL
-
-	private static void set(String fieldName, String value) throws IOException,
-			DocumentException {
-		stamper.getAcroFields().setField(fieldName, value);
-	}
 
 	private static void initAll(ObjImprimible reporte, int numeroPagina)
 			throws IOException, FileNotFoundException, DocumentException {
