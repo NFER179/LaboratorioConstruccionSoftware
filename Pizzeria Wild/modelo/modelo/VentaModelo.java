@@ -6,7 +6,7 @@ import java.util.List;
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjComandaTicket;
 import clasesImpresiones.ObjDatosCliente;
-import clasesImpresiones.ObjProductoTicketComanda; 
+import clasesImpresiones.ObjProductoTicketComanda;
 
 import utilidades.Fecha;
 import dto.VentaDTO;
@@ -130,10 +130,10 @@ public class VentaModelo {
 		for (ProductoEnVentaDTO producto : productss) {
 			int precio = this.Sabor.GetPrecio(producto.getProducto(),
 					producto.getSabor());
-
+			// JNVR TODO
 			productos.add(new ObjProductoTicketComanda(producto.getCantidad(),
 					precio, productoImp.GetDescipcion(producto.getProducto()),
-					"ml", producto.getProducto()));
+					"ml", producto.getProducto(), true));
 		}
 		ObjDatosCliente cliente = new ObjDatosCliente(vista.getTxtCliente()
 				.getText(), vista.getTxtDireccion().getText(), vista
