@@ -175,7 +175,7 @@ public class Impresiones {
 		llenarStamperReporteDiario(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		imprimir();
+		//imprimirt();
 	}
 
 	private static void llenarStamperReporteDiario(ObjReporteDiario reporte,
@@ -212,7 +212,7 @@ public class Impresiones {
 		llenarStamperSolicitudMP(solicitud, numeroPagina, totalHojas);
 
 		closeAll();
-		imprimir();
+		//imprimirt();
 	}
 
 	private static void llenarStamperSolicitudMP(ObjSolicitudMP solicitud,
@@ -277,7 +277,7 @@ public class Impresiones {
 		llenarStamperTicketComanda(comanda, numeroPagina, totalHojas);
 
 		closeAll();
-		imprimir();
+		//imprimirt();
 	}
 
 	private static void llenarStamperTicketComanda(ObjComandaTicket comanda,
@@ -383,7 +383,7 @@ public class Impresiones {
 		llenarStamperItinerario(itinerario, numeroPagina, totalHojas);
 
 		closeAll();
-		imprimir();
+		//imprimirt();
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
