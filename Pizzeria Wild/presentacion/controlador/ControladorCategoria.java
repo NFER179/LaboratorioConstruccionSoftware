@@ -14,12 +14,12 @@ import vista.CategoriaVista;
 
 public class ControladorCategoria implements ActionListener {
 
-	private Controlador ctr;
+	private ControladorVenta ctr;
 	private CategoriaVista vtCategoria;
 	private CategoriaModelo mdlCategoria;
 	private ValidacionCategoria validCategoria;
 	
-	public ControladorCategoria(Controlador Controlador) {
+	public ControladorCategoria(ControladorVenta Controlador) {
 		this.vtCategoria = new CategoriaVista();
 		this.vtCategoria.getBtnAgregar().addActionListener(this);
 		this.vtCategoria.getBtnModificar().addActionListener(this);

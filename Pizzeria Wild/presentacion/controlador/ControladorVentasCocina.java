@@ -44,6 +44,11 @@ public class ControladorVentasCocina implements ActionListener {
 		this.LanzarHilos();
 		this.vtCocina.Open();
 	}
+	
+	public void Close() {
+		instancia = null;
+		this.vtCocina.Close();
+	}
 
 	private void CargarTablas() {
 		this.ventas = this.mdlVenta.GetVentasPendientesCocina();

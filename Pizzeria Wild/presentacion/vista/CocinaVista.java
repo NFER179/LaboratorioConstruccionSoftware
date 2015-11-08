@@ -251,7 +251,7 @@ public class CocinaVista extends JFrame {
 	}
 	
 	public void Close() {
-		this.setVisible(false);
+		this.dispose();
 	}
 
 	public String[] getNombreColumnasPedidos() {

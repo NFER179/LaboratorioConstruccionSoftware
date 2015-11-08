@@ -8,11 +8,11 @@ import vista.MateriaPrimaVista;
 
 public class ControladorMateriaPrima implements ActionListener{
 
-	private Controlador ctr;
+	private ControladorVenta ctr;
 	private MateriaPrimaVista vtMateriaPrima;
 	private MateriaPrimaModelo mdlMateriaPrima;
 	
-	public ControladorMateriaPrima(Controlador Controlador){
+	public ControladorMateriaPrima(ControladorVenta Controlador){
 		this.vtMateriaPrima = new MateriaPrimaVista();
 		this.vtMateriaPrima.getBtnAgregar().addActionListener(this);
 		this.vtMateriaPrima.getBtnVolver().addActionListener(this);

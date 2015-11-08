@@ -5,8 +5,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
 
+import modelo.SolicitudModelo;
 import modelo.VentaModelo;
 
+import dto.ProveedorDTO;
+import dto.SolicitudDTO;
 import dto.VentaDTO;
 
 import vista.ReporteVista;
@@ -16,12 +19,14 @@ public class ControladorVentasDia implements ActionListener {
 
 	private VentasDiasVista vtVentasDia;
 	private VentaModelo mdlventa;
+	private SolicitudModelo mdlSolicitud;
 
 	public ControladorVentasDia(ReporteVista Vista) {
 		this.vtVentasDia = new VentasDiasVista(Vista);
 		this.vtVentasDia.getBtnVolver().addActionListener(this);
 
 		this.mdlventa = new VentaModelo();
+		this.mdlSolicitud = new SolicitudModelo();
 	}
 
 	public void inicializar() {
@@ -30,26 +35,28 @@ public class ControladorVentasDia implements ActionListener {
 	}
 
 	private void CargarValores() {
-		this.CargarCantdadVentasFacturadas();
-		this.CargarFacturadas();
-		this.CargarGananciaFacturadas();
-		this.CargarCantidadVentasCanceladas();
-		this.CargarCanceladas();
-		this.CargarPerdidaCanceladas();
+		this.CargarCantdadVentas();
+		this.CargarVentas();
+		this.CargarGanancias();
+		
+		this.CargarCantidadSolicitudes();
+		this.CargarSolicitudes();
+		this.CargarPerdidas();
+		
 		this.CargarTotalGanancias();
 	}
 
-	private void CargarCantdadVentasFacturadas() {
+	private void CargarCantdadVentas() {
 		String CantidadFacturadas = Integer.toString(this.mdlventa
 				.ObtenerCurCantidadVentasFacturadas());
 		this.vtVentasDia.getTxtCantidadFacturadas().setText(CantidadFacturadas);
 	}
 
-	private void CargarFacturadas() {
+	private void CargarVentas() {
 		this.vtVentasDia.getModelFacturadas().setRowCount(0);
 		this.vtVentasDia.getModelFacturadas().setColumnCount(0);
 		this.vtVentasDia.getModelFacturadas().setColumnIdentifiers(
-				this.vtVentasDia.getNombreColumnas());
+				this.vtVentasDia.getNombreColumnasVentas());
 		for (VentaDTO venta : this.mdlventa.ObtenerCurVentasFacturadas()) {
 			Object[] fila = { venta.getFecha(), venta.getNumVenta(),
 					venta.getCliente(), "$ " + venta.getPrecio() };
@@ -59,41 +66,40 @@ public class ControladorVentasDia implements ActionListener {
 		tabla.setModel(this.vtVentasDia.getModelFacturadas());
 	}
 
-	private void CargarGananciaFacturadas() {
+	private void CargarGanancias() {
 		String Ganancias = Integer.toString(this.mdlventa
 				.ObtenerCurGananciaFacturadas());
 		this.vtVentasDia.getTxtTotalfacturadas().setText("$ " + Ganancias);
 	}
 
-	private void CargarCantidadVentasCanceladas() {
-		String Cantidad = Integer.toString(this.mdlventa
-				.ObtenerCurCantidadVentasCanceladas());
+	private void CargarCantidadSolicitudes() {
+		String Cantidad = Integer.toString(this.mdlSolicitud.ObtenerCurCantidadSolicitudesEntregadas());
 		this.vtVentasDia.getTxtCantidadCanceladas().setText(Cantidad);
 	}
 
-	private void CargarCanceladas() {
+	private void CargarSolicitudes() {
 		this.vtVentasDia.getModelCanceladas().setRowCount(0);
 		this.vtVentasDia.getModelCanceladas().setColumnCount(0);
 		this.vtVentasDia.getModelCanceladas().setColumnIdentifiers(
-				this.vtVentasDia.getNombreColumnas());
-		for (VentaDTO venta : this.mdlventa.ObtenerCurVentasCanceladas()) {
-			Object[] fila = { venta.getFecha(), venta.getNumVenta(),
-					venta.getCliente(), "$ " + venta.getPrecio() };
+				this.vtVentasDia.getNombreColumnasSolicitudes());
+		for (SolicitudDTO solicitud : this.mdlSolicitud.ObtenerCurSolicidesRecibidas()) {
+			ProveedorDTO proveedordto = this.mdlSolicitud.ObtenerProveedor(solicitud.getEffdt(), Integer.toString(solicitud.getNumPedido()));
+			String proveedor = proveedordto.getNombre();
+			Object[] fila = { solicitud.getEffdt(), solicitud.getNumPedido(), proveedor, "$ " + solicitud.getCosto() };
 			this.vtVentasDia.getModelCanceladas().addRow(fila);
 		}
 		JTable tabla = this.vtVentasDia.getTblCanceladas();
 		tabla.setModel(this.vtVentasDia.getModelCanceladas());
 	}
 
-	private void CargarPerdidaCanceladas() {
-		String Perdidas = Integer.toString(this.mdlventa
-				.ObtenerCurPerdidaCanceladas());
+	private void CargarPerdidas() {
+		String Perdidas = Integer.toString(this.mdlSolicitud.ObtenerCurCostoSolicituides());
 		this.vtVentasDia.getTxtTotalcanceladas().setText("$ " + Perdidas);
 	}
 
 	private void CargarTotalGanancias() {
 		int Ganancias = this.mdlventa.ObtenerCurGananciaFacturadas();
-		int Perdidas = this.mdlventa.ObtenerCurPerdidaCanceladas();
+		int Perdidas = this.mdlSolicitud.ObtenerCurCostoSolicituides();
 		int Total = Ganancias - Perdidas;
 
 		String TotalS = Integer.toString(Total);

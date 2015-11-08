@@ -2,6 +2,7 @@ package daoImplementacion;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import dao.SolicitudDAO;
 import dto.MateriaPrimaSolicitudDTO;
 import dto.ProveedorDTO;
 import dto.SolicitudDTO;
+import utilidades.Fecha;
 
 public class SolicitudImp implements SolicitudDAO {
 
@@ -20,12 +22,13 @@ public class SolicitudImp implements SolicitudDAO {
 	}
 	
 	@Override
-	public List<SolicitudDTO> GetSolicitudesActualesGuardadas() {
+	public List<SolicitudDTO> GetSolicitudesActualesNoRecepcionadas() {
 		
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "select p.* from pedido p " +
-							"where (p.effdt = curdate() and p.estado = 'Enviado') " +
-							"or p.estado = 'Guardado'";
+							"where (p.estado = 'Enviado' " +
+							"or p.estado = 'Guardado' " +
+							"or p.estado = 'recibido' and fecha_entrega = curdate())";
 		ResultSet rs = null;
 		List<SolicitudDTO> solicitudes = new ArrayList<SolicitudDTO>();
 		
@@ -40,7 +43,7 @@ public class SolicitudImp implements SolicitudDAO {
 				int refNumPedido = rs.getInt("ref_num_pedido");
 				int costo = rs.getInt("costo");
 				
-				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio, refNumPedido, costo));
+				solicitudes.add(new SolicitudDTO(fechaPedido, numPedido, enviado, fecha_envio, refNumPedido, "", costo));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -84,7 +87,8 @@ public class SolicitudImp implements SolicitudDAO {
 															Solicitud.getNumPedido() + ", '" +
 															Solicitud.getEstado() + "', '" +
 															Solicitud.getFecha_envio() + "', " +
-															Solicitud.getReferenciaNumPedido() + ", " +
+															Solicitud.getReferenciaNumPedido() + ", '" +
+															Solicitud.getFechaEntrega() + "', "+
 															Solicitud.getCosto() + ")";
 		String sqlStringPedidoProveedor = "insert into pedido_proveedor value('" + Solicitud.getEffdt() + "'," +
 															Solicitud.getNumPedido() + " , '" +
@@ -236,10 +240,10 @@ public class SolicitudImp implements SolicitudDAO {
 
 	
 	@Override
-	public void Recepcionar(String Fecha, String NumSolicitud, int Costo) {
+	public void Recepcionar(String FechaSolicitud, String NumSolicitud, int Costo) {
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "update pedido set estado = 'Recibido', costo = " + Costo + " " +
-							"where effdt = '" + Fecha + "' " +
+		String sqlString = "update pedido set estado = 'Recibido', fecha_entrega = '" + Fecha.CurrentDate() + "', costo = " + Costo + " " +
+							"where effdt = '" + FechaSolicitud + "' " +
 							"and num_pedido = '" + NumSolicitud + "'";
 		
 		try {
@@ -250,5 +254,127 @@ public class SolicitudImp implements SolicitudDAO {
 		finally {
 			this.conector.CloseConnection();
 		}
+	}
+
+	@Override
+	public List<SolicitudDTO> GetEntregadas(String FromDate, String ToDate) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select pe.* " +
+							"from pedido pe " + 
+							"where pe.estado = 'recibido' " +
+							  "and pe.fecha_entrega between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		List<SolicitudDTO> solicitudes = new ArrayList<SolicitudDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String fechaSol = rs.getString("effdt");
+				int NumPedido = rs.getInt("num_pedido");
+				String estado = rs.getString("estado");
+				String fechaEnvio = rs.getString("fecha_envio");
+				int refNumPeido = rs.getInt("ref_num_pedido");
+				String fechaEntrega = rs.getString("fecha_entrega");
+				int costo = rs.getInt("costo");
+				
+				SolicitudDTO s = new SolicitudDTO(fechaSol, NumPedido, estado, fechaEnvio, refNumPeido, fechaEntrega, costo);
+				
+				solicitudes.add(s);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return solicitudes;
+	}
+
+	@Override
+	public int GetCantidadEntregadas(String FromDate, String ToDate) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select count(*) as 'cantidad' " +
+							"from pedido pe " +
+							"where pe.estado = 'recibido' " +
+							  "and pe.fecha_entrega between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int cantidad = 0;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				cantidad = rs.getInt("cantidad");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return cantidad;
+	}
+
+	@Override
+	public int GetCostos(String FromDate, String ToDate) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select sum(pe.costo) as 'costo' " +
+							"from pedido pe " +
+							"where pe.estado = 'recibido' " +
+							  "and pe.fecha_entrega between '" + FromDate + "' and '" + ToDate + "'";
+		ResultSet rs = null;
+		int costo = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				costo = rs.getInt("costo");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return costo;
+	}
+
+	@Override
+	public List<SolicitudDTO> GetAll() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from pedido";
+		ResultSet rs = null;
+		List<SolicitudDTO> solicitudes = new ArrayList<SolicitudDTO>();
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()){
+				String effdt = rs.getString("effdt");
+				int numPedido = rs.getInt("num_pedido");
+				String estado = rs.getString("estado");
+				String fechaEnvio = rs.getString("fecha_envio");
+				int refNumPedido = rs.getInt("ref_num_pedido");
+				String fechaEntrega = rs.getString("fecha_entrega");
+				int costo = rs.getInt("costo");
+				
+				SolicitudDTO s = new SolicitudDTO(effdt, numPedido, estado, fechaEnvio, refNumPedido, fechaEntrega, costo);
+				
+				solicitudes.add(s);
+			}				
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return solicitudes;
 	}
 }

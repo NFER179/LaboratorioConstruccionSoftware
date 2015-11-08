@@ -42,43 +42,43 @@ public class Controlador implements ActionListener {
 		if (source == this.vista.getBtnPedidos()) {
 			accionPedidos();
 		} else if (source == this.vista.getBtnMateriasPrimas()) {
-			accionMateriaPrima();
+			this.accionMateriaPrima();
 		} else if (source == this.vista.getBtnCategorias()) {
-			accionCategorias();
+			this.accionCategorias();
 		} else if (source == this.vista.getBtnSolicitud()) {
-			accionSolicitud();
+			this.accionSolicitud();
 		} else if (source == this.vista.getBtnReportes()) {
-			accionReportes();
+			this.accionReportes();
 		}
 	}
 
 	private void accionPedidos() {
-		ControladorVenta cp = new ControladorVenta(this);
-		cp.Inicializar();
-		this.vista.Close();
+//		ControladorVenta cp = new ControladorVenta(this);
+//		cp.Inicializar();
+//		this.vista.Close();
 	}
 
 	private void accionMateriaPrima() {
-		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
-		ctrMP.Inicializar();
-		this.vista.Close();
+//		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
+//		ctrMP.Inicializar();
+//		this.vista.Close();
 	}
 
 	private void accionCategorias() {
-		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
-		ctrCategoria.Inicializar();
-		this.vista.Close();
+//		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
+//		ctrCategoria.Inicializar();
+//		this.vista.Close();
 	}
 
 	private void accionSolicitud() {
-		ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
-		ctrSolicitud.Inicializar();
-		this.vista.Close();
+//		ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
+//		ctrSolicitud.Inicializar();
+//		this.vista.Close();
 	}
 
 	private void accionReportes() {
-		ControladorReporte ctrReporte = new ControladorReporte(this);
-		ctrReporte.Inicializar();
-		this.vista.Close();
+//		ControladorReporte ctrReporte = new ControladorReporte(this);
+//		ctrReporte.Inicializar();
+//		this.vista.Close();
 	}
 }

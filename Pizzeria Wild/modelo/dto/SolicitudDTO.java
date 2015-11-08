@@ -7,14 +7,16 @@ public class SolicitudDTO {
 	private String estado;
 	private String fecha_envio;
 	private int referenciaNumPedido;
+	private String fechaEntrega;
 	private int costo;
 	
-	public SolicitudDTO(String Fecha, int NumPedido, String Estado, String FechaEnvio, int ReferenciaNumeroPedido, int Costo){
+	public SolicitudDTO(String Fecha, int NumPedido, String Estado, String FechaEnvio, int ReferenciaNumeroPedido, String FechaEntrega, int Costo){
 		this.effdt = Fecha;
 		this.numPedido = NumPedido;
 		this.estado = Estado;
 		this.fecha_envio = FechaEnvio;
 		this.referenciaNumPedido = ReferenciaNumeroPedido;
+		this.fechaEntrega = FechaEntrega;
 		this.costo = Costo;
 	}
 	
@@ -70,6 +72,14 @@ public class SolicitudDTO {
 
 	public void setCosto(int costo) {
 		this.costo = costo;
+	}
+
+	public String getFechaEntrega() {
+		return fechaEntrega;
+	}
+
+	public void setFechaEntrega(String fechaEntrega) {
+		this.fechaEntrega = fechaEntrega;
 	}
 	
 }

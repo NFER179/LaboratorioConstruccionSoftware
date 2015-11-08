@@ -9,7 +9,7 @@ import dto.SolicitudDTO;
 public interface SolicitudDAO {
 
 	/* Obtiene las solicitudes. */
-	public List<SolicitudDTO> GetSolicitudesActualesGuardadas();
+	public List<SolicitudDTO> GetSolicitudesActualesNoRecepcionadas();
 
 	/* Obtiene un Nuevo Numero de Solicitud. */
 	public int GetNuevoNumeroSolicitud(String Fecha);
@@ -35,4 +35,16 @@ public interface SolicitudDAO {
 
 	/* Recepcionar Solicitudes. */
 	public void Recepcionar(String fecha, String numSolicitud, int Costo);
+
+	/* Obtiene las Solicitudes entregadas en un determindo rango de fechas. */
+	public List<SolicitudDTO> GetEntregadas(String FromDate, String ToDate);
+
+	/* Obtiene la cantidad de Solicitudes Entregadas en un determinado rango. */
+	public int GetCantidadEntregadas(String FromDate, String ToDate);
+
+	/* Obtiene la cantidad de costo para un determinada rango de fechas. */
+	public int GetCostos(String FromDate, String ToDate);
+
+	/* Obtiene todas las solicitudes. */
+	public List<SolicitudDTO> GetAll();
 }

@@ -23,7 +23,7 @@ public class SolicitudModelo {
 	}
 
 	public List<SolicitudDTO> ObtenerSolicitudes() {
-		return this.solicitud.GetSolicitudesActualesGuardadas();
+		return this.solicitud.GetSolicitudesActualesNoRecepcionadas();
 	}
 
 	public int ObtenerNumNuevaSolicitud(String Fecha) {
@@ -98,7 +98,7 @@ public class SolicitudModelo {
 	private SolicitudDTO SolicitudReferenteA(SolicitudDTO arg0) {
 		return new SolicitudDTO(arg0.getFecha_envio(),
 				arg0.getReferenciaNumPedido(), arg0.getEstado(),
-				arg0.getFecha_envio(), arg0.getReferenciaNumPedido(), arg0.getCosto());
+				arg0.getFecha_envio(), arg0.getReferenciaNumPedido(), arg0.getFechaEntrega(), arg0.getCosto());
 	}
 
 	public ProveedorDTO ObtenerProveedor(String FechaSolicitud,
@@ -113,5 +113,21 @@ public class SolicitudModelo {
 
 	public void RecepcionarSolicitud(String Fecha, String NumSolicitud, int Costo) {
 		this.solicitud.Recepcionar(Fecha, NumSolicitud, Costo);
+	}
+
+	public List<SolicitudDTO> ObtenerCurSolicidesRecibidas() {
+		return this.solicitud.GetEntregadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public int ObtenerCurCantidadSolicitudesEntregadas() {
+		return this.solicitud.GetCantidadEntregadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public int ObtenerCurCostoSolicituides() {
+		return this.solicitud.GetCostos(Fecha.CurrentDate(), Fecha.CurrentDate());
+	}
+
+	public List<SolicitudDTO> ObtenerTodasSolicitudes() {
+		return this.solicitud.GetAll();
 	}
 }

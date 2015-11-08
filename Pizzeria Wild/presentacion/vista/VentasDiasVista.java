@@ -12,13 +12,14 @@ import javax.swing.JButton;
 
 public class VentasDiasVista extends JDialog {
 	
-	private String[] nombreColumnas = {"Fecha Venta","Numero Venta","Cliente","Precio"};
 	private JTextField txtCantidadFacturadas;
+	private String[] nombreColumnasVentas = {"Fecha Venta","Numero Venta","Cliente","Facturado"};
 	private DefaultTableModel modelFacturadas;
 	private JTable tblFacturadas;
 	private JScrollPane scrollPaneFacturadas;
 	private JTextField txtTotalfacturadas;
 	private JTextField txtCantidadCanceladas;
+	private String[] nombreColumnasSolicitudes = {"Fecha Solicitud","Numero Solicitud","Proveedor","Cobrado"};
 	private DefaultTableModel modelCanceladas;
 	private JTable tblCanceladas;
 	private JScrollPane scrollPaneCanceladas;
@@ -49,7 +50,7 @@ public class VentasDiasVista extends JDialog {
 		scrollPaneFacturadas.setBounds(10, 36, 422, 100);
 		getContentPane().add(scrollPaneFacturadas);
 		
-		this.modelFacturadas = new WDefaultTableModel(null, this.nombreColumnas);
+		this.modelFacturadas = new WDefaultTableModel(null, this.nombreColumnasVentas);
 		tblFacturadas = new WTable(this.modelFacturadas);
 		scrollPaneFacturadas.setViewportView(tblFacturadas);
 		
@@ -79,7 +80,7 @@ public class VentasDiasVista extends JDialog {
 		scrollPaneCanceladas.setBounds(10, 203, 422, 100);
 		getContentPane().add(scrollPaneCanceladas);
 		
-		this.modelCanceladas = new WDefaultTableModel(null, this.nombreColumnas);
+		this.modelCanceladas = new WDefaultTableModel(null, this.nombreColumnasSolicitudes);
 		tblCanceladas = new WTable(this.modelCanceladas);
 		scrollPaneCanceladas.setViewportView(tblCanceladas);
 		
@@ -118,8 +119,8 @@ public class VentasDiasVista extends JDialog {
 		this.setVisible(false);
 	}
 
-	public String[] getNombreColumnas() {
-		return nombreColumnas;
+	public String[] getNombreColumnasVentas() {
+		return nombreColumnasVentas;
 	}
 
 	public JTextField getTxtCantidadFacturadas() {
@@ -169,4 +170,9 @@ public class VentasDiasVista extends JDialog {
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
+
+	public String[] getNombreColumnasSolicitudes() {
+		return nombreColumnasSolicitudes;
+	}
+	
 }

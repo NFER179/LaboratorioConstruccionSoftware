@@ -14,12 +14,13 @@ import vista.SolicitudCompraVista;
 
 public class ControladorSolicitud implements ActionListener {
 
-	private Controlador ctr;
+	private ControladorVenta ctr;
 	private SolicitudCompraVista vtSolicitudCompra;
 	private SolicitudModelo mdlSolicitud;
 	private ValidacionSolicitud vldSolicitud;
+	private boolean vistaSolicitudesDia;
 
-	public ControladorSolicitud(Controlador Controlador) {
+	public ControladorSolicitud(ControladorVenta Controlador) {
 		this.vtSolicitudCompra = new SolicitudCompraVista();
 		this.vtSolicitudCompra.getBtnNuevaSolicitud().addActionListener(this);
 		this.vtSolicitudCompra.getBtnModificar().addActionListener(this);
@@ -30,11 +31,12 @@ public class ControladorSolicitud implements ActionListener {
 
 		this.ctr = Controlador;
 		this.mdlSolicitud = new SolicitudModelo();
-		this.vldSolicitud = new ValidacionSolicitud(this.vtSolicitudCompra);
+		this.vldSolicitud = new ValidacionSolicitud(this.vtSolicitudCompra, this);
 	}
 
 	public void Inicializar() {
 		this.CargarTabla();
+		this.vistaSolicitudesDia = true;
 		this.vtSolicitudCompra.Open();
 	}
 
@@ -95,21 +97,46 @@ public class ControladorSolicitud implements ActionListener {
 		this.CargarTabla();
 	}
 	
+	public boolean VistaHoy() {
+		return this.vistaSolicitudesDia;
+	}
+	
 	private void CambiarTabla() {
-		
+		if(this.VistaHoy()) {
+			this.vtSolicitudCompra.getModelTable().setRowCount(0);
+			this.vtSolicitudCompra.getModelTable().setColumnCount(0);
+			this.vtSolicitudCompra.getModelTable().setColumnIdentifiers(this.vtSolicitudCompra.getNombreColumnas());
+			for(SolicitudDTO s:this.mdlSolicitud.ObtenerTodasSolicitudes()) {
+				Object[] fila = {s.getEffdt(), s.getNumPedido(), s.getEstado()};
+				this.vtSolicitudCompra.getModelTable().addRow(fila);
+			}
+			this.vtSolicitudCompra.getTable().setModel(this.vtSolicitudCompra.getModelTable());
+			
+			this.vtSolicitudCompra.getBtnTodasSolicitudes().setText("Solicitudes Pendientes");
+			this.vistaSolicitudesDia = false;
+		}
+		else{
+			this.CargarTabla();
+			this.vtSolicitudCompra.getBtnTodasSolicitudes().setText("Todas las Solicitudes");
+			this.vistaSolicitudesDia = true;
+		}
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtSolicitudCompra.getBtnNuevaSolicitud()) {
-			ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
-			ctrCreacionSolicitud.Inicializar();
+			if(this.vldSolicitud.NuevaSolicitudValida()) {
+				ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(this, this.vtSolicitudCompra);
+				ctrCreacionSolicitud.Inicializar();
+			}
 		} else if (arg0.getSource() == this.vtSolicitudCompra.getBtnModificar()) {
 			if(this.vldSolicitud.ModificarValido()) {
 				this.modificar();
 			}
 		} else if(arg0.getSource() == this.vtSolicitudCompra.getBtnInformacion()) {
-			this.Informacion();
+			if(this.vldSolicitud.InformacionValido()) {
+				this.Informacion();
+			}
 		} else if(arg0.getSource() == this.vtSolicitudCompra.getBtnSolicitudEntregada()) {
 			if(this.vldSolicitud.SolicitudEntregadaValida()) {
 				this.SolicitudRecepcionada();

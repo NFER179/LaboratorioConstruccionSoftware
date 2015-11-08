@@ -18,33 +18,43 @@ import controlador.Controlador;
 public class ControladorVenta implements ActionListener {
 
 	private VentasVista vtVenta;
-	private Controlador controlador;
+//	private Controlador controlador;
 	private VentaModelo mdlVenta;
 	private List<VentaDTO> ventasEnTabla;
-	private ControladorVentasCocina ctrVentasCocina;
 	private ValidacionVenta vldVenta;
 	private static int columnaFecha = 0;
 	private static int columnaNVenta = 1;
 	private boolean ventasDelDia;
+	private ControladorVentasCocina ctrPedidosCocina;
 
-	public ControladorVenta(Controlador controlador) {
+//	public ControladorVenta(Controlador controlador) {
+	public ControladorVenta() {
 		this.vtVenta = new VentasVista();
 		addListeners();
 
-		this.controlador = controlador;
+//		this.controlador = controlador;
 		this.mdlVenta = new VentaModelo();
 		this.ventasEnTabla = null;
 		this.vldVenta = new ValidacionVenta(this.vtVenta);
-		this.ctrVentasCocina = ControladorVentasCocina.GetInstancia();
 		this.ventasDelDia = true;
+		this.ctrPedidosCocina = ControladorVentasCocina.GetInstancia();
 	}
 
 	public void Inicializar() {
+		this.ctrPedidosCocina.Inicializar();
 		this.llenarTabla();
+		this.vtVenta.Open();
+	}
+	
+	public void Return() {
 		this.vtVenta.Open();
 	}
 
 	private void addListeners() {
+		this.vtVenta.getBtnSolicitudes().addActionListener(this);
+		this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
+		this.vtVenta.getBtnCategorias().addActionListener(this);
+		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.GetBtnEnviar().addActionListener(this);
 		this.vtVenta.GetBtnEnViaje().addActionListener(this);
 		this.vtVenta.GetBtnModificar().addActionListener(this);
@@ -54,7 +64,7 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.GetBtnNuevaVenta().addActionListener(this);
 		this.vtVenta.GetBtnCancelarVenta().addActionListener(this);
 		this.vtVenta.GetBtnVentaEntregada().addActionListener(this);
-		this.vtVenta.GetBtnVolverInicio().addActionListener(this);
+		this.vtVenta.GetBtnSalir().addActionListener(this);
 		/** JNVR - agrego eventos para los items del menu */
 //		this.vtVenta.getMntmReporteDiario().addActionListener(this);
 //		this.vtVenta.getMntmReporteSemanal().addActionListener(this);
@@ -156,15 +166,15 @@ public class ControladorVenta implements ActionListener {
 		return ventas;
 	}
 
-	private VentaDTO GetVentaSeleccionada() {
-		VentaDTO ret = null;
-		int SelectedRows = this.vtVenta.GetTable().getSelectedRow();
-		JTable table = this.vtVenta.GetTable();
-		String fecha = Str.trim(table.getValueAt(SelectedRows, columnaFecha));
-		int numVenta = Str.toInt(table.getValueAt(SelectedRows, columnaNVenta));
-		ret = this.mdlVenta.GetVenta(fecha, numVenta);
-		return ret;
-	}
+//	private VentaDTO GetVentaSeleccionada() {
+//		VentaDTO ret = null;
+//		int SelectedRows = this.vtVenta.GetTable().getSelectedRow();
+//		JTable table = this.vtVenta.GetTable();
+//		String fecha = Str.trim(table.getValueAt(SelectedRows, columnaFecha));
+//		int numVenta = Str.toInt(table.getValueAt(SelectedRows, columnaNVenta));
+//		ret = this.mdlVenta.GetVenta(fecha, numVenta);
+//		return ret;
+//	}
 
 	private boolean NoTieneVentasEnViaje(List<VentaDTO> Ventas) {
 		boolean NoViajes = true;
@@ -190,9 +200,9 @@ public class ControladorVenta implements ActionListener {
 //		return sinPendientes;
 //	}
 
-	private boolean esVentaPendiente(VentaDTO venta) {
-		return venta.getEstado().toUpperCase().equals("PENDIENTE");
-	}
+//	private boolean esVentaPendiente(VentaDTO venta) {
+//		return venta.getEstado().toUpperCase().equals("PENDIENTE");
+//	}
 
 	private boolean TieneVentasDeDelivery(List<VentaDTO> Ventas) {
 		boolean ventasDelivery = true;
@@ -212,12 +222,44 @@ public class ControladorVenta implements ActionListener {
 		
 		ctr.InicializarInformacion();
 	}
+	
+	private void accionSolicitud() {
+		ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
+		ctrSolicitud.Inicializar();
+		this.vtVenta.Close();
+	}
+	
+	private void accionMateriaPrima() {
+		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
+		ctrMP.Inicializar();
+		this.vtVenta.Close();
+	}
+	
+	private void accionCategorias() {
+		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
+		ctrCategoria.Inicializar();
+		this.vtVenta.Close();
+	}
+	
+	private void accionReportes() {
+		ControladorReporte ctrReporte = new ControladorReporte(this);
+		ctrReporte.Inicializar();
+		this.vtVenta.Close();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		VentasVista vista = this.vtVenta;
 		Object source = arg0.getSource();
-		if (source == vista.GetBtnEnviar()) {
+		if(source == this.vtVenta.getBtnSolicitudes()) {
+			this.accionSolicitud();
+		} else if(source == this.vtVenta.getBtnMateriasPrimas()) {
+			this.accionMateriaPrima();
+		} else if(source == this.vtVenta.getBtnCategorias()) {
+			this.accionCategorias();
+		} else if(source == this.vtVenta.getBtnReportes()) {
+			this.accionReportes();
+		} else if (source == vista.GetBtnEnviar()) {
 			if(this.ViendoVentasDelDia()){
 				accionEnviar();
 			}
@@ -252,8 +294,8 @@ public class ControladorVenta implements ActionListener {
 			if(this.ViendoVentasDelDia() && this.vldVenta.EntregarValido()) {
 				accionVentaEntregada();
 			}
-		} else if (source == vista.GetBtnVolverInicio()) {
-			accionVolverInicio();
+		} else if (source == vista.GetBtnSalir()) {
+			accionSalir();
 		}
 //		} else if (source == vista.getMntmReporteDiario()) {
 //			accionReporteDiario();
@@ -333,16 +375,19 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.GetModelVenta().setColumnIdentifiers(this.vtVenta.GetNombreColumnas());
 		for(VentaDTO v:this.mdlVenta.ObtenerTodasLasVentas()) {
 			Object[] fila = {v.getFecha(), Integer.toString(v.getNumVenta()),
-					v.getCliente(), "$ " + Integer.toString(v.getPrecio()) + " $",
+					v.getCliente(), "$ " + Integer.toString(v.getPrecio()),
 					v.getEstado(), this.Delivery(v.isDelivery())};
 			this.vtVenta.GetModelVenta().addRow(fila);
 		}
 		this.vtVenta.GetTable().setModel(this.vtVenta.GetModelVenta());
 	}
 
-	private void accionVolverInicio() {
-		this.controlador.Return();
-		this.vtVenta.Close();
+	private void accionSalir() {
+//		this.controlador.Return();
+		String mensaje = "Muchas Gracias por Usar el Sistema WildPizzeria";
+		JOptionPane.showMessageDialog(null, mensaje);
+		this.ctrPedidosCocina.Close();
+		this.vtVenta.Salir();
 	}
 
 	/**
@@ -352,7 +397,7 @@ public class ControladorVenta implements ActionListener {
 		List<VentaDTO> ventas = this.GetVentasSeleccionadas();
 		if (this.NoTieneVentasEnViaje(ventas)) {
 			this.FinalizarVentas(ventas);
-			this.ctrVentasCocina.RecargarTablas();
+			this.ctrPedidosCocina.RecargarTablas();
 		} else {
 			Msj.error("Error en Entregar Venta",
 					"Las Ventas que Estan en Viaje no Pueden Entregarse por Mostrador.");
@@ -364,7 +409,7 @@ public class ControladorVenta implements ActionListener {
 		List<VentaDTO> ventas = this.GetVentasSeleccionadas();
 		if (this.NoTieneVentasEnViaje(ventas)) {
 			this.CancelarVentas(ventas);
-			this.ctrVentasCocina.RecargarTablas();
+			this.ctrPedidosCocina.RecargarTablas();
 		} else {
 			Msj.error("Error al Cancelar",
 					"No Puede Cancelar Ventas que Estan en Viaje");
@@ -432,7 +477,7 @@ public class ControladorVenta implements ActionListener {
 		List<VentaDTO> ventas = this.GetVentasSeleccionadas();
 		if (this.NoTieneVentasEnViaje(ventas)) {
 			this.VentasEnMostrador(ventas);
-			this.ctrVentasCocina.RecargarTablas();
+			this.ctrPedidosCocina.RecargarTablas();
 		} else {
 			Msj.error("Error Seleccion de Ventas",
 					"No Puede Usar esta Funcionalidad Para Ventas que esten en Viaje");
@@ -483,7 +528,7 @@ public class ControladorVenta implements ActionListener {
 			ControladorAsignacionRepartidor ctrAsignarRepartidor = new ControladorAsignacionRepartidor(
 					this, this.vtVenta, lventa);
 			ctrAsignarRepartidor.Inicializar();
-			this.ctrVentasCocina.RecargarTablas();
+			this.ctrPedidosCocina.RecargarTablas();
 
 		} else {
 			Msj.error("Error Estado Ventas",
@@ -491,31 +536,31 @@ public class ControladorVenta implements ActionListener {
 		}
 	}
 
-	private void accionEnviarOLD() {
-		List<VentaDTO> lventa = this.GetVentasSeleccionadas();
-		boolean tieneVentas = lventa.size() > 0;
-		if (tieneVentas) {
-			if (TieneVentasDeDelivery(lventa)) {
-				if (this.NoTieneVentasEnViaje(lventa)) {
-					ControladorAsignacionRepartidor ctrAsignarRepartidor = new ControladorAsignacionRepartidor(
-							this, this.vtVenta, lventa);
-					ctrAsignarRepartidor.Inicializar();
-					this.ctrVentasCocina.RecargarTablas();
-
-				} else {
-					Msj.error("Error Estado Ventas",
-							"No puede Asigar Ventas en Estado 'Viaje'");
-				}
-			} else {
-				Msj.error("Error de delivery",
-						"No puede Asignar Ventas que no Sean a Domicilio.");
-
-			}
-		} else {
-			Msj.error("Error Seleccion Venta",
-					"Debe Seleccionar al Menos una Venta.");
-
-		}
-
-	}
+//	private void accionEnviarOLD() {
+//		List<VentaDTO> lventa = this.GetVentasSeleccionadas();
+//		boolean tieneVentas = lventa.size() > 0;
+//		if (tieneVentas) {
+//			if (TieneVentasDeDelivery(lventa)) {
+//				if (this.NoTieneVentasEnViaje(lventa)) {
+//					ControladorAsignacionRepartidor ctrAsignarRepartidor = new ControladorAsignacionRepartidor(
+//							this, this.vtVenta, lventa);
+//					ctrAsignarRepartidor.Inicializar();
+//					this.ctrVentasCocina.RecargarTablas();
+//
+//				} else {
+//					Msj.error("Error Estado Ventas",
+//							"No puede Asigar Ventas en Estado 'Viaje'");
+//				}
+//			} else {
+//				Msj.error("Error de delivery",
+//						"No puede Asignar Ventas que no Sean a Domicilio.");
+//
+//			}
+//		} else {
+//			Msj.error("Error Seleccion Venta",
+//					"Debe Seleccionar al Menos una Venta.");
+//
+//		}
+//
+//	}
 }

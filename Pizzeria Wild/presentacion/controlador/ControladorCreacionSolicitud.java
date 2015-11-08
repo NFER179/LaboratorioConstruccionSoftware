@@ -201,7 +201,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		int referenciaNumeroPedido = NumPedido;
 
 		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, "Enviado",
-				FechaEnvio, referenciaNumeroPedido, 0);
+				FechaEnvio, referenciaNumeroPedido, Fecha.CurrentDate(), 0);
 
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
 				.getText().trim();
@@ -242,7 +242,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		int referenciaNumeroPedido = NumPedido;
 
 		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido, "Guardado",
-				FechaEnvio, referenciaNumeroPedido, 0);
+				FechaEnvio, referenciaNumeroPedido, Fecha.CurrentDate(), 0);
 
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
 				.getText().trim();

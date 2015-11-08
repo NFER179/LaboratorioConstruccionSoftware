@@ -118,8 +118,8 @@ insert into mp_proveedor values
 ('TRESTRIGOS'	, 'CEREAL'		, 'Harina 000');
 
 insert into pedido values
-('2015-07-21', 1, 'Enviado',	'2015-07-21', 1, 200),
-('2015/10/01', 1, 'Guardado',	'2015/10/01', 1, 120);
+('2015-07-21', 1, 'Enviado',	'2015-07-21', 1, '2015-07-22', 200),
+('2015/10/01', 1, 'Guardado',	'2015/10/01', 1, '2015/10/04', 120);
 
 insert into pedido_proveedor values
 ('2015-07-21', 1, 'TRESTRIGOS'),

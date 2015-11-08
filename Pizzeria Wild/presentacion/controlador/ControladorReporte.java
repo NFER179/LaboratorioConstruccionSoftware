@@ -7,10 +7,10 @@ import vista.ReporteVista;
 
 public class ControladorReporte implements ActionListener {
 
-	private Controlador ctr;
+	private ControladorVenta ctr;
 	private ReporteVista vtReporte;
 
-	public ControladorReporte(Controlador Ctr) {
+	public ControladorReporte(ControladorVenta Ctr) {
 		this.ctr = Ctr;
 		this.vtReporte = new ReporteVista();
 		addListeners();
