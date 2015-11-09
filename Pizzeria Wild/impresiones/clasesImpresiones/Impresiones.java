@@ -133,11 +133,11 @@ public class Impresiones {
 	 * ImprimirComandaTicket(comanda); }
 	 */
 
-	public static void ImprimirReporteDiario(ObjReporteDiario reporte)
+	public static void ImprimirReporteDiario(ObjReporteMejoresClientes reporte)
 			throws IOException, DocumentException {
 		int totalHojas = reporte.getCantidadHojas();
 		for (int i = 1; i <= totalHojas; i++) {
-			imprimirHojaReporteDiario(reporte, i, totalHojas);
+			imprimirHojaReporteMejoresClientes(reporte, i, totalHojas);
 		}
 	}
 
@@ -165,39 +165,39 @@ public class Impresiones {
 		}
 	}
 
-	// REGION REPORTE DIARIO
+	// REGION REPORTE MEJORES MATERIAS
 
-	private static void imprimirHojaReporteDiario(ObjReporteDiario reporte,
+	private static void imprimirHojaReporteMejoresClientes(ObjReporteMejoresClientes reporte,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
 		initAll(reporte, numeroPagina);
 
-		llenarStamperReporteDiario(reporte, numeroPagina, totalHojas);
+		llenarStamperReporteMejoresClientes(reporte, numeroPagina, totalHojas);
 
 		closeAll();
 		//imprimirt();
 	}
 
-	private static void llenarStamperReporteDiario(ObjReporteDiario reporte,
+	private static void llenarStamperReporteMejoresClientes(ObjReporteMejoresClientes reporte,
 			int numeroPagina, int totalHojas) {
-		llenarCabeceraReporteDiario(reporte);
-		double total = llenarReporteDiario(reporte, numeroPagina);
-		llenarPieReporteDiario(reporte, total, numeroPagina, totalHojas);
+		llenarCabeceraReporteMejoresClientes(reporte);
+		double total = llenarReporteMejoresClientes(reporte, numeroPagina);
+		llenarPieReporteMejoresClientes(reporte, total, numeroPagina, totalHojas);
 
 	}
 
-	private static void llenarCabeceraReporteDiario(ObjReporteDiario reporte) {
+	private static void llenarCabeceraReporteMejoresClientes(ObjReporteMejoresClientes reporte) {
 		// TODO Auto-generated method stub
 
 	}
 
-	private static double llenarReporteDiario(ObjReporteDiario reporte,
+	private static double llenarReporteMejoresClientes(ObjReporteMejoresClientes reporte,
 			int numeroPagina) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	private static void llenarPieReporteDiario(ObjReporteDiario reporte,
+	private static void llenarPieReporteMejoresClientes(ObjReporteMejoresClientes reporte,
 			double total, int numeroPagina, int totalHojas) {
 		// TODO Auto-generated method stub
 
