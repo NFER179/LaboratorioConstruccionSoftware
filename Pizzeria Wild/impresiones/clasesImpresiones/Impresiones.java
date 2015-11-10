@@ -133,14 +133,6 @@ public class Impresiones {
 	 * ImprimirComandaTicket(comanda); }
 	 */
 
-	public static void ImprimirReporteDiario(ObjReporteMejoresClientes reporte)
-			throws IOException, DocumentException {
-		int totalHojas = reporte.getCantidadHojas();
-		for (int i = 1; i <= totalHojas; i++) {
-			imprimirHojaReporteMejoresClientes(reporte, i, totalHojas);
-		}
-	}
-
 	public static void ImprimirSolicitudMP(ObjSolicitudMP solicitud)
 			throws IOException, DocumentException {
 		int totalHojas = solicitud.getCantidadHojas();
@@ -165,41 +157,124 @@ public class Impresiones {
 		}
 	}
 
-	// REGION REPORTE MEJORES MATERIAS
+	// TOTEST:
 
-	private static void imprimirHojaReporteMejoresClientes(ObjReporteMejoresClientes reporte,
+	public static void ImprimirReporteVentas(ObjReporteVentas reporte)
+			throws Exception {
+		int totalHojas = reporte.getCantidadHojas();
+		for (int i = 1; i <= totalHojas; i++) {
+			imprimirHojaReporteVentas(reporte, i, totalHojas);
+		}
+	}
+
+	public static void ImprimirReporteReparto(ObjReporteReparto reporte)
+			throws Exception {
+		int totalHojas = reporte.getCantidadHojas();
+		for (int i = 1; i <= totalHojas; i++) {
+			imprimirHojaReporteReparto(reporte, i, totalHojas);
+		}
+	}
+
+	public static void ImprimirReporteMejoresClientes(
+			ObjReporteMejoresClientes reporte) throws IOException,
+			DocumentException {
+		initAll(reporte, 1);
+
+		llenarStamperReporteMejoresClientes(reporte);
+
+		closeAll();
+		// imprimirt();
+	}
+
+	// REGION REPORTE VENTAS
+	private static void imprimirHojaReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
 		initAll(reporte, numeroPagina);
 
-		llenarStamperReporteMejoresClientes(reporte, numeroPagina, totalHojas);
+		llenarStamperReporteReparto(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		//imprimirt();
+		// imprimirt();
 	}
 
-	private static void llenarStamperReporteMejoresClientes(ObjReporteMejoresClientes reporte,
+	private static void llenarStamperReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) {
-		llenarCabeceraReporteMejoresClientes(reporte);
-		double total = llenarReporteMejoresClientes(reporte, numeroPagina);
-		llenarPieReporteMejoresClientes(reporte, total, numeroPagina, totalHojas);
+		llenarCabeceraReporteReparto(reporte);
+		double total = llenarReporteReparto(reporte, numeroPagina);
+		llenarPieReporteReparto(reporte, total, numeroPagina, totalHojas);
 
 	}
 
-	private static void llenarCabeceraReporteMejoresClientes(ObjReporteMejoresClientes reporte) {
-		// TODO Auto-generated method stub
-
+	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte) {
 	}
 
-	private static double llenarReporteMejoresClientes(ObjReporteMejoresClientes reporte,
+	private static double llenarReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	private static void llenarPieReporteMejoresClientes(ObjReporteMejoresClientes reporte,
+	private static void llenarPieReporteReparto(ObjReporteReparto reporte,
 			double total, int numeroPagina, int totalHojas) {
-		// TODO Auto-generated method stub
+
+	}
+
+	// REGION REPORTE VENTAS
+	private static void imprimirHojaReporteVentas(ObjReporteVentas reporte,
+			int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
+		initAll(reporte, numeroPagina);
+
+		llenarStamperReporteVentas(reporte, numeroPagina, totalHojas);
+
+		closeAll();
+		// imprimirt();
+	}
+
+	private static void llenarStamperReporteVentas(ObjReporteVentas reporte,
+			int numeroPagina, int totalHojas) {
+		llenarCabeceraReporteVentas(reporte);
+		double total = llenarReporteVentas(reporte, numeroPagina);
+		llenarPieReporteVentas(reporte, total, numeroPagina, totalHojas);
+
+	}
+
+	private static void llenarCabeceraReporteVentas(ObjReporteVentas reporte) {
+
+	}
+
+	private static double llenarReporteVentas(ObjReporteVentas reporte,
+			int numeroPagina) {
+		return 0;
+	}
+
+	private static void llenarPieReporteVentas(ObjReporteVentas reporte,
+			double total, int numeroPagina, int totalHojas) {
+
+	}
+
+	// REGION REPORTE MEJORES CLIENTES
+
+	private static void llenarStamperReporteMejoresClientes(
+			ObjReporteMejoresClientes reporte) {
+		llenarCabeceraReporteMejoresClientes(reporte);
+		llenarReporteMejoresClientes(reporte);
+		llenarPieReporteMejoresClientes(reporte);
+
+	}
+
+	private static void llenarCabeceraReporteMejoresClientes(
+			ObjReporteMejoresClientes reporte) {
+
+	}
+
+	private static void llenarReporteMejoresClientes(
+			ObjReporteMejoresClientes reporte) {
+
+	}
+
+	private static void llenarPieReporteMejoresClientes(
+			ObjReporteMejoresClientes reporte) {
 
 	}
 
@@ -212,7 +287,7 @@ public class Impresiones {
 		llenarStamperSolicitudMP(solicitud, numeroPagina, totalHojas);
 
 		closeAll();
-		//imprimirt();
+		// imprimirt();
 	}
 
 	private static void llenarStamperSolicitudMP(ObjSolicitudMP solicitud,
@@ -277,7 +352,7 @@ public class Impresiones {
 		llenarStamperTicketComanda(comanda, numeroPagina, totalHojas);
 
 		closeAll();
-		//imprimirt();
+		// imprimirt();
 	}
 
 	private static void llenarStamperTicketComanda(ObjComandaTicket comanda,
@@ -383,7 +458,7 @@ public class Impresiones {
 		llenarStamperItinerario(itinerario, numeroPagina, totalHojas);
 
 		closeAll();
-		//imprimirt();
+		// imprimirt();
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
