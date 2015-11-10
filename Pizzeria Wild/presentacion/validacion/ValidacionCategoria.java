@@ -3,8 +3,9 @@ package validacion;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
+import modelo.ProveedorModelo;
+
 import dto.CategoriaDTO;
-import dto.ProveedorModelo;
 
 import vista.CategoriaVista;
 

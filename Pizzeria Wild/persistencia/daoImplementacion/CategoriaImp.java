@@ -170,4 +170,30 @@ public class CategoriaImp implements CategoriaDAO {
 		
 		return descr;
 	}
+
+	@Override
+	public CategoriaDTO GetCategoria(String Categoria) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from categoria " +
+							"where categoria_id = '" + Categoria + "'";
+		ResultSet rs = null;
+		CategoriaDTO categoria = null;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+					
+			while(rs.next()) {
+				String IdCategoria = rs.getString("categoria_id");
+				String Descripcion = rs.getString("descripcion");
+				categoria = new CategoriaDTO(IdCategoria, Descripcion);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			this.conector.CloseConnection();
+		}
+		
+		return categoria;
+	}
 }

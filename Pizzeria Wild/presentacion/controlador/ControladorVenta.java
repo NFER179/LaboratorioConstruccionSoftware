@@ -55,16 +55,17 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
 		this.vtVenta.getBtnCategorias().addActionListener(this);
 		this.vtVenta.getBtnReportes().addActionListener(this);
-		this.vtVenta.GetBtnEnviar().addActionListener(this);
-		this.vtVenta.GetBtnEnViaje().addActionListener(this);
-		this.vtVenta.GetBtnModificar().addActionListener(this);
-		this.vtVenta.GetBtnInformacin().addActionListener(this);
-		this.vtVenta.GetBtnEnMostrador().addActionListener(this);
+		this.vtVenta.getBtnProveedores().addActionListener(this);
+		this.vtVenta.getBtnEnviar().addActionListener(this);
+		this.vtVenta.getBtnEnViaje().addActionListener(this);
+		this.vtVenta.getBtnModificar().addActionListener(this);
+		this.vtVenta.getBtnInformacin().addActionListener(this);
+		this.vtVenta.getBtnEnMostrador().addActionListener(this);
 		this.vtVenta.getBtnTodasLasVentas().addActionListener(this);
-		this.vtVenta.GetBtnNuevaVenta().addActionListener(this);
-		this.vtVenta.GetBtnCancelarVenta().addActionListener(this);
-		this.vtVenta.GetBtnVentaEntregada().addActionListener(this);
-		this.vtVenta.GetBtnSalir().addActionListener(this);
+		this.vtVenta.getBtnNuevaVenta().addActionListener(this);
+		this.vtVenta.getBtnCancelarVenta().addActionListener(this);
+		this.vtVenta.getBtnVentaEntregada().addActionListener(this);
+		this.vtVenta.getBtnSalir().addActionListener(this);
 		/** JNVR - agrego eventos para los items del menu */
 //		this.vtVenta.getMntmReporteDiario().addActionListener(this);
 //		this.vtVenta.getMntmReporteSemanal().addActionListener(this);
@@ -85,18 +86,18 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void llenarTabla() {
-		this.vtVenta.GetModelVenta().setRowCount(0); // Vacia la tabla
-		this.vtVenta.GetModelVenta().setColumnCount(0);
-		this.vtVenta.GetModelVenta().setColumnIdentifiers(
-				this.vtVenta.GetNombreColumnas());
+		this.vtVenta.getModelVentas().setRowCount(0); // Vacia la tabla
+		this.vtVenta.getModelVentas().setColumnCount(0);
+		this.vtVenta.getModelVentas().setColumnIdentifiers(
+				this.vtVenta.getNombreColumnas());
 		this.ventasEnTabla = this.mdlVenta.GetVentaSinFacturar();
 		for (VentaDTO p : this.ventasEnTabla) {
 			Object[] fila = { p.getFecha(), Integer.toString(p.getNumVenta()),
 					p.getCliente(), "$ " + Integer.toString(p.getPrecio()),
 					p.getEstado(), this.Delivery(p.isDelivery()) };
-			this.vtVenta.GetModelVenta().addRow(fila);
+			this.vtVenta.getModelVentas().addRow(fila);
 		}
-		this.vtVenta.GetTable().setModel(this.vtVenta.GetModelVenta());
+		this.vtVenta.getTableVentas().setModel(this.vtVenta.getModelVentas());
 	}
 
 	public void RecargarTabla() {
@@ -154,8 +155,8 @@ public class ControladorVenta implements ActionListener {
 
 	private List<VentaDTO> GetVentasSeleccionadas() {
 		List<VentaDTO> ventas = new ArrayList<VentaDTO>();
-		int[] SelectedRows = this.vtVenta.GetTable().getSelectedRows();
-		JTable table = this.vtVenta.GetTable();
+		int[] SelectedRows = this.vtVenta.getTableVentas().getSelectedRows();
+		JTable table = this.vtVenta.getTableVentas();
 		for (int i = 0; i < SelectedRows.length; i++) {
 			int numFila = SelectedRows[i];
 			String fecha = Str.trim(table.getValueAt(numFila, columnaFecha));
@@ -213,7 +214,7 @@ public class ControladorVenta implements ActionListener {
 	}
 	
 	private void InformacionProducto() {
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		
 		String Fecha = tabla.getValueAt(tabla.getSelectedRow(), columnaFecha).toString().trim();
 		String StrNumPedido = tabla.getValueAt(tabla.getSelectedRow(), columnaNVenta).toString().trim();
@@ -246,6 +247,12 @@ public class ControladorVenta implements ActionListener {
 		ctrReporte.Inicializar();
 		this.vtVenta.Close();
 	}
+	
+	private void AccionProveedores() {
+		ControladorProveedor ctrProveedor = new ControladorProveedor(this);
+		ctrProveedor.Inicializar();
+		this.vtVenta.Close();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -259,42 +266,44 @@ public class ControladorVenta implements ActionListener {
 			this.accionCategorias();
 		} else if(source == this.vtVenta.getBtnReportes()) {
 			this.accionReportes();
-		} else if (source == vista.GetBtnEnviar()) {
+		} else if(source == this.vtVenta.getBtnProveedores()) {
+			this.AccionProveedores();
+		}else if (source == vista.getBtnEnviar()) {
 			if(this.ViendoVentasDelDia()){
 				accionEnviar();
 			}
-		} else if (source == vista.GetBtnEnViaje()) {
+		} else if (source == vista.getBtnEnViaje()) {
 			if(this.ViendoVentasDelDia()) {
 				accionEnViaje();
 			}
-		} else if (source == vista.GetBtnEnMostrador()) {
+		} else if (source == vista.getBtnEnMostrador()) {
 			if(this.ViendoVentasDelDia()) {
 				accionEnMostrador();
 			}
-		} else if (source == vista.GetBtnModificar()) {
+		} else if (source == vista.getBtnModificar()) {
 			if(this.ViendoVentasDelDia() && this.vldVenta.ModificarValido()) {
 				accionModificar();
 			}
 		} 
-		else if(source == vista.GetBtnInformacin()) {
+		else if(source == vista.getBtnInformacin()) {
 			if(this.vldVenta.InformarValido()) {
 				this.InformacionProducto();
 			}
 		}else if(source == vista.getBtnTodasLasVentas()){
 			this.CambiarTabla();
-		}else if (source == vista.GetBtnNuevaVenta()) {
+		}else if (source == vista.getBtnNuevaVenta()) {
 			if(this.ViendoVentasDelDia()) {
 				accionNuevaVenta();	
 			}
-		} else if (source == vista.GetBtnCancelarVenta()) {
+		} else if (source == vista.getBtnCancelarVenta()) {
 			if(this.ViendoVentasDelDia() && this.vldVenta.CancelarValido()) {
 				accionCancelarVenta();
 			}
-		} else if (source == vista.GetBtnVentaEntregada()) {
+		} else if (source == vista.getBtnVentaEntregada()) {
 			if(this.ViendoVentasDelDia() && this.vldVenta.EntregarValido()) {
 				accionVentaEntregada();
 			}
-		} else if (source == vista.GetBtnSalir()) {
+		} else if (source == vista.getBtnSalir()) {
 			accionSalir();
 		}
 //		} else if (source == vista.getMntmReporteDiario()) {
@@ -370,16 +379,16 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void LlenarTablaTodosLosPedidos() {
-		this.vtVenta.GetModelVenta().setRowCount(0);
-		this.vtVenta.GetModelVenta().setColumnCount(0);
-		this.vtVenta.GetModelVenta().setColumnIdentifiers(this.vtVenta.GetNombreColumnas());
+		this.vtVenta.getModelVentas().setRowCount(0);
+		this.vtVenta.getModelVentas().setColumnCount(0);
+		this.vtVenta.getModelVentas().setColumnIdentifiers(this.vtVenta.getNombreColumnas());
 		for(VentaDTO v:this.mdlVenta.ObtenerTodasLasVentas()) {
 			Object[] fila = {v.getFecha(), Integer.toString(v.getNumVenta()),
 					v.getCliente(), "$ " + Integer.toString(v.getPrecio()),
 					v.getEstado(), this.Delivery(v.isDelivery())};
-			this.vtVenta.GetModelVenta().addRow(fila);
+			this.vtVenta.getModelVentas().addRow(fila);
 		}
-		this.vtVenta.GetTable().setModel(this.vtVenta.GetModelVenta());
+		this.vtVenta.getTableVentas().setModel(this.vtVenta.getModelVentas());
 	}
 
 	private void accionSalir() {
@@ -462,7 +471,7 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void modificarVenta() {
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		String fecha = Str.trim(tabla.getValueAt(tabla.getSelectedRow(),
 				columnaFecha));
 		int numVenta = Str.toInt(tabla.getValueAt(tabla.getSelectedRow(),

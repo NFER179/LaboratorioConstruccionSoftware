@@ -47,4 +47,8 @@ public class CategoriaModelo {
 	public String ObtenerDescripcion(String Categoria) {
 		return this.categoria.GetDescripcion(Categoria);
 	}
+
+	public CategoriaDTO ObtenerCategoria(String Categoria) {
+		return this.categoria.GetCategoria(Categoria);
+	}
 }

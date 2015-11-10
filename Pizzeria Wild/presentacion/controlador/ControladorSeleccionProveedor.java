@@ -3,8 +3,9 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTable;
+
+import modelo.ProveedorModelo;
 import dto.ProveedorDTO;
-import dto.ProveedorModelo;
 import vista.CreacionSolicitudVista;
 import vista.SeleccionProveedorVista;
 
@@ -32,7 +33,7 @@ public class ControladorSeleccionProveedor implements ActionListener {
 		this.vtSeleccion.getModelTable().setRowCount(0);
 		this.vtSeleccion.getModelTable().setColumnCount(0);
 		this.vtSeleccion.getModelTable().setColumnIdentifiers(this.vtSeleccion.getNombreColumnas());
-		for(ProveedorDTO proveedor:this.mdlProveedor.ObtenerProveedores()) {
+		for(ProveedorDTO proveedor:this.mdlProveedor.ObtenerProveedoresActivos()) {
 			Object[] fila = {proveedor.getProveedorId(), proveedor.getNombre()};
 			this.vtSeleccion.getModelTable().addRow(fila);
 		}

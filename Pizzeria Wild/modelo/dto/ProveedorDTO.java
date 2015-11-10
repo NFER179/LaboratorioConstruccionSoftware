@@ -6,12 +6,14 @@ public class ProveedorDTO {
 	private String nombre;
 	private String telefono;
 	private String mail;
+	private boolean activo;
 	
-	public ProveedorDTO(String ProveedorId, String Nombre, String Telefono, String Mail) {
+	public ProveedorDTO(String ProveedorId, String Nombre, String Telefono, String Mail, boolean Activo) {
 		this.proveedorId = ProveedorId;
 		this.nombre = Nombre;
 		this.telefono = Telefono;
 		this.mail = Mail;
+		this.activo = Activo;
 	}
 
 	public String getProveedorId() {
@@ -44,5 +46,34 @@ public class ProveedorDTO {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
+	public static String ParseActivoShortString(boolean Arg0) {
+		if(Arg0)
+			return "Y";
+		else
+			return "N";
+	}
+	
+	public static String ParseActivoLongString(boolean Arg0) {
+		if(Arg0)
+			return "Si";
+		else
+			return "No";
+	}
+	
+	public static boolean ParseActivoBoolean(String Arg0) {
+		if(Arg0.trim().toUpperCase().equals("Y") | Arg0.trim().toUpperCase().equals("Si"))
+			return true;
+		else
+			return false;
 	}
 }

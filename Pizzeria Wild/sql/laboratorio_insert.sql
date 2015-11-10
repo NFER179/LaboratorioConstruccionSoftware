@@ -28,6 +28,14 @@ select * from sabor_producto;
 select * from pedido;*/
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /* Carga para version V.1.02. */
+/* ************************************************************************************************************************************* */
+/* ******************************************************** Modulo Preferencias. ******************************************************* */
+/* ************************************************************************************************************************************* */
+select * from estilos;
+			
+/* ************************************************************************************************************************************* */
+/* **************************************************** Modulo de Ventas a clientes. *************************************************** */
+/* ************************************************************************************************************************************* */
 
 insert into cliente values
 (000000001,	'Pepito',	'Gomez',		'Avenida Siempreviva 4323',	'011-4952-7401'),
@@ -54,15 +62,27 @@ insert into sabor_producto values
 insert into venta values
 ('2015-07-21', 1, "nicolas", "bolivia 2577", "011-15-66149730", 120, "22:27:36", "Pendiente", "ninguna.", "N", '');
 
+/*insert into combo values
+(combo_id char(20), effdt date, descr char(30), precio integer(), estado char(1));
+
+insert into producto_combo values
+(combo_id char(20), effdt date, product_id char(4), sabor char(100), cantidad integer());
+					
+insert into vehiculo values
+(patente char(10), descripcion char(30));*/
+
 insert into repartidor values
-(1,"Repartidor 1", "Motoquero"	, "12344321", "Cercano"),
-(2,"Repartidor 2", "Bicicletero", "98766789", "Lejos");
+(1,"Rene"	, "Gado"	, "12344321", "Cercano","fwi 154","Y"),
+(2,"Alfredo"	, "Bolt"	, "98766789", "Lejos",	"teh 057","Y");
 
 select * from cliente;			
 select * from producto;
 select * from sabor_producto;
 select * from venta;
 select * from venta_producto;
+select * from combo;
+select * from producto_combo;
+select * from vehiculo;
 select * from repartidor;
 select * from delivery;	
 /*select * from delivery_repartidor;*/
@@ -72,11 +92,11 @@ select * from delivery_venta;
 /* ************************************************ Modulo de Pedidos de materias Primas. ********************************************** */
 /* ************************************************************************************************************************************* */
 insert into proveedor values
-('SERENICIMA'	, 'La Serenisima SA.'						, '3571949572'	, 'pedidos@serenicima.com'),
-('SANCOR'		, 'Sancor SA.'								, '907548264'	, 'pedido@sancor.com.ar'),
-('TRESTRIGOS'	, 'Molino Tres Trigos'						, '392-24-61-6'	, 'pedido@molinos.com.ar'),
-('HEREFORD'		, 'Carniceria Hereford'						, '0237-462946'	, 'g.perez@gmail.com.ar'),
-('COTOPROV'		, 'Proveedor de cadena supermercado COTO'	, '39279517'	, 'cotopedido@coto.com.ar');
+('SERENISIMA'	, 'La Serenisima SA.'				, '3571949572'	, 'pedidos@serenicima.com'	,"Y"),
+('SANCOR'	, 'Sancor SA.'					, '907548264'	, 'pedido@sancor.com.ar'	,"N"),
+('TRESTRIGOS'	, 'Molino Tres Trigos'				, '392-24-61-6'	, 'pedido@molinos.com.ar'	,"Y"),
+('HEREFORD'	, 'Carniceria Hereford'				, '0237-462946'	, 'g.perez@gmail.com.ar'	,"Y"),
+('COTOPROV'	, 'Proveedor de cadena supermercado COTO'	, '39279517'	, 'cotopedido@coto.com.ar'	,"Y");
 
 insert into categoria values
 ('LACTEO'		, 'Categorias para todos los productos derivados de la leche.'),
@@ -111,10 +131,10 @@ insert into mp_categoria values
 ('CEREAL'		, 'Harina Integral');
 					
 insert into mp_proveedor values
-('SERENICIMA'	, 'LACTEO'		, 'Leche Larga Vida'),
-('HEREFORD'		, 'CARNE'		, 'Pechuga'),
-('HEREFORD'		, 'CARNE'		, 'Cuadril'),
-('COTOPROV'		, 'VERDU'		, 'Tomate'),
+('SERENISIMA'	, 'LACTEO'		, 'Leche Larga Vida'),
+('HEREFORD'	, 'CARNE'		, 'Pechuga'),
+('HEREFORD'	, 'CARNE'		, 'Cuadril'),
+('COTOPROV'	, 'VERDU'		, 'Tomate'),
 ('TRESTRIGOS'	, 'CEREAL'		, 'Harina 000');
 
 insert into pedido values

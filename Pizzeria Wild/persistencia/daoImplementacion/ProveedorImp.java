@@ -90,7 +90,37 @@ public class ProveedorImp implements ProveedorDAO {
 				String Nombre = rs.getString("Nombre");
 				String Telefono = rs.getString("telefono");
 				String Mail = rs.getString("mail");
-				proveedores.add(new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail));
+				boolean Activo = ProveedorDTO.ParseActivoBoolean(rs.getString("activo"));
+				proveedores.add(new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail, Activo));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return proveedores;
+	}
+
+	@Override
+	public List<ProveedorDTO> GetProveedoresActivos() {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from proveedor where activo = 'Y'";
+		ResultSet rs = null;
+		List<ProveedorDTO> proveedores = new ArrayList<ProveedorDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String ProveedorId = rs.getString("proveedor_id");
+				String Nombre = rs.getString("Nombre");
+				String Telefono = rs.getString("telefono");
+				String Mail = rs.getString("mail");
+				boolean Activo = ProveedorDTO.ParseActivoBoolean(rs.getString("activo"));
+				proveedores.add(new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail, Activo));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

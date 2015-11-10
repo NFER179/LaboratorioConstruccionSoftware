@@ -21,7 +21,7 @@ public class ValidacionVenta {
 	}
 	
 	public boolean CancelarValido() {
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		
 		if(tabla.getSelectedRowCount() == 0) {
 			String mensaje = "Debe Seleccionar al Menos una Venta para Poder Cancelar.";
@@ -33,7 +33,7 @@ public class ValidacionVenta {
 	}
 
 	public boolean EntregarValido() {
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		
 		if(tabla.getSelectedRowCount() == 0) {
 			String mensaje = "Debe Seleccionar al Menos una Venta para Poder Entregar.";
@@ -52,7 +52,7 @@ public class ValidacionVenta {
 		
 		Modificar = this.FilaSeleccionada(Mensaje, Titulo);
 		
-		if(this.vtVenta.GetTable().getSelectedRowCount() == 1) {
+		if(this.vtVenta.getTableVentas().getSelectedRowCount() == 1) {
 			if(!this.GetVentaSeleccionada().getEstado().toUpperCase().equals("VIAJE")){
 				if(this.GetVentaSeleccionada().getEstado().toUpperCase().equals("ARMADO")) {
 					Modificar = false;
@@ -79,7 +79,7 @@ public class ValidacionVenta {
 	}
 	
 	private boolean FilaSeleccionada(String Mensaje, String Titulo) {
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		
 		if(tabla.getSelectedRowCount() == 0) {
 			JOptionPane.showMessageDialog(null, Mensaje, Titulo, JOptionPane.INFORMATION_MESSAGE);
@@ -92,8 +92,8 @@ public class ValidacionVenta {
 	private VentaDTO GetVentaSeleccionada() {
 		VentaDTO ret = null;
 		
-		int SelectedRows = this.vtVenta.GetTable().getSelectedRow();
-		JTable table = this.vtVenta.GetTable();
+		int SelectedRows = this.vtVenta.getTableVentas().getSelectedRow();
+		JTable table = this.vtVenta.getTableVentas();
 		
 		String fecha = Str.trim(table.getValueAt(SelectedRows, 0));
 		int numVenta = Str.toInt(table.getValueAt(SelectedRows, 1));
@@ -104,7 +104,7 @@ public class ValidacionVenta {
 
 	public boolean InformarValido() {
 		boolean Informar = true;
-		JTable tabla = this.vtVenta.GetTable();
+		JTable tabla = this.vtVenta.getTableVentas();
 		
 		if(tabla.getSelectedRowCount() != 1) {
 			String titulo = "Informacion de Seleccion";

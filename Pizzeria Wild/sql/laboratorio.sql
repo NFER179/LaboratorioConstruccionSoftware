@@ -42,6 +42,10 @@ create table pedido_repartidor(id_repartidor integer, num_pedido integer unique,
 								
 /*-------------------------------------------------------------------------------------------------------------------------------------------------------------
 /* Estructura V.1.02. */
+/* Modulo Preferencias. */
+create table estilos(id_estilo char(30), codigo char(200),
+			primary key(id_estilo));
+			
 /* Modulo de Ventas a clientes. */
 create table cliente(id_cliente integer, nombres char(50), apellido char(30), direccion char(50),tel char(20),
 					primary key (id_cliente));
@@ -68,7 +72,18 @@ create table venta_producto(effdt date, num_venta integer, producto char(4), sab
 					foreign key (effdt, num_venta) references venta(effdt, num_venta),
 					foreign key (producto, sabor) references sabor_producto(product_id, sabor));
 					
-create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30),
+create table combo(combo_id char(20), effdt date, descr char(30), precio integer, estado char(1),
+			primary key(combo_id, effdt));
+
+create table producto_combo(combo_id char(20), effdt date, product_id char(4), sabor char(100), cantidad integer,
+			primary key(combo_id, effdt, product_id, sabor),
+			foreign key(combo_id, effdt) references combo(combo_id, effdt),
+			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));
+					
+create table vehiculo(patente char(10), descripcion char(30),
+			primary key(patente));					
+					
+create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30), vehiculo_id char(10), activo char(1),
 					primary key(empleado_id));
 					
 /*create table pedido_repartidor(id_empleado integer, num_pedido integer,
@@ -91,7 +106,7 @@ create table delivery_venta(effdt date, num_delivery integer,fecha_venta date, n
 /* ************************************************************************************************************************************* */
 /* ************************************************ Modulo de Pedidos de materias Primas. ********************************************** */
 /* ************************************************************************************************************************************* */
-create table proveedor(proveedor_id char(11), nombre char(100), telefono char(20), mail char(30),
+create table proveedor(proveedor_id char(11), nombre char(100), telefono char(20), mail char(30), activo char(1),
 					primary key(proveedor_id));
 					
 create table categoria(categoria_id char(8), descripcion char(100),

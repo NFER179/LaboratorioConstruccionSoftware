@@ -14,6 +14,9 @@ public class CreacionMateriaPrimaVista extends JDialog {
 	private JComboBox comboBox;
 	private JButton btnCrear;
 	private JButton btnCancelar;
+	private DefaultComboBoxModel modelCbxCategoria;
+	private String[] valoresCbxCategoria  = {"Ninguno"};
+	private JComboBox cbbCategoria;
 
 	public CreacionMateriaPrimaVista(MateriaPrimaVista MPV) {
 		super(MPV, true);
@@ -47,6 +50,17 @@ public class CreacionMateriaPrimaVista extends JDialog {
 		this.btnCancelar = new JButton("Cancelar");
 		this.btnCancelar.setBounds(191, 123, 89, 23);
 		getContentPane().add(this.btnCancelar);
+		
+		JLabel lblCategoria = new JLabel("Categoria:");
+		lblCategoria.setBounds(110, 67, 90, 14);
+		getContentPane().add(lblCategoria);
+		
+		this.modelCbxCategoria = new DefaultComboBoxModel(this.valoresCbxCategoria);
+		
+		cbbCategoria = new JComboBox(this.modelCbxCategoria);
+		cbbCategoria.setSelectedIndex(0);
+		cbbCategoria.setBounds(110, 92, 170, 20);
+		getContentPane().add(cbbCategoria);
 	}
 
 	public void Open() {
@@ -76,4 +90,17 @@ public class CreacionMateriaPrimaVista extends JDialog {
 	public JButton getBtnCancelar() {
 		return btnCancelar;
 	}
+
+	public String[] getValoresCbxCategoria() {
+		return valoresCbxCategoria;
+	}
+
+	public JComboBox getCbbCategoria() {
+		return cbbCategoria;
+	}
+
+	public DefaultComboBoxModel getModelCbxCategoria() {
+		return modelCbxCategoria;
+	}
+	
 }

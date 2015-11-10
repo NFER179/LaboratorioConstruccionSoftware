@@ -30,4 +30,7 @@ public interface CategoriaDAO {
 
 	/* Metodo por el cual se obtiene la descripcion. */
 	public String GetDescripcion(String Categoria);
+
+	/* Obtine la Categoria por Id que se Pasa. */
+	public CategoriaDTO GetCategoria(String Categoria);
 }

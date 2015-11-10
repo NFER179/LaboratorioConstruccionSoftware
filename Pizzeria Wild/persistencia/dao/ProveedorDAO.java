@@ -17,4 +17,7 @@ public interface ProveedorDAO {
 	/* ObtenerProveedores */
 	public List<ProveedorDTO> GetProveedores();
 
+	/* Obtiene los Proveedores Activos. */
+	public List<ProveedorDTO> GetProveedoresActivos();
+
 }

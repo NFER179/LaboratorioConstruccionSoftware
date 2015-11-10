@@ -5,8 +5,9 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
 
+import modelo.ProveedorModelo;
+
 import dto.MateriaPrimaDTO;
-import dto.ProveedorModelo;
 
 import validacion.ValidacionSeleccionMateriaPrimaSolicitud;
 import vista.CreacionSolicitudVista;

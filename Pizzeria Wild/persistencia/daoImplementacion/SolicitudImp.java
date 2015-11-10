@@ -197,7 +197,8 @@ public class SolicitudImp implements SolicitudDAO {
 				String Nombre = rs.getString("nombre");
 				String Telefono = rs.getString("telefono");
 				String Mail = rs.getString("mail");
-				proveedor = new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail);
+				boolean Activo = ProveedorDTO.ParseActivoBoolean(rs.getString("activo"));
+				proveedor = new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail, Activo);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

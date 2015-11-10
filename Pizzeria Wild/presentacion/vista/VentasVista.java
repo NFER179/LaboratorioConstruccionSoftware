@@ -37,6 +37,7 @@ public class VentasVista extends JFrame {
 	private JButton btnCancelarVenta;
 	private JButton btnVentaEntregada;
 	private JButton btnSalir;
+	private JButton btnProveedores;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
 //	private JMenuItem mntmReporteMensual;
@@ -84,6 +85,10 @@ public class VentasVista extends JFrame {
 		btnReportes = new JButton("Reportes");
 		btnReportes.setBounds(10, 113, 140, 23);
 		contentPane.add(btnReportes);
+		
+		btnProveedores = new JButton("Proveedores");
+		btnProveedores.setBounds(10, 147, 140, 23);
+		contentPane.add(btnProveedores);
 		
 //		JMenuBar menuBar_1 = new JMenuBar();
 //		setJMenuBar(menuBar_1);
@@ -206,7 +211,7 @@ public class VentasVista extends JFrame {
 		System.exit(0);
 	}
 
-	public JTable GetTable() {
+	public JTable getTableVentas() {
 		return this.tableVentas;
 	}
 
@@ -214,47 +219,51 @@ public class VentasVista extends JFrame {
 //		return mntmReporteDiario;
 //	}
 
-	public DefaultTableModel GetModelVenta() {
+	public DefaultTableModel getModelVentas() {
 		return this.modelVentas;
 	}
 
-	public String[] GetNombreColumnas() {
+	public JPanel getContentPane() {
+		return contentPane;
+	}
+
+	public String[] getNombreColumnas() {
 		return this.nombreColumnas;
 	}
 
-	public JButton GetBtnNuevaVenta() {
+	public JButton getBtnNuevaVenta() {
 		return this.btnNuevaVenta;
 	}
 
-	public JButton GetBtnCancelarVenta() {
+	public JButton getBtnCancelarVenta() {
 		return this.btnCancelarVenta;
 	}
 
-	public JButton GetBtnVentaEntregada() {
+	public JButton getBtnVentaEntregada() {
 		return this.btnVentaEntregada;
 	}
 
-	public JButton GetBtnEnviar() {
+	public JButton getBtnEnviar() {
 		return this.btnEnviar;
 	}
 
-	public JButton GetBtnEnViaje() {
+	public JButton getBtnEnViaje() {
 		return this.btnEnViaje;
 	}
 
-	public JButton GetBtnEnMostrador() {
+	public JButton getBtnEnMostrador() {
 		return this.btnEnMostrador;
 	}
 
-	public JButton GetBtnModificar() {
+	public JButton getBtnModificar() {
 		return this.btnModificar;
 	}
 
-	public JButton GetBtnInformacin() {
+	public JButton getBtnInformacin() {
 		return this.btnInformacin;
 	}
 
-	public JButton GetBtnSalir() {
+	public JButton getBtnSalir() {
 		return this.btnSalir;
 	}
 
@@ -277,4 +286,9 @@ public class VentasVista extends JFrame {
 	public JButton getBtnMateriasPrimas() {
 		return btnMateriasPrimas;
 	}
+
+	public JButton getBtnProveedores() {
+		return btnProveedores;
+	}
+	
 }
