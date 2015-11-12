@@ -82,7 +82,7 @@ public class ABMProveedorVista extends JDialog {
 		getContentPane().add(lblMail);
 		
 		txtMail = new JTextField();
-		txtMail.setBounds(105, 83, 86, 20);
+		txtMail.setBounds(105, 83, 285, 20);
 		getContentPane().add(txtMail);
 		txtMail.setColumns(10);
 		

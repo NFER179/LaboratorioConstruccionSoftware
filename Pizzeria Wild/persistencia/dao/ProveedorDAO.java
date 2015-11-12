@@ -20,4 +20,16 @@ public interface ProveedorDAO {
 	/* Obtiene los Proveedores Activos. */
 	public List<ProveedorDTO> GetProveedoresActivos();
 
+	/* Obtiene al Proveedor del cual se pasa como parametro su ID. */
+	public ProveedorDTO GetProveedor(String proveedor);
+
+	/* Obtiene las categoarias de un determinado proveedor */
+	public List<CategoriaDTO> GetCategorias(String proveedorId);
+
+	/* Actualiza los Datos del Proveedor. */
+	public void Update(ProveedorDTO proveedor);
+
+	/* Inserta en al Base a un proveedor */
+	public void Insert(ProveedorDTO proveedor);
+
 }

@@ -11,6 +11,9 @@ public class ReporteVista extends JFrame {
 	private JButton btnVentasDelDia;
 	
 	private JButton btnVolver;
+	private JButton btnMejoresClientes;
+	private JButton btnRepartidores;
+	private JButton btnVentas;
 
 	public ReporteVista() {
 		setResizable(false);
@@ -30,6 +33,18 @@ public class ReporteVista extends JFrame {
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(345, 234, 89, 23);
 		contentPane.add(btnVolver);
+		
+		btnMejoresClientes = new JButton("Mejores Clientes");
+		btnMejoresClientes.setBounds(10, 45, 114, 23);
+		contentPane.add(btnMejoresClientes);
+		
+		btnRepartidores = new JButton("Repartidores");
+		btnRepartidores.setBounds(10, 77, 114, 23);
+		contentPane.add(btnRepartidores);
+		
+		btnVentas = new JButton("Ventas");
+		btnVentas.setBounds(10, 111, 114, 23);
+		contentPane.add(btnVentas);
 	}
 
 	public void Open() {
@@ -47,4 +62,17 @@ public class ReporteVista extends JFrame {
 	public JButton getBtnVolver() {
 		return btnVolver;
 	}
+
+	public JButton getBtnMejoresClientes() {
+		return btnMejoresClientes;
+	}
+
+	public JButton getBtnRepartidores() {
+		return btnRepartidores;
+	}
+
+	public JButton getBtnVentas() {
+		return btnVentas;
+	}
+	
 }

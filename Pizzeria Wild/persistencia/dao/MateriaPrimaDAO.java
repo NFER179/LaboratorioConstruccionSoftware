@@ -25,6 +25,9 @@ public interface MateriaPrimaDAO {
 	/* Obtiene la cantidad de materia prima con ese nombre */
 	public int GetCantMT(String NombreMT);
 
+	/* Obtiene la Materia Prima especificada. */
+	public MateriaPrimaDTO GetMateriaPrima(String nombre);
+
 	/* Asigna la Materia Prima a una Categoria. */
 //	public void AsignarMTaCategoria(String materiaPrima, String categoria);
 }
