@@ -183,7 +183,7 @@ public class Impresiones {
 		llenarStamperReporteMejoresClientes(reporte);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	// REGION REPORTE VENTAS
@@ -195,7 +195,7 @@ public class Impresiones {
 		llenarStamperReporteReparto(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperReporteReparto(ObjReporteReparto reporte,
@@ -228,7 +228,7 @@ public class Impresiones {
 		llenarStamperReporteVentas(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperReporteVentas(ObjReporteVentas reporte,
@@ -287,7 +287,7 @@ public class Impresiones {
 		llenarStamperSolicitudMP(solicitud, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperSolicitudMP(ObjSolicitudMP solicitud,
@@ -352,7 +352,7 @@ public class Impresiones {
 		llenarStamperTicketComanda(comanda, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperTicketComanda(ObjComandaTicket comanda,
@@ -458,7 +458,7 @@ public class Impresiones {
 		llenarStamperItinerario(itinerario, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
