@@ -436,12 +436,12 @@ public class Impresiones {
 		stamper.getAcroFields().setField("txtTotalTicket", total + "");
 
 		stamper.getAcroFields().setField("txtObservacionComanda",
-				"Observaciones: " + comanda.getObservaciones());
+				"Obser: " + comanda.getObservaciones());
 
 		stamper.getAcroFields().setField("txtObservacionDelivery",
-				"Observaciones: " + comanda.getObservacionDelivery());
+				"Obser: " + comanda.getObservacionDelivery());
 		stamper.getAcroFields().setField("txtObservacionTicket",
-				"Observaciones: " + comanda.getObservaciones());
+				"Obser: " + comanda.getObservaciones());
 
 		stamper.getAcroFields().setField("txtPaginadoComanda",
 				numeroPagina + " DE " + totalHojas);
@@ -512,7 +512,7 @@ public class Impresiones {
 		stamper.getAcroFields()
 				.setField("txtTotal", itinerario.getTotal() + "");
 		stamper.getAcroFields().setField("txtObservaciones",
-				"Observaciones: " + itinerario.getObservacionGral());
+				"Obser: " + itinerario.getObservacionGral());
 		stamper.getAcroFields().setField("txtPaginacion",
 				numeroPagina + " DE " + totalHojas);
 	}
