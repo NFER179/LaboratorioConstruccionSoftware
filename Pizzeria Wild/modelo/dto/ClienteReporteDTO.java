@@ -8,8 +8,7 @@ public class ClienteReporteDTO {
 	private String fechaUltimaCompra;
 
 	public ClienteReporteDTO(int precio, String nombre, int posicion,
-			String fechaUltimaCompra) {
-		super();
+			String fechaUltimaCompra) { 
 		this.precio = precio;
 		this.nombre = nombre;
 		this.posicion = posicion;
