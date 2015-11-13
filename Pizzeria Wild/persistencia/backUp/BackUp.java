@@ -73,7 +73,6 @@ public class BackUp {
 		Statement stm = ConectorDB.GetInstancia().GetStatement();
 		for (String sentencia : sentenciasSql) {
 			sentencia = sentencia + ";";
-			System.out.println(sentencia);
 			stm.executeUpdate(sentencia);
 		}
 	}

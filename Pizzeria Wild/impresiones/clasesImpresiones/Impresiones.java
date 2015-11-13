@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -13,6 +14,8 @@ import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
+
+import modelo.ReportesModelo;
 
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjItinerario.objPuntoItinerario;
@@ -37,57 +40,27 @@ public class Impresiones {
 	private static PdfStamper stamper;
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
 
-	// public static void main(String[] args) {
-	// try {
-	// solicitudMPTest();
-	// } catch (Exception e) {
-	// System.out.println("MACANAS");
-	// System.out.println(e.toString());
-	// }
-	// }
-	//
-	// private static void solicitudMPTest() throws Exception {
-	// ProveedorDTO proveedor = new ProveedorDTO("IDPROVEEDOR", "NOmbre",
-	// "1234", "micho@gmail.com");
-	// ObjSolicitudMP solicitud = new ObjSolicitudMP("12-12-12", 22, proveedor);
-	// solicitud.addMateriaPrima("LECHE", "Unidad1");
-	// solicitud.addMateriaPrima("LECHE", "Unidad2");
-	// solicitud.addMateriaPrima("LECHE", "Unidad3");
-	// solicitud.addMateriaPrima("LECHE", "Unidad4");
-	// solicitud.addMateriaPrima("LECHE", "Unidad5");
-	// solicitud.addMateriaPrima("LECHE", "Unidad6");
-	// solicitud.addMateriaPrima("LECHE", "Unidad7");
-	// solicitud.addMateriaPrima("LECHE", "Unidad8");
-	// solicitud.addMateriaPrima("LECHE", "Unidad9");
-	// solicitud.addMateriaPrima("LECHE", "Unidad10");
-	// solicitud.addMateriaPrima("LECHE", "Unidad11");
-	// solicitud.addMateriaPrima("LECHE", "Unidad12");
-	// solicitud.addMateriaPrima("LECHE", "Unidad13");
-	// solicitud.addMateriaPrima("LECHE", "Unidad14");
-	// solicitud.addMateriaPrima("LECHE", "Unidad15");
-	// solicitud.addMateriaPrima("LECHE", "Unidad16");
-	// solicitud.addMateriaPrima("LECHE", "Unidad17");
-	// solicitud.addMateriaPrima("LECHE", "Unidad18");
-	// solicitud.addMateriaPrima("LECHE", "Unidad19");
-	// solicitud.addMateriaPrima("LECHE", "Unidad20");
-	// solicitud.addMateriaPrima("LECHE", "Unidad21");
-	// solicitud.addMateriaPrima("LECHE", "Unidad22");
-	// solicitud.addMateriaPrima("LECHE", "Unidad23");
-	// solicitud.addMateriaPrima("LECHE", "Unidad24");
-	// solicitud.addMateriaPrima("LECHE", "Unidad25");
-	// solicitud.addMateriaPrima("LECHE", "Unidad26");
-	// solicitud.addMateriaPrima("LECHE", "Unidad27");
-	// solicitud.addMateriaPrima("LECHE", "Unidad28");
-	// solicitud.addMateriaPrima("LECHE", "Unidad29");
-	// solicitud.addMateriaPrima("LECHE", "Unidad30");
-	// solicitud.addMateriaPrima("LECHE", "Unidad31");
-	// solicitud.addMateriaPrima("LECHE", "Unidad32");
-	// solicitud.addMateriaPrima("LECHE", "Unidad33");
-	// solicitud.addMateriaPrima("LECHE", "Unidad34");
-	// solicitud.addMateriaPrima("LECHE", "Unidad35");
-	// solicitud.addMateriaPrima("LECHE", "Unidad36");
-	// ImprimirSolicitudMP(solicitud);
-	// }
+	public static void main(String[] args) {
+		try {
+			solicitudMPTest();
+		} catch (Exception e) {
+			System.out.println("MACANAS");
+			System.out.println(e.toString());
+		}
+	}
+
+	private static void solicitudMPTest() throws Exception {
+
+		ReportesModelo model = new ReportesModelo();
+		List<ClienteReporteDTO> lista = model.GetMejoresClientes("2010-10-10",
+				"2020-10-10");
+
+		System.out.println(lista.size());
+		ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
+				"2010-1-1", "2020-1-1", lista);
+		ImprimirReporteMejoresClientes(reporte);
+	}
+
 	//
 	// private static void itinerarioTest() throws Exception {
 	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
@@ -338,14 +311,22 @@ public class Impresiones {
 			ObjReporteMejoresClientes reporte) throws IOException,
 			DocumentException {
 		// txtPuesto txtCliente txtAcumulado txtUltVenta
+		int i = 0;
 		for (ClienteReporteDTO cliente : reporte.getClientes()) {
-			stamper.getAcroFields().setField("txtPuesto",
-					cliente.getPosicion() + "");
-			stamper.getAcroFields().setField("txtCliente", cliente.getNombre());
-			stamper.getAcroFields().setField("txtAcumulado",
-					cliente.getPrecio() + "");
-			stamper.getAcroFields().setField("txtUltVenta",
-					cliente.getFechaUltimaCompra());
+			String nombre = cliente.getNombre() != null ? cliente.getNombre()
+					: "";
+			String posicion = cliente.getPosicion() != 0 ? cliente
+					.getPosicion() + "" : "";
+			int precios = cliente.getPrecio();
+			boolean esPrecio = precios != 0;
+			String precio = esPrecio ? cliente.getPrecio() + "" : "";
+			String ultimaVenta = cliente.getFechaUltimaCompra() != null ? cliente
+					.getFechaUltimaCompra() : "";
+			stamper.getAcroFields().setField("txtPuesto" + i, posicion);
+			stamper.getAcroFields().setField("txtCliente" + i, nombre);
+			stamper.getAcroFields().setField("txtAcumulado" + i, precio);
+			stamper.getAcroFields().setField("txtUltVenta" + i, ultimaVenta);
+			i++;
 		}
 	}
 

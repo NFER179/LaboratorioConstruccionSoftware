@@ -54,8 +54,7 @@ public class ControladorReporte implements ActionListener {
 		List<ClienteReporteDTO> lista = reportes.GetMejoresClientes(fechaDesde,
 				fechaHasta);
 		ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
-				fechaDesde, fechaHasta);
-		reporte.setClientes(lista);
+				fechaDesde, fechaHasta, lista);
 		try {
 			Impresiones.ImprimirReporteMejoresClientes(reporte);
 		} catch (IOException e) {
