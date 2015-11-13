@@ -56,6 +56,7 @@ public class ReportesImp implements ReportesDAO {
 			int idRepartidor) {
 		Statement stm;
 		String sqlString = String.format(repartos, fecha, idRepartidor);
+		System.out.println(sqlString);
 		ResultSet rs = null;
 		List<RepartidoReporteDTO> lstCliente = new ArrayList<RepartidoReporteDTO>();
 
@@ -110,14 +111,15 @@ public class ReportesImp implements ReportesDAO {
 	private static String reporteVentas = "";
 
 	private static String repartos = "select d.num_delivery as reparto, "
-			+ "v.num_venta as pedido, v.cliente, dv.estado , v.precio"
-			+ "from delivery as d" + "inner join venta as v "
-			+ "on d.effdt = dv.effdt "
-			+ " and d.num_delivery = dv.num_delivery"
-			+ " and v.num_venta = dv.num_venta"
-			+ "where dv.effdt = '%s' and empleado_id = %s";
+			+ " v.num_venta as pedido, v.cliente, dv.estado , v.precio "
+			+ " from delivery as d inner join venta as v "
+			+ " on d.effdt = v.effdt inner join delivery_venta as dv "
+			+ " on d.effdt = dv.effdt and d.num_delivery = dv.num_delivery "
+			+ " and v.num_venta = dv.num_venta "
+			+ " where dv.effdt = '%s' and empleado_id = %s";
 
 	private static int cantidadMejoresClientes = 10;
-	private static String mejoresClientes = "SELECT v.cliente as nombre, sum(v.precio) as total, max(v.effdt) as fecha FROM venta as v  where v.effdt >= '%s' and v.effdt <= '%s' and v.estado = 'Facturado' GROUP BY v.cliente order by total desc, fecha asc limit 10;";
+	private static String mejoresClientes = "SELECT v.cliente as nombre, sum(v.precio) as total, max(v.effdt) as fecha FROM venta as v  where v.effdt >= '%s' and v.effdt <= '%s' and v.estado = 'Facturado' GROUP BY v.cliente order by total desc, fecha asc limit "
+			+ cantidadMejoresClientes + " ;";
 
 }

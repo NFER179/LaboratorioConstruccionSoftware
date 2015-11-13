@@ -42,14 +42,14 @@ public class Impresiones {
 
 	public static void main(String[] args) {
 		try {
-			solicitudMPTest();
+			solicitudMPTest2();
 		} catch (Exception e) {
 			System.out.println("MACANAS");
 			System.out.println(e.toString());
 		}
 	}
 
-	private static void solicitudMPTest() throws Exception {
+	public static void solicitudMPTest() throws Exception {
 
 		ReportesModelo model = new ReportesModelo();
 		List<ClienteReporteDTO> lista = model.GetMejoresClientes("2010-10-10",
@@ -59,6 +59,18 @@ public class Impresiones {
 		ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
 				"2010-1-1", "2020-1-1", lista);
 		ImprimirReporteMejoresClientes(reporte);
+	}
+
+	private static void solicitudMPTest2() throws Exception {
+
+		ReportesModelo model = new ReportesModelo();
+		List<RepartidoReporteDTO> lista = model
+				.GetRepartidores("2015-11-13", 1);
+
+		System.out.println(lista.size());
+		ObjReporteReparto reporte = new ObjReporteReparto("2010-1-1",
+				"Fulano mengano", lista);
+		ImprimirReporteReparto(reporte);
 	}
 
 	//

@@ -10,9 +10,11 @@ public class ObjReporteReparto extends ObjImprimible {
 	private List<RepartidoReporteDTO> repartos;
 	private String nombreRepartidor;
 
-	public ObjReporteReparto(String fecha, int id, String nombreRepartidor) {
-		super(nombreRepartidor + fecha, fecha, tipo, id, maxPag);
+	public ObjReporteReparto(String fecha, String nombreRepartidor,
+			List<RepartidoReporteDTO> repartos) {
+		super(nombreRepartidor + fecha, fecha, tipo, 1, maxPag);
 		this.setNombreRepartidor(nombreRepartidor);
+		this.repartos = repartos;
 	}
 
 	@Override

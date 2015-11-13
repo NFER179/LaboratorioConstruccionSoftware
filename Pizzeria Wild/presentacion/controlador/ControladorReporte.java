@@ -70,9 +70,8 @@ public class ControladorReporte implements ActionListener {
 		List<RepartidoReporteDTO> lista = reportes.GetRepartidores(fecha,
 				idRepartidor);
 
-		ObjReporteReparto reporte = new ObjReporteReparto(fecha, idRepartidor,
-				nombreRepartidor);
-		reporte.setRepartos(lista);
+		ObjReporteReparto reporte = new ObjReporteReparto(fecha,
+				nombreRepartidor, lista);
 		try {
 			Impresiones.ImprimirReporteReparto(reporte);
 		} catch (Exception e) {
