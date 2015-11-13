@@ -60,7 +60,6 @@ public class ControladorReporte implements ActionListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -75,21 +74,18 @@ public class ControladorReporte implements ActionListener {
 		try {
 			Impresiones.ImprimirReporteReparto(reporte);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
 	private void ReporteVentas(String fecha, String familia, int dia,
-			int semana, String[] condiciones) {
+			int semana, String condiciones) {
 		List<VentaReporteDTO> lista = reportes.GetVentas(condiciones);
 		ObjReporteVentas reporte = new ObjReporteVentas(fecha, familia, dia,
-				semana);
-		reporte.setProductos(lista);
+				semana, lista);
 		try {
 			Impresiones.ImprimirReporteVentas(reporte);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -112,12 +108,19 @@ public class ControladorReporte implements ActionListener {
 			this.ReporteRepartidores("fecha", id_repartidor,
 					"nombreDelReparidro");
 		} else if (source == this.vtReporte.getBtnVentas()) {
+			// NICOF
 			int dia = 0;
 			int semana = 0;
-			String[] condiciones = new String[2];
+			String condiciones = elegirCondicionesSql();
 			this.ReporteVentas("fecha", "familia", dia, semana, condiciones);
 		} else if (source == this.vtReporte.getBtnVolver()) {
 			accionVolver();
 		}
+	}
+
+	private static String elegirCondicionesSql() {
+		String ret = "";
+
+		return ret;
 	}
 }

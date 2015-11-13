@@ -81,7 +81,7 @@ public class ReportesImp implements ReportesDAO {
 	}
 
 	@Override
-	public List<VentaReporteDTO> getReporteVentas(String[] condiciones) {
+	public List<VentaReporteDTO> getReporteVentas(String condiciones) {
 		Statement stm;
 		String sqlString = String.format(reporteVentas, condiciones);
 		ResultSet rs = null;
@@ -108,7 +108,14 @@ public class ReportesImp implements ReportesDAO {
 		return lstVentas;
 	}
 
-	private static String reporteVentas = "";
+	private static String reporteVentas = "select * from ("
+			+ " select CONCAT(vp.producto ,', ' , vp.sabor ) as producto, "
+			+ " sum(vp.cantidad) as cantidad,  vp.effdt as fecha "
+			+ " from venta_producto as vp inner join venta as v "
+			+ " on vp.effdt = v.effdt and vp.num_venta = v.num_venta  "
+			+ " where v.estado = 'Facturado' "
+			+ " group by vp.producto, vp.sabor " + " order by cantidad desc"
+			+ ") as n where %s";
 
 	private static String repartos = "select d.num_delivery as reparto, "
 			+ " v.num_venta as pedido, v.cliente, dv.estado , v.precio "

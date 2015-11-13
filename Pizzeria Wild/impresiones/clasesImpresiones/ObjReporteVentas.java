@@ -12,11 +12,13 @@ public class ObjReporteVentas extends ObjImprimible {
 	private int semana;
 	private List<VentaReporteDTO> productos;
 
-	public ObjReporteVentas(String fecha, String familia, int dia, int semana) {
+	public ObjReporteVentas(String fecha, String familia, int dia, int semana,
+			List<VentaReporteDTO> lista) {
 		super("Reporte ventas " + fecha, fecha, tipo, 0, maxPag);
 		this.familia = familia;
 		this.dia = dia;
 		this.semana = semana;
+		this.productos = lista;
 	}
 
 	@Override

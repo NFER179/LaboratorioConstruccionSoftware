@@ -25,7 +25,7 @@ public class ReportesModelo {
 		return this.repartidor.getMejoresClientes(fechaDesde, fechaHasta);
 	}
 
-	public List<VentaReporteDTO> GetVentas(String[] condiciones) {
+	public List<VentaReporteDTO> GetVentas(String condiciones) {
 		return this.repartidor.getReporteVentas(condiciones);
 	}
 
