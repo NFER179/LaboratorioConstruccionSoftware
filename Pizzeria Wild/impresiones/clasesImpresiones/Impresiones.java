@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.PdfStamper;
 
 import dto.MateriaPrimaDTO;
 import dto.ProveedorDTO;
+import dto.RepartidoReporteDTO;
 
 public class Impresiones {
 
@@ -186,7 +187,7 @@ public class Impresiones {
 		imprimir();
 	}
 
-	// REGION REPORTE VENTAS
+	// REGION REPORTE REPARTO
 	private static void imprimirHojaReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
@@ -199,26 +200,59 @@ public class Impresiones {
 	}
 
 	private static void llenarStamperReporteReparto(ObjReporteReparto reporte,
-			int numeroPagina, int totalHojas) {
+			int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
 		llenarCabeceraReporteReparto(reporte);
 		double total = llenarReporteReparto(reporte, numeroPagina);
 		llenarPieReporteReparto(reporte, total, numeroPagina, totalHojas);
 
 	}
 
-	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte) {
-		// txtFecha txtRepartidor
+	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte)
+			throws IOException, DocumentException {
+		stamper.getAcroFields().setField("txtFecha", reporte.getFecha());
+		stamper.getAcroFields().setField("txtRepartidor",
+				reporte.getNombreRepartidor());
 	}
 
 	private static double llenarReporteReparto(ObjReporteReparto reporte,
-			int numeroPagina) {
-		// txtReparto txtPedido0 txtCliente0 txtEntrega0 txtMonto0
-		return 0;
+			int numeroPagina) throws IOException, DocumentException {
+		// txtReparto txtPedido txtCliente txtEntrega txtMonto
+		int desde = 0;
+		if (numeroPagina != 1)
+			desde = ((numeroPagina - 1) * reporte.getMaxPaginacion()) - 1;
+		int hasta = (numeroPagina * reporte.getMaxPaginacion()) - 1;
+		int puntos = reporte.getRepartos().size();
+		hasta = (hasta > puntos) ? puntos : hasta;
+		int i = 0;
+		double total = 0;
+		for (RepartidoReporteDTO reparto : reporte.getRepartos().subList(desde,
+				hasta)) {
+			stamper.getAcroFields().setField("txtReparto" + i,
+					reparto.getReparto() + "");
+			stamper.getAcroFields().setField("txtPedido" + i,
+					reparto.getPedido() + "");
+			stamper.getAcroFields().setField("txtCliente" + i,
+					reparto.getCliente());
+			stamper.getAcroFields().setField("txtEntrega" + i,
+					reparto.getEntregado());
+			stamper.getAcroFields().setField("txtMonto" + i,
+					reparto.getMonto() + "");
+		}
+		for (RepartidoReporteDTO reparto : reporte.getRepartos()) {
+			total += reparto.getMonto();
+		}
+		return total;
 	}
 
 	private static void llenarPieReporteReparto(ObjReporteReparto reporte,
-			double total, int numeroPagina, int totalHojas) {
+			double total, int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
 		// txtPaginado
+		stamper.getAcroFields().setField("txtTotal", total + "");
+		stamper.getAcroFields().setField("txtPaginado",
+				numeroPagina + " DE " + totalHojas);
+
 	}
 
 	// REGION REPORTE VENTAS
@@ -420,13 +454,16 @@ public class Impresiones {
 					punto.getPrecio() + "");
 
 			subtotal = punto.getPrecio() * punto.getCantidad();
-			total += subtotal;
+
 			stamper.getAcroFields().setField("txtSubTotal" + i, subtotal + "");
 
 			stamper.getAcroFields()
 					.setField("txtCodigo" + i, punto.getCodigo());
 			stamper.getAcroFields().setField("txtUnd" + i, punto.getUnd());
 			i++;
+		}
+		for (ObjProductoTicketComanda punto : comanda.getListaProductos()) {
+			total += punto.getPrecio() * punto.getCantidad();
 		}
 		return total;
 	}
