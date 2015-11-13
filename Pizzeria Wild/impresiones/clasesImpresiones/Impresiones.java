@@ -207,16 +207,18 @@ public class Impresiones {
 	}
 
 	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte) {
+		// txtFecha txtRepartidor
 	}
 
 	private static double llenarReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina) {
+		// txtReparto txtPedido0 txtCliente0 txtEntrega0 txtMonto0
 		return 0;
 	}
 
 	private static void llenarPieReporteReparto(ObjReporteReparto reporte,
 			double total, int numeroPagina, int totalHojas) {
-
+		// txtPaginado
 	}
 
 	// REGION REPORTE VENTAS
@@ -534,9 +536,9 @@ public class Impresiones {
 		return stamper;
 	}
 
-	private static FileOutputStream getPdfOut(ObjImprimible itinerario,
+	private static FileOutputStream getPdfOut(ObjImprimible imprimible,
 			int numeroPagina) throws FileNotFoundException {
-		pdfResultPath = String.format(resultPath, itinerario.getNombreArchivo()
+		pdfResultPath = String.format(resultPath, imprimible.getNombreArchivo()
 				+ "_" + numeroPagina);
 		FileOutputStream pdfOut = new FileOutputStream(pdfResultPath);
 		return pdfOut;

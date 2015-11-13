@@ -7,8 +7,10 @@ import java.util.List;
 
 import conexion.ConectorDB;
 
-import dao.ReportesDAO; 
+import dao.ReportesDAO;
 import dto.ClienteReporteDTO;
+import dto.RepartidoReporteDTO;
+import dto.VentaReporteDTO;
 
 public class ReportesImp implements ReportesDAO {
 
@@ -49,21 +51,76 @@ public class ReportesImp implements ReportesDAO {
 	}
 
 	@Override
-	public List<Object> getInformeReparitodes(String fechaDesde,
-			String fechaHasta) {
-		return null;
+	public List<RepartidoReporteDTO> getInformeReparitodes(String fecha,
+			int idRepartidor) {
+		Statement stm;
+		String sqlString = String.format(repartos, fecha, idRepartidor);
+		ResultSet rs = null;
+		List<RepartidoReporteDTO> lstCliente = new ArrayList<RepartidoReporteDTO>();
+
+		try {
+			stm = this.conector.GetStatement();
+			rs = stm.executeQuery(sqlString);
+
+			while (rs.next()) {
+				lstCliente.add(new RepartidoReporteDTO(rs.getInt("reparto"), rs
+						.getString("cliente"), rs.getInt("pedido"), rs
+						.getString("estado"), rs.getInt("precio")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			this.conector.CloseConnection();
+		}
+
+		return lstCliente;
 	}
 
 	@Override
-	public List<Object> getMejoresClieFs(String fechaDesde, String fechaHasta) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<VentaReporteDTO> getReporteVentas(String[] condiciones) {
+		Statement stm;
+		String sqlString = String.format(reporteVentas, condiciones);
+		ResultSet rs = null;
+		List<VentaReporteDTO> lstVentas = new ArrayList<VentaReporteDTO>();
+
+		try {
+			stm = this.conector.GetStatement();
+			rs = stm.executeQuery(sqlString);
+
+			int posicion = 1;
+			while (rs.next()) {
+				lstVentas.add(new VentaReporteDTO(posicion, rs
+						.getString("producto"), rs.getInt("cantidad")));
+				posicion++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			this.conector.CloseConnection();
+		}
+
+		return lstVentas;
 	}
 
+	private static String reporteVentas = "";
+
+	private static String repartos = "select d.num_delivery as reparto, "
+			+ "v.num_venta as pedido, v.cliente, dv.estado , v.precio"
+			+ "from delivery as d" + "inner join venta as v "
+			+ "on d.effdt = v.effdt" + "inner join delivery_venta as dv"
+			+ "on d.effdt = dv.effdt " + "and d.num_delivery = dv.num_delivery"
+			+ "and v.num_venta = dv.num_venta"
+			+ "where dv.effdt = '%s' and empleado_id = %s";
+
+	private static int cantidadMejoresClientes = 10;
 	private static String mejoresClientes = "SELECT v.cliente as nombre, "
 			+ "sum(v.precio) as total, max(v.effdt) as fecha"
 			+ "FROM venta as v " + "where v.effdt >= %s and v.effdt <= %s"
 			+ "and v.estado = 'Facturado'" + "GROUP BY v.cliente"
-			+ "order by total desc, fecha asc";
+			+ "order by total desc, fecha asc limit" + cantidadMejoresClientes;
 
 }
