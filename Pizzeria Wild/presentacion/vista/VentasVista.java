@@ -8,12 +8,17 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
-
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JMenu;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.ComponentOrientation;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.ScrollPaneConstants;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 @SuppressWarnings("serial")
 public class VentasVista extends JFrame {
@@ -38,6 +43,7 @@ public class VentasVista extends JFrame {
 	private JButton btnVentaEntregada;
 	private JButton btnSalir;
 	private JButton btnProveedores;
+	private JLabel lblNewLabel;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
 //	private JMenuItem mntmReporteMensual;
@@ -48,6 +54,11 @@ public class VentasVista extends JFrame {
 //	private JMenuItem mntmEditarSolicitudesGuardadas;
 
 	public VentasVista() {
+		setResizable(false);
+		setType(Type.POPUP);
+		setFont(new Font("Dialog", Font.BOLD, 12));
+		setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentasVista.class.getResource("/Iconos/pizza_1.PNG")));
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 		}
@@ -58,36 +69,53 @@ public class VentasVista extends JFrame {
 	}
 	
 	private void initialize() {
-
-		this.setResizable(false);
 		this.setTitle("Ventas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 878, 419);
+		this.setBounds(10, 10, 1078, 640);
 		
 		this.contentPane = new JPanel();
-		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		this.contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
-		this.setLocationRelativeTo(null);
+		//this.setLocationRelativeTo(null);
 		
 		btnSolicitudes = new JButton("Solicitudes");
-		btnSolicitudes.setBounds(10, 11, 140, 23);
+		btnSolicitudes.setIgnoreRepaint(true);
+		btnSolicitudes.setAutoscrolls(true);
+		btnSolicitudes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSolicitudes.setBounds(20, 204, 140, 40);
 		contentPane.add(btnSolicitudes);
 		
 		btnCategorias = new JButton("Categorias");
-		btnCategorias.setBounds(10, 45, 140, 23);
+		btnCategorias.setBackground(new Color(240, 255, 240));
+		btnCategorias.setIgnoreRepaint(true);
+		btnCategorias.setAutoscrolls(true);
+		btnCategorias.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCategorias.setBounds(20, 21, 140, 40);
 		contentPane.add(btnCategorias);
 		
-		btnMateriasPrimas = new JButton("Materias Primas");
-		btnMateriasPrimas.setBounds(10, 79, 140, 23);
+		btnMateriasPrimas = new JButton("Materias \r\nPrimas");
+		btnMateriasPrimas.setBackground(new Color(240, 255, 240));
+		btnMateriasPrimas.setIgnoreRepaint(true);
+		btnMateriasPrimas.setAutoscrolls(true);
+		btnMateriasPrimas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMateriasPrimas.setBounds(20, 123, 140, 40);
 		contentPane.add(btnMateriasPrimas);
 		
 		btnReportes = new JButton("Reportes");
-		btnReportes.setBounds(10, 113, 140, 23);
+		btnReportes.setBackground(new Color(204, 204, 255));
+		btnReportes.setIgnoreRepaint(true);
+		btnReportes.setAutoscrolls(true);
+		btnReportes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnReportes.setBounds(20, 292, 140, 40);
 		contentPane.add(btnReportes);
 		
 		btnProveedores = new JButton("Proveedores");
-		btnProveedores.setBounds(10, 147, 140, 23);
+		btnProveedores.setBackground(new Color(240, 255, 240));
+		btnProveedores.setIgnoreRepaint(true);
+		btnProveedores.setAutoscrolls(true);
+		btnProveedores.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnProveedores.setBounds(20, 72, 140, 40);
 		contentPane.add(btnProveedores);
 		
 //		JMenuBar menuBar_1 = new JMenuBar();
@@ -125,7 +153,10 @@ public class VentasVista extends JFrame {
 //		mnMateriasPrimas.add(mntmEditarSolicitudesGuardadas);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(186, 11, 526, 307);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setViewportBorder(UIManager.getBorder("ComboBox.border"));
+		scrollPane.setAutoscrolls(true);
+		scrollPane.setBounds(183, 22, 710, 518);
 		this.contentPane.add(scrollPane);
 
 		this.modelVentas = new WDefaultTableModel(null, this.nombreColumnas);
@@ -133,44 +164,73 @@ public class VentasVista extends JFrame {
 		scrollPane.setViewportView(tableVentas);
 
 		this.btnEnviar = new JButton("Enviar");
-		this.btnEnviar.setBounds(722, 11, 140, 23);
+		btnEnviar.setBackground(new Color(240, 248, 255));
+		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnviar.setBounds(903, 292, 140, 40);
 		this.contentPane.add(btnEnviar);
 
 		this.btnEnViaje = new JButton("En Viaje");
-		this.btnEnViaje.setBounds(722, 45, 140, 23);
+		btnEnViaje.setBackground(new Color(240, 248, 255));
+		btnEnViaje.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnViaje.setBounds(903, 347, 140, 40);
 		this.contentPane.add(btnEnViaje);
 
 		this.btnEnMostrador = new JButton("En mostrador");
-		this.btnEnMostrador.setBounds(722, 79, 140, 23);
+		btnEnMostrador.setBackground(new Color(240, 248, 255));
+		btnEnMostrador.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnMostrador.setBounds(903, 398, 140, 40);
 		this.contentPane.add(btnEnMostrador);
 
 		this.btnInformacin = new JButton("Informaci\u00F3n");
-		this.btnInformacin.setBounds(722, 113, 140, 23);
+		btnInformacin.setBackground(new Color(204, 204, 255));
+		btnInformacin.setAutoscrolls(true);
+		btnInformacin.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnInformacin.setBounds(20, 398, 140, 40);
 		this.contentPane.add(btnInformacin);
 
 		this.btnModificar = new JButton("Modificar");
-		this.btnModificar.setBounds(722, 147, 140, 23);
+		btnModificar.setBackground(new Color(255, 228, 225));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnModificar.setBounds(903, 123, 140, 40);
 		this.contentPane.add(btnModificar);
 		
 		btnTodasLasVentas = new JButton("Todas las Ventas");
-		btnTodasLasVentas.setBounds(722, 181, 140, 23);
+		btnTodasLasVentas.setBackground(new Color(204, 204, 255));
+		btnTodasLasVentas.setAutoscrolls(true);
+		btnTodasLasVentas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnTodasLasVentas.setBounds(20, 347, 140, 40);
 		contentPane.add(btnTodasLasVentas);
 		
 		this.btnNuevaVenta = new JButton("Nueva Venta");
-		this.btnNuevaVenta.setBounds(186, 329, 140, 23);
+		btnNuevaVenta.setBackground(new Color(255, 228, 225));
+		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnNuevaVenta.setBounds(903, 21, 140, 40);
 		this.contentPane.add(btnNuevaVenta);
 		
 		this.btnCancelarVenta = new JButton("Cancelar Venta");
-		this.btnCancelarVenta.setBounds(336, 329, 140, 23);
+		btnCancelarVenta.setBackground(new Color(255, 228, 225));
+		btnCancelarVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnCancelarVenta.setBounds(903, 72, 140, 40);
 		this.contentPane.add(btnCancelarVenta);
 		
 		this.btnVentaEntregada = new JButton("Venta Entregada");
-		this.btnVentaEntregada.setBounds(486, 329, 140, 23);
+		btnVentaEntregada.setBackground(Color.WHITE);
+		btnVentaEntregada.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnVentaEntregada.setBounds(903, 204, 140, 40);
 		this.contentPane.add(btnVentaEntregada);
 
 		this.btnSalir = new JButton("Salir");
-		this.btnSalir.setBounds(636, 329, 140, 23);
+		btnSalir.setIcon(new ImageIcon(VentasVista.class.getResource("/Iconos/Salir.png")));
+		btnSalir.setBackground(new Color(255, 228, 225));
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnSalir.setBounds(903, 526, 140, 53);
 		this.contentPane.add(btnSalir);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentasVista.class.getResource("/Iconos/pizza-with-olives-hd-1080p-wallpapers-download-1144x644.jpg")));
+		lblNewLabel.setBounds(10, 10, 1052, 584);
+		contentPane.add(lblNewLabel);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{contentPane, btnSolicitudes, btnCategorias, btnMateriasPrimas, btnReportes, btnProveedores, scrollPane, tableVentas, btnEnviar, btnEnViaje, btnEnMostrador, btnInformacin, btnModificar, btnTodasLasVentas, btnNuevaVenta, btnCancelarVenta, btnVentaEntregada, btnSalir, lblNewLabel}));
 	}
 
 //	public JMenuItem getMntmReporteSemanal() {
@@ -290,5 +350,4 @@ public class VentasVista extends JFrame {
 	public JButton getBtnProveedores() {
 		return btnProveedores;
 	}
-	
 }

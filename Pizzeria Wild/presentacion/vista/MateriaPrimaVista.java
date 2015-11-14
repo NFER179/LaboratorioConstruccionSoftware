@@ -13,6 +13,11 @@ import javax.swing.JButton;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MateriaPrimaVista extends JFrame {
 
@@ -24,9 +29,10 @@ public class MateriaPrimaVista extends JFrame {
 	private JButton btnVolver;
 
 	public MateriaPrimaVista() {
-		this.setTitle("Materia Prima");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MateriaPrimaVista.class.getResource("/Iconos/pizza_1.PNG")));
+		this.setTitle(" Materia Prima");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setBounds(100, 100, 327, 284);
+		this.setBounds(100, 100, 327, 430);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
@@ -34,7 +40,7 @@ public class MateriaPrimaVista extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 298, 194);
+		scrollPane.setBounds(10, 11, 298, 313);
 		this.contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -42,11 +48,19 @@ public class MateriaPrimaVista extends JFrame {
 		scrollPane.setViewportView(this.table);
 		
 		this.btnAgregar = new JButton("Agregar");
-		this.btnAgregar.setBounds(121, 215, 89, 23);
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnAgregar.setIcon(new ImageIcon(MateriaPrimaVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnAgregar.setBounds(10, 345, 140, 40);
 		this.contentPane.add(this.btnAgregar);
 		
-		this.btnVolver = new JButton("Volver");
-		this.btnVolver.setBounds(220, 215, 89, 23);
+		this.btnVolver = new JButton(" Volver");
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setIcon(new ImageIcon(MateriaPrimaVista.class.getResource("/Iconos/Volver.png")));
+		this.btnVolver.setBounds(169, 345, 140, 40);
 		this.contentPane.add(this.btnVolver);
 	}
 	

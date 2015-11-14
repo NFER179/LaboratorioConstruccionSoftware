@@ -9,6 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
 import javax.swing.JButton;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class VentasDiasVista extends JDialog {
 	
@@ -29,13 +32,15 @@ public class VentasDiasVista extends JDialog {
 
 	public VentasDiasVista(ReporteVista Vista) {
 		super(Vista,true);
-		setTitle("Ventas del Dia");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentasDiasVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setTitle(" Ventas del Dia");
 		
-		setBounds(100, 100, 450, 441);
+		setBounds(100, 100, 450, 487);
 		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
 		JLabel lblCantidadVentasFacturadas = new JLabel("Cantidad Ventas Facturadas:");
+		lblCantidadVentasFacturadas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblCantidadVentasFacturadas.setBounds(10, 11, 165, 14);
 		getContentPane().add(lblCantidadVentasFacturadas);
 		
@@ -55,6 +60,7 @@ public class VentasDiasVista extends JDialog {
 		scrollPaneFacturadas.setViewportView(tblFacturadas);
 		
 		JLabel lblTotalFacturadas = new JLabel("Total Facturadas:");
+		lblTotalFacturadas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTotalFacturadas.setBounds(236, 147, 100, 14);
 		getContentPane().add(lblTotalFacturadas);
 		
@@ -66,6 +72,7 @@ public class VentasDiasVista extends JDialog {
 		txtTotalfacturadas.setColumns(10);
 		
 		JLabel lblCantidadVentasCanceladas = new JLabel("Cantidad Ventas Canceladas:");
+		lblCantidadVentasCanceladas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblCantidadVentasCanceladas.setBounds(10, 175, 165, 14);
 		getContentPane().add(lblCantidadVentasCanceladas);
 		
@@ -85,6 +92,7 @@ public class VentasDiasVista extends JDialog {
 		scrollPaneCanceladas.setViewportView(tblCanceladas);
 		
 		JLabel lblTotalCanceladas = new JLabel("Total Canceladas:");
+		lblTotalCanceladas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblTotalCanceladas.setBounds(236, 314, 100, 14);
 		getContentPane().add(lblTotalCanceladas);
 		
@@ -96,18 +104,22 @@ public class VentasDiasVista extends JDialog {
 		txtTotalcanceladas.setColumns(10);
 		
 		JLabel lblTotalGananciasDel = new JLabel("Total Ganancias del Dia:");
-		lblTotalGananciasDel.setBounds(10, 342, 165, 14);
+		lblTotalGananciasDel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTotalGananciasDel.setBounds(10, 354, 165, 14);
 		getContentPane().add(lblTotalGananciasDel);
 		
 		txtGananciasTotales = new JTextField();
+		txtGananciasTotales.setFont(new Font("Tahoma", Font.BOLD, 16));
 		txtGananciasTotales.setEditable(false);
 		txtGananciasTotales.setEnabled(false);
-		txtGananciasTotales.setBounds(197, 339, 86, 20);
+		txtGananciasTotales.setBounds(33, 389, 142, 40);
 		getContentPane().add(txtGananciasTotales);
 		txtGananciasTotales.setColumns(10);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(343, 373, 89, 23);
+		btnVolver = new JButton(" Volver");
+		btnVolver.setIcon(new ImageIcon(VentasDiasVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(292, 402, 140, 40);
 		getContentPane().add(btnVolver);
 	}
 

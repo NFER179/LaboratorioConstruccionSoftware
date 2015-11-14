@@ -7,6 +7,9 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class SeleccionProveedorVista extends JDialog {
 	
@@ -18,14 +21,15 @@ public class SeleccionProveedorVista extends JDialog {
 
 	public SeleccionProveedorVista(CreacionSolicitudVista Vista) {
 		super(Vista, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		setTitle("Seleccion Proveedor");
-		setBounds(100, 100, 297, 300);
+		setTitle(" Seleccion Proveedor");
+		setBounds(100, 100, 350, 450);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 269, 211);
+		scrollPane.setBounds(10, 10, 322, 344);
 		getContentPane().add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -33,11 +37,15 @@ public class SeleccionProveedorVista extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.setBounds(91, 232, 89, 23);
+		btnSeleccionar.setIcon(new ImageIcon(SeleccionProveedorVista.class.getResource("/Iconos/Seleccion.png")));
+		btnSeleccionar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSeleccionar.setBounds(10, 365, 140, 40);
 		getContentPane().add(btnSeleccionar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(190, 232, 89, 23);
+		btnCancelar.setIcon(new ImageIcon(SeleccionProveedorVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(192, 365, 140, 40);
 		getContentPane().add(btnCancelar);
 
 	}
