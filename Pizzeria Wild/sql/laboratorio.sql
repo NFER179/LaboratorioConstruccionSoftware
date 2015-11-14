@@ -78,9 +78,12 @@ create table combo(combo_id char(20), effdt date, descr char(30), precio integer
 create table producto_combo(combo_id char(20), effdt date, product_id char(4), sabor char(100), cantidad integer,
 			primary key(combo_id, effdt, product_id, sabor),
 			foreign key(combo_id, effdt) references combo(combo_id, effdt),
-			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));					
+			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));
 					
-create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30), vehiculo_id char(10), tipo_vehiculo char(20), modelo_vehiculo char(30), activo char(1),
+create table vehiculo(patente char(10), descripcion char(30),
+			primary key(patente));					
+					
+create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30), vehiculo_id char(10), activo char(1),
 					primary key(empleado_id));
 					
 /*create table pedido_repartidor(id_empleado integer, num_pedido integer,

@@ -146,7 +146,7 @@ public class CreacionSolicitudVista extends JDialog {
 		btnImprimir.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/print.png")));
 		btnImprimir.setBackground(new Color(152, 251, 152));
 		btnImprimir.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnImprimir.setBounds(10, 390, 140, 40);
+		btnImprimir.setBounds(160, 390, 140, 40);
 		getContentPane().add(btnImprimir);
 		
 		lblNewLabel = new JLabel("");

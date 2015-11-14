@@ -34,27 +34,4 @@ public class ProveedorModelo {
 	public List<ProveedorDTO> ObtenerProveedoresActivos() {
 		return this.proveedor.GetProveedoresActivos();
 	}
-
-	public boolean ExisteProvedor(String Proveedor) {
-		if(this.proveedor.GetProveedor(Proveedor).getProveedorId().equals(Proveedor))
-			return true;
-		else
-			return false;
-	}
-
-	public ProveedorDTO ObtenerProveedor(String ProveedorId) {
-		return this.proveedor.GetProveedor(ProveedorId);
-	}
-
-	public List<CategoriaDTO> ObtenerCategorias(String proveedorId) {
-		return this.proveedor.GetCategorias(proveedorId);
-	}
-
-	public void Actualizar(ProveedorDTO proveedor) {
-		this.proveedor.Update(proveedor);
-	}
-
-	public void CrearProveedor(ProveedorDTO proveedor) {
-		this.proveedor.Insert(proveedor);
-	}
 }

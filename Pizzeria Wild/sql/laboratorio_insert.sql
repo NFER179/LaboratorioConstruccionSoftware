@@ -72,8 +72,8 @@ insert into vehiculo values
 (patente char(10), descripcion char(30));*/
 
 insert into repartidor values
-(1,"Rene"	, "Gado"	, "12344321", "Cercano","fwi 154", "auto", "Audi R8", "Y"),
-(2,"Alfredo"	, "Bolt"	, "98766789", "Lejos",	"teh 057", "moto", "Yamaha R1", "Y");
+(1,"Rene"	, "Gado"	, "12344321", "Cercano","fwi 154","Y"),
+(2,"Alfredo"	, "Bolt"	, "98766789", "Lejos",	"teh 057","Y");
 
 select * from cliente;			
 select * from producto;
@@ -82,7 +82,7 @@ select * from venta;
 select * from venta_producto;
 select * from combo;
 select * from producto_combo;
-/*select * from vehiculo;*/
+select * from vehiculo;
 select * from repartidor;
 select * from delivery;	
 /*select * from delivery_repartidor;*/

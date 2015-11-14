@@ -17,7 +17,6 @@ import modelo.VentaModelo;
 import modelo.RepartidorModelo;
 import dto.VentaDTO;
 import dto.RepartidorDTO;
-import utilidades.Fecha;
 import utilidades.Msj;
 import utilidades.Str;
 import validacionesCampos.*;
@@ -117,8 +116,11 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 
 	/** JNVR - Setea la fecha y hora en los TextBox's */
 	private void setDateAndHour() {
-		String fecha = Fecha.CurrentDate();
-		String hora = Fecha.CurrentTime();
+		Calendar c = Calendar.getInstance();
+		String fecha = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-"
+				+ c.get(Calendar.DATE);
+		String hora = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":"
+				+ c.get(Calendar.SECOND);
 		this.vtAsignacionRepartidores.getTxtFecha().setText(fecha);
 		this.vtAsignacionRepartidores.getTxtHora().setText(hora);
 	}
@@ -164,8 +166,7 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 					.getTxtRepartidor().getText().trim());
 			String hora = this.vtAsignacionRepartidores.getTxtHora().getText()
 					.trim();
-			String obs = this.vtAsignacionRepartidores.getTxtObservacion()
-					.getText().trim();
+			String obs = this.vtAsignacionRepartidores.getTxtObservacion().getText().trim();
 			this.mdlDelivery.IngresarNuevodelivery(fecha, numDelivery,
 					repartidorId, hora, obs);
 

@@ -34,8 +34,6 @@ public class RepartidorImp implements RepartidorDAO{
 						rs.getString("tel"),
 						rs.getString("direccion"),
 						rs.getString("vehiculo_id"),
-						rs.getString("tipo_vehiculo"),
-						rs.getString("modelo_vehiculo"),
 						RepartidorDTO.ParseActivoBoolean(rs.getString("activo"))));
 			}
 		}
@@ -62,15 +60,8 @@ public class RepartidorImp implements RepartidorDAO{
 			rs = stm.executeQuery(sqlString);
 			
 			while(rs.next()) {
-				repartidor = new RepartidorDTO(rs.getInt("empleado_id"), 
-						rs.getString("nombre"), 
-						rs.getString("apellido"), 
-						rs.getString("tel"),
-						rs.getString("direccion"), 
-						rs.getString("vehiculo_id"), 
-						rs.getString("tipo_vehiculo"), 
-						rs.getString("modelo_vehiculo"), 
-						RepartidorDTO.ParseActivoBoolean(rs.getString("activo")));
+				repartidor = new RepartidorDTO(rs.getInt("empleado_id"), rs.getString("nombre"), rs.getString("apellido"), rs.getString("tel"),
+						rs.getString("direccion"), rs.getString("vehiculo_id"), RepartidorDTO.ParseActivoBoolean(rs.getString("activo")));
 			}
 		}
 		catch(Exception e) {

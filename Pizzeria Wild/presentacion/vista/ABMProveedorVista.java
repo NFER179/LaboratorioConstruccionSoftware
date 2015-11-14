@@ -34,10 +34,16 @@ public class ABMProveedorVista extends JDialog {
 	private JScrollPane scrpCategoria;
 	private JButton btnAgregarCategoria;
 	private JButton btnQuitarCategoria;
+	private JLabel lblMateriaPrima;
 	private String[] nombreColumnasMT = {"Materia Prima"};
 	private DefaultTableModel modelMT;
+	private JTable tblMateriaPrima;
+	private JScrollPane scrpMateriaPrima;
+	private JButton btnAgregarMT;
+	private JButton btnQuitarMT;
 	private JButton btnGuardar;
 	private JButton btnCancelar;
+	private JLabel lblNewLabel;
 
 
 	public ABMProveedorVista(ProveedorVista Vista) {
@@ -46,7 +52,7 @@ public class ABMProveedorVista extends JDialog {
 		
 		setResizable(false);
 		setTitle(" Proveedor");
-		setBounds(100, 145, 550, 420);
+		setBounds(100, 145, 550, 483);
 		//this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
@@ -101,45 +107,66 @@ public class ABMProveedorVista extends JDialog {
 		getContentPane().add(lblCategorias);
 		
 		scrpCategoria = new JScrollPane();
-		scrpCategoria.setBounds(10, 136, 387, 146);
+		scrpCategoria.setBounds(10, 136, 406, 95);
 		getContentPane().add(scrpCategoria);
 		
 		this.modelCategoria = new WDefaultTableModel(null, this.nombreColumnasCategoria);
 		tblCategoria = new WTable(this.modelCategoria);
 		scrpCategoria.setViewportView(tblCategoria);
 		
-		this.modelMT = new WDefaultTableModel(null, this.nombreColumnasMT);
+		lblMateriaPrima = new JLabel("Materias Primas: ");
+		lblMateriaPrima.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMateriaPrima.setBounds(10, 247, 98, 14);
+		getContentPane().add(lblMateriaPrima);
 		
-		btnGuardar = new JButton("Guardar");
+		scrpMateriaPrima = new JScrollPane();
+		scrpMateriaPrima.setBounds(10, 272, 406, 96);
+		getContentPane().add(scrpMateriaPrima);
+		
+		this.modelMT = new WDefaultTableModel(null, this.nombreColumnasMT);
+		tblMateriaPrima = new WTable(this.modelMT);
+		scrpMateriaPrima.setViewportView(tblMateriaPrima);
+		
+		btnAgregarMT = new JButton("Agregar");
+		btnAgregarMT.setBackground(new Color(240, 255, 240));
+		btnAgregarMT.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregarMT.setBounds(426, 273, 100, 40);
+		getContentPane().add(btnAgregarMT);
+		
+		btnQuitarMT = new JButton("Quitar");
+		btnQuitarMT.setBackground(new Color(255, 240, 245));
+		btnQuitarMT.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnQuitarMT.setBounds(426, 328, 100, 40);
+		getContentPane().add(btnQuitarMT);
+		
+		btnGuardar = new JButton(" Guardar");
 		btnGuardar.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/Guardar.png")));
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnGuardar.setBounds(223, 327, 140, 40);
+		btnGuardar.setBounds(224, 400, 140, 40);
 		getContentPane().add(btnGuardar);
 		
-		btnCancelar = new JButton("Cancelar");
+		btnCancelar = new JButton(" Cancelar");
 		btnCancelar.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(386, 327, 140, 40);
+		btnCancelar.setBounds(386, 400, 140, 40);
 		getContentPane().add(btnCancelar);
 		
 		btnAgregarCategoria = new JButton("Agregar");
-		btnAgregarCategoria.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/Agregar.png")));
-		btnAgregarCategoria.setBackground(new Color(255, 192, 203));
+		btnAgregarCategoria.setBackground(new Color(240, 255, 240));
 		btnAgregarCategoria.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAgregarCategoria.setBounds(407, 136, 119, 40);
+		btnAgregarCategoria.setBounds(426, 136, 100, 40);
 		getContentPane().add(btnAgregarCategoria);
 		
 		btnQuitarCategoria = new JButton("Quitar");
-		btnQuitarCategoria.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/Quitar.png")));
-		btnQuitarCategoria.setBackground(new Color(255, 192, 203));
+		btnQuitarCategoria.setBackground(new Color(255, 240, 245));
 		btnQuitarCategoria.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnQuitarCategoria.setBounds(407, 251, 119, 40);
+		btnQuitarCategoria.setBounds(426, 191, 100, 40);
 		getContentPane().add(btnQuitarCategoria);
 		
-		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
-		lblNewLabel_1.setBounds(428, 11, 98, 89);
-		getContentPane().add(lblNewLabel_1);
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ABMProveedorVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setBounds(426, 11, 100, 102);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public void Open() {
@@ -194,9 +221,9 @@ public class ABMProveedorVista extends JDialog {
 		return btnQuitarCategoria;
 	}
 
-//	public JLabel getLblMateriaPrima() {
-//		return lblMateriaPrima;
-//	}
+	public JLabel getLblMateriaPrima() {
+		return lblMateriaPrima;
+	}
 
 	public String[] getNombreColumnasMT() {
 		return nombreColumnasMT;
@@ -206,21 +233,21 @@ public class ABMProveedorVista extends JDialog {
 		return modelMT;
 	}
 
-//	public JTable getTblMateriaPrima() {
-//		return tblMateriaPrima;
-//	}
-//
-//	public JScrollPane getScrpMateriaPrima() {
-//		return scrpMateriaPrima;
-//	}
-//
-//	public JButton getBtnAgregarMT() {
-//		return btnAgregarMT;
-//	}
+	public JTable getTblMateriaPrima() {
+		return tblMateriaPrima;
+	}
 
-//	public JButton getBtnQuitarMT() {
-//		return btnQuitarMT;
-//	}
+	public JScrollPane getScrpMateriaPrima() {
+		return scrpMateriaPrima;
+	}
+
+	public JButton getBtnAgregarMT() {
+		return btnAgregarMT;
+	}
+
+	public JButton getBtnQuitarMT() {
+		return btnQuitarMT;
+	}
 
 	public JButton getBtnGuardar() {
 		return btnGuardar;

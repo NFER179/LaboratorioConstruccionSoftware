@@ -11,11 +11,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import utilidades.Fecha;
 
 import conexion.ConectorDB;
 
@@ -30,10 +25,9 @@ public class BackUp {
 
 	public static void main(String[] args) {
 		try {
-			String nombreArchivo = Fecha.CurrentDate();
-			backUp(nombreArchivo);
-			restoreDB(nombreArchivo);
-		} catch (Exception e) {
+			backUp("ninaas");
+			restoreDB();
+		} catch (IOException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -41,7 +35,8 @@ public class BackUp {
 
 	public static void backUp(String fileName) {
 		try {
-			String comando = mysqldumpPath + getCredentials();
+			String comando = mysqldumpPath + getCredentials()
+					+ " > db_backup.sql";
 			Runtime objRT = Runtime.getRuntime();
 			Process objProcess = objRT.exec(comando);
 
@@ -62,9 +57,78 @@ public class BackUp {
 		}
 	}
 
-	public static void restoreDB(String nombreArchivo) throws IOException,
-			SQLException {
-		String sql = getSql(nombreArchivo);
+	public static void restore(String fileName) {
+		try {
+			// mysql -u root -p*** pandurito_bd <C:\ejemplo.sql
+			String comando = "mysql " + mysqldumpPath + getCredentials();
+			String path = String.format(backUpPath, fileName);
+			// comando += " <" + path;
+			comando += " < C:\\nina.sql";
+			// comando = "pizzeriawild < C:\nina.sql";
+			// Statement stm = ConectorDB.GetInstancia().GetStatement();
+			// stm.executeQuery(comando);
+			System.out.println(comando);
+			Runtime objRT = Runtime.getRuntime();
+			Process objProcess = objRT.exec(comando);
+			InputStream is = objProcess.getInputStream();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void ejecutar(String archivo) {
+		try {
+			String comando;
+			Process proceso = Runtime.getRuntime().exec(archivo);
+			BufferedReader lector = new BufferedReader(new InputStreamReader(
+					proceso.getInputStream()));
+			while ((comando = lector.readLine()) != null) {
+				System.out.println(comando);
+			}
+			lector.close();
+		} catch (Exception err) {
+			err.printStackTrace();
+		}
+	}
+
+	public static void restaurar(String fileName) {
+		ConectorDB conector = ConectorDB.GetInstancia();
+		Statement stm = conector.GetStatement();
+		String path = "C:\\Documents and Settings\\nicolas\\Escritorio\\Wild\\trunk\\Pizzeria Wild\\"
+				+ String.format(backUpPath, fileName) + ";";
+		String sql = "source C:\\nina.sql";
+
+		try {
+			stm.executeQuery(sql);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		finally {
+			conector.CloseConnection();
+		}
+	}
+
+	// public static void restaurar2(String fileName) {
+	// try {
+	// // Initialize object for ScripRunner
+	// ScriptRunner sr = new ScriptRunner(ConectorDB.GetInstancia(),
+	// false, false);
+	//
+	// // Give the input file to Reader
+	// Reader reader = new BufferedReader(new FileReader(fileName));
+	//
+	// // Exctute script
+	// sr.runScript(reader);
+	//
+	// } catch (Exception e) {
+	// System.err.println("Failed to Execute" + fileName
+	// + " The error is " + e.getMessage());
+	// }
+	// }
+	
+	public static void restoreDB() throws IOException, SQLException {
+		String sql = getSql();
 		ejecutarSql(sql);
 	}
 
@@ -73,23 +137,22 @@ public class BackUp {
 		Statement stm = ConectorDB.GetInstancia().GetStatement();
 		for (String sentencia : sentenciasSql) {
 			sentencia = sentencia + ";";
+			System.out.println(sentencia);
 			stm.executeUpdate(sentencia);
 		}
 	}
 
-	private static String getSql(String nombreArchivo)
-			throws FileNotFoundException, IOException {
-		String document = getDocument(nombreArchivo);
-		String sql = getSentencesSQL(document);
+	private static String getSql() throws FileNotFoundException, IOException {
+		String document = getDocument();
+		String sql = getSqlPuro(document);
 		return sql;
 	}
 
-	private static String getDocument(String nombreArchivo)
-			throws FileNotFoundException, IOException {
+	private static String getDocument() throws FileNotFoundException,
+			IOException {
 		String objString = new String();
 		StringBuffer objSB = new StringBuffer();
-		String path = String.format(backUpPath, nombreArchivo);
-		FileReader objFR = new FileReader(new File(path));
+		FileReader objFR = new FileReader(new File("C:/ninaas.sql"));
 		BufferedReader objBR = new BufferedReader(objFR);
 		while ((objString = objBR.readLine()) != null) {
 			objSB.append(objString);
@@ -107,6 +170,7 @@ public class BackUp {
 		allDocument = allDocument.replace("/*", "\n/*");
 
 		String[] inst1 = allDocument.split("\n");
+		System.out.println(allDocument);
 		String sql = "";
 		boolean esSql = true;
 		for (String linea : inst1) {
@@ -118,109 +182,6 @@ public class BackUp {
 		}
 		sql = sql.replace("﻿", "");
 		return sql;
-	}
-
-	private static String getSentencesSQL(String allDocument) {
-		String ret = "drop database if exists PizzeriaWild;"
-				+ "create database PizzeriaWild;" + "use PizzeriaWild;";
-		List<String> allSQL = getSqlList(allDocument);
-		List<String> orden = ordenTablas();
-		for (String tabla : orden) {
-			for (int i = 0; i < allSQL.size(); i++) {
-				String lineaSql = allSQL.get(i);
-				if (lineaSql.contains(tabla)) {
-					ret += lineaSql;
-					allSQL.set(i, "");
-				}
-			}
-		}
-		return ret;
-	}
-
-	private static List<String> getSqlList(String allDocument) {
-		List<String> ret = new ArrayList<String>();
-		allDocument = allDocument.replace("DROP", "\nDROP");
-		allDocument = allDocument.replace("UNLOCK TABLES;",
-				"\nUNLOCK TABLES;\n");
-		allDocument = allDocument.replace("--LOCK", "--\nLOCK");
-		allDocument = allDocument.replace("*/;", "*/;\n");
-		allDocument = allDocument.replace("/*", "\n/*");
-		allDocument = allDocument.replace("﻿", "");
-
-		String[] lista = allDocument.split("\n");
-		boolean esSql = true;
-		for (String linea : lista) {
-			linea = linea.trim();
-			esSql = linea != "" && !linea.contains("--")
-					&& !linea.contains("/*") && !linea.contains("UNLOCK")
-					&& !linea.contains("LOCK");
-			if (esSql)
-				ret.add(linea);
-		}
-		return ret;
-	}
-
-	private static List<String> ordenTablas() {
-		List<String> ret = new LinkedList<String>();
-		ret.add("DROP TABLE IF EXISTS `estilos`");
-		ret.add("CREATE TABLE `estilos`");
-		ret.add("DROP TABLE IF EXISTS `cliente`");
-		ret.add("CREATE TABLE `cliente`");
-		ret.add("DROP TABLE IF EXISTS `producto`");
-		ret.add("CREATE TABLE `producto`");
-		ret.add("DROP TABLE IF EXISTS `sabor_producto`");
-		ret.add("CREATE TABLE `sabor_producto`");
-		ret.add("DROP TABLE IF EXISTS `venta`");
-		ret.add("CREATE TABLE `venta`");
-		ret.add("DROP TABLE IF EXISTS `venta_producto`");
-		ret.add("CREATE TABLE `venta_producto`");
-		ret.add("DROP TABLE IF EXISTS `combo`");
-		ret.add("CREATE TABLE `combo`");
-		ret.add("DROP TABLE IF EXISTS `producto_combo`");
-		ret.add("CREATE TABLE `producto_combo`");
-		ret.add("DROP TABLE IF EXISTS `repartidor`");
-		ret.add("CREATE TABLE `repartidor`");
-		ret.add("DROP TABLE IF EXISTS `delivery`");
-		ret.add("CREATE TABLE `delivery`");
-		ret.add("DROP TABLE IF EXISTS `delivery_venta`");
-		ret.add("CREATE TABLE `delivery_venta`");
-		ret.add("DROP TABLE IF EXISTS `proveedor`");
-		ret.add("CREATE TABLE `proveedor`");
-		ret.add("DROP TABLE IF EXISTS `categoria`");
-		ret.add("CREATE TABLE `categoria`");
-		ret.add("DROP TABLE IF EXISTS `materia_prima`");
-		ret.add("CREATE TABLE `materia_prima`");
-		ret.add("DROP TABLE IF EXISTS `mp_categoria`");
-		ret.add("CREATE TABLE `mp_categoria`");
-		ret.add("DROP TABLE IF EXISTS `mp_proveedor`");
-		ret.add("CREATE TABLE `mp_proveedor`");
-		ret.add("DROP TABLE IF EXISTS `pedido`");
-		ret.add("CREATE TABLE `pedido`");
-		ret.add("DROP TABLE IF EXISTS `pedido_proveedor`");
-		ret.add("CREATE TABLE `pedido_proveedor`");
-		ret.add("DROP TABLE IF EXISTS `pedido_mp`");
-		ret.add("CREATE TABLE `pedido_mp`");
-
-		ret.add("INSERT INTO `cliente");
-		ret.add("INSERT INTO `producto");
-		ret.add("INSERT INTO `sabor_producto");
-		ret.add("INSERT INTO `venta");
-		ret.add("INSERT INTO `venta_producto");
-		ret.add("INSERT INTO `repartidor");
-		ret.add("INSERT INTO `combo");
-		ret.add("INSERT INTO `producto_combo");
-		ret.add("INSERT INTO `delivery");
-		ret.add("INSERT INTO `delivery_venta");
-		ret.add("INSERT INTO `proveedor");
-		ret.add("INSERT INTO `categoria");
-		ret.add("INSERT INTO `materia_prima");
-		ret.add("INSERT INTO `mp_categoria");
-		ret.add("INSERT INTO `mp_proveedor");
-		ret.add("INSERT INTO `pedido");
-		ret.add("INSERT INTO `pedido_proveedor");
-		ret.add("INSERT INTO `pedido_mp");
-		ret.add("INSERT INTO `estilos");
-		return ret;
 	}
 
 	private static String getCredentials() {

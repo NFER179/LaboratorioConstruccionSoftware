@@ -6,7 +6,6 @@ import dao.CategoriaDAO;
 import daoImplementacion.CategoriaImp;
 import dto.CategoriaDTO;
 import dto.MateriaPrimaDTO;
-import dto.ProveedorDTO;
 
 public class CategoriaModelo {
 
@@ -51,25 +50,5 @@ public class CategoriaModelo {
 
 	public CategoriaDTO ObtenerCategoria(String Categoria) {
 		return this.categoria.GetCategoria(Categoria);
-	}
-	
-	public static boolean EqualsCategorias(CategoriaDTO arg0, CategoriaDTO arg1) {
-		if(arg0.getIdCategoria().equals(arg1.getIdCategoria()) & arg0.getDescripcion().equals(arg1.getDescripcion())) {
-			return true;
-		}
-		return false;
-	}
-
-	public static boolean HayRepetidas(List<CategoriaDTO> arg0, List<CategoriaDTO> arg1) {
-		boolean repetidas = false;
-		
-		for(CategoriaDTO c1:arg0) {
-			for(CategoriaDTO c2:arg1) {
-				if(CategoriaModelo.EqualsCategorias(c1, c2))
-					repetidas = true;
-			}
-		}
-		
-		return repetidas;
 	}
 }

@@ -4,7 +4,6 @@ import java.util.List;
 
 import dao.MateriaPrimaDAO;
 import daoImplementacion.MateriaPrimaImp;
-import dto.CategoriaDTO;
 import dto.MateriaPrimaDTO;
 
 public class MateriaPrimaModelo {
@@ -37,35 +36,6 @@ public class MateriaPrimaModelo {
 		else{
 			return false;	
 		}
-	}
-
-	public MateriaPrimaDTO ObtenerMateriaPrima(String nombre) {
-		return this.materiaPrima.GetMateriaPrima(nombre);
-	}
-
-	public static boolean SeEncuentraEn(String mp, List<MateriaPrimaDTO> mps) {
-		for(MateriaPrimaDTO mpdto:mps){
-			if(mp.equals(mpdto.getNombre()))
-				return true;
-		}
-		return false;
-	}
-
-	public static boolean EqualsMP(MateriaPrimaDTO m1, MateriaPrimaDTO m2) {
-		if(m1.getNombre().equals(m2.getNombre()) & m1.getUnidad().equals(m2.getUnidad()))
-			return true;
-		return false;
-	}
-	
-	public static boolean HayRepetidos(List<MateriaPrimaDTO> arg0, List<MateriaPrimaDTO> arg1) {
-		for(MateriaPrimaDTO mp1:arg0){
-			for(MateriaPrimaDTO mp2:arg1) {
-				if(MateriaPrimaModelo.EqualsMP(mp1, mp2))
-					return true;
-			}
-		}
-		
-		return false;
 	}
 
 //	public void AsignarACategoria(String MateriaPrima, String Categoria) {
