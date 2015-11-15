@@ -65,16 +65,7 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnCancelarVenta().addActionListener(this);
 		this.vtVenta.getBtnVentaEntregada().addActionListener(this);
 		this.vtVenta.getBtnSalir().addActionListener(this);
-		/** JNVR - agrego eventos para los items del menu */
-		// this.vtVenta.getMntmReporteDiario().addActionListener(this);
-		// this.vtVenta.getMntmReporteSemanal().addActionListener(this);
-		// this.vtVenta.getMntmReporteMensual().addActionListener(this);
-		// this.vtVenta.getMntmBusquedaDeProveedores().addActionListener(this);
-		// this.vtVenta.getMntmNuevoProveedor().addActionListener(this);
-		// this.vtVenta.getMntmEditarSolicitudesGuardadas()
-		// .addActionListener(this);
-		// this.vtVenta.getMntmNuevaSolicitud().addActionListener(this);
-
+		this.vtVenta.getBtnBackUp().addActionListener(this);
 	}
 
 	private String Delivery(boolean arg0) {
@@ -307,6 +298,8 @@ public class ControladorVenta implements ActionListener {
 			}
 		} else if (source == vista.getBtnSalir()) {
 			accionSalir();
+		} else if (source == vista.getBtnBackUp()) {
+			accionBackUp();
 		}
 		// } else if (source == vista.getMntmReporteDiario()) {
 		// accionReporteDiario();
@@ -347,6 +340,10 @@ public class ControladorVenta implements ActionListener {
 	//
 	// private void accionReporteDiario() {
 	// }
+
+	private void accionBackUp() {
+		new ControladorBackUp().Inicializar();
+	}
 
 	private void CambiarTabla() {
 		if (this.ventasDelDia) {
@@ -546,33 +543,4 @@ public class ControladorVenta implements ActionListener {
 					"No puede Asigar Ventas en Estado 'Viaje'");
 		}
 	}
-
-	// private void accionEnviarOLD() {
-	// List<VentaDTO> lventa = this.GetVentasSeleccionadas();
-	// boolean tieneVentas = lventa.size() > 0;
-	// if (tieneVentas) {
-	// if (TieneVentasDeDelivery(lventa)) {
-	// if (this.NoTieneVentasEnViaje(lventa)) {
-	// ControladorAsignacionRepartidor ctrAsignarRepartidor = new
-	// ControladorAsignacionRepartidor(
-	// this, this.vtVenta, lventa);
-	// ctrAsignarRepartidor.Inicializar();
-	// this.ctrVentasCocina.RecargarTablas();
-	//
-	// } else {
-	// Msj.error("Error Estado Ventas",
-	// "No puede Asigar Ventas en Estado 'Viaje'");
-	// }
-	// } else {
-	// Msj.error("Error de delivery",
-	// "No puede Asignar Ventas que no Sean a Domicilio.");
-	//
-	// }
-	// } else {
-	// Msj.error("Error Seleccion Venta",
-	// "Debe Seleccionar al Menos una Venta.");
-	//
-	// }
-	//
-	// }
 }

@@ -38,6 +38,7 @@ public class VentasVista extends JFrame {
 	private JButton btnVentaEntregada;
 	private JButton btnSalir;
 	private JButton btnProveedores;
+	private JButton btnBackUp;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
 //	private JMenuItem mntmReporteMensual;
@@ -46,6 +47,14 @@ public class VentasVista extends JFrame {
 //
 //	private JMenuItem mntmNuevaSolicitud;
 //	private JMenuItem mntmEditarSolicitudesGuardadas;
+
+	public JButton getBtnBackUp() {
+		return btnBackUp;
+	}
+
+	public void setBtnBackUp(JButton btnBackUp) {
+		this.btnBackUp = btnBackUp;
+	}
 
 	public VentasVista() {
 		try {
@@ -171,6 +180,10 @@ public class VentasVista extends JFrame {
 		this.btnSalir = new JButton("Salir");
 		this.btnSalir.setBounds(636, 329, 140, 23);
 		this.contentPane.add(btnSalir);
+		
+		btnBackUp = new JButton("Back Up");
+		btnBackUp.setBounds(10, 181, 140, 23);
+		contentPane.add(btnBackUp);
 	}
 
 //	public JMenuItem getMntmReporteSemanal() {
@@ -290,5 +303,4 @@ public class VentasVista extends JFrame {
 	public JButton getBtnProveedores() {
 		return btnProveedores;
 	}
-	
 }

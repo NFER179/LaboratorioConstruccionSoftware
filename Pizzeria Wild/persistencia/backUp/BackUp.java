@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import utilidades.Fecha;
-
 import conexion.ConectorDB;
 
 public class BackUp {
@@ -22,42 +20,28 @@ public class BackUp {
 	private static String pass = "root";
 	private static String dbName = "pizzeriawild";
 	private static String mysqldumpPath = "C:/Archivos de programa/MySQL/MySQL Server 5.5/bin/mysqldump ";
-	private static String backUpPath = "persistencia/backUp/%s.sql";
 
-	public static void main(String[] args) {
-		try {
-			String nombreArchivo = Fecha.CurrentDate();
-			backUp(nombreArchivo);
-			restoreDB(nombreArchivo);
-		} catch (Exception e) {
-			e.printStackTrace();
+	public static void backUp(String path) throws IOException {
+
+		String comando = mysqldumpPath + getCredentials();
+		Runtime objRT = Runtime.getRuntime();
+		Process objProcess = objRT.exec(comando);
+
+		InputStream is = objProcess.getInputStream();
+		// String path = String.format(backUpPath, path);
+		FileOutputStream fos = new FileOutputStream(path);
+		byte[] buffer = new byte[1000];
+
+		int esLeido = is.read(buffer);
+		while (esLeido > 0) {
+			fos.write(buffer, 0, esLeido);
+			esLeido = is.read(buffer);
 		}
+		fos.close();
+
 	}
 
-	public static void backUp(String fileName) {
-		try {
-			String comando = mysqldumpPath + getCredentials();
-			Runtime objRT = Runtime.getRuntime();
-			Process objProcess = objRT.exec(comando);
-
-			InputStream is = objProcess.getInputStream();
-			String path = String.format(backUpPath, fileName);
-			FileOutputStream fos = new FileOutputStream(path);
-			byte[] buffer = new byte[1000];
-
-			int esLeido = is.read(buffer);
-			while (esLeido > 0) {
-				fos.write(buffer, 0, esLeido);
-				esLeido = is.read(buffer);
-			}
-			fos.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void restoreDB(String nombreArchivo) throws IOException,
+	public static void restore(String nombreArchivo) throws IOException,
 			SQLException {
 		String sql = getSql(nombreArchivo);
 		ejecutarSql(sql);
@@ -72,18 +56,18 @@ public class BackUp {
 		}
 	}
 
-	private static String getSql(String nombreArchivo)
-			throws FileNotFoundException, IOException {
-		String document = getDocument(nombreArchivo);
+	private static String getSql(String path) throws FileNotFoundException,
+			IOException {
+		String document = getDocument(path);
 		String sql = getSentencesSQL(document);
 		return sql;
 	}
 
-	private static String getDocument(String nombreArchivo)
+	private static String getDocument(String path)
 			throws FileNotFoundException, IOException {
 		String objString = new String();
 		StringBuffer objSB = new StringBuffer();
-		String path = String.format(backUpPath, nombreArchivo);
+		// String path = String.format(backUpPath, path);
 		FileReader objFR = new FileReader(new File(path));
 		BufferedReader objBR = new BufferedReader(objFR);
 		while ((objString = objBR.readLine()) != null) {

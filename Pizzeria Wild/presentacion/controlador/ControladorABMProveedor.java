@@ -34,18 +34,22 @@ public class ControladorABMProveedor implements ActionListener {
 	public ControladorABMProveedor(ProveedorVista Vista) {
 
 		this.vtABMProveedor = new ABMProveedorVista(Vista);
-		this.vtABMProveedor.getBtnAgregarCategoria().addActionListener(this);
-		this.vtABMProveedor.getBtnQuitarCategoria().addActionListener(this);
-		this.vtABMProveedor.getBtnAgregarMT().addActionListener(this);
-		this.vtABMProveedor.getBtnQuitarMT().addActionListener(this);
-		this.vtABMProveedor.getBtnGuardar().addActionListener(this);
-		this.vtABMProveedor.getBtnCancelar().addActionListener(this);
+		addListeners();
 
 		this.vldABMProveedor = new ValidacionABMProveedor(this.vtABMProveedor);
 		this.mdlProveedor = new ProveedorModelo();
 		this.mdlMT = new MateriaPrimaModelo();
 		this.mdlCategoria = new CategoriaModelo();
 		this.mdlMPProveedor = new MateriaPrimaProveedorModelo();
+	}
+
+	private void addListeners() {
+		this.vtABMProveedor.getBtnAgregarCategoria().addActionListener(this);
+		this.vtABMProveedor.getBtnQuitarCategoria().addActionListener(this);
+		this.vtABMProveedor.getBtnAgregarMT().addActionListener(this);
+		this.vtABMProveedor.getBtnQuitarMT().addActionListener(this);
+		this.vtABMProveedor.getBtnGuardar().addActionListener(this);
+		this.vtABMProveedor.getBtnCancelar().addActionListener(this);
 	}
 
 	public void Inicializar() {
