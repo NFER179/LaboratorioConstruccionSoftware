@@ -48,12 +48,12 @@ public class ControladorProveedor implements ActionListener {
 	}
 	
 	private void NuevoProveedor() {
-		ControladorABMProveedor ctrABM = new ControladorABMProveedor(this, this.vtProveedor);
+		ControladorABMProveedor ctrABM = new ControladorABMProveedor(  this.vtProveedor);
 		ctrABM.Inicializar();
 	}
 
 	private void ModificarProveedor() {
-		ControladorABMProveedor ctrABM = new ControladorABMProveedor(this, this.vtProveedor);
+		ControladorABMProveedor ctrABM = new ControladorABMProveedor(  this.vtProveedor);
 		
 		JTable tabla = this.vtProveedor.getTable();
 		int selectRow = tabla.getSelectedRow();

@@ -13,12 +13,11 @@ import utilidades.Msj;
 import utilidades.Str;
 import validacion.ValidacionVenta;
 import vista.VentasVista;
-import controlador.Controlador;
 
 public class ControladorVenta implements ActionListener {
 
 	private VentasVista vtVenta;
-//	private Controlador controlador;
+	// private Controlador controlador;
 	private VentaModelo mdlVenta;
 	private List<VentaDTO> ventasEnTabla;
 	private ValidacionVenta vldVenta;
@@ -27,12 +26,12 @@ public class ControladorVenta implements ActionListener {
 	private boolean ventasDelDia;
 	private ControladorVentasCocina ctrPedidosCocina;
 
-//	public ControladorVenta(Controlador controlador) {
+	// public ControladorVenta(Controlador controlador) {
 	public ControladorVenta() {
 		this.vtVenta = new VentasVista();
 		addListeners();
 
-//		this.controlador = controlador;
+		// this.controlador = controlador;
 		this.mdlVenta = new VentaModelo();
 		this.ventasEnTabla = null;
 		this.vldVenta = new ValidacionVenta(this.vtVenta);
@@ -45,7 +44,7 @@ public class ControladorVenta implements ActionListener {
 		this.llenarTabla();
 		this.vtVenta.Open();
 	}
-	
+
 	public void Return() {
 		this.vtVenta.Open();
 	}
@@ -67,14 +66,14 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnVentaEntregada().addActionListener(this);
 		this.vtVenta.getBtnSalir().addActionListener(this);
 		/** JNVR - agrego eventos para los items del menu */
-//		this.vtVenta.getMntmReporteDiario().addActionListener(this);
-//		this.vtVenta.getMntmReporteSemanal().addActionListener(this);
-//		this.vtVenta.getMntmReporteMensual().addActionListener(this);
-//		this.vtVenta.getMntmBusquedaDeProveedores().addActionListener(this);
-//		this.vtVenta.getMntmNuevoProveedor().addActionListener(this);
-//		this.vtVenta.getMntmEditarSolicitudesGuardadas()
-//				.addActionListener(this);
-//		this.vtVenta.getMntmNuevaSolicitud().addActionListener(this);
+		// this.vtVenta.getMntmReporteDiario().addActionListener(this);
+		// this.vtVenta.getMntmReporteSemanal().addActionListener(this);
+		// this.vtVenta.getMntmReporteMensual().addActionListener(this);
+		// this.vtVenta.getMntmBusquedaDeProveedores().addActionListener(this);
+		// this.vtVenta.getMntmNuevoProveedor().addActionListener(this);
+		// this.vtVenta.getMntmEditarSolicitudesGuardadas()
+		// .addActionListener(this);
+		// this.vtVenta.getMntmNuevaSolicitud().addActionListener(this);
 
 	}
 
@@ -167,15 +166,15 @@ public class ControladorVenta implements ActionListener {
 		return ventas;
 	}
 
-//	private VentaDTO GetVentaSeleccionada() {
-//		VentaDTO ret = null;
-//		int SelectedRows = this.vtVenta.GetTable().getSelectedRow();
-//		JTable table = this.vtVenta.GetTable();
-//		String fecha = Str.trim(table.getValueAt(SelectedRows, columnaFecha));
-//		int numVenta = Str.toInt(table.getValueAt(SelectedRows, columnaNVenta));
-//		ret = this.mdlVenta.GetVenta(fecha, numVenta);
-//		return ret;
-//	}
+	// private VentaDTO GetVentaSeleccionada() {
+	// VentaDTO ret = null;
+	// int SelectedRows = this.vtVenta.GetTable().getSelectedRow();
+	// JTable table = this.vtVenta.GetTable();
+	// String fecha = Str.trim(table.getValueAt(SelectedRows, columnaFecha));
+	// int numVenta = Str.toInt(table.getValueAt(SelectedRows, columnaNVenta));
+	// ret = this.mdlVenta.GetVenta(fecha, numVenta);
+	// return ret;
+	// }
 
 	private boolean NoTieneVentasEnViaje(List<VentaDTO> Ventas) {
 		boolean NoViajes = true;
@@ -191,19 +190,19 @@ public class ControladorVenta implements ActionListener {
 		return venta.getEstado().toUpperCase().equals("VIAJE");
 	}
 
-//	private boolean SinVentasPendientes(List<VentaDTO> Ventas) {
-//		boolean sinPendientes = true;
-//		for (VentaDTO venta : Ventas) {
-//			if (!esVentaPendiente(venta)) {
-//				sinPendientes = false;
-//			}
-//		}
-//		return sinPendientes;
-//	}
+	// private boolean SinVentasPendientes(List<VentaDTO> Ventas) {
+	// boolean sinPendientes = true;
+	// for (VentaDTO venta : Ventas) {
+	// if (!esVentaPendiente(venta)) {
+	// sinPendientes = false;
+	// }
+	// }
+	// return sinPendientes;
+	// }
 
-//	private boolean esVentaPendiente(VentaDTO venta) {
-//		return venta.getEstado().toUpperCase().equals("PENDIENTE");
-//	}
+	// private boolean esVentaPendiente(VentaDTO venta) {
+	// return venta.getEstado().toUpperCase().equals("PENDIENTE");
+	// }
 
 	private boolean TieneVentasDeDelivery(List<VentaDTO> Ventas) {
 		boolean ventasDelivery = true;
@@ -212,42 +211,46 @@ public class ControladorVenta implements ActionListener {
 				ventasDelivery = false;
 		return ventasDelivery;
 	}
-	
+
 	private void InformacionProducto() {
 		JTable tabla = this.vtVenta.getTableVentas();
-		
-		String Fecha = tabla.getValueAt(tabla.getSelectedRow(), columnaFecha).toString().trim();
-		String StrNumPedido = tabla.getValueAt(tabla.getSelectedRow(), columnaNVenta).toString().trim();
+
+		String Fecha = tabla.getValueAt(tabla.getSelectedRow(), columnaFecha)
+				.toString().trim();
+		String StrNumPedido = tabla
+				.getValueAt(tabla.getSelectedRow(), columnaNVenta).toString()
+				.trim();
 		int NumPedido = Integer.parseInt(StrNumPedido);
-		ControladorArmadoVenta ctr = new ControladorArmadoVenta(this, this.vtVenta, Fecha, NumPedido);
-		
+		ControladorArmadoVenta ctr = new ControladorArmadoVenta(this,
+				this.vtVenta, Fecha, NumPedido);
+
 		ctr.InicializarInformacion();
 	}
-	
+
 	private void accionSolicitud() {
 		ControladorSolicitud ctrSolicitud = new ControladorSolicitud(this);
 		ctrSolicitud.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void accionMateriaPrima() {
 		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
 		ctrMP.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void accionCategorias() {
 		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
 		ctrCategoria.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void accionReportes() {
 		ControladorReporte ctrReporte = new ControladorReporte(this);
 		ctrReporte.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void AccionProveedores() {
 		ControladorProveedor ctrProveedor = new ControladorProveedor(this);
 		ctrProveedor.Inicializar();
@@ -258,101 +261,99 @@ public class ControladorVenta implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		VentasVista vista = this.vtVenta;
 		Object source = arg0.getSource();
-		if(source == this.vtVenta.getBtnSolicitudes()) {
+		if (source == this.vtVenta.getBtnSolicitudes()) {
 			this.accionSolicitud();
-		} else if(source == this.vtVenta.getBtnMateriasPrimas()) {
+		} else if (source == this.vtVenta.getBtnMateriasPrimas()) {
 			this.accionMateriaPrima();
-		} else if(source == this.vtVenta.getBtnCategorias()) {
+		} else if (source == this.vtVenta.getBtnCategorias()) {
 			this.accionCategorias();
-		} else if(source == this.vtVenta.getBtnReportes()) {
+		} else if (source == this.vtVenta.getBtnReportes()) {
 			this.accionReportes();
-		} else if(source == this.vtVenta.getBtnProveedores()) {
+		} else if (source == this.vtVenta.getBtnProveedores()) {
 			this.AccionProveedores();
-		}else if (source == vista.getBtnEnviar()) {
-			if(this.ViendoVentasDelDia()){
+		} else if (source == vista.getBtnEnviar()) {
+			if (this.ViendoVentasDelDia()) {
 				accionEnviar();
 			}
 		} else if (source == vista.getBtnEnViaje()) {
-			if(this.ViendoVentasDelDia()) {
+			if (this.ViendoVentasDelDia()) {
 				accionEnViaje();
 			}
 		} else if (source == vista.getBtnEnMostrador()) {
-			if(this.ViendoVentasDelDia()) {
+			if (this.ViendoVentasDelDia()) {
 				accionEnMostrador();
 			}
 		} else if (source == vista.getBtnModificar()) {
-			if(this.ViendoVentasDelDia() && this.vldVenta.ModificarValido()) {
+			if (this.ViendoVentasDelDia() && this.vldVenta.ModificarValido()) {
 				accionModificar();
 			}
-		} 
-		else if(source == vista.getBtnInformacin()) {
-			if(this.vldVenta.InformarValido()) {
+		} else if (source == vista.getBtnInformacin()) {
+			if (this.vldVenta.InformarValido()) {
 				this.InformacionProducto();
 			}
-		}else if(source == vista.getBtnTodasLasVentas()){
+		} else if (source == vista.getBtnTodasLasVentas()) {
 			this.CambiarTabla();
-		}else if (source == vista.getBtnNuevaVenta()) {
-			if(this.ViendoVentasDelDia()) {
-				accionNuevaVenta();	
+		} else if (source == vista.getBtnNuevaVenta()) {
+			if (this.ViendoVentasDelDia()) {
+				accionNuevaVenta();
 			}
 		} else if (source == vista.getBtnCancelarVenta()) {
-			if(this.ViendoVentasDelDia() && this.vldVenta.CancelarValido()) {
+			if (this.ViendoVentasDelDia() && this.vldVenta.CancelarValido()) {
 				accionCancelarVenta();
 			}
 		} else if (source == vista.getBtnVentaEntregada()) {
-			if(this.ViendoVentasDelDia() && this.vldVenta.EntregarValido()) {
+			if (this.ViendoVentasDelDia() && this.vldVenta.EntregarValido()) {
 				accionVentaEntregada();
 			}
 		} else if (source == vista.getBtnSalir()) {
 			accionSalir();
 		}
-//		} else if (source == vista.getMntmReporteDiario()) {
-//			accionReporteDiario();
-//		} else if (source == vista.getMntmReporteSemanal()) {
-//			accionReporteSemanal();
-//		} else if (source == vista.getMntmReporteMensual()) {
-//			accionReporteMensual();
-//		} else if (source == vista.getMntmBusquedaDeProveedores()) {
-//			accionBusquedaDeProveedores();
-//		} else if (source == vista.getMntmNuevoProveedor()) {
-//			accionNuevoProveedor();
-//		} else if (source == vista.getMntmNuevaSolicitud()) {
-//			accionNuevaSolicitud();
-//		} else if (source == vista.getMntmEditarSolicitudesGuardadas()) {
-//			accionEditarSolicitudesGuardadas();
-//		} else {
-//			System.out.println("ESTADO ILEGAL");
-//		}
+		// } else if (source == vista.getMntmReporteDiario()) {
+		// accionReporteDiario();
+		// } else if (source == vista.getMntmReporteSemanal()) {
+		// accionReporteSemanal();
+		// } else if (source == vista.getMntmReporteMensual()) {
+		// accionReporteMensual();
+		// } else if (source == vista.getMntmBusquedaDeProveedores()) {
+		// accionBusquedaDeProveedores();
+		// } else if (source == vista.getMntmNuevoProveedor()) {
+		// accionNuevoProveedor();
+		// } else if (source == vista.getMntmNuevaSolicitud()) {
+		// accionNuevaSolicitud();
+		// } else if (source == vista.getMntmEditarSolicitudesGuardadas()) {
+		// accionEditarSolicitudesGuardadas();
+		// } else {
+		// System.out.println("ESTADO ILEGAL");
+		// }
 	}
 
-//	private void accionEditarSolicitudesGuardadas() {
-//	}
-//
-//	private void accionNuevaSolicitud() {
-//	}
-//
-//	private void accionNuevoProveedor() {
-//	}
-//
-//	private void accionBusquedaDeProveedores() {
-//	}
-//
-//	private void accionReporteMensual() {
-//	}
-//
-//	private void accionReporteSemanal() {
-//	}
-//
-//	private void accionReporteDiario() {
-//	}
+	// private void accionEditarSolicitudesGuardadas() {
+	// }
+	//
+	// private void accionNuevaSolicitud() {
+	// }
+	//
+	// private void accionNuevoProveedor() {
+	// }
+	//
+	// private void accionBusquedaDeProveedores() {
+	// }
+	//
+	// private void accionReporteMensual() {
+	// }
+	//
+	// private void accionReporteSemanal() {
+	// }
+	//
+	// private void accionReporteDiario() {
+	// }
 
 	private void CambiarTabla() {
-		if(this.ventasDelDia) {
+		if (this.ventasDelDia) {
 			this.ventasDelDia = false;
 			this.LlenarTablaTodosLosPedidos();
 			this.PantallaVentasDia(false);
-		}
-		else{
+		} else {
 			this.ventasDelDia = true;
 			this.llenarTabla();
 			this.PantallaVentasDia(true);
@@ -360,20 +361,20 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void PantallaVentasDia(boolean b) {
-		if(b)
+		if (b)
 			this.vtVenta.getBtnTodasLasVentas().setText("Todas las Ventas");
 		else
 			this.vtVenta.getBtnTodasLasVentas().setText("Ventas del Dia");
 	}
-	
-	private boolean ViendoVentasDelDia(){
-		if(this.ventasDelDia) {
+
+	private boolean ViendoVentasDelDia() {
+		if (this.ventasDelDia) {
 			return true;
-		}
-		else{
+		} else {
 			String titulo = "Error De Ventas";
 			String mensaje = "Debe Encontrarse en las Ventas Del Dia para Realizar Ciertas Acciones.";
-			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, mensaje, titulo,
+					JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
 	}
@@ -381,18 +382,19 @@ public class ControladorVenta implements ActionListener {
 	private void LlenarTablaTodosLosPedidos() {
 		this.vtVenta.getModelVentas().setRowCount(0);
 		this.vtVenta.getModelVentas().setColumnCount(0);
-		this.vtVenta.getModelVentas().setColumnIdentifiers(this.vtVenta.getNombreColumnas());
-		for(VentaDTO v:this.mdlVenta.ObtenerTodasLasVentas()) {
-			Object[] fila = {v.getFecha(), Integer.toString(v.getNumVenta()),
+		this.vtVenta.getModelVentas().setColumnIdentifiers(
+				this.vtVenta.getNombreColumnas());
+		for (VentaDTO v : this.mdlVenta.ObtenerTodasLasVentas()) {
+			Object[] fila = { v.getFecha(), Integer.toString(v.getNumVenta()),
 					v.getCliente(), "$ " + Integer.toString(v.getPrecio()),
-					v.getEstado(), this.Delivery(v.isDelivery())};
+					v.getEstado(), this.Delivery(v.isDelivery()) };
 			this.vtVenta.getModelVentas().addRow(fila);
 		}
 		this.vtVenta.getTableVentas().setModel(this.vtVenta.getModelVentas());
 	}
 
 	private void accionSalir() {
-//		this.controlador.Return();
+		// this.controlador.Return();
 		String mensaje = "Muchas Gracias por Usar el Sistema WildPizzeria";
 		JOptionPane.showMessageDialog(null, mensaje);
 		this.ctrPedidosCocina.Close();
@@ -435,39 +437,39 @@ public class ControladorVenta implements ActionListener {
 
 	/** Boton para poder modificar una venta. */
 	private void accionModificar() {
-//		JTable tabla = this.vtVenta.GetTable();
+		// JTable tabla = this.vtVenta.GetTable();
 		// Si marco una fila ??
-//		boolean seleccionoUnaVenta = tabla.getSelectedRow() >= 0;
+		// boolean seleccionoUnaVenta = tabla.getSelectedRow() >= 0;
 		// Si es exactamente una
-//		seleccionoUnaVenta = seleccionoUnaVenta
-//				&& tabla.getSelectedRows().length == 1;
-//		if (seleccionoUnaVenta) {
-			revisarVentaEnViaje();
-//		} else {
-//			Msj.advertencia("Atencion", "Debe Seleccionar una Unica Venta.");
-//		}
+		// seleccionoUnaVenta = seleccionoUnaVenta
+		// && tabla.getSelectedRows().length == 1;
+		// if (seleccionoUnaVenta) {
+		revisarVentaEnViaje();
+		// } else {
+		// Msj.advertencia("Atencion", "Debe Seleccionar una Unica Venta.");
+		// }
 
 	}
 
 	private void revisarVentaEnViaje() {
-//		VentaDTO ventaMarcada = GetVentaSeleccionada();
-//		boolean noEstaEnViaje = !esVentaEnViaje(ventaMarcada);
-//		if (noEstaEnViaje) {
-			verificarVentaPendiente();
-//		} else {
-//			Msj.error("Error de Modificación",
-//					"No Puede Modificar Ventas que Esten en Viaje");
-//		}
+		// VentaDTO ventaMarcada = GetVentaSeleccionada();
+		// boolean noEstaEnViaje = !esVentaEnViaje(ventaMarcada);
+		// if (noEstaEnViaje) {
+		verificarVentaPendiente();
+		// } else {
+		// Msj.error("Error de Modificación",
+		// "No Puede Modificar Ventas que Esten en Viaje");
+		// }
 	}
 
 	private void verificarVentaPendiente() {
-//		VentaDTO ventaMarcada = GetVentaSeleccionada();
-//		if (!esVentaPendiente(ventaMarcada)) {
-			modificarVenta();
-//		} else {
-//			Msj.error("Error Estado Ventas",
-//					"No se pueden modificar las Ventas Armadas.");
-//		}
+		// VentaDTO ventaMarcada = GetVentaSeleccionada();
+		// if (!esVentaPendiente(ventaMarcada)) {
+		modificarVenta();
+		// } else {
+		// Msj.error("Error Estado Ventas",
+		// "No se pueden modificar las Ventas Armadas.");
+		// }
 	}
 
 	private void modificarVenta() {
@@ -545,31 +547,32 @@ public class ControladorVenta implements ActionListener {
 		}
 	}
 
-//	private void accionEnviarOLD() {
-//		List<VentaDTO> lventa = this.GetVentasSeleccionadas();
-//		boolean tieneVentas = lventa.size() > 0;
-//		if (tieneVentas) {
-//			if (TieneVentasDeDelivery(lventa)) {
-//				if (this.NoTieneVentasEnViaje(lventa)) {
-//					ControladorAsignacionRepartidor ctrAsignarRepartidor = new ControladorAsignacionRepartidor(
-//							this, this.vtVenta, lventa);
-//					ctrAsignarRepartidor.Inicializar();
-//					this.ctrVentasCocina.RecargarTablas();
-//
-//				} else {
-//					Msj.error("Error Estado Ventas",
-//							"No puede Asigar Ventas en Estado 'Viaje'");
-//				}
-//			} else {
-//				Msj.error("Error de delivery",
-//						"No puede Asignar Ventas que no Sean a Domicilio.");
-//
-//			}
-//		} else {
-//			Msj.error("Error Seleccion Venta",
-//					"Debe Seleccionar al Menos una Venta.");
-//
-//		}
-//
-//	}
+	// private void accionEnviarOLD() {
+	// List<VentaDTO> lventa = this.GetVentasSeleccionadas();
+	// boolean tieneVentas = lventa.size() > 0;
+	// if (tieneVentas) {
+	// if (TieneVentasDeDelivery(lventa)) {
+	// if (this.NoTieneVentasEnViaje(lventa)) {
+	// ControladorAsignacionRepartidor ctrAsignarRepartidor = new
+	// ControladorAsignacionRepartidor(
+	// this, this.vtVenta, lventa);
+	// ctrAsignarRepartidor.Inicializar();
+	// this.ctrVentasCocina.RecargarTablas();
+	//
+	// } else {
+	// Msj.error("Error Estado Ventas",
+	// "No puede Asigar Ventas en Estado 'Viaje'");
+	// }
+	// } else {
+	// Msj.error("Error de delivery",
+	// "No puede Asignar Ventas que no Sean a Domicilio.");
+	//
+	// }
+	// } else {
+	// Msj.error("Error Seleccion Venta",
+	// "Debe Seleccionar al Menos una Venta.");
+	//
+	// }
+	//
+	// }
 }

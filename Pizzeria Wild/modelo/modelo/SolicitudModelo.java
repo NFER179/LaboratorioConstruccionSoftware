@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.Calendar;
 import java.util.List;
 
 import mail.MailWildPizzeria;
@@ -98,7 +97,8 @@ public class SolicitudModelo {
 	private SolicitudDTO SolicitudReferenteA(SolicitudDTO arg0) {
 		return new SolicitudDTO(arg0.getFecha_envio(),
 				arg0.getReferenciaNumPedido(), arg0.getEstado(),
-				arg0.getFecha_envio(), arg0.getReferenciaNumPedido(), arg0.getFechaEntrega(), arg0.getCosto());
+				arg0.getFecha_envio(), arg0.getReferenciaNumPedido(),
+				arg0.getFechaEntrega(), arg0.getCosto());
 	}
 
 	public ProveedorDTO ObtenerProveedor(String FechaSolicitud,
@@ -111,20 +111,24 @@ public class SolicitudModelo {
 		return this.solicitud.GetMaterasPrimasPara(Fecha, NumPedido);
 	}
 
-	public void RecepcionarSolicitud(String Fecha, String NumSolicitud, int Costo) {
+	public void RecepcionarSolicitud(String Fecha, String NumSolicitud,
+			int Costo) {
 		this.solicitud.Recepcionar(Fecha, NumSolicitud, Costo);
 	}
 
 	public List<SolicitudDTO> ObtenerCurSolicidesRecibidas() {
-		return this.solicitud.GetEntregadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+		return this.solicitud.GetEntregadas(Fecha.CurrentDate(),
+				Fecha.CurrentDate());
 	}
 
 	public int ObtenerCurCantidadSolicitudesEntregadas() {
-		return this.solicitud.GetCantidadEntregadas(Fecha.CurrentDate(), Fecha.CurrentDate());
+		return this.solicitud.GetCantidadEntregadas(Fecha.CurrentDate(),
+				Fecha.CurrentDate());
 	}
 
 	public int ObtenerCurCostoSolicituides() {
-		return this.solicitud.GetCostos(Fecha.CurrentDate(), Fecha.CurrentDate());
+		return this.solicitud.GetCostos(Fecha.CurrentDate(),
+				Fecha.CurrentDate());
 	}
 
 	public List<SolicitudDTO> ObtenerTodasSolicitudes() {

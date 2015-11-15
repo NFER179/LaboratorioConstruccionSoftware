@@ -81,7 +81,7 @@ public class ReportesImp implements ReportesDAO {
 	}
 
 	@Override
-	public List<VentaReporteDTO> getReporteVentas(String condiciones) {
+	public List<VentaReporteDTO> getReporteVentas(String condiciones) throws Exception {
 		Statement stm;
 		String sqlString = String.format(reporteVentas, condiciones);
 		ResultSet rs = null;
@@ -98,13 +98,12 @@ public class ReportesImp implements ReportesDAO {
 				posicion++;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception("");
 		}
 
 		finally {
 			this.conector.CloseConnection();
 		}
-
 		return lstVentas;
 	}
 

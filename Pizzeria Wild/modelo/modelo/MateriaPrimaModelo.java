@@ -4,17 +4,16 @@ import java.util.List;
 
 import dao.MateriaPrimaDAO;
 import daoImplementacion.MateriaPrimaImp;
-import dto.CategoriaDTO;
 import dto.MateriaPrimaDTO;
 
 public class MateriaPrimaModelo {
 
 	private MateriaPrimaDAO materiaPrima;
-	
+
 	public MateriaPrimaModelo() {
 		this.materiaPrima = new MateriaPrimaImp();
 	}
-	
+
 	public List<MateriaPrimaDTO> ObtenerMateriasPrimas() {
 		return this.materiaPrima.GetMateriasPrimas();
 	}
@@ -32,10 +31,10 @@ public class MateriaPrimaModelo {
 	}
 
 	public boolean Existe(String NombreMT) {
-		if(this.materiaPrima.GetCantMT(NombreMT) > 0)
+		if (this.materiaPrima.GetCantMT(NombreMT) > 0)
 			return true;
-		else{
-			return false;	
+		else {
+			return false;
 		}
 	}
 
@@ -44,31 +43,33 @@ public class MateriaPrimaModelo {
 	}
 
 	public static boolean SeEncuentraEn(String mp, List<MateriaPrimaDTO> mps) {
-		for(MateriaPrimaDTO mpdto:mps){
-			if(mp.equals(mpdto.getNombre()))
+		for (MateriaPrimaDTO mpdto : mps) {
+			if (mp.equals(mpdto.getNombre()))
 				return true;
 		}
 		return false;
 	}
 
 	public static boolean EqualsMP(MateriaPrimaDTO m1, MateriaPrimaDTO m2) {
-		if(m1.getNombre().equals(m2.getNombre()) & m1.getUnidad().equals(m2.getUnidad()))
+		if (m1.getNombre().equals(m2.getNombre())
+				& m1.getUnidad().equals(m2.getUnidad()))
 			return true;
 		return false;
 	}
-	
-	public static boolean HayRepetidos(List<MateriaPrimaDTO> arg0, List<MateriaPrimaDTO> arg1) {
-		for(MateriaPrimaDTO mp1:arg0){
-			for(MateriaPrimaDTO mp2:arg1) {
-				if(MateriaPrimaModelo.EqualsMP(mp1, mp2))
+
+	public static boolean HayRepetidos(List<MateriaPrimaDTO> arg0,
+			List<MateriaPrimaDTO> arg1) {
+		for (MateriaPrimaDTO mp1 : arg0) {
+			for (MateriaPrimaDTO mp2 : arg1) {
+				if (MateriaPrimaModelo.EqualsMP(mp1, mp2))
 					return true;
 			}
 		}
-		
+
 		return false;
 	}
 
-//	public void AsignarACategoria(String MateriaPrima, String Categoria) {
-//		this.materiaPrima.AsignarMTaCategoria(MateriaPrima, Categoria);
-//	}
+	// public void AsignarACategoria(String MateriaPrima, String Categoria) {
+	// this.materiaPrima.AsignarMTaCategoria(MateriaPrima, Categoria);
+	// }
 }

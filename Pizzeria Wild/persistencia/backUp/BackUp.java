@@ -7,8 +7,6 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -18,8 +16,6 @@ import java.util.List;
 import utilidades.Fecha;
 
 import conexion.ConectorDB;
-
-import dto.CategoriaDTO;
 
 public class BackUp {
 	private static String user = "root";
@@ -34,7 +30,6 @@ public class BackUp {
 			backUp(nombreArchivo);
 			restoreDB(nombreArchivo);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -96,28 +91,6 @@ public class BackUp {
 		}
 		objBR.close();
 		return objSB.toString();
-	}
-
-	private static String getSqlPuro(String allDocument) {
-		allDocument = allDocument.replace("DROP", "\nDROP");
-		allDocument = allDocument.replace("UNLOCK TABLES;",
-				"\nUNLOCK TABLES;\n");
-		allDocument = allDocument.replace("--LOCK", "--\nLOCK");
-		allDocument = allDocument.replace("*/;", "*/;\n");
-		allDocument = allDocument.replace("/*", "\n/*");
-
-		String[] inst1 = allDocument.split("\n");
-		String sql = "";
-		boolean esSql = true;
-		for (String linea : inst1) {
-			linea = linea.trim();
-			esSql = linea != "" && !linea.contains("--")
-					&& !linea.contains("/*");
-			if (esSql)
-				sql += linea;
-		}
-		sql = sql.replace("﻿", "");
-		return sql;
 	}
 
 	private static String getSentencesSQL(String allDocument) {

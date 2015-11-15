@@ -12,7 +12,7 @@ public interface ReportesDAO {
 			String fechaHasta);
 
 	public List<RepartidoReporteDTO> getInformeReparitodes(String fecha,
-			int idRepartidor);
+			int idRepartidor) throws Exception;
 
-	public List<VentaReporteDTO> getReporteVentas(String condiciones);
+	public List<VentaReporteDTO> getReporteVentas(String condiciones) throws Exception;
 }
