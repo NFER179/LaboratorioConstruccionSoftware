@@ -7,6 +7,7 @@ import java.util.List;
 
 import conexion.ConectorDB;
 import dao.MateriaPrimaDAO;
+import dto.CategoriaDTO;
 import dto.MateriaPrimaDTO;
 
 public class MateriaPrimaImp implements MateriaPrimaDAO{
@@ -128,6 +129,31 @@ public class MateriaPrimaImp implements MateriaPrimaDAO{
 		}
 		
 		return cantidad;
+	}
+
+	@Override
+	public MateriaPrimaDTO GetMateriaPrima(String nombre) {
+		
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from materia_prima where materia_prima = '" + nombre + "'";
+		ResultSet rs = null;
+		MateriaPrimaDTO materiasPrima = null;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while (rs.next()) {
+				materiasPrima = new MateriaPrimaDTO(rs.getString("materia_prima"), rs.getString("unidad"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return materiasPrima;
 	}
 
 //	@Override

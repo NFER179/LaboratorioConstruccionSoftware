@@ -19,9 +19,6 @@ import javax.swing.JCheckBox;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Toolkit;
-import java.awt.Font;
-import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class ArmadoVentaVista extends JDialog {
@@ -53,75 +50,64 @@ public class ArmadoVentaVista extends JDialog {
 	
 	public ArmadoVentaVista(JFrame frame) {
 		super(frame, true);
-		setResizable(false);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ArmadoVentaVista.class.getResource("/Iconos/pizza_1.PNG")));
-		this.setTitle(" Armado Venta");
+		this.setTitle("Armado Venta");
 		
-		this.setBounds(750, 50, 564, 680);
+		this.setBounds(100, 100, 550, 578);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.getContentPane().add(contentPanel, BorderLayout.CENTER);
 		this.contentPanel.setLayout(null);
 		this.contentPanel.setLayout(null);
-		//this.setLocationRelativeTo(null);
+		this.setLocationRelativeTo(null);
 		
 		JLabel lblNVenta = new JLabel("Num Pedido:");
-		lblNVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNVenta.setBounds(10, 14, 90, 14);
+		lblNVenta.setBounds(10, 8, 90, 14);
 		this.contentPanel.add(lblNVenta);
 		
 		this.txtNumVenta = new JTextField();
-		txtNumVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.txtNumVenta.setEditable(false);
 		this.txtNumVenta.setEnabled(false);
-		this.txtNumVenta.setBounds(103, 11, 86, 20);
+		this.txtNumVenta.setBounds(103, 5, 86, 20);
 		this.contentPanel.add(txtNumVenta);
 		this.txtNumVenta.setColumns(10);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblFecha.setBounds(249, 14, 46, 14);
+		lblFecha.setBounds(249, 8, 46, 14);
 		this.contentPanel.add(lblFecha);
 		
 		this.txtFecha = new JTextField();
-		txtFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.txtFecha.setEnabled(false);
 		this.txtFecha.setEditable(false);
-		this.txtFecha.setBounds(305, 11, 86, 20);
+		this.txtFecha.setBounds(305, 5, 86, 20);
 		this.contentPanel.add(txtFecha);
 		this.txtFecha.setColumns(10);
 		
 		JLabel lblHora = new JLabel("Hora:");
-		lblHora.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblHora.setBounds(401, 14, 46, 14);
+		lblHora.setBounds(401, 8, 46, 14);
 		this.contentPanel.add(lblHora);
 		
 		this.txtHora = new JTextField();
-		txtHora.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.txtHora.setEditable(false);
 		this.txtHora.setEnabled(false);
-		this.txtHora.setBounds(457, 11, 75, 20);
+		this.txtHora.setBounds(457, 5, 75, 20);
 		this.contentPanel.add(txtHora);
 		this.txtHora.setColumns(10);
 		
 		JLabel lblCliente = new JLabel("Cliente:");
-		lblCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblCliente.setBounds(10, 50, 90, 20);
+		lblCliente.setBounds(10, 36, 90, 14);
 		this.contentPanel.add(lblCliente);
 		
 		this.txtCliente = new JTextField();
-		this.txtCliente.setBounds(103, 47, 279, 25);
+		this.txtCliente.setBounds(103, 33, 279, 20);
 		this.contentPanel.add(txtCliente);
 		this.txtCliente.setColumns(10);
 		
-		this.btnBusquedaCliente = new JButton("Cliente");
-		btnBusquedaCliente.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Buscar.png")));
-		btnBusquedaCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnBusquedaCliente.setBounds(401, 50, 140, 60);
+		this.btnBusquedaCliente = new JButton("Busqueda Cliente");
+		this.btnBusquedaCliente.setBounds(392, 32, 140, 23);
 		this.contentPanel.add(btnBusquedaCliente);
 		
 		this.scrollPane = new JScrollPane();
-		this.scrollPane.setBounds(20, 159, 353, 264);
+		this.scrollPane.setBounds(10, 61, 412, 164);
 		this.contentPanel.add(scrollPane);
 		
 		this.modelProductos = new WDefaultTableModel(null, this.nombreColumnas);
@@ -130,98 +116,79 @@ public class ArmadoVentaVista extends JDialog {
 		this.tblProductos.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null)); 
 		
 		this.btnAgregar = new JButton("Agregar");
-		btnAgregar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Agregar.png")));
-		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnAgregar.setBounds(401, 163, 140, 60);
+		this.btnAgregar.setBounds(443, 61, 89, 23);
 		this.contentPanel.add(btnAgregar);
 		
-		this.btnQuitar = new JButton("Quitar");
-		btnQuitar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Quitar.png")));
-		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnQuitar.setBounds(401, 234, 140, 60);
+		this.btnQuitar = new JButton("quitar");
+		this.btnQuitar.setBounds(443, 95, 89, 23);
 		this.contentPanel.add(btnQuitar);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPrecio.setBounds(232, 434, 54, 20);
+		lblPrecio.setBounds(10, 236, 90, 14);
 		this.contentPanel.add(lblPrecio);
 		
 		this.txtPrecio = new JTextField();
 		this.txtPrecio.setEditable(false);
 		this.txtPrecio.setEnabled(false);
-		this.txtPrecio.setBounds(296, 434, 86, 20);
+		this.txtPrecio.setBounds(103, 233, 86, 20);
 		this.contentPanel.add(txtPrecio);
 		this.txtPrecio.setColumns(10);
 		
 		this.chckbxDelivery = new JCheckBox("Delivery");
-		chckbxDelivery.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.chckbxDelivery.setBounds(10, 431, 97, 23);
+		this.chckbxDelivery.setBounds(6, 257, 97, 23);
 		this.contentPanel.add(chckbxDelivery);
 		
 		JLabel lblDireccion = new JLabel("Direccion:");
-		lblDireccion.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDireccion.setBounds(10, 86, 90, 20);
+		lblDireccion.setBounds(10, 287, 90, 14);
 		this.contentPanel.add(lblDireccion);
 		
 		this.txtDireccion = new JTextField();
-		this.txtDireccion.setBounds(103, 83, 279, 25);
+		this.txtDireccion.setBounds(103, 284, 279, 20);
 		this.contentPanel.add(txtDireccion);
 		this.txtDireccion.setColumns(10);
 		
 		JLabel lblObservacionDelivery = new JLabel("Observaciones Delivery:");
-		lblObservacionDelivery.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblObservacionDelivery.setBounds(10, 461, 152, 20);
+		lblObservacionDelivery.setBounds(10, 312, 152, 14);
 		this.contentPanel.add(lblObservacionDelivery);
 		
 		this.scrollPane_1 = new JScrollPane();
-		this.scrollPane_1.setBounds(10, 492, 522, 25);
+		this.scrollPane_1.setBounds(10, 337, 522, 44);
 		this.contentPanel.add(scrollPane_1);
 		
 		this.txtrObservacionDelivery = new JTextArea();
-		scrollPane_1.setViewportView(txtrObservacionDelivery);
 		this.txtrObservacionDelivery.setEditable(false);
 		this.txtrObservacionDelivery.setEnabled(false);
+		this.scrollPane_1.setViewportView(txtrObservacionDelivery);
 		this.txtrObservacionDelivery.setLineWrap(true);
 		
 		this.lblTelefono = new JLabel("Telefono:");
-		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.lblTelefono.setBounds(10, 120, 90, 20);
+		this.lblTelefono.setBounds(10, 392, 90, 14);
 		this.contentPanel.add(lblTelefono);
 		
 		this.txtTel = new JTextField();
-		this.txtTel.setBounds(103, 117, 169, 25);
+		this.txtTel.setBounds(103, 389, 169, 20);
 		this.contentPanel.add(txtTel);
 		this.txtTel.setColumns(10);
 		
 		JLabel lblObservaciones = new JLabel("Observaciones:");
-		lblObservaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblObservaciones.setBounds(10, 528, 90, 20);
+		lblObservaciones.setBounds(10, 417, 90, 14);
 		this.contentPanel.add(lblObservaciones);
 		
 		this.scrollPane_2 = new JScrollPane();
-		this.scrollPane_2.setBounds(10, 559, 522, 25);
+		this.scrollPane_2.setBounds(10, 442, 522, 57);
 		this.contentPanel.add(scrollPane_2);
 		
 		this.txtrObservacion = new JTextArea();
-		scrollPane_2.setViewportView(txtrObservacion);
+		this.scrollPane_2.setViewportView(txtrObservacion);
 		this.txtrObservacion.setLineWrap(true);
 		
 		this.btnArmar = new JButton("Armar");
-		btnArmar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/OK.png")));
-		btnArmar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnArmar.setBounds(242, 595, 140, 40);
+		this.btnArmar.setBounds(344, 510, 89, 23);
 		this.contentPanel.add(btnArmar);
 		
 		this.btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/salir.png")));
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnCancelar.setBounds(392, 595, 140, 40);
+		this.btnCancelar.setBounds(443, 510, 89, 23);
 		this.contentPanel.add(btnCancelar);
-		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
-		lblNewLabel.setBounds(383, 305, 166, 178);
-		contentPanel.add(lblNewLabel);
 	}
 	
 	public void Open() {

@@ -2,24 +2,28 @@ package clasesImpresiones;
 
 import java.util.List;
 
+import dto.ClienteReporteDTO;
+
 public class ObjReporteMejoresClientes extends ObjImprimible {
 
 	private static final int maxPag = 10;
 	private static final String tipo = "reporte_clientes_template";
-	private List<ObjDatosCliente> clientes;
+	private List<ClienteReporteDTO> clientes;
 	private String fechaHasta;
 	private String fechaDesde;
 
-	public ObjReporteMejoresClientes(String fechaDesde, String fechaHasta) {
-		super("Mejores Clientes " + fechaDesde, "", tipo, 0, maxPag);
+	public ObjReporteMejoresClientes(String fechaDesde, String fechaHasta,
+			List<ClienteReporteDTO> clientes) {
+		super("MejoresClientes " + fechaDesde, "", tipo, 0, maxPag);
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
+		this.clientes = clientes;
 	}
 
 	public void agregarCliente(int posicion, String nombre, double acumulado,
 			String ultimaCompra) {
-		ObjDatosCliente cliente = new ObjDatosCliente(posicion, nombre,
-				acumulado, ultimaCompra);
+		ClienteReporteDTO cliente = new ClienteReporteDTO((int) acumulado,
+				nombre, posicion, ultimaCompra);
 		this.clientes.add(cliente);
 	}
 
@@ -28,11 +32,11 @@ public class ObjReporteMejoresClientes extends ObjImprimible {
 		return 1;
 	}
 
-	public List<ObjDatosCliente> getClientes() {
+	public List<ClienteReporteDTO> getClientes() {
 		return clientes;
 	}
 
-	public void setClientes(List<ObjDatosCliente> clientes) {
+	public void setClientes(List<ClienteReporteDTO> clientes) {
 		this.clientes = clientes;
 	}
 

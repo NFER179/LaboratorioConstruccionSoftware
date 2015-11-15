@@ -3,7 +3,6 @@ package vista;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 import javax.swing.JButton;
-import java.awt.Toolkit;
 
 public class Vista {
 	
@@ -29,7 +28,6 @@ public class Vista {
 	 */
 	private void initialize() {		
 		this.frame = new JFrame();
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage(Vista.class.getResource("/Iconos/pizza_1.PNG")));
 		this.frame.setBounds(100, 100, 450, 300);
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.getContentPane().setLayout(null);

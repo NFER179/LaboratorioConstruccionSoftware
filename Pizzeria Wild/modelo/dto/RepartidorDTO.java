@@ -8,16 +8,20 @@ public class RepartidorDTO {
 	private String tel;
 	private String direccion;
 	private String vehiculoId;
+	private String tipoVehiculo;
+	private String modeloVehiculo;
 	private boolean activo;
 	
 	
-	public RepartidorDTO(int RepartidorId, String Nombre, String Apellido, String Tel, String Direccion, String VehiculoId, boolean Activo) {
+	public RepartidorDTO(int RepartidorId, String Nombre, String Apellido, String Tel, String Direccion, String VehiculoId, String TipoVehiculo, String ModeloVehiculo, boolean Activo) {
 		this.repartidorId = RepartidorId;
 		this.nombre = Nombre;
 		this.apellido = Apellido;
 		this.tel = Tel;
 		this.direccion = Direccion;
 		this.vehiculoId = VehiculoId;
+		this.tipoVehiculo = TipoVehiculo;
+		this.modeloVehiculo = ModeloVehiculo;
 		this.activo = Activo;
 	}
 
@@ -91,4 +95,22 @@ public class RepartidorDTO {
 		else
 			return "N";
 	}
+
+	public String getTipoVehiculo() {
+		return tipoVehiculo;
+	}
+
+	public void setTipoVehiculo(String tipoVehiculo) {
+		this.tipoVehiculo = tipoVehiculo;
+	}
+
+	public String getModeloVehiculo() {
+		return modeloVehiculo;
+	}
+
+	public void setModeloVehiculo(String modeloVehiculo) {
+		this.modeloVehiculo = modeloVehiculo;
+	}
+	
+	
 }

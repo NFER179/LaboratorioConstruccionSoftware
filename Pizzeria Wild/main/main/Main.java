@@ -1,7 +1,5 @@
 package main;
 
-import vista.Vista;
-import controlador.Controlador;
 import controlador.ControladorVenta;
 
 public class Main {

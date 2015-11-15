@@ -13,9 +13,6 @@ import javax.swing.ListSelectionModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 
 
 @SuppressWarnings("serial")
@@ -31,10 +28,9 @@ public class BusquedaClienteVista extends JDialog {
 
 	public BusquedaClienteVista(JDialog FramePadre) {
 		super(FramePadre, true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(BusquedaClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		this.setTitle(" Busqueda de Cliente");
-		this.setBounds(100, 100, 328, 459);
+		this.setTitle("Busqueda de Cliente");
+		this.setBounds(100, 100, 328, 260);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -42,7 +38,7 @@ public class BusquedaClienteVista extends JDialog {
 		this.setLocationRelativeTo(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 300, 333);
+		scrollPane.setBounds(10, 11, 300, 167);
 		this.contentPanel.add(scrollPane);
 
 		this.modelCliente = new WDefaultTableModel(null, this.nombreColumnas);
@@ -51,15 +47,11 @@ public class BusquedaClienteVista extends JDialog {
 		scrollPane.setViewportView(table);
 
 		this.btnAceptar = new JButton("Aceptar");
-		btnAceptar.setIcon(new ImageIcon(BusquedaClienteVista.class.getResource("/Iconos/OK.png")));
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnAceptar.setBounds(10, 374, 140, 40);
+		this.btnAceptar.setBounds(122, 189, 89, 23);
 		this.contentPanel.add(btnAceptar);
 
 		this.btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon(BusquedaClienteVista.class.getResource("/Iconos/salir.png")));
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnCancelar.setBounds(170, 374, 140, 40);
+		this.btnCancelar.setBounds(221, 189, 89, 23);
 		this.contentPanel.add(btnCancelar);		
 	}
 	

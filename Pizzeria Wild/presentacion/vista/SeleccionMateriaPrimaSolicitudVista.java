@@ -10,9 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
 
 public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 	private DefaultTableModel modelTable;
@@ -24,15 +21,14 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 
 	public SeleccionMateriaPrimaSolicitudVista(CreacionSolicitudVista arg0) {
 		super(arg0, true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionMateriaPrimaSolicitudVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
 		setTitle("Seleccion Materi Prima");
-		setBounds(100, 100, 380, 453);
+		setBounds(100, 100, 287, 300);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 352, 309);
+		scrollPane.setBounds(10, 11, 256, 182);
 		getContentPane().add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -41,25 +37,20 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		JLabel lblCantidad = new JLabel("Cantidad: ");
-		lblCantidad.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblCantidad.setBounds(208, 335, 69, 20);
+		lblCantidad.setBounds(10, 204, 69, 14);
 		getContentPane().add(lblCantidad);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setBounds(276, 332, 86, 25);
+		txtCantidad.setBounds(78, 201, 86, 20);
 		getContentPane().add(txtCantidad);
 		txtCantidad.setColumns(10);
 		
-		btnAceptar = new JButton(" Aceptar");
-		btnAceptar.setIcon(new ImageIcon(SeleccionMateriaPrimaSolicitudVista.class.getResource("/Iconos/OK.png")));
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAceptar.setBounds(10, 368, 140, 40);
+		btnAceptar = new JButton("Aceptar");
+		btnAceptar.setBounds(78, 232, 89, 23);
 		getContentPane().add(btnAceptar);
 		
-		btnCancelar = new JButton(" Cancelar");
-		btnCancelar.setIcon(new ImageIcon(SeleccionMateriaPrimaSolicitudVista.class.getResource("/Iconos/salir.png")));
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(222, 368, 140, 40);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(177, 232, 89, 23);
 		getContentPane().add(btnCancelar);
 	}
 	

@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -14,6 +15,8 @@ import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 
+import modelo.ReportesModelo;
+
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjItinerario.objPuntoItinerario;
 
@@ -21,8 +24,11 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
+import dto.ClienteReporteDTO;
 import dto.MateriaPrimaDTO;
 import dto.ProveedorDTO;
+import dto.RepartidoReporteDTO;
+import dto.VentaReporteDTO;
 
 public class Impresiones {
 
@@ -34,57 +40,49 @@ public class Impresiones {
 	private static PdfStamper stamper;
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
 
-	// public static void main(String[] args) {
-	// try {
-	// solicitudMPTest();
-	// } catch (Exception e) {
-	// System.out.println("MACANAS");
-	// System.out.println(e.toString());
-	// }
-	// }
-	//
-	// private static void solicitudMPTest() throws Exception {
-	// ProveedorDTO proveedor = new ProveedorDTO("IDPROVEEDOR", "NOmbre",
-	// "1234", "micho@gmail.com");
-	// ObjSolicitudMP solicitud = new ObjSolicitudMP("12-12-12", 22, proveedor);
-	// solicitud.addMateriaPrima("LECHE", "Unidad1");
-	// solicitud.addMateriaPrima("LECHE", "Unidad2");
-	// solicitud.addMateriaPrima("LECHE", "Unidad3");
-	// solicitud.addMateriaPrima("LECHE", "Unidad4");
-	// solicitud.addMateriaPrima("LECHE", "Unidad5");
-	// solicitud.addMateriaPrima("LECHE", "Unidad6");
-	// solicitud.addMateriaPrima("LECHE", "Unidad7");
-	// solicitud.addMateriaPrima("LECHE", "Unidad8");
-	// solicitud.addMateriaPrima("LECHE", "Unidad9");
-	// solicitud.addMateriaPrima("LECHE", "Unidad10");
-	// solicitud.addMateriaPrima("LECHE", "Unidad11");
-	// solicitud.addMateriaPrima("LECHE", "Unidad12");
-	// solicitud.addMateriaPrima("LECHE", "Unidad13");
-	// solicitud.addMateriaPrima("LECHE", "Unidad14");
-	// solicitud.addMateriaPrima("LECHE", "Unidad15");
-	// solicitud.addMateriaPrima("LECHE", "Unidad16");
-	// solicitud.addMateriaPrima("LECHE", "Unidad17");
-	// solicitud.addMateriaPrima("LECHE", "Unidad18");
-	// solicitud.addMateriaPrima("LECHE", "Unidad19");
-	// solicitud.addMateriaPrima("LECHE", "Unidad20");
-	// solicitud.addMateriaPrima("LECHE", "Unidad21");
-	// solicitud.addMateriaPrima("LECHE", "Unidad22");
-	// solicitud.addMateriaPrima("LECHE", "Unidad23");
-	// solicitud.addMateriaPrima("LECHE", "Unidad24");
-	// solicitud.addMateriaPrima("LECHE", "Unidad25");
-	// solicitud.addMateriaPrima("LECHE", "Unidad26");
-	// solicitud.addMateriaPrima("LECHE", "Unidad27");
-	// solicitud.addMateriaPrima("LECHE", "Unidad28");
-	// solicitud.addMateriaPrima("LECHE", "Unidad29");
-	// solicitud.addMateriaPrima("LECHE", "Unidad30");
-	// solicitud.addMateriaPrima("LECHE", "Unidad31");
-	// solicitud.addMateriaPrima("LECHE", "Unidad32");
-	// solicitud.addMateriaPrima("LECHE", "Unidad33");
-	// solicitud.addMateriaPrima("LECHE", "Unidad34");
-	// solicitud.addMateriaPrima("LECHE", "Unidad35");
-	// solicitud.addMateriaPrima("LECHE", "Unidad36");
-	// ImprimirSolicitudMP(solicitud);
-	// }
+	public static void main(String[] args) {
+		try {
+			solicitudMPTest2();
+		} catch (Exception e) {
+			System.out.println("MACANAS");
+			System.out.println(e.toString());
+		}
+	}
+
+	public static void solicitudMPTest() throws Exception {
+
+		ReportesModelo model = new ReportesModelo();
+		List<ClienteReporteDTO> lista = model.GetMejoresClientes("2010-10-10",
+				"2020-10-10");
+
+		System.out.println(lista.size());
+		ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
+				"2010-1-1", "2020-1-1", lista);
+		ImprimirReporteMejoresClientes(reporte);
+	}
+
+	public static void solicitudMPTest2() throws Exception {
+		ReportesModelo model = new ReportesModelo();
+		List<RepartidoReporteDTO> lista = model
+				.GetRepartidores("2015-11-13", 1);
+
+		System.out.println(lista.size());
+		ObjReporteReparto reporte = new ObjReporteReparto("2010-1-1",
+				"Fulano mengano", lista);
+		ImprimirReporteReparto(reporte);
+	}
+
+	public static void solicitudMPTest3() throws Exception {
+		ReportesModelo model = new ReportesModelo();
+		List<VentaReporteDTO> lista = model.GetVentas(null);
+		int dia = 2;
+		int semana = 3;
+		System.out.println(lista.size());
+		ObjReporteVentas reporte = new ObjReporteVentas("2010-1-1", "Familia",
+				dia, semana, lista);
+		ImprimirReporteVentas(reporte);
+	}
+
 	//
 	// private static void itinerarioTest() throws Exception {
 	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
@@ -183,10 +181,10 @@ public class Impresiones {
 		llenarStamperReporteMejoresClientes(reporte);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
-	// REGION REPORTE VENTAS
+	// REGION REPORTE REPARTO
 	private static void imprimirHojaReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
@@ -195,27 +193,62 @@ public class Impresiones {
 		llenarStamperReporteReparto(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperReporteReparto(ObjReporteReparto reporte,
-			int numeroPagina, int totalHojas) {
+			int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
 		llenarCabeceraReporteReparto(reporte);
 		double total = llenarReporteReparto(reporte, numeroPagina);
 		llenarPieReporteReparto(reporte, total, numeroPagina, totalHojas);
 
 	}
 
-	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte) {
+	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte)
+			throws IOException, DocumentException {
+		stamper.getAcroFields().setField("txtFecha", reporte.getFecha());
+		stamper.getAcroFields().setField("txtRepartidor",
+				reporte.getNombreRepartidor());
 	}
 
 	private static double llenarReporteReparto(ObjReporteReparto reporte,
-			int numeroPagina) {
-		return 0;
+			int numeroPagina) throws IOException, DocumentException {
+		// txtReparto txtPedido txtCliente txtEntrega txtMonto
+		int desde = 0;
+		if (numeroPagina != 1)
+			desde = ((numeroPagina - 1) * reporte.getMaxPaginacion()) - 1;
+		int hasta = (numeroPagina * reporte.getMaxPaginacion()) - 1;
+		int puntos = reporte.getRepartos().size();
+		hasta = (hasta > puntos) ? puntos : hasta;
+		int i = 0;
+		double total = 0;
+		for (RepartidoReporteDTO reparto : reporte.getRepartos().subList(desde,
+				hasta)) {
+			stamper.getAcroFields().setField("txtReparto" + i,
+					reparto.getReparto() + "");
+			stamper.getAcroFields().setField("txtPedido" + i,
+					reparto.getPedido() + "");
+			stamper.getAcroFields().setField("txtCliente" + i,
+					reparto.getCliente());
+			stamper.getAcroFields().setField("txtEntrega" + i,
+					reparto.getEntregado());
+			stamper.getAcroFields().setField("txtMonto" + i,
+					reparto.getMonto() + "");
+		}
+		for (RepartidoReporteDTO reparto : reporte.getRepartos()) {
+			total += reparto.getMonto();
+		}
+		return total;
 	}
 
 	private static void llenarPieReporteReparto(ObjReporteReparto reporte,
-			double total, int numeroPagina, int totalHojas) {
+			double total, int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
+		// txtPaginado
+		stamper.getAcroFields().setField("txtTotal", total + "");
+		stamper.getAcroFields().setField("txtPaginado",
+				numeroPagina + " DE " + totalHojas);
 
 	}
 
@@ -228,54 +261,95 @@ public class Impresiones {
 		llenarStamperReporteVentas(reporte, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperReporteVentas(ObjReporteVentas reporte,
-			int numeroPagina, int totalHojas) {
+			int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
 		llenarCabeceraReporteVentas(reporte);
 		double total = llenarReporteVentas(reporte, numeroPagina);
 		llenarPieReporteVentas(reporte, total, numeroPagina, totalHojas);
 
 	}
 
-	private static void llenarCabeceraReporteVentas(ObjReporteVentas reporte) {
-
+	private static void llenarCabeceraReporteVentas(ObjReporteVentas reporte)
+			throws IOException, DocumentException {
+		// txtFamilia txtFecha txtDia txtSemana
+		stamper.getAcroFields().setField("txtFamilia", reporte.getFamilia());
+		stamper.getAcroFields().setField("txtFecha", reporte.getFecha());
+		stamper.getAcroFields().setField("txtDia", reporte.getDia() + "");
+		stamper.getAcroFields().setField("txtSemana", reporte.getSemana() + "");
 	}
 
 	private static double llenarReporteVentas(ObjReporteVentas reporte,
-			int numeroPagina) {
+			int numeroPagina) throws IOException, DocumentException {
+		// txtPuesto txtProducto txtVenta
+		int desde = 0;
+		if (numeroPagina != 1)
+			desde = ((numeroPagina - 1) * reporte.getMaxPaginacion()) - 1;
+		int hasta = (numeroPagina * reporte.getMaxPaginacion()) - 1;
+		int puntos = reporte.getProductos().size();
+		hasta = (hasta > puntos) ? puntos : hasta;
+		int i = 0;
+		for (VentaReporteDTO producto : reporte.getProductos().subList(desde,
+				hasta)) {
+			stamper.getAcroFields().setField("txtPuesto" + i,
+					producto.getPuesto() + "");
+			stamper.getAcroFields().setField("txtProducto" + i,
+					producto.getProducto());
+			stamper.getAcroFields().setField("txtVenta" + i,
+					producto.getCantidad() + "");
+			i++;
+		}
 		return 0;
 	}
 
 	private static void llenarPieReporteVentas(ObjReporteVentas reporte,
-			double total, int numeroPagina, int totalHojas) {
-
+			double total, int numeroPagina, int totalHojas) throws IOException,
+			DocumentException {
+		stamper.getAcroFields().setField("txtPaginado",
+				numeroPagina + " DE " + totalHojas);
 	}
 
 	// REGION REPORTE MEJORES CLIENTES
 
 	private static void llenarStamperReporteMejoresClientes(
-			ObjReporteMejoresClientes reporte) {
+			ObjReporteMejoresClientes reporte) throws IOException,
+			DocumentException {
 		llenarCabeceraReporteMejoresClientes(reporte);
 		llenarReporteMejoresClientes(reporte);
-		llenarPieReporteMejoresClientes(reporte);
 
 	}
 
 	private static void llenarCabeceraReporteMejoresClientes(
-			ObjReporteMejoresClientes reporte) {
-
+			ObjReporteMejoresClientes reporte) throws IOException,
+			DocumentException {
+		stamper.getAcroFields().setField("txtDesde", reporte.getFechaDesde());
+		stamper.getAcroFields().setField("txtHasta", reporte.getFechaHasta());
 	}
 
 	private static void llenarReporteMejoresClientes(
-			ObjReporteMejoresClientes reporte) {
-
-	}
-
-	private static void llenarPieReporteMejoresClientes(
-			ObjReporteMejoresClientes reporte) {
-
+			ObjReporteMejoresClientes reporte) throws IOException,
+			DocumentException {
+		// txtPuesto txtCliente txtAcumulado txtUltVenta
+		int i = 0;
+		for (ClienteReporteDTO cliente : reporte.getClientes()) {
+			String nombre = cliente.getNombre() != null ? cliente.getNombre()
+					: "";
+			String posicion = cliente.getPosicion() != 0 ? cliente
+					.getPosicion() + "" : "";
+			int precios = cliente.getPrecio();
+			boolean esPrecio = precios != 0;
+			String precio = esPrecio ? cliente.getPrecio() + "" : "";
+			String ultimaVenta = cliente.getFechaUltimaCompra() != null ? cliente
+					.getFechaUltimaCompra() : "";
+			stamper.getAcroFields().setField("txtPuesto" + i, posicion);
+			stamper.getAcroFields().setField("txtCliente" + i, nombre);
+			stamper.getAcroFields().setField("txtAcumulado" + i, precio);
+			stamper.getAcroFields().setField("txtUltVenta" + i, ultimaVenta);
+			i++;
+		}
 	}
 
 	// REGION SOLICITUD MATERIA PRIMA
@@ -287,7 +361,7 @@ public class Impresiones {
 		llenarStamperSolicitudMP(solicitud, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperSolicitudMP(ObjSolicitudMP solicitud,
@@ -352,7 +426,7 @@ public class Impresiones {
 		llenarStamperTicketComanda(comanda, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperTicketComanda(ObjComandaTicket comanda,
@@ -418,13 +492,16 @@ public class Impresiones {
 					punto.getPrecio() + "");
 
 			subtotal = punto.getPrecio() * punto.getCantidad();
-			total += subtotal;
+
 			stamper.getAcroFields().setField("txtSubTotal" + i, subtotal + "");
 
 			stamper.getAcroFields()
 					.setField("txtCodigo" + i, punto.getCodigo());
 			stamper.getAcroFields().setField("txtUnd" + i, punto.getUnd());
 			i++;
+		}
+		for (ObjProductoTicketComanda punto : comanda.getListaProductos()) {
+			total += punto.getPrecio() * punto.getCantidad();
 		}
 		return total;
 	}
@@ -436,12 +513,12 @@ public class Impresiones {
 		stamper.getAcroFields().setField("txtTotalTicket", total + "");
 
 		stamper.getAcroFields().setField("txtObservacionComanda",
-				"Observaciones: " + comanda.getObservaciones());
+				"Obser: " + comanda.getObservaciones());
 
 		stamper.getAcroFields().setField("txtObservacionDelivery",
-				"Observaciones: " + comanda.getObservacionDelivery());
+				"Obser: " + comanda.getObservacionDelivery());
 		stamper.getAcroFields().setField("txtObservacionTicket",
-				"Observaciones: " + comanda.getObservaciones());
+				"Obser: " + comanda.getObservaciones());
 
 		stamper.getAcroFields().setField("txtPaginadoComanda",
 				numeroPagina + " DE " + totalHojas);
@@ -458,7 +535,7 @@ public class Impresiones {
 		llenarStamperItinerario(itinerario, numeroPagina, totalHojas);
 
 		closeAll();
-		// imprimirt();
+		imprimir();
 	}
 
 	private static void llenarStamperItinerario(ObjItinerario itinerario,
@@ -512,7 +589,7 @@ public class Impresiones {
 		stamper.getAcroFields()
 				.setField("txtTotal", itinerario.getTotal() + "");
 		stamper.getAcroFields().setField("txtObservaciones",
-				"Observaciones: " + itinerario.getObservacionGral());
+				"Obser: " + itinerario.getObservacionGral());
 		stamper.getAcroFields().setField("txtPaginacion",
 				numeroPagina + " DE " + totalHojas);
 	}
@@ -534,9 +611,9 @@ public class Impresiones {
 		return stamper;
 	}
 
-	private static FileOutputStream getPdfOut(ObjImprimible itinerario,
+	private static FileOutputStream getPdfOut(ObjImprimible imprimible,
 			int numeroPagina) throws FileNotFoundException {
-		pdfResultPath = String.format(resultPath, itinerario.getNombreArchivo()
+		pdfResultPath = String.format(resultPath, imprimible.getNombreArchivo()
 				+ "_" + numeroPagina);
 		FileOutputStream pdfOut = new FileOutputStream(pdfResultPath);
 		return pdfOut;

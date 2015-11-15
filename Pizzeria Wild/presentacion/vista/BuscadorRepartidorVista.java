@@ -9,9 +9,6 @@ import javax.swing.table.DefaultTableModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class BuscadorRepartidorVista extends JDialog {
@@ -25,10 +22,9 @@ public class BuscadorRepartidorVista extends JDialog {
 
 	public BuscadorRepartidorVista(JDialog Dialog) {
 		super(Dialog, true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(BuscadorRepartidorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		this.setTitle(" Repartidores");
-		this.setBounds(100, 100, 333, 301);
+		this.setTitle("Repartidores");
+		this.setBounds(100, 100, 333, 274);
 		this.getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
@@ -43,15 +39,11 @@ public class BuscadorRepartidorVista extends JDialog {
 		this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		this.btnAceptar = new JButton("Aceptar");
-		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAceptar.setIcon(new ImageIcon(BuscadorRepartidorVista.class.getResource("/Iconos/OK.png")));
-		this.btnAceptar.setBounds(20, 216, 140, 40);
+		this.btnAceptar.setBounds(127, 209, 89, 23);
 		this.getContentPane().add(btnAceptar);
 		
 		this.btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setIcon(new ImageIcon(BuscadorRepartidorVista.class.getResource("/Iconos/salir.png")));
-		this.btnCancelar.setBounds(175, 216, 140, 40);
+		this.btnCancelar.setBounds(226, 209, 89, 23);
 		this.getContentPane().add(btnCancelar);
 	}
 	

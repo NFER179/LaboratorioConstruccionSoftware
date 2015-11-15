@@ -14,10 +14,6 @@ import javax.swing.ListSelectionModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import java.awt.Toolkit;
-import javax.swing.JLabel;
 
 public class ProveedorVista extends JFrame {
 
@@ -28,14 +24,12 @@ public class ProveedorVista extends JFrame {
 	private JButton btnNuevoProveedor;
 	private JButton btnModificar;
 	private JButton btnVolver;
-	private JLabel lblNewLabel;
 
 	public ProveedorVista() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle(" Proveedor");
+		setTitle("Proveedor");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 569, 446);
+		setBounds(100, 100, 670, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -43,7 +37,7 @@ public class ProveedorVista extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 357, 392);
+		scrollPane.setBounds(10, 11, 504, 239);
 		contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -51,28 +45,17 @@ public class ProveedorVista extends JFrame {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
-		btnNuevoProveedor = new JButton(" Nuevo");
-		btnNuevoProveedor.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Nuevo.png")));
-		btnNuevoProveedor.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnNuevoProveedor.setBounds(397, 11, 140, 40);
+		btnNuevoProveedor = new JButton("Nuevo Proveedor");
+		btnNuevoProveedor.setBounds(524, 11, 120, 23);
 		contentPane.add(btnNuevoProveedor);
 		
-		btnModificar = new JButton(" Modificar");
-		btnModificar.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/modificar.png")));
-		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnModificar.setBounds(397, 62, 140, 40);
+		btnModificar = new JButton("Modificar");
+		btnModificar.setBounds(524, 45, 120, 23);
 		contentPane.add(btnModificar);
 		
-		btnVolver = new JButton(" Volver");
-		btnVolver.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Volver.png")));
-		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnVolver.setBounds(397, 363, 140, 40);
+		btnVolver = new JButton("Volver");
+		btnVolver.setBounds(524, 227, 120, 23);
 		contentPane.add(btnVolver);
-		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
-		lblNewLabel.setBounds(381, 163, 182, 167);
-		contentPane.add(lblNewLabel);
 	}
 	
 	public void Open() {

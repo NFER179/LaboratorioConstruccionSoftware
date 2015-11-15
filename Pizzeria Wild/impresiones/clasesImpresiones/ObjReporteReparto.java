@@ -2,20 +2,19 @@ package clasesImpresiones;
 
 import java.util.List;
 
+import dto.RepartidoReporteDTO;
+
 public class ObjReporteReparto extends ObjImprimible {
 	private static final int maxPag = 10;
 	private static final String tipo = "reporte_reparto_template";
-	private List<ObjReparto> repartos;
+	private List<RepartidoReporteDTO> repartos;
 	private String nombreRepartidor;
 
-	public ObjReporteReparto(String fecha, int id, String nombreRepartidor) {
-		super(nombreRepartidor + fecha, fecha, tipo, id, maxPag);
+	public ObjReporteReparto(String fecha, String nombreRepartidor,
+			List<RepartidoReporteDTO> repartos) {
+		super(nombreRepartidor + fecha, fecha, tipo, 1, maxPag);
 		this.setNombreRepartidor(nombreRepartidor);
-	}
-
-	public void agregarReparto(int numReparto, List<ObjPedido> pedidos) {
-		ObjReparto reparto = new ObjReparto(numReparto, pedidos);
-		this.repartos.add(reparto);
+		this.repartos = repartos;
 	}
 
 	@Override
@@ -26,6 +25,14 @@ public class ObjReporteReparto extends ObjImprimible {
 
 	public String getNombreRepartidor() {
 		return nombreRepartidor;
+	}
+
+	public List<RepartidoReporteDTO> getRepartos() {
+		return repartos;
+	}
+
+	public void setRepartos(List<RepartidoReporteDTO> repartos) {
+		this.repartos = repartos;
 	}
 
 	public void setNombreRepartidor(String nombreRepartidor) {

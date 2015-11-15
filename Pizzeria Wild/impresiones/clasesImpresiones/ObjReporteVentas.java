@@ -2,25 +2,23 @@ package clasesImpresiones;
 
 import java.util.List;
 
+import dto.VentaReporteDTO;
+
 public class ObjReporteVentas extends ObjImprimible {
 	private static final int maxPag = 10;
 	private static final String tipo = "reporte_ventas_template";
 	private String familia;
 	private int dia;
 	private int semana;
-	private List<ObjProductoReporteVentas> productos;
+	private List<VentaReporteDTO> productos;
 
-	public ObjReporteVentas(String fecha, String familia, int dia, int semana) {
+	public ObjReporteVentas(String fecha, String familia, int dia, int semana,
+			List<VentaReporteDTO> lista) {
 		super("Reporte ventas " + fecha, fecha, tipo, 0, maxPag);
 		this.familia = familia;
 		this.dia = dia;
 		this.semana = semana;
-	}
-
-	public void agregarProducto(int posicion, int cantidad, String nombre) {
-		ObjProductoReporteVentas producto = new ObjProductoReporteVentas(
-				posicion, cantidad, nombre);
-		this.productos.add(producto);
+		this.productos = lista;
 	}
 
 	@Override
@@ -53,11 +51,11 @@ public class ObjReporteVentas extends ObjImprimible {
 		this.semana = semana;
 	}
 
-	public List<ObjProductoReporteVentas> getProductos() {
+	public List<VentaReporteDTO> getProductos() {
 		return productos;
 	}
 
-	public void setProductos(List<ObjProductoReporteVentas> productos) {
+	public void setProductos(List<VentaReporteDTO> productos) {
 		this.productos = productos;
 	}
 

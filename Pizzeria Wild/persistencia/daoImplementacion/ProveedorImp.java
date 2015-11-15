@@ -131,4 +131,99 @@ public class ProveedorImp implements ProveedorDAO {
 		
 		return proveedores;
 	}
+
+	@Override
+	public ProveedorDTO GetProveedor(String Proveedor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from proveedor where proveedor_id = '" + Proveedor + "'";
+		ProveedorDTO proveedor = null;
+		ResultSet rs = null;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				String ProveedorId = rs.getString("proveedor_id");
+				String Nombre = rs.getString("nombre");
+				String Telefono = rs.getString("telefono");
+				String Mail = rs.getString("mail");
+				boolean Activo = ProveedorDTO.ParseActivoBoolean(rs.getString("activo"));
+				
+				proveedor = new ProveedorDTO(ProveedorId, Nombre, Telefono, Mail, Activo);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally{
+			this.conector.CloseConnection();
+		}
+		
+		return proveedor;
+	}
+
+	@Override
+	public List<CategoriaDTO> GetCategorias(String proveedorId) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select ca.* " +
+							"from categoria ca " +
+							"where ca.categoria_id in (select mpr.categoria_id " +
+														"from mp_proveedor mpr " +
+														"where mpr.proveedor_id = '" + proveedorId + "')";
+		ResultSet rs = null;
+		List<CategoriaDTO> categorias = new ArrayList<CategoriaDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()){
+				String IdCategoria = rs.getString("categoria_id");
+				String Descripcion = rs.getString("descripcion");
+				categorias.add(new CategoriaDTO(IdCategoria, Descripcion));
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			this.conector.CloseConnection();
+		}
+		
+		return categorias;
+	}
+
+	@Override
+	public void Update(ProveedorDTO proveedor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update proveedor set nombre = '" + proveedor.getNombre() + "', " +
+							"telefono = '" + proveedor.getTelefono() + "', " +
+							"mail = '" + proveedor.getMail() + "', " + 
+							"estado = '" + ProveedorDTO.ParseActivoShortString(proveedor.isActivo()) + "', " +
+							"where proveedor_id = '" + proveedor.getProveedorId() + "' ";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Insert(ProveedorDTO proveedor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "insert into proveedor value('" +
+							proveedor.getProveedorId() + "', '" +
+							proveedor.getNombre() + "', '" +
+							proveedor.getTelefono() + "', '" +
+							proveedor.getMail() + "', '" +
+							ProveedorDTO.ParseActivoShortString(proveedor.isActivo()) + "')";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
 }
