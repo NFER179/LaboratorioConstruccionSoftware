@@ -115,7 +115,7 @@ public class ReportesImp implements ReportesDAO {
 			+ " on vp.effdt = v.effdt and vp.num_venta = v.num_venta  "
 			+ " where v.estado = 'Facturado' "
 			+ " group by vp.producto, vp.sabor " + " order by cantidad desc"
-			+ ") as n where %s";
+			+ ") as n where fecha >= '%s' and fecha <= '%s' ;";
 
 	private static String repartos = "select d.num_delivery as reparto, "
 			+ " v.num_venta as pedido, v.cliente, dv.estado , v.precio "
