@@ -29,7 +29,7 @@ public class ControladorVenta implements ActionListener {
 	// public ControladorVenta(Controlador controlador) {
 	public ControladorVenta() {
 		this.vtVenta = new VentasVista();
-		addListeners();
+		this.addListeners();
 
 		// this.controlador = controlador;
 		this.mdlVenta = new VentaModelo();
@@ -55,6 +55,8 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnCategorias().addActionListener(this);
 		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.getBtnProveedores().addActionListener(this);
+		this.vtVenta.getBtnRepartidores().addActionListener(this);
+		this.vtVenta.getBtnBackUp().addActionListener(this);
 		this.vtVenta.getBtnEnviar().addActionListener(this);
 		this.vtVenta.getBtnEnViaje().addActionListener(this);
 		this.vtVenta.getBtnModificar().addActionListener(this);
@@ -65,7 +67,6 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnCancelarVenta().addActionListener(this);
 		this.vtVenta.getBtnVentaEntregada().addActionListener(this);
 		this.vtVenta.getBtnSalir().addActionListener(this);
-		this.vtVenta.getBtnBackUp().addActionListener(this);
 	}
 
 	private String Delivery(boolean arg0) {
@@ -247,6 +248,12 @@ public class ControladorVenta implements ActionListener {
 		ctrProveedor.Inicializar();
 		this.vtVenta.Close();
 	}
+	
+	private void Repartidores() {
+		ControladorRepartidor ctrRepartidor = new ControladorRepartidor(this);
+		ctrRepartidor.Inicializar();
+		this.vtVenta.Close();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -262,6 +269,10 @@ public class ControladorVenta implements ActionListener {
 			this.accionReportes();
 		} else if (source == this.vtVenta.getBtnProveedores()) {
 			this.AccionProveedores();
+		} else if (source == vista.getBtnRepartidores()) {
+			this.Repartidores();
+		} else if (source == vista.getBtnBackUp()) {
+			accionBackUp();
 		} else if (source == vista.getBtnEnviar()) {
 			if (this.ViendoVentasDelDia()) {
 				accionEnviar();
@@ -298,8 +309,6 @@ public class ControladorVenta implements ActionListener {
 			}
 		} else if (source == vista.getBtnSalir()) {
 			accionSalir();
-		} else if (source == vista.getBtnBackUp()) {
-			accionBackUp();
 		}
 		// } else if (source == vista.getMntmReporteDiario()) {
 		// accionReporteDiario();
@@ -358,10 +367,14 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void PantallaVentasDia(boolean b) {
-		if (b)
+		if (b) {
+			this.vtVenta.getLblVentasDelDia().setText("Ventas del Día");
 			this.vtVenta.getBtnTodasLasVentas().setText("Todas las Ventas");
-		else
+		}
+		else {
+			this.vtVenta.getLblVentasDelDia().setText("Todas las Vnetas");
 			this.vtVenta.getBtnTodasLasVentas().setText("Ventas del Dia");
+		}
 	}
 
 	private boolean ViendoVentasDelDia() {

@@ -1,44 +1,46 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JLabel;
 import javax.swing.JTable;
-import javax.swing.JButton;
 import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.JButton;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import javax.swing.ListSelectionModel;
 
-public class ProveedorVista extends JFrame {
+public class RepartidorVista extends JFrame {
 
 	private JPanel contentPane;
+	private JLabel lblReoartidoresActivos;
+	private String[] nombreColumnas = {"Id", "Nombre", "Activo"};
 	private DefaultTableModel modelTable;
-	private String[] nombreColumnas = {"ID","Nombre","Activo"};
 	private JTable table;
-	private JButton btnNuevoProveedor;
+	private JButton btnAgregar;
 	private JButton btnModificar;
-	private JButton btnEliminar;
+	private JButton btnTodos;
 	private JButton btnVolver;
 
-	public ProveedorVista() {
+	public RepartidorVista() {
 		setResizable(false);
-		setTitle("Proveedor");
+		setTitle("Repartidores");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 300);
+		setBounds(100, 100, 454, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		this.setLocationRelativeTo(null);
+		
+		lblReoartidoresActivos = new JLabel("Repartidores Activos:");
+		lblReoartidoresActivos.setBounds(10, 11, 196, 14);
+		contentPane.add(lblReoartidoresActivos);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 504, 239);
+		scrollPane.setBounds(10, 36, 317, 187);
 		contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -46,23 +48,24 @@ public class ProveedorVista extends JFrame {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
-		btnNuevoProveedor = new JButton("Nuevo Proveedor");
-		btnNuevoProveedor.setBounds(524, 11, 120, 23);
-		contentPane.add(btnNuevoProveedor);
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.setBounds(349, 36, 89, 23);
+		contentPane.add(btnAgregar);
 		
 		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(524, 45, 120, 23);
+		btnModificar.setBounds(349, 70, 89, 23);
 		contentPane.add(btnModificar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(524, 79, 120, 23);
-		contentPane.add(btnEliminar);
+		btnTodos = new JButton("Todos");
+		btnTodos.setBounds(349, 104, 89, 23);
+		contentPane.add(btnTodos);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(524, 227, 120, 23);
+		btnVolver.setBounds(349, 234, 89, 23);
 		contentPane.add(btnVolver);
+		this.setLocationRelativeTo(null);
 	}
-	
+
 	public void Open() {
 		this.setVisible(true);
 	}
@@ -70,32 +73,40 @@ public class ProveedorVista extends JFrame {
 	public void Close() {
 		this.setVisible(false);
 	}
+	
+	public JPanel getContentPane() {
+		return contentPane;
+	}
 
-	public DefaultTableModel getModelTable() {
-		return modelTable;
+	public JLabel getLblReoartidoresActivos() {
+		return lblReoartidoresActivos;
 	}
 
 	public String[] getNombreColumnas() {
 		return nombreColumnas;
 	}
 
+	public DefaultTableModel getModelTable() {
+		return modelTable;
+	}
+
 	public JTable getTable() {
 		return table;
 	}
 
-	public JButton getBtnNuevoProveedor() {
-		return btnNuevoProveedor;
+	public JButton getBtnAgregar() {
+		return btnAgregar;
 	}
 
 	public JButton getBtnModificar() {
 		return btnModificar;
 	}
 
-	public JButton getBtnVolver() {
-		return btnVolver;
+	public JButton getBtnTodos() {
+		return btnTodos;
 	}
 
-	public JButton getBtnEliminar() {
-		return btnEliminar;
+	public JButton getBtnVolver() {
+		return btnVolver;
 	}
 }

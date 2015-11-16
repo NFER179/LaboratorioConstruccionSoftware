@@ -36,10 +36,10 @@ public class ProveedorModelo {
 	}
 
 	public boolean ExisteProvedor(String Proveedor) {
-		if(this.proveedor.GetProveedor(Proveedor).getProveedorId().equals(Proveedor))
-			return true;
-		else
+		if(this.proveedor.GetProveedor(Proveedor) == null)
 			return false;
+		else
+			return true;
 	}
 
 	public ProveedorDTO ObtenerProveedor(String ProveedorId) {
@@ -56,5 +56,9 @@ public class ProveedorModelo {
 
 	public void CrearProveedor(ProveedorDTO proveedor) {
 		this.proveedor.Insert(proveedor);
+	}
+
+	public void EliminarProveedor(String proveedor) {
+		this.proveedor.Delete(proveedor);
 	}
 }

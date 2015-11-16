@@ -194,7 +194,7 @@ public class ProveedorImp implements ProveedorDAO {
 		String sqlString = "update proveedor set nombre = '" + proveedor.getNombre() + "', " +
 							"telefono = '" + proveedor.getTelefono() + "', " +
 							"mail = '" + proveedor.getMail() + "', " + 
-							"estado = '" + ProveedorDTO.ParseActivoShortString(proveedor.isActivo()) + "', " +
+							"activo = '" + ProveedorDTO.ParseActivoShortString(proveedor.isActivo()) + "' " +
 							"where proveedor_id = '" + proveedor.getProveedorId() + "' ";
 		
 		try {
@@ -223,6 +223,22 @@ public class ProveedorImp implements ProveedorDAO {
 			e.printStackTrace();
 		}
 		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Delete(String proveedor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlDeleteProveedor = "delete from proveedor where proveedor_id = '" + proveedor + "'";
+		String sqlDeleteMTProveedor = "delete from mp_proveedor where proveedor_id = '" + proveedor + "'";
+		
+		try {
+			stm.executeUpdate(sqlDeleteMTProveedor);
+			stm.executeUpdate(sqlDeleteProveedor);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
 			this.conector.CloseConnection();
 		}
 	}

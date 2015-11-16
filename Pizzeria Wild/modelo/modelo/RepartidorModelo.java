@@ -13,12 +13,28 @@ public class RepartidorModelo {
 		this.repartidor = new RepartidorImp();
 	}
 	
-	public List<RepartidorDTO> GetRepartidores() {
+	public List<RepartidorDTO> ObtenerTodosLosRepartidores() {
 		return this.repartidor.GetRepartidores();
 	}
 
-	public RepartidorDTO GetRepartidor(int RepartidorId) {
+	public RepartidorDTO ObtenerRepartidor(int RepartidorId) {
 		return this.repartidor.GetRepartidor(RepartidorId);
+	}
+
+	public List<RepartidorDTO> ObtenerRepartidoresActivos() {
+		return this.repartidor.GetActivos();
+	}
+
+	public void CrearRepartidor(RepartidorDTO repartidor) {
+		this.repartidor.Insert(repartidor);
+	}
+
+	public void ModificarRepartidor(RepartidorDTO repartidor) {
+		this.repartidor.Alter(repartidor);
+	}
+
+	public int ObtenerNumNuevoRepartidor() {
+		return this.repartidor.GetNuevoId();
 	}
 
 //	public void AsignarPedidos(int RepartidorId, List<VentaDTO> Pedidos) {

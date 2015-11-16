@@ -14,6 +14,9 @@ import objetosVistaCustom.WTable;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings("serial")
 public class VentasVista extends JFrame {
@@ -39,6 +42,8 @@ public class VentasVista extends JFrame {
 	private JButton btnSalir;
 	private JButton btnProveedores;
 	private JButton btnBackUp;
+	private JLabel lblVentasDelDia;
+	private JButton btnRepartidores;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
 //	private JMenuItem mntmReporteMensual;
@@ -71,7 +76,7 @@ public class VentasVista extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Ventas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 878, 419);
+		this.setBounds(100, 100, 994, 419);
 		
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,25 +84,37 @@ public class VentasVista extends JFrame {
 		this.contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
 		
+		lblVentasDelDia = new JLabel("Ventas del Dia:");
+		lblVentasDelDia.setBounds(160, 11, 140, 14);
+		contentPane.add(lblVentasDelDia);
+		
 		btnSolicitudes = new JButton("Solicitudes");
-		btnSolicitudes.setBounds(10, 11, 140, 23);
+		btnSolicitudes.setBounds(10, 36, 140, 23);
 		contentPane.add(btnSolicitudes);
 		
 		btnCategorias = new JButton("Categorias");
-		btnCategorias.setBounds(10, 45, 140, 23);
+		btnCategorias.setBounds(10, 70, 140, 23);
 		contentPane.add(btnCategorias);
 		
 		btnMateriasPrimas = new JButton("Materias Primas");
-		btnMateriasPrimas.setBounds(10, 79, 140, 23);
+		btnMateriasPrimas.setBounds(10, 104, 140, 23);
 		contentPane.add(btnMateriasPrimas);
 		
 		btnReportes = new JButton("Reportes");
-		btnReportes.setBounds(10, 113, 140, 23);
+		btnReportes.setBounds(10, 138, 140, 23);
 		contentPane.add(btnReportes);
 		
 		btnProveedores = new JButton("Proveedores");
-		btnProveedores.setBounds(10, 147, 140, 23);
+		btnProveedores.setBounds(10, 172, 140, 23);
 		contentPane.add(btnProveedores);
+		
+		btnRepartidores = new JButton("Repartidores");
+		btnRepartidores.setBounds(10, 206, 140, 23);
+		contentPane.add(btnRepartidores);
+		
+		btnBackUp = new JButton("Back Up");
+		btnBackUp.setBounds(10, 240, 140, 23);
+		contentPane.add(btnBackUp);
 		
 //		JMenuBar menuBar_1 = new JMenuBar();
 //		setJMenuBar(menuBar_1);
@@ -134,7 +151,7 @@ public class VentasVista extends JFrame {
 //		mnMateriasPrimas.add(mntmEditarSolicitudesGuardadas);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(186, 11, 526, 307);
+		scrollPane.setBounds(160, 36, 668, 306);
 		this.contentPane.add(scrollPane);
 
 		this.modelVentas = new WDefaultTableModel(null, this.nombreColumnas);
@@ -142,48 +159,44 @@ public class VentasVista extends JFrame {
 		scrollPane.setViewportView(tableVentas);
 
 		this.btnEnviar = new JButton("Enviar");
-		this.btnEnviar.setBounds(722, 11, 140, 23);
+		this.btnEnviar.setBounds(838, 36, 140, 23);
 		this.contentPane.add(btnEnviar);
 
 		this.btnEnViaje = new JButton("En Viaje");
-		this.btnEnViaje.setBounds(722, 45, 140, 23);
+		this.btnEnViaje.setBounds(838, 70, 140, 23);
 		this.contentPane.add(btnEnViaje);
 
 		this.btnEnMostrador = new JButton("En mostrador");
-		this.btnEnMostrador.setBounds(722, 79, 140, 23);
+		this.btnEnMostrador.setBounds(838, 104, 140, 23);
 		this.contentPane.add(btnEnMostrador);
 
 		this.btnInformacin = new JButton("Informaci\u00F3n");
-		this.btnInformacin.setBounds(722, 113, 140, 23);
+		this.btnInformacin.setBounds(838, 138, 140, 23);
 		this.contentPane.add(btnInformacin);
 
 		this.btnModificar = new JButton("Modificar");
-		this.btnModificar.setBounds(722, 147, 140, 23);
+		this.btnModificar.setBounds(838, 172, 140, 23);
 		this.contentPane.add(btnModificar);
 		
 		btnTodasLasVentas = new JButton("Todas las Ventas");
-		btnTodasLasVentas.setBounds(722, 181, 140, 23);
+		btnTodasLasVentas.setBounds(838, 206, 140, 23);
 		contentPane.add(btnTodasLasVentas);
 		
 		this.btnNuevaVenta = new JButton("Nueva Venta");
-		this.btnNuevaVenta.setBounds(186, 329, 140, 23);
+		this.btnNuevaVenta.setBounds(160, 353, 140, 23);
 		this.contentPane.add(btnNuevaVenta);
 		
 		this.btnCancelarVenta = new JButton("Cancelar Venta");
-		this.btnCancelarVenta.setBounds(336, 329, 140, 23);
+		this.btnCancelarVenta.setBounds(310, 353, 140, 23);
 		this.contentPane.add(btnCancelarVenta);
 		
 		this.btnVentaEntregada = new JButton("Venta Entregada");
-		this.btnVentaEntregada.setBounds(486, 329, 140, 23);
+		this.btnVentaEntregada.setBounds(460, 353, 140, 23);
 		this.contentPane.add(btnVentaEntregada);
 
 		this.btnSalir = new JButton("Salir");
-		this.btnSalir.setBounds(636, 329, 140, 23);
+		this.btnSalir.setBounds(610, 353, 140, 23);
 		this.contentPane.add(btnSalir);
-		
-		btnBackUp = new JButton("Back Up");
-		btnBackUp.setBounds(10, 181, 140, 23);
-		contentPane.add(btnBackUp);
 	}
 
 //	public JMenuItem getMntmReporteSemanal() {
@@ -303,4 +316,13 @@ public class VentasVista extends JFrame {
 	public JButton getBtnProveedores() {
 		return btnProveedores;
 	}
+
+	public JLabel getLblVentasDelDia() {
+		return lblVentasDelDia;
+	}
+
+	public JButton getBtnRepartidores() {
+		return btnRepartidores;
+	}
+	
 }

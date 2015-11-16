@@ -15,4 +15,16 @@ public interface RepartidorDAO {
 
 	/* Desasigna Pedido de los repartidores, por no haber entregado el pedido. */
 	public void DesasignarPedido(int NumPedido);
+
+	/* Obtiene los Repartidores Activos. */
+	public List<RepartidorDTO> GetActivos();
+
+	/* Inserta un nuevo repartidor. */
+	public void Insert(RepartidorDTO repartidor);
+
+	/* Modifica Repartidor. */
+	public void Alter(RepartidorDTO repartidor);
+
+	/* Consigue un nuevo ID */
+	public int GetNuevoId();
 }

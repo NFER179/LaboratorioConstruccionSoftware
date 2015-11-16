@@ -70,7 +70,7 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 	}
 
 	private void inicializarRepartidores() {
-		this.lRepartidor = this.mdlRepartidor.GetRepartidores();
+		this.lRepartidor = this.mdlRepartidor.ObtenerTodosLosRepartidores();
 	}
 
 	private DefaultTableModel inicializarTableModel() {
@@ -110,7 +110,7 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 		String fila = tabla.getValueAt(tabla.getSelectedRow(), 0).toString();
 		int valorFila = Integer.parseInt(fila);
 		RepartidorDTO repartidorSeleccionado = this.mdlRepartidor
-				.GetRepartidor(valorFila);
+				.ObtenerRepartidor(valorFila);
 		this.ctrAsignacionRep.CargarRepartidor(repartidorSeleccionado);
 	}
 

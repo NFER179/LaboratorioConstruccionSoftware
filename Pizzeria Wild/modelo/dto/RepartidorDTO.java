@@ -95,6 +95,20 @@ public class RepartidorDTO {
 		else
 			return "N";
 	}
+	
+	public String GetLongStringActivo() {
+		if(this.activo)
+			return "Si";
+		else
+			return "No";
+	}
+	
+	public String GetShortStringActivo() {
+		if(this.activo)
+			return "Y";
+		else
+			return "N";
+	}
 
 	public String getTipoVehiculo() {
 		return tipoVehiculo;

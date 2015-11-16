@@ -2,11 +2,11 @@ package validacion;
 
 import java.awt.Color;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import modelo.ProveedorModelo;
 
-import utilidades.Msj;
 import vista.ABMProveedorVista;
 
 public class ValidacionABMProveedor {
@@ -26,24 +26,26 @@ public class ValidacionABMProveedor {
 			valido = false;
 			String mensaje = "Debe Seleccionar Categorias Para Quitar.";
 			String titulo = "No Selecciono Categoria";
-			Msj.error(titulo, mensaje);
+			JOptionPane.showMessageDialog(null, mensaje, titulo,
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		return valido;
 	}
 
-	public boolean QuitarMTValido() {
-		boolean valido = true;
-
-		if (this.vtABMProveedor.getTblMateriaPrima().getSelectedRowCount() == 0) {
-			valido = false;
-			String mensaje = "Debe Seleccionar Materias Primas Para Quitar.";
-			String titulo = "No Selecciono Materia Prima";
-			Msj.error(titulo, mensaje);
-		}
-
-		return valido;
-	}
+//	public boolean QuitarMTValido() {
+//		boolean valido = true;
+//
+//		if (this.vtABMProveedor.getTblMateriaPrima().getSelectedRowCount() == 0) {
+//			valido = false;
+//			String mensaje = "Debe Seleccionar Materias Primas Para Quitar.";
+//			String titulo = "No Selecciono Materia Prima";
+//			JOptionPane.showMessageDialog(null, mensaje, titulo,
+//					JOptionPane.INFORMATION_MESSAGE);
+//		}
+//
+//		return valido;
+//	}
 
 	public boolean GuardarValido(boolean Modificar) {
 		boolean valido = true;
@@ -94,7 +96,8 @@ public class ValidacionABMProveedor {
 		}
 
 		if (!valido)
-			Msj.error(titulo, mensaje);
+			JOptionPane.showMessageDialog(null, mensaje, titulo,
+					JOptionPane.ERROR_MESSAGE);
 
 		return valido;
 	}

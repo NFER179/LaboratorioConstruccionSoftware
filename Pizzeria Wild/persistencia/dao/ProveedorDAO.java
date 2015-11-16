@@ -32,4 +32,7 @@ public interface ProveedorDAO {
 	/* Inserta en al Base a un proveedor */
 	public void Insert(ProveedorDTO proveedor);
 
+	/* Eliminacion de proveedor */
+	public void Delete(String proveedor);
+
 }

@@ -24,4 +24,17 @@ public class ValidacionProveedor {
 		
 		return valido;
 	}
+
+	public boolean EliminacionValida() {
+		boolean valido = true;
+		
+		if(this.vtProveedor.getTable().getSelectedRowCount() == 0) {
+			valido = false;
+			String mensaje = "Debe Seleccionar el Proveedor que Desea Eliminar.";
+			String titulo = "Informacion";
+			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.INFORMATION_MESSAGE);
+		}
+		
+		return valido;
+	}
 }

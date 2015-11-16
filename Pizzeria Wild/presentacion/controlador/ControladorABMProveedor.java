@@ -23,6 +23,7 @@ import vista.ProveedorVista;
 
 public class ControladorABMProveedor implements ActionListener {
 
+	private ControladorProveedor ctrProveedor;
 	private ABMProveedorVista vtABMProveedor;
 	private ValidacionABMProveedor vldABMProveedor;
 	private ProveedorModelo mdlProveedor;
@@ -31,8 +32,9 @@ public class ControladorABMProveedor implements ActionListener {
 	private MateriaPrimaProveedorModelo mdlMPProveedor;
 	private boolean Modificar;
 
-	public ControladorABMProveedor(ProveedorVista Vista) {
-
+	public ControladorABMProveedor(ControladorProveedor Ctr, ProveedorVista Vista) {
+		this.ctrProveedor = Ctr;
+		
 		this.vtABMProveedor = new ABMProveedorVista(Vista);
 		addListeners();
 
@@ -46,8 +48,8 @@ public class ControladorABMProveedor implements ActionListener {
 	private void addListeners() {
 		this.vtABMProveedor.getBtnAgregarCategoria().addActionListener(this);
 		this.vtABMProveedor.getBtnQuitarCategoria().addActionListener(this);
-		this.vtABMProveedor.getBtnAgregarMT().addActionListener(this);
-		this.vtABMProveedor.getBtnQuitarMT().addActionListener(this);
+//		this.vtABMProveedor.getBtnAgregarMT().addActionListener(this);
+//		this.vtABMProveedor.getBtnQuitarMT().addActionListener(this);
 		this.vtABMProveedor.getBtnGuardar().addActionListener(this);
 		this.vtABMProveedor.getBtnCancelar().addActionListener(this);
 	}
@@ -63,7 +65,7 @@ public class ControladorABMProveedor implements ActionListener {
 				.ObtenerProveedor(ProveedorId);
 		this.CargarDatosProveedor(proveedor);
 		this.CargarCategoriasProveedor(proveedor);
-		this.CargarmMTProveedor(proveedor);
+//		this.CargarMTProveedor(proveedor);
 		this.vtABMProveedor.Open();
 	}
 
@@ -94,19 +96,19 @@ public class ControladorABMProveedor implements ActionListener {
 				this.vtABMProveedor.getModelCategoria());
 	}
 
-	private void CargarmMTProveedor(ProveedorDTO proveedor) {
-		this.vtABMProveedor.getModelMT().setRowCount(0);
-		this.vtABMProveedor.getModelMT().setColumnCount(0);
-		this.vtABMProveedor.getModelMT().setColumnIdentifiers(
-				this.vtABMProveedor.getNombreColumnasMT());
-		for (MateriaPrimaDTO mp : this.mdlProveedor
-				.ObtenerMateriasPrimasDeProveedor(proveedor.getProveedorId())) {
-			Object[] fila = { mp.getNombre() };
-			this.vtABMProveedor.getModelMT().addRow(fila);
-		}
-		this.vtABMProveedor.getTblMateriaPrima().setModel(
-				this.vtABMProveedor.getModelMT());
-	}
+//	private void CargarMTProveedor(ProveedorDTO proveedor) {
+//		this.vtABMProveedor.getModelMT().setRowCount(0);
+//		this.vtABMProveedor.getModelMT().setColumnCount(0);
+//		this.vtABMProveedor.getModelMT().setColumnIdentifiers(
+//				this.vtABMProveedor.getNombreColumnasMT());
+//		for (MateriaPrimaDTO mp : this.mdlProveedor
+//				.ObtenerMateriasPrimasDeProveedor(proveedor.getProveedorId())) {
+//			Object[] fila = { mp.getNombre() };
+//			this.vtABMProveedor.getModelMT().addRow(fila);
+//		}
+//		this.vtABMProveedor.getTblMateriaPrima().setModel(
+//				this.vtABMProveedor.getModelMT());
+//	}
 
 	public List<CategoriaDTO> ObtenerCategorias() {
 		List<CategoriaDTO> categorias = new ArrayList<CategoriaDTO>();
@@ -122,18 +124,18 @@ public class ControladorABMProveedor implements ActionListener {
 		return categorias;
 	}
 
-	public List<MateriaPrimaDTO> ObteberMateriasPrimas() {
-		List<MateriaPrimaDTO> MTs = new ArrayList<MateriaPrimaDTO>();
-		JTable t = this.vtABMProveedor.getTblMateriaPrima();
-
-		for (int i = 0; i < t.getRowCount(); i++) {
-			String nombre = t.getValueAt(i, 0).toString().trim();
-
-			MTs.add(this.mdlMT.ObtenerMateriaPrima(nombre));
-		}
-
-		return MTs;
-	}
+//	public List<MateriaPrimaDTO> ObteberMateriasPrimas() {
+//		List<MateriaPrimaDTO> MTs = new ArrayList<MateriaPrimaDTO>();
+//		JTable t = this.vtABMProveedor.getTblMateriaPrima();
+//
+//		for (int i = 0; i < t.getRowCount(); i++) {
+//			String nombre = t.getValueAt(i, 0).toString().trim();
+//
+//			MTs.add(this.mdlMT.ObtenerMateriaPrima(nombre));
+//		}
+//
+//		return MTs;
+//	}
 
 	public void AgregarCategoria(List<CategoriaDTO> categorias) {
 		for (CategoriaDTO c : categorias) {
@@ -144,14 +146,14 @@ public class ControladorABMProveedor implements ActionListener {
 				this.vtABMProveedor.getModelCategoria());
 	}
 
-	public void AgregarMateriaPrima(List<MateriaPrimaDTO> MTs) {
-		for (MateriaPrimaDTO mt : MTs) {
-			Object[] fila = { mt.getNombre() };
-			this.vtABMProveedor.getModelMT().addRow(fila);
-		}
-		this.vtABMProveedor.getTblMateriaPrima().setModel(
-				this.vtABMProveedor.getModelMT());
-	}
+//	public void AgregarMateriaPrima(List<MateriaPrimaDTO> MTs) {
+//		for (MateriaPrimaDTO mt : MTs) {
+//			Object[] fila = { mt.getNombre() };
+//			this.vtABMProveedor.getModelMT().addRow(fila);
+//		}
+//		this.vtABMProveedor.getTblMateriaPrima().setModel(
+//				this.vtABMProveedor.getModelMT());
+//	}
 
 	private void AgregarCategoria() {
 		ControladorBusquedaCategoriasProveedor ctr = new ControladorBusquedaCategoriasProveedor(
@@ -169,17 +171,17 @@ public class ControladorABMProveedor implements ActionListener {
 			String desripcion = t.getValueAt(rowSelection[i], 1).toString()
 					.trim();
 
-			CategoriaDTO c = new CategoriaDTO(categoriID, desripcion);
+//			CategoriaDTO c = new CategoriaDTO(categoriID, desripcion);
 
-			/* Elimina las materias primas pertenecientes a esa categoria. */
-			for (int j = this.vtABMProveedor.getModelMT().getRowCount() - 1; j >= 0; j--) {
-				String mp = this.vtABMProveedor.getModelMT().getValueAt(j, 0)
-						.toString().trim();
-				if (MateriaPrimaModelo.SeEncuentraEn(mp, this.mdlCategoria
-						.ObtenerMateriasPrimasPara(c.getIdCategoria()))) {
-					this.vtABMProveedor.getModelMT().removeRow(j);
-				}
-			}
+//			/* Elimina las materias primas pertenecientes a esa categoria. */
+//			for (int j = this.vtABMProveedor.getModelMT().getRowCount() - 1; j >= 0; j--) {
+//				String mp = this.vtABMProveedor.getModelMT().getValueAt(j, 0)
+//						.toString().trim();
+//				if (MateriaPrimaModelo.SeEncuentraEn(mp, this.mdlCategoria
+//						.ObtenerMateriasPrimasPara(c.getIdCategoria()))) {
+//					this.vtABMProveedor.getModelMT().removeRow(j);
+//				}
+//			}
 
 			this.vtABMProveedor.getModelCategoria().removeRow(rowSelection[i]);
 		}
@@ -187,20 +189,20 @@ public class ControladorABMProveedor implements ActionListener {
 				this.vtABMProveedor.getModelCategoria());
 	}
 
-	private void AgregarMateriaPrima() {
-		ControladorBusquedaMPProveedor ctr = new ControladorBusquedaMPProveedor(
-				this, this.vtABMProveedor);
-		ctr.Inicializar();
-	}
+//	private void AgregarMateriaPrima() {
+//		ControladorBusquedaMPProveedor ctr = new ControladorBusquedaMPProveedor(
+//				this, this.vtABMProveedor);
+//		ctr.Inicializar();
+//	}
 
-	private void QuitarMateriaPrima() {
-		JTable t = this.vtABMProveedor.getTblMateriaPrima();
-		int[] rowSelection = t.getSelectedRows();
-
-		for (int i = rowSelection.length - 1; i >= 0; i--) {
-			this.vtABMProveedor.getModelMT().removeRow(rowSelection[i]);
-		}
-	}
+//	private void QuitarMateriaPrima() {
+//		JTable t = this.vtABMProveedor.getTblMateriaPrima();
+//		int[] rowSelection = t.getSelectedRows();
+//
+//		for (int i = rowSelection.length - 1; i >= 0; i--) {
+//			this.vtABMProveedor.getModelMT().removeRow(rowSelection[i]);
+//		}
+//	}
 
 	private void Guardar(boolean modificar) {
 		String ProveedorId = this.vtABMProveedor.getTxtProveedorid().getText()
@@ -224,24 +226,24 @@ public class ControladorABMProveedor implements ActionListener {
 		List<MateriaPrimaProveedorDTO> mtProveedor = new ArrayList<MateriaPrimaProveedorDTO>();
 
 		for (CategoriaDTO cdto : this.ObtenerCategorias()) {
-			for (MateriaPrimaDTO mdto : this.mdlCategoria
-					.ObtenerMateriasPrimasPara(cdto.getIdCategoria())) {
-				if (MateriaPrimaModelo.SeEncuentraEn(mdto.getNombre(),
-						this.ObteberMateriasPrimas())) {
+			for (MateriaPrimaDTO mdto : this.mdlCategoria.ObtenerMateriasPrimasPara(cdto.getIdCategoria())) {
+//				if (MateriaPrimaModelo.SeEncuentraEn(mdto.getNombre(), this.ObteberMateriasPrimas())) {
 					String Categoria = cdto.getIdCategoria();
 					String MateriaPrima = mdto.getNombre();
 
-					MateriaPrimaProveedorDTO mpp = new MateriaPrimaProveedorDTO(
-							pr.getProveedorId(), Categoria, MateriaPrima);
+					MateriaPrimaProveedorDTO mpp = new MateriaPrimaProveedorDTO(pr.getProveedorId(), Categoria, MateriaPrima);
 
 					mtProveedor.add(mpp);
-				}
+//				}
 			}
 		}
 
 		for (MateriaPrimaProveedorDTO mppDTO : mtProveedor) {
 			this.mdlMPProveedor.CargarMateriasPrimas(mppDTO);
 		}
+		
+		this.ctrProveedor.RecargarTabla();
+		this.vtABMProveedor.Close();
 	}
 
 	@Override
@@ -253,12 +255,12 @@ public class ControladorABMProveedor implements ActionListener {
 			if (this.vldABMProveedor.QuitarCategoriaValido()) {
 				this.QuitarCategoria();
 			}
-		} else if (arg0.getSource() == this.vtABMProveedor.getBtnAgregarMT()) {
-			this.AgregarMateriaPrima();
-		} else if (arg0.getSource() == this.vtABMProveedor.getBtnQuitarMT()) {
-			if (this.vldABMProveedor.QuitarMTValido()) {
-				this.QuitarMateriaPrima();
-			}
+//		} else if (arg0.getSource() == this.vtABMProveedor.getBtnAgregarMT()) {
+//			this.AgregarMateriaPrima();
+//		} else if (arg0.getSource() == this.vtABMProveedor.getBtnQuitarMT()) {
+//			if (this.vldABMProveedor.QuitarMTValido()) {
+//				this.QuitarMateriaPrima();
+//			}
 		} else if (arg0.getSource() == this.vtABMProveedor.getBtnGuardar()) {
 			if (this.vldABMProveedor.GuardarValido(this.Modificar)) {
 				this.Guardar(this.Modificar);

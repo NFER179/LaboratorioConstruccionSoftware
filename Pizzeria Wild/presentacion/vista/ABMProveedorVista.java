@@ -26,13 +26,13 @@ public class ABMProveedorVista extends JDialog {
 	private JScrollPane scrpCategoria;
 	private JButton btnAgregarCategoria;
 	private JButton btnQuitarCategoria;
-	private JLabel lblMateriaPrima;
-	private String[] nombreColumnasMT = {"Materia Prima"};
-	private DefaultTableModel modelMT;
-	private JTable tblMateriaPrima;
-	private JScrollPane scrpMateriaPrima;
-	private JButton btnAgregarMT;
-	private JButton btnQuitarMT;
+//	private JLabel lblMateriaPrima;
+//	private String[] nombreColumnasMT = {"Materia Prima"};
+//	private DefaultTableModel modelMT;
+//	private JTable tblMateriaPrima;
+//	private JScrollPane scrpMateriaPrima;
+//	private JButton btnAgregarMT;
+//	private JButton btnQuitarMT;
 	private JButton btnGuardar;
 	private JButton btnCancelar;
 
@@ -42,7 +42,7 @@ public class ABMProveedorVista extends JDialog {
 		
 		setResizable(false);
 		setTitle("Proveedor");
-		setBounds(100, 100, 581, 446);
+		setBounds(100, 100, 581, 314);
 		this.setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		
@@ -91,7 +91,7 @@ public class ABMProveedorVista extends JDialog {
 		getContentPane().add(lblCategorias);
 		
 		scrpCategoria = new JScrollPane();
-		scrpCategoria.setBounds(10, 136, 380, 95);
+		scrpCategoria.setBounds(10, 136, 424, 101);
 		getContentPane().add(scrpCategoria);
 		
 		this.modelCategoria = new WDefaultTableModel(null, this.nombreColumnasCategoria);
@@ -106,32 +106,32 @@ public class ABMProveedorVista extends JDialog {
 		btnQuitarCategoria.setBounds(444, 171, 121, 23);
 		getContentPane().add(btnQuitarCategoria);
 		
-		lblMateriaPrima = new JLabel("Materias Primas: ");
-		lblMateriaPrima.setBounds(10, 247, 98, 14);
-		getContentPane().add(lblMateriaPrima);
-		
-		scrpMateriaPrima = new JScrollPane();
-		scrpMateriaPrima.setBounds(10, 272, 380, 96);
-		getContentPane().add(scrpMateriaPrima);
-		
-		this.modelMT = new WDefaultTableModel(null, this.nombreColumnasMT);
-		tblMateriaPrima = new WTable(this.modelMT);
-		scrpMateriaPrima.setViewportView(tblMateriaPrima);
-		
-		btnAgregarMT = new JButton("Agregar Materia Prima");
-		btnAgregarMT.setBounds(426, 273, 139, 23);
-		getContentPane().add(btnAgregarMT);
-		
-		btnQuitarMT = new JButton("Quitar Materia Prima");
-		btnQuitarMT.setBounds(426, 307, 139, 23);
-		getContentPane().add(btnQuitarMT);
+//		lblMateriaPrima = new JLabel("Materias Primas: ");
+//		lblMateriaPrima.setBounds(10, 247, 98, 14);
+//		getContentPane().add(lblMateriaPrima);
+//		
+//		scrpMateriaPrima = new JScrollPane();
+//		scrpMateriaPrima.setBounds(10, 272, 380, 96);
+//		getContentPane().add(scrpMateriaPrima);
+//		
+//		this.modelMT = new WDefaultTableModel(null, this.nombreColumnasMT);
+//		tblMateriaPrima = new WTable(this.modelMT);
+//		scrpMateriaPrima.setViewportView(tblMateriaPrima);
+//		
+//		btnAgregarMT = new JButton("Agregar Materia Prima");
+//		btnAgregarMT.setBounds(426, 273, 139, 23);
+//		getContentPane().add(btnAgregarMT);
+//		
+//		btnQuitarMT = new JButton("Quitar Materia Prima");
+//		btnQuitarMT.setBounds(426, 307, 139, 23);
+//		getContentPane().add(btnQuitarMT);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(377, 383, 89, 23);
+		btnGuardar.setBounds(377, 248, 89, 23);
 		getContentPane().add(btnGuardar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(476, 383, 89, 23);
+		btnCancelar.setBounds(476, 248, 89, 23);
 		getContentPane().add(btnCancelar);
 	}
 	
@@ -187,33 +187,33 @@ public class ABMProveedorVista extends JDialog {
 		return btnQuitarCategoria;
 	}
 
-	public JLabel getLblMateriaPrima() {
-		return lblMateriaPrima;
-	}
-
-	public String[] getNombreColumnasMT() {
-		return nombreColumnasMT;
-	}
-
-	public DefaultTableModel getModelMT() {
-		return modelMT;
-	}
-
-	public JTable getTblMateriaPrima() {
-		return tblMateriaPrima;
-	}
-
-	public JScrollPane getScrpMateriaPrima() {
-		return scrpMateriaPrima;
-	}
-
-	public JButton getBtnAgregarMT() {
-		return btnAgregarMT;
-	}
-
-	public JButton getBtnQuitarMT() {
-		return btnQuitarMT;
-	}
+//	public JLabel getLblMateriaPrima() {
+//		return lblMateriaPrima;
+//	}
+//
+//	public String[] getNombreColumnasMT() {
+//		return nombreColumnasMT;
+//	}
+//
+//	public DefaultTableModel getModelMT() {
+//		return modelMT;
+//	}
+//
+//	public JTable getTblMateriaPrima() {
+//		return tblMateriaPrima;
+//	}
+//
+//	public JScrollPane getScrpMateriaPrima() {
+//		return scrpMateriaPrima;
+//	}
+//
+//	public JButton getBtnAgregarMT() {
+//		return btnAgregarMT;
+//	}
+//
+//	public JButton getBtnQuitarMT() {
+//		return btnQuitarMT;
+//	}
 
 	public JButton getBtnGuardar() {
 		return btnGuardar;

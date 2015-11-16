@@ -120,4 +120,108 @@ public class RepartidorImp implements RepartidorDAO{
 			this.conector.CloseConnection();
 		}
 	}
+
+	@Override
+	public List<RepartidorDTO> GetActivos() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from repartidor where activo = 'Y'";
+		ResultSet rs = null;
+		List<RepartidorDTO> repartidores = new ArrayList<RepartidorDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()){
+				int RepartidorId = rs.getInt("empleado_id");
+				String Nombre = rs.getString("nombre");
+				String Apellido = rs.getString("apellido");
+				String Tel = rs.getString("tel");
+				String Direccion = rs.getString("direccion");
+				String VehiculoId = rs.getString("vehiculo_id");
+				String TipoVehiculo = rs.getString("tipo_vehiculo");
+				String ModeloVehiculo = rs.getString("modelo_vehiculo");
+				boolean Activo = RepartidorDTO.ParseActivoBoolean(rs.getString("activo"));
+				
+				RepartidorDTO r = new RepartidorDTO(RepartidorId, Nombre, Apellido, Tel, Direccion, VehiculoId, TipoVehiculo, ModeloVehiculo, Activo);
+				repartidores.add(r);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			this.conector.CloseConnection();
+		}
+		return repartidores;
+	}
+
+	@Override
+	public void Insert(RepartidorDTO repartidor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "insert into repartidor values("+ repartidor.getRepartidorId() + ", '" +
+							repartidor.getNombre() + "', '" +
+							repartidor.getApellido() + "', '" +
+							repartidor.getTel() + "', '" +
+							repartidor.getDireccion() + "', '" +
+							repartidor.getVehiculoId() + "', '" +
+							repartidor.getTipoVehiculo() + "', '" +
+							repartidor.getModeloVehiculo() + "', '" +
+							repartidor.GetShortStringActivo()+ "')";
+		
+		try{
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Alter(RepartidorDTO repartidor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update repartidor set nombre = '" + repartidor.getNombre() + "', " +
+												"apellido = '" + repartidor.getApellido() + "', " +
+												"tel = '" + repartidor.getTel() + "', " +
+												"direccion = '" + repartidor.getDireccion() + "', " +
+												"vehiculo_id = '" + repartidor.getVehiculoId() + "', " +
+												"tipo_vehiculo = '" + repartidor.getTipoVehiculo() +  "', " +
+												"modelo_vehiculo = '" + repartidor.getModeloVehiculo() + "', " +
+												"activo = '" + repartidor.GetShortStringActivo() + "' " +
+												"where empleado_id = " + repartidor.getRepartidorId();
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public int GetNuevoId() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select max(empleado_id) as 'empleado_id' from repartidor";
+		ResultSet rs = null;
+		int numRepartidor = 1;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				numRepartidor = rs.getInt("empleado_id") + 1;
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return numRepartidor;
+	}
 }

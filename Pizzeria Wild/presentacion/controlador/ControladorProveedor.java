@@ -13,7 +13,7 @@ import validacion.ValidacionProveedor;
 import vista.ProveedorVista;
 
 public class ControladorProveedor implements ActionListener {
-
+ 
 	private ControladorVenta ctrVenta;
 	private ProveedorVista vtProveedor;
 	private ProveedorModelo mdlProveedor;
@@ -25,6 +25,7 @@ public class ControladorProveedor implements ActionListener {
 		this.vtProveedor = new ProveedorVista();
 		this.vtProveedor.getBtnNuevoProveedor().addActionListener(this);
 		this.vtProveedor.getBtnModificar().addActionListener(this);
+		this.vtProveedor.getBtnEliminar().addActionListener(this);
 		this.vtProveedor.getBtnVolver().addActionListener(this);
 		
 		this.mdlProveedor = new ProveedorModelo();
@@ -47,19 +48,34 @@ public class ControladorProveedor implements ActionListener {
 		this.vtProveedor.getTable().setModel(this.vtProveedor.getModelTable());
 	}
 	
+
+	public void RecargarTabla() {
+		this.CargarTabla();
+	}
+	
 	private void NuevoProveedor() {
-		ControladorABMProveedor ctrABM = new ControladorABMProveedor(  this.vtProveedor);
+		ControladorABMProveedor ctrABM = new ControladorABMProveedor(this, this.vtProveedor);
 		ctrABM.Inicializar();
 	}
 
 	private void ModificarProveedor() {
-		ControladorABMProveedor ctrABM = new ControladorABMProveedor(  this.vtProveedor);
+		ControladorABMProveedor ctrABM = new ControladorABMProveedor(this, this.vtProveedor);
 		
 		JTable tabla = this.vtProveedor.getTable();
 		int selectRow = tabla.getSelectedRow();
 		String proveedorId = tabla.getValueAt(selectRow, 0).toString().trim();
 		
 		ctrABM.InicializarModificacion(proveedorId);
+	}
+	
+	private void Eliminar() {
+		JTable tabla = this.vtProveedor.getTable();
+		int selectRow = tabla.getSelectedRow();
+		String proveedorId = tabla.getValueAt(selectRow, 0).toString().trim();
+		
+		this.mdlProveedor.EliminarProveedor(proveedorId);
+		
+		this.RecargarTabla();
 	}
 	
 	@Override
@@ -69,6 +85,10 @@ public class ControladorProveedor implements ActionListener {
 		}else if(arg0.getSource() == this.vtProveedor.getBtnModificar()) {
 			if(this.vldProveedor.ModificarValido()) {
 				this.ModificarProveedor();
+			}
+		}else if(arg0.getSource() == this.vtProveedor.getBtnEliminar()){
+			if(this.vldProveedor.EliminacionValida()) {
+				this.Eliminar();
 			}
 		}else if(arg0.getSource() == this.vtProveedor.getBtnVolver()) {
 			this.ctrVenta.Return();
