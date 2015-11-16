@@ -2,11 +2,11 @@ package validacion;
 
 import java.awt.Color;
 
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import modelo.ProveedorModelo;
 
+import utilidades.Msj;
 import vista.ABMProveedorVista;
 
 public class ValidacionABMProveedor {
@@ -26,8 +26,7 @@ public class ValidacionABMProveedor {
 			valido = false;
 			String mensaje = "Debe Seleccionar Categorias Para Quitar.";
 			String titulo = "No Selecciono Categoria";
-			JOptionPane.showMessageDialog(null, mensaje, titulo,
-					JOptionPane.INFORMATION_MESSAGE);
+			Msj.error(titulo, mensaje);
 		}
 
 		return valido;
@@ -40,8 +39,7 @@ public class ValidacionABMProveedor {
 			valido = false;
 			String mensaje = "Debe Seleccionar Materias Primas Para Quitar.";
 			String titulo = "No Selecciono Materia Prima";
-			JOptionPane.showMessageDialog(null, mensaje, titulo,
-					JOptionPane.INFORMATION_MESSAGE);
+			Msj.error(titulo, mensaje);
 		}
 
 		return valido;
@@ -96,8 +94,7 @@ public class ValidacionABMProveedor {
 		}
 
 		if (!valido)
-			JOptionPane.showMessageDialog(null, mensaje, titulo,
-					JOptionPane.ERROR_MESSAGE);
+			Msj.error(titulo, mensaje);
 
 		return valido;
 	}

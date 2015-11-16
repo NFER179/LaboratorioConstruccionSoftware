@@ -2,8 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
+import javax.swing.JFileChooser; 
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -68,6 +67,7 @@ public class ControladorBackUp implements ActionListener {
 					BackUp.backUp(path);
 					Msj.info("Exito",
 							"Copia de seguridad realizada correctamente");
+					
 				} else {
 					Msj.error("Error de extension",
 							"El backUp debe guardarse en un archivo .sql");
