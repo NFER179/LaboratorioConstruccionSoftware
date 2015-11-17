@@ -15,9 +15,9 @@ public class ReportesModelo {
 		this.repartidor = new ReportesImp();
 	}
 
-	public List<RepartidoReporteDTO> GetRepartidores(String fecha,
+	public List<RepartidoReporteDTO> GetRepartidores(String from, String to,
 			int idRepartidor) throws Exception {
-		return this.repartidor.getInformeReparitodes(fecha, idRepartidor);
+		return this.repartidor.getInformeReparitodes(from, to, idRepartidor);
 	}
 
 	public List<ClienteReporteDTO> GetMejoresClientes(String fechaDesde,
@@ -25,8 +25,9 @@ public class ReportesModelo {
 		return this.repartidor.getMejoresClientes(fechaDesde, fechaHasta);
 	}
 
-	public List<VentaReporteDTO> GetVentas(String condiciones) throws Exception {
-		return this.repartidor.getReporteVentas(condiciones);
+	public List<VentaReporteDTO> GetVentas(String from, String to)
+			throws Exception {
+		return this.repartidor.getReporteVentas(from, to);
 	}
 
 }

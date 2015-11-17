@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
 public class ReporteVista extends JFrame {
 
@@ -13,6 +14,7 @@ public class ReporteVista extends JFrame {
 	private JButton btnVolver;
 	private JButton btnMejoresClientes;
 	private JButton btnRepartidores;
+	private JComboBox comboBox;
 	private JButton btnVentas;
 
 	public ReporteVista() {
@@ -45,6 +47,10 @@ public class ReporteVista extends JFrame {
 		btnVentas = new JButton("Ventas");
 		btnVentas.setBounds(10, 111, 114, 23);
 		contentPane.add(btnVentas);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(134, 78, 145, 20);
+		contentPane.add(comboBox);
 	}
 
 	public void Open() {
@@ -74,5 +80,8 @@ public class ReporteVista extends JFrame {
 	public JButton getBtnVentas() {
 		return btnVentas;
 	}
-	
+
+	public JComboBox getComboBox() {
+		return comboBox;
+	}
 }

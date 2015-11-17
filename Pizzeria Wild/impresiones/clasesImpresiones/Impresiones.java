@@ -63,8 +63,7 @@ public class Impresiones {
 
 	public static void solicitudMPTest2() throws Exception {
 		ReportesModelo model = new ReportesModelo();
-		List<RepartidoReporteDTO> lista = model
-				.GetRepartidores("2015-11-13", 1);
+		List<RepartidoReporteDTO> lista = model.GetRepartidores("2015-11-13", pdfResultPath, 1);
 
 		System.out.println(lista.size());
 		ObjReporteReparto reporte = new ObjReporteReparto("2010-1-1",
@@ -73,14 +72,14 @@ public class Impresiones {
 	}
 
 	public static void solicitudMPTest3() throws Exception {
-		ReportesModelo model = new ReportesModelo();
-		List<VentaReporteDTO> lista = model.GetVentas(null);
-		int dia = 2;
-		int semana = 3;
-		System.out.println(lista.size());
-		ObjReporteVentas reporte = new ObjReporteVentas("2010-1-1", "Familia",
-				dia, semana, lista);
-		ImprimirReporteVentas(reporte);
+//		ReportesModelo model = new ReportesModelo();
+//		List<VentaReporteDTO> lista = model.GetVentas(null);
+//		int dia = 2;
+//		int semana = 3;
+//		System.out.println(lista.size());
+//		ObjReporteVentas reporte = new ObjReporteVentas("2010-1-1", "Familia",
+//				dia, semana, lista);
+//		ImprimirReporteVentas(reporte);
 	}
 
 	//

@@ -11,8 +11,8 @@ public interface ReportesDAO {
 	public List<ClienteReporteDTO> getMejoresClientes(String fechaDesde,
 			String fechaHasta);
 
-	public List<RepartidoReporteDTO> getInformeReparitodes(String fecha,
+	public List<RepartidoReporteDTO> getInformeReparitodes(String from, String to,
 			int idRepartidor) throws Exception;
 
-	public List<VentaReporteDTO> getReporteVentas(String condiciones) throws Exception;
+	public List<VentaReporteDTO> getReporteVentas(String from, String to) throws Exception;
 }

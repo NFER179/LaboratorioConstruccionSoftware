@@ -51,10 +51,9 @@ public class ReportesImp implements ReportesDAO {
 	}
 
 	@Override
-	public List<RepartidoReporteDTO> getInformeReparitodes(String fecha,
-			int idRepartidor) {
+	public List<RepartidoReporteDTO> getInformeReparitodes(String from, String to, int idRepartidor) {
 		Statement stm;
-		String sqlString = String.format(repartos, fecha, idRepartidor);
+		String sqlString = String.format(repartos, from, to, idRepartidor);
 		System.out.println(sqlString);
 		ResultSet rs = null;
 		List<RepartidoReporteDTO> lstCliente = new ArrayList<RepartidoReporteDTO>();
@@ -80,9 +79,10 @@ public class ReportesImp implements ReportesDAO {
 	}
 
 	@Override
-	public List<VentaReporteDTO> getReporteVentas(String condiciones) throws Exception {
+	public List<VentaReporteDTO> getReporteVentas(String fechaIni, String fechaFin) throws Exception {
 		Statement stm;
-		String sqlString = String.format(reporteVentas, condiciones);
+		String sqlString = String.format(reporteVentas, fechaIni, fechaFin);
+		System.out.println(sqlString);
 		ResultSet rs = null;
 		List<VentaReporteDTO> lstVentas = new ArrayList<VentaReporteDTO>();
 
@@ -115,13 +115,14 @@ public class ReportesImp implements ReportesDAO {
 			+ " group by vp.producto, vp.sabor " + " order by cantidad desc"
 			+ ") as n where fecha >= '%s' and fecha <= '%s' ;";
 
-	private static String repartos = "select d.num_delivery as reparto, "
-			+ " v.num_venta as pedido, v.cliente, dv.estado , v.precio "
+	private static String repartos = "select d.num_delivery as 'reparto', "
+			+ " v.num_venta as 'pedido', v.cliente, dv.estado , v.precio "
 			+ " from delivery as d inner join venta as v "
 			+ " on d.effdt = v.effdt inner join delivery_venta as dv "
 			+ " on d.effdt = dv.effdt and d.num_delivery = dv.num_delivery "
 			+ " and v.num_venta = dv.num_venta "
-			+ " where dv.effdt = '%s' and empleado_id = %s";
+//			+ " where dv.effdt = '%s' and empleado_id = %s";
+			+ " where dv.effdt between '%s' and '%s' and empleado_id = %s";
 
 	private static int cantidadMejoresClientes = 10;
 	private static String mejoresClientes = "SELECT v.cliente as nombre, sum(v.precio) as total, max(v.effdt) as fecha FROM venta as v  where v.effdt >= '%s' and v.effdt <= '%s' and v.estado = 'Facturado' GROUP BY v.cliente order by total desc, fecha asc limit "
