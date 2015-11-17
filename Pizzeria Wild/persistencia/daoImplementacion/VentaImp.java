@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilidades.Fecha;
+
 public class VentaImp implements VentaDAO{
 
 	private ConectorDB conector;
@@ -560,5 +562,29 @@ public class VentaImp implements VentaDAO{
 			this.conector.CloseConnection();
 		}
 		return ventas;
+	}
+
+	@Override
+	public String GetFechaInicioVentas() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select min(effdt) as 'fecha' from venta";
+		ResultSet rs = null;
+		String fecha = Fecha.CurrentDate();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				fecha = rs.getString("fecha");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return fecha;
 	}
 }

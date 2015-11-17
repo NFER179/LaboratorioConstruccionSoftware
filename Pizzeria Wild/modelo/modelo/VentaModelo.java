@@ -156,4 +156,9 @@ public class VentaModelo {
 	public List<VentaDTO> ObtenerTodasLasVentas() {
 		return this.venta.GetAllVentas();
 	}
+
+	public static String ObtenerFechaInicioVentas() {
+		VentaDAO v = new VentaImp();
+		return v.GetFechaInicioVentas();
+	}
 }

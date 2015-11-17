@@ -58,4 +58,7 @@ public interface VentaDAO {
 
 	/* Todos los pedidos. */
 	public List<VentaDTO> GetAllVentas();
+
+	/* Trae la fecha de la primer venta. */
+	public String GetFechaInicioVentas();
 }

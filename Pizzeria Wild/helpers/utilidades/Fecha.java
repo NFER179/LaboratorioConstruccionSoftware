@@ -2,8 +2,12 @@ package utilidades;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import modelo.VentaModelo;
 
 public class Fecha {
 	private static DateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,5 +69,46 @@ public class Fecha {
 		String fechaFin = formato.format(cal.getTime());
 		return new String[] { fechaInicio, fechaFin };
 
+	}
+	
+	public static int ObtenerDia(String fecha) {
+		String[] s = fecha.split("-");
+		return Integer.parseInt(s[2]);
+	}
+	
+	public static int ObtenerMes(String fecha) {
+		String[] s = fecha.split("-");
+		return Integer.parseInt(s[1]);		
+	}
+
+	public static int ObtenerAño(String fecha) {
+		String[] s = fecha.split("-");
+		return Integer.parseInt(s[0]);
+	}
+	
+	public static List<String> Fechas() {
+		List<String> fechas = new ArrayList<String>();
+		String FechaInicio = VentaModelo.ObtenerFechaInicioVentas();
+		
+		
+		Calendar c = Calendar.getInstance();
+		int year = Fecha.ObtenerAño(FechaInicio);
+		int month = Fecha.ObtenerMes(FechaInicio);
+		int date = Fecha.ObtenerDia(FechaInicio);
+		c.set(year, month - 1, date);
+		
+		boolean NotCurrentDate = true;
+		while(NotCurrentDate) {
+			String fecha = formato.format(c.getTime());
+			fechas.add(fecha);
+			if(Fecha.ObtenerAño(Fecha.CurrentDate()) == c.get(Calendar.YEAR) &&
+					Fecha.ObtenerMes(Fecha.CurrentDate()) == c.get(Calendar.MONTH) &&
+						Fecha.ObtenerDia(Fecha.CurrentDate()) == c.get(Calendar.DATE) ) {
+				NotCurrentDate = false;
+			}
+			c.add(Calendar.DATE, 1);
+		}
+		
+		return fechas;
 	}
 }

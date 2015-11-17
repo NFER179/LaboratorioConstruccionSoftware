@@ -2,6 +2,8 @@ package main;
 
 import java.util.Calendar;
 import java.util.List;
+
+import utilidades.Fecha;
 import daoImplementacion.ClienteImp;
 import dto.ClienteDTO;
 
@@ -22,6 +24,10 @@ public class Test {
 		
 		for (ClienteDTO cl:lc){
 			System.out.println(cl.getNombre());
+		}
+		
+		for(String s:Fecha.Fechas())  {
+			System.out.println(s);
 		}
 	}
 }

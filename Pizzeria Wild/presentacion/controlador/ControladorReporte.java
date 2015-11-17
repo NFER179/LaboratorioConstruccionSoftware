@@ -23,6 +23,9 @@ public class ControladorReporte implements ActionListener {
 	private ControladorVenta ctr;
 	private ReporteVista vtReporte;
 	private ReportesModelo reportes;
+	private String datefrom = "";
+	private String dateTo = "";
+	private boolean ejecutarReporte;
 
 	public ControladorReporte(ControladorVenta Ctr) {
 		this.ctr = Ctr;
@@ -41,31 +44,45 @@ public class ControladorReporte implements ActionListener {
 	public void Inicializar() {
 		this.vtReporte.Open();
 	}
+	
+	public void SetRangoFechas(String From, String To) {
+		this.datefrom = From;
+		this.dateTo = To;
+	}
 
 	private void accionVentasDelDia() {
 		ControladorVentasDia ctrVentasDia = new ControladorVentasDia(
 				this.vtReporte);
 		ctrVentasDia.inicializar();
 	}
+	
+	public void NoEjecutarReporte() {
+		this.ejecutarReporte = false;
+	}
 
 	private void accionReporteMejoresClientes() {
+		this.ejecutarReporte = true;
+		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this, this.vtReporte);
+		ctr.Inicializar();
 		// NICOF aca, fecha desde y fechaHasta
-		String fechaDesde = "";
-		String fechaHasta = "";
-		List<ClienteReporteDTO> lista;
-		try {
-			lista = reportes.GetMejoresClientes(fechaDesde, fechaHasta);
-			ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
-					fechaDesde, fechaHasta, lista);
+//		String fechaDesde = "";
+//		String fechaHasta = "";
+		if(this.ejecutarReporte) {
+			List<ClienteReporteDTO> lista;
 			try {
-				Impresiones.ImprimirReporteMejoresClientes(reporte);
+				lista = reportes.GetMejoresClientes(this.datefrom, this.dateTo);
+				ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
+						this.datefrom, this.dateTo, lista);
+				try {
+					Impresiones.ImprimirReporteMejoresClientes(reporte);
+				} catch (Exception e) {
+					Msj.error("Error de impresion",
+							"La aplicacion a tenido problemas para imprimir el documento");
+				}
 			} catch (Exception e) {
-				Msj.error("Error de impresion",
-						"La aplicacion a tenido problemas para imprimir el documento");
+				Msj.error("Error de coneccion",
+						"La aplicacion a tenido problemas para conectarse a la base de datos");
 			}
-		} catch (Exception e) {
-			Msj.error("Error de coneccion",
-					"La aplicacion a tenido problemas para conectarse a la base de datos");
 		}
 	}
 
