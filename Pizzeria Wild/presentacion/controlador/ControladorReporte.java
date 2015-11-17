@@ -22,7 +22,7 @@ public class ControladorReporte implements ActionListener {
 
 	private ControladorVenta ctr;
 	private ReporteVista vtReporte;
-	private ReportesModelo reportes;
+	private ReportesModelo reportes = new ReportesModelo();
 	private String datefrom = "";
 	private String dateTo = "";
 	private boolean ejecutarReporte;
@@ -44,7 +44,7 @@ public class ControladorReporte implements ActionListener {
 	public void Inicializar() {
 		this.vtReporte.Open();
 	}
-	
+
 	public void SetRangoFechas(String From, String To) {
 		this.datefrom = From;
 		this.dateTo = To;
@@ -55,19 +55,20 @@ public class ControladorReporte implements ActionListener {
 				this.vtReporte);
 		ctrVentasDia.inicializar();
 	}
-	
+
 	public void NoEjecutarReporte() {
 		this.ejecutarReporte = false;
 	}
 
 	private void accionReporteMejoresClientes() {
 		this.ejecutarReporte = true;
-		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this, this.vtReporte);
+		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
+				this.vtReporte);
 		ctr.Inicializar();
 		// NICOF aca, fecha desde y fechaHasta
-//		String fechaDesde = "";
-//		String fechaHasta = "";
-		if(this.ejecutarReporte) {
+		// String fechaDesde = "";
+		// String fechaHasta = "";
+		if (this.ejecutarReporte) {
 			List<ClienteReporteDTO> lista;
 			try {
 				lista = reportes.GetMejoresClientes(this.datefrom, this.dateTo);

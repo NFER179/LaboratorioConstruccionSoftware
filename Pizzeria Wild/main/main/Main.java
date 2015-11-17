@@ -8,3 +8,4 @@ public class Main {
 		new ControladorVenta().Inicializar();
 	}
 }
+

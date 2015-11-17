@@ -25,8 +25,7 @@ public class ReportesImp implements ReportesDAO {
 			String fechaHasta) {
 		Statement stm;
 		String sqlString = String.format(mejoresClientes, fechaDesde,
-				fechaHasta);
-		System.out.println(sqlString);
+				fechaHasta); 
 		ResultSet rs = null;
 		List<ClienteReporteDTO> lstCliente = new ArrayList<ClienteReporteDTO>();
 
