@@ -37,7 +37,7 @@ public class ControladorProductoBusqueda implements ActionListener{
 		this.vtProductoBusqueda.getModelTable().setRowCount(0);
 		this.vtProductoBusqueda.getModelTable().setColumnCount(0);
 		this.vtProductoBusqueda.getModelTable().setColumnIdentifiers(this.vtProductoBusqueda.getNombreColumnas());
-		this.lstProducto = this.mdlProducto.GetProductos();
+		this.lstProducto = this.mdlProducto.ObtenerProductos();
 		
 		for (ProductoDTO p:this.lstProducto) {
 			Object[] fila = {p.getProductoId(), p.getDescipcion()};

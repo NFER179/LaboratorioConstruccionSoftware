@@ -14,11 +14,11 @@ public class ProductoModelo {
 		this.producto = new ProductoImp();
 	}
 	
-	public List<ProductoDTO> GetProductos(){
+	public List<ProductoDTO> ObtenerProductos(){
 		return this.producto.getProductos();
 	}
 	
-	public String GetDescr(String Producto) {
+	public String ObtenerDescr(String Producto) {
 		return this.producto.GetDescipcion(Producto);
 	}
 }

@@ -44,7 +44,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 		this.vtBusquedaCliente.getModelCliente().setColumnCount(0);
 		this.vtBusquedaCliente.getModelCliente().setColumnIdentifiers(
 				this.vtBusquedaCliente.getNombreColumnas());
-		this.lstCliente = this.mdlCliente.getClientes();
+		this.lstCliente = this.mdlCliente.ObtenerClientes();
 		for (ClienteDTO c : this.lstCliente) {
 			Object[] fila = { Integer.toString(c.getClienteId()),
 					c.getApellido() + " " + c.getNombre() };

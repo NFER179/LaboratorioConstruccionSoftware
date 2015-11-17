@@ -71,7 +71,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(0).getFecha(),
 							this.ventas.get(0).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos1) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -102,7 +102,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(1).getFecha(),
 							this.ventas.get(1).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos2) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -133,7 +133,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(2).getFecha(),
 							this.ventas.get(2).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos3) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -164,7 +164,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(3).getFecha(),
 							this.ventas.get(3).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos4) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -195,7 +195,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(4).getFecha(),
 							this.ventas.get(4).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos5) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -226,7 +226,7 @@ public class ControladorVentasCocina implements ActionListener {
 					.GetProductosEnVenta(this.ventas.get(5).getFecha(),
 							this.ventas.get(5).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos6) {
-				String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();
 				Object[] fila = { NombreCompletoProcucto,
 						Integer.toString(pp.getCantidad()) };
@@ -252,7 +252,7 @@ public class ControladorVentasCocina implements ActionListener {
 		List<ProductoEnVentaDTO> productosPendintes = this.mdlVenta
 				.GetProductosFaltantesElaborarCocina();
 		for (ProductoEnVentaDTO pp : productosPendintes) {
-			String NombreCompletoProcucto = this.mdlProducto.GetDescr(pp
+			String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 					.getProducto()) + " " + pp.getSabor();
 			Object[] fila = { NombreCompletoProcucto,
 					Integer.toString(pp.getCantidad()) };

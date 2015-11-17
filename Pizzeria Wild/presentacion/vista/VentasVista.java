@@ -44,6 +44,8 @@ public class VentasVista extends JFrame {
 	private JButton btnBackUp;
 	private JLabel lblVentasDelDia;
 	private JButton btnRepartidores;
+	private JButton btnClientes;
+	private JButton btnProductos;
 //	private JMenuItem mntmReporteDiario;
 //	private JMenuItem mntmReporteSemanal;
 //	private JMenuItem mntmReporteMensual;
@@ -112,8 +114,16 @@ public class VentasVista extends JFrame {
 		btnRepartidores.setBounds(10, 206, 140, 23);
 		contentPane.add(btnRepartidores);
 		
+		btnClientes = new JButton("Clientes");
+		btnClientes.setBounds(10, 240, 140, 23);
+		contentPane.add(btnClientes);
+		
+		btnProductos = new JButton("Productos");
+		btnProductos.setBounds(10, 274, 140, 23);
+		contentPane.add(btnProductos);
+		
 		btnBackUp = new JButton("Back Up");
-		btnBackUp.setBounds(10, 240, 140, 23);
+		btnBackUp.setBounds(10, 308, 140, 23);
 		contentPane.add(btnBackUp);
 		
 //		JMenuBar menuBar_1 = new JMenuBar();
@@ -323,6 +333,14 @@ public class VentasVista extends JFrame {
 
 	public JButton getBtnRepartidores() {
 		return btnRepartidores;
+	}
+
+	public JButton getBtnClientes() {
+		return btnClientes;
+	}
+
+	public JButton getBtnProductos() {
+		return btnProductos;
 	}
 	
 }

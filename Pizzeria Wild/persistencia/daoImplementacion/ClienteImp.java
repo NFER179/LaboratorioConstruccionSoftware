@@ -72,4 +72,66 @@ public class ClienteImp implements ClienteDAO{
 		
 		return c;
 	}
+
+	@Override
+	public int GetNewId() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select max(id_cliente) as 'id' from cliente";
+		ResultSet rs = null;
+		int num = 0;
+		
+		try{
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				num = rs.getInt("id");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return num + 1;
+	}
+
+	@Override
+	public void Insert(ClienteDTO cliente) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "insert into cliente values("+cliente.getClienteId()+", '" +
+							cliente.getNombre() + "', '" +
+							cliente.getApellido() + "', '" + 
+							cliente.getDireccion() + "', '" +
+							cliente.getTel() + "')";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Modify(ClienteDTO cliente) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update cliente set nombres = '" + cliente.getNombre() + "', " +
+						"apellido = '" + cliente.getApellido() + "', " +
+						"direccion = '" + cliente.getDireccion() + "', " +
+						"tel = '" + cliente.getTel() + "' where id_cliente = " + cliente.getClienteId();
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
 }

@@ -40,7 +40,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 
 	public void CargarProducto(String Producto) {
 		this.vtProPe.getTxtIdproducto().setText(Producto);
-		String descripcion = this.mdlProducto.GetDescr(Producto);
+		String descripcion = this.mdlProducto.ObtenerDescr(Producto);
 		this.vtProPe.getTxtDescrProducto().setText(descripcion);
 	}
 

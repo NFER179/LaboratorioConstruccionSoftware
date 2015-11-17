@@ -56,6 +56,8 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.getBtnProveedores().addActionListener(this);
 		this.vtVenta.getBtnRepartidores().addActionListener(this);
+		this.vtVenta.getBtnClientes().addActionListener(this);
+		this.vtVenta.getBtnProductos().addActionListener(this);
 		this.vtVenta.getBtnBackUp().addActionListener(this);
 		this.vtVenta.getBtnEnviar().addActionListener(this);
 		this.vtVenta.getBtnEnViaje().addActionListener(this);
@@ -254,6 +256,17 @@ public class ControladorVenta implements ActionListener {
 		ctrRepartidor.Inicializar();
 		this.vtVenta.Close();
 	}
+	
+	private void Cliente() {
+		ControladorCliente ctr = new ControladorCliente(this);
+		ctr.Iniciarlizar();
+		this.vtVenta.Close();
+	}
+	
+	private void Producto() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -271,6 +284,10 @@ public class ControladorVenta implements ActionListener {
 			this.AccionProveedores();
 		} else if (source == vista.getBtnRepartidores()) {
 			this.Repartidores();
+		} else if (source == vista.getBtnClientes()) {
+			this.Cliente();
+		} else if (source == vista.getBtnProductos()) {
+			this.Producto();
 		} else if (source == vista.getBtnBackUp()) {
 			accionBackUp();
 		} else if (source == vista.getBtnEnviar()) {
