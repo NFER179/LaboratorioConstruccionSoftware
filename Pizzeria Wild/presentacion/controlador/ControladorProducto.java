@@ -45,14 +45,25 @@ public class ControladorProducto implements ActionListener {
 		this.vtProducto.getTable().setModel(this.vtProducto.getModelTable());
 	}
 	
+	public void RecargarTabla() {
+		this.CargarTabla();
+	}
+	
 	private void Agregar() {
-		// TODO Auto-generated method stub
-		
+		ControladorABMProducto ctr = new ControladorABMProducto(this, this.vtProducto);
+		ctr.InicializarCreacion();
 	}
 
 	private void Modificar() {
-		// TODO Auto-generated method stub
+		JTable t = this.vtProducto.getTable();
+		int selectted = t.getSelectedRow();
 		
+		String pr = t.getValueAt(selectted, 0).toString().trim();
+		
+		ProductoDTO producto = this.mdlProducto.ObtenerProducto(pr);
+		
+		ControladorABMProducto ctr = new ControladorABMProducto(this, this.vtProducto);
+		ctr.InicializarModificacion(producto);
 	}
 
 	private void Eliminar() {

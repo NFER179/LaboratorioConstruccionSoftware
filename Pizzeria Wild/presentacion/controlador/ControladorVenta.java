@@ -266,6 +266,7 @@ public class ControladorVenta implements ActionListener {
 	private void Producto() {
 		ControladorProducto ctr = new ControladorProducto(this);
 		ctr.Inicializar();
+		this.vtVenta.Close();
 	}
 
 	@Override

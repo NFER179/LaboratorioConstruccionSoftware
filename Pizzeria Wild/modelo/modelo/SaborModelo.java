@@ -4,6 +4,7 @@ import java.util.List;
 
 import dao.SaborDAO;
 import daoImplementacion.SaborImp;
+import dto.ProductoDTO;
 import dto.SaborDTO;
 
 public class SaborModelo {
@@ -20,5 +21,13 @@ public class SaborModelo {
 	
 	public int ObtenerPrecio(String Producto, String Sabor) {
 		return this.sabor.GetPrecio(Producto, Sabor);
+	}
+
+	public void ElimnarPara(ProductoDTO producto) {
+		this.sabor.DeleteFor(producto);
+	}
+
+	public void AgregarSabor(ProductoDTO producto, SaborDTO sabor) {
+		this.sabor.Insert(producto, sabor);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.SaborDAO;
+import dto.ProductoDTO;
 import dto.SaborDTO;
 import conexion.ConectorDB;
 
@@ -68,5 +69,38 @@ public class SaborImp implements SaborDAO {
 		}
 		
 		return precio;
+	}
+
+	@Override
+	public void DeleteFor(ProductoDTO producto) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "delete from sabor_producto where product_id = '" + producto.getProductoId() + "'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Insert(ProductoDTO producto, SaborDTO sabor) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "insert into sabor_producto values('" + producto.getProductoId() + "', '" + 
+							sabor.getNombre() + "', "  + sabor.getPrecio() + ")";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
 	}
 }

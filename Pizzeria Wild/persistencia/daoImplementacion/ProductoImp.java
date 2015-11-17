@@ -85,9 +85,73 @@ public class ProductoImp implements ProductoDAO {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
+		                                                                                                                                                }
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public void Insert(ProductoDTO producto) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "insert into producto values('" + producto.getProductoId() + "', '" +
+							producto.getDescipcion() + "', '" + 
+							ProductoModelo.ParseToShortString(producto.isMixta()) + "', '" + 
+							ProductoModelo.ParseToShortString(producto.isElaboraCocina())+ "')";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
 		}
 		finally {
 			this.conector.CloseConnection();
 		}
+	}
+
+	@Override
+	public void Modify(ProductoDTO producto) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "update producto set descripcion = '" + producto.getDescipcion() + "', " +
+							"mixta = 'Y' , cocina = '" + ProductoModelo.ParseToShortString(producto.isElaboraCocina()) + "' where product_id = '" + producto.getProductoId() + "'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
+
+	@Override
+	public ProductoDTO GetProducto(String producto) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from producto where product_id = '" + producto + "'";
+		ResultSet rs = null;
+		ProductoDTO pr = null;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()){
+				String ProductoId = rs.getString("product_id");
+				String Descripcion = rs.getString("descripcion");
+				boolean ElaboraCocina = ProductoModelo.ParseToBoolean(rs.getString("cocina"));
+				
+				pr = new ProductoDTO(ProductoId, Descripcion, false, ElaboraCocina);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return pr;
 	}
 }

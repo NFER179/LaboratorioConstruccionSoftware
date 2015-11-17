@@ -33,4 +33,25 @@ public class ProductoModelo {
 		else 
 			return false;
 	}
+	
+	public static String ParseToShortString(boolean arg0) {
+		if(arg0) {
+			return "Y";
+		}
+		else {
+			return "N";
+		}
+	}
+
+	public void CrearProducto(ProductoDTO producto) {
+		this.producto.Insert(producto);
+	}
+
+	public void ModificarProducto(ProductoDTO producto) {
+		this.producto.Modify(producto);
+	}
+
+	public ProductoDTO ObtenerProducto(String producto) {
+		return this.producto.GetProducto(producto);
+	}
 }
