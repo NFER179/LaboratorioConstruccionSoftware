@@ -14,11 +14,11 @@ public class SaborModelo {
 		this.sabor = new SaborImp();
 	}
 	
-	public List<SaborDTO> GetSabores(String Producto) {
+	public List<SaborDTO> ObtenerSabores(String Producto) {
 		return this.sabor.GetSabores(Producto);
 	}
 	
-	public int GetPrecio(String Producto, String Sabor) {
+	public int ObtenerPrecio(String Producto, String Sabor) {
 		return this.sabor.GetPrecio(Producto, Sabor);
 	}
 }

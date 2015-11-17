@@ -34,6 +34,7 @@ public class ClienteVista extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
 		
 		JLabel lblClientes = new JLabel("Clientes:");
 		lblClientes.setBounds(10, 11, 96, 14);

@@ -34,6 +34,7 @@ public class ProductoVista extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
 		
 		JLabel lblProductos = new JLabel("Productos: ");
 		lblProductos.setBounds(10, 11, 106, 14);

@@ -9,4 +9,6 @@ public interface ProductoDAO {
 	public List<ProductoDTO> getProductos();
 	/* Devuelve la descripcion. */
 	public String GetDescipcion(String Producto);
+	/* Elimina el producto de la base de datos. */
+	public void DeleteProducto(String producto);
 }

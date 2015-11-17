@@ -5,6 +5,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import modelo.ProductoModelo;
+
 import dao.ProductoDAO;
 import dto.ProductoDTO;
 import conexion.ConectorDB;
@@ -29,7 +31,9 @@ public class ProductoImp implements ProductoDAO {
 			rs = stm.executeQuery(sqlString);
 			
 			while (rs.next()) {
-				productos.add(new ProductoDTO(rs.getString("product_id"), rs.getString("descripcion")));
+				productos.add(new ProductoDTO(rs.getString("product_id"), rs.getString("descripcion"),
+						ProductoModelo.ParseToBoolean(rs.getString("mixta")), 
+						ProductoModelo.ParseToBoolean(rs.getString("cocina"))));
 			}
 		}
 		catch(Exception e) {
@@ -67,5 +71,23 @@ public class ProductoImp implements ProductoDAO {
 		}
 		
 		return descr;
+	}
+
+	@Override
+	public void DeleteProducto(String producto) {
+		Statement stm = this.conector.GetStatement();
+		String deleteSabores = "delete from sabor_producto where product_id = '" + producto + "'";
+		String deleteProducto = "delete from producto where product_id = '" + producto + "'";
+		
+		try {
+			stm.executeUpdate(deleteSabores);
+			stm.executeUpdate(deleteProducto);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
 	}
 }

@@ -264,8 +264,8 @@ public class ControladorVenta implements ActionListener {
 	}
 	
 	private void Producto() {
-		// TODO Auto-generated method stub
-		
+		ControladorProducto ctr = new ControladorProducto(this);
+		ctr.Inicializar();
 	}
 
 	@Override

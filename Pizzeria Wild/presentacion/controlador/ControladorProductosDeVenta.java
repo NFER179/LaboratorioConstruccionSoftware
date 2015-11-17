@@ -52,7 +52,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 		tabla.setColumnCount(0);
 		tabla.setColumnIdentifiers(vista.getNombreColunmnas());
 		String textoIdProducto = vista.getTxtIdproducto().getText();
-		this.lstProducto = this.mdlSabor.GetSabores(textoIdProducto);
+		this.lstProducto = this.mdlSabor.ObtenerSabores(textoIdProducto);
 		for (SaborDTO sabor : this.lstProducto) {
 			Object[] fila = { sabor.getNombre(), sabor.getPrecio() };
 			vista.getModelSabores().addRow(fila);
@@ -65,7 +65,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 		this.vtProPe.getModelSabores().setColumnCount(0);
 		this.vtProPe.getModelSabores().setColumnIdentifiers(
 				this.vtProPe.getNombreColunmnas());
-		this.lstProducto = this.mdlSabor.GetSabores(this.vtProPe
+		this.lstProducto = this.mdlSabor.ObtenerSabores(this.vtProPe
 				.getTxtIdproducto().getText());
 		for (SaborDTO sabor : this.lstProducto) {
 			Object[] fila = { sabor.getNombre(), sabor.getPrecio() };

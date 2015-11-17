@@ -128,7 +128,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.vtArmadoPedido.getModelProductos().setColumnIdentifiers(
 				this.vtArmadoPedido.getNombreColumnas());
 		for (ProductoEnVentaDTO pp : nuevaVenta.getProductos()) {
-			int PrecioUnidad = this.mdlSabor.GetPrecio(pp.getProducto(),
+			int PrecioUnidad = this.mdlSabor.ObtenerPrecio(pp.getProducto(),
 					pp.getSabor());
 			Object[] fila = {
 					pp.getProducto(),
@@ -238,7 +238,7 @@ public class ControladorArmadoVenta implements ActionListener {
 	/** <- Fin, Nicolas Fernandez, 07-Oct-2015. **/
 
 	public void AgregarProducto(String Producto, String Sabor, int Cantidad) {
-		int PreUnid = this.mdlSabor.GetPrecio(Producto, Sabor);
+		int PreUnid = this.mdlSabor.ObtenerPrecio(Producto, Sabor);
 		if (this.ProductoNoAgregado(Producto, Sabor, Cantidad)) {
 			Object[] fila = { Producto, Sabor, Integer.toString(Cantidad),
 					this.AgregarMoneda(Integer.toString(PreUnid)),

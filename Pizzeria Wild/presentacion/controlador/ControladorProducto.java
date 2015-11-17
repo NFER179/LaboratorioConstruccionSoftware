@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTable;
+
 import dto.ProductoDTO;
 
 import modelo.ProductoModelo;
@@ -43,7 +45,7 @@ public class ControladorProducto implements ActionListener {
 		this.vtProducto.getTable().setModel(this.vtProducto.getModelTable());
 	}
 	
-	private void Agrgar() {
+	private void Agregar() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -54,19 +56,25 @@ public class ControladorProducto implements ActionListener {
 	}
 
 	private void Eliminar() {
-		// TODO Auto-generated method stub
+		JTable t = this.vtProducto.getTable();
+		int selectedRow = t.getSelectedRow();
 		
+		String id = t.getValueAt(selectedRow, 0).toString().trim();
+		
+		this.mdlProducto.QuitarProducto(id);
+		
+		this.CargarTabla();
 	}
 
 	private void Volver() {
-		// TODO Auto-generated method stub
-		
+		this.ctrVenta.Return();
+		this.vtProducto.Close();
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == this.vtProducto.getBtnAgregar()) {
-			this.Agrgar();
+			this.Agregar();
 		}else if(arg0.getSource() == this.vtProducto.getBtnModificar()) {
 			this.Modificar();
 		}else if(arg0.getSource() == this.vtProducto.getBtnEliminar()) {
