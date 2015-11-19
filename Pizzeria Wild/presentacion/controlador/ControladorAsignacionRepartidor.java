@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JFrame;
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjDatosRepartidor;
-import clasesImpresiones.ObjItinerario;
+import clasesImpresiones.ObjReporteItinerario;
 
 //import clasesImpresiones.ImpresionDocx;
 import modelo.DeliveryModelo;
@@ -174,7 +174,7 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 			this.mdlPedido.VentasEnViaje(this.lVentas);
 			/* Recarga la tabla en la vista de Ventas generales. */
 			this.ctrVenta.RecargarTabla();
-			ObjItinerario itinerario = construirItinerario(numDelivery);
+			ObjReporteItinerario itinerario = construirItinerario(numDelivery);
 			try {
 				Impresiones.ImprimirItinerario(itinerario);
 			} catch (Exception e) {
@@ -186,12 +186,12 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 		}
 	}
 
-	private ObjItinerario construirItinerario(int numDelivery) {
+	private ObjReporteItinerario construirItinerario(int numDelivery) {
 		String descripcion = " ";
 		ObjDatosRepartidor repartidor = new ObjDatosRepartidor(
 				vtAsignacionRepartidores.getTxtNombrerepartidor().getText(),
 				"datos del vehiculo", "numero de tel");
-		ObjItinerario itinerario = new ObjItinerario(
+		ObjReporteItinerario itinerario = new ObjReporteItinerario(
 				this.vtAsignacionRepartidores.getTxtFecha().getText(),
 				numDelivery, repartidor, descripcion);
 		for (VentaDTO venta : this.lVentas) {

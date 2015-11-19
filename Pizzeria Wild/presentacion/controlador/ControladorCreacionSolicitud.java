@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JTable;
 
 import clasesImpresiones.Impresiones;
-import clasesImpresiones.ObjSolicitudMP;
+import clasesImpresiones.ObjReporteSolicitudMP;
 
 import dto.MateriaPrimaSolicitudDTO;
 import dto.ProveedorDTO;
@@ -290,7 +290,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	}
 
 	private void accionImprimir() {
-		ObjSolicitudMP solicitud = buildSolicitudMP();
+		ObjReporteSolicitudMP solicitud = buildSolicitudMP();
 		try {
 			Impresiones.ImprimirSolicitudMP(solicitud);
 		} catch (Exception e) {
@@ -298,13 +298,13 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		}
 	}
 
-	private ObjSolicitudMP buildSolicitudMP() {
+	private ObjReporteSolicitudMP buildSolicitudMP() {
 		ProveedorDTO proveedor = buildProveedor();
 		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
 		// NICOF TODO
 		int id = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido()
 				.getText().trim());
-		ObjSolicitudMP solicitud = new ObjSolicitudMP(fecha, id, proveedor);
+		ObjReporteSolicitudMP solicitud = new ObjReporteSolicitudMP(fecha, id, proveedor);
 		for (MateriaPrimaSolicitudDTO mp : GetMateriasPrimas()) {
 			solicitud.addMateriaPrima(mp.getMateriaPrima(), mp.getCantidad()
 					+ "");

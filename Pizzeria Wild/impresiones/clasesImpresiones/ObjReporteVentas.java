@@ -2,22 +2,23 @@ package clasesImpresiones;
 
 import java.util.List;
 
+import utilidades.Fecha;
+
 import dto.VentaReporteDTO;
 
 public class ObjReporteVentas extends ObjImprimible {
 	private static final int maxPag = 10;
-	private static final String tipo = "reporte_ventas_template";
-	private String familia;
-	private int dia;
-	private int semana;
+	private static final String templatePath = "reporte_ventas_template";
+	private String fechaDesde;
+	private String fechaHasta;
 	private List<VentaReporteDTO> productos;
 
-	public ObjReporteVentas(String fecha, String familia, int dia, int semana,
-			List<VentaReporteDTO> lista) {
-		super("Reporte ventas " + fecha, fecha, tipo, 0, maxPag);
-		this.familia = familia;
-		this.dia = dia;
-		this.semana = semana;
+	public ObjReporteVentas(String fechaDesde, String fechaHasta, int dia,
+			int semana, List<VentaReporteDTO> lista) {
+		super("Reporte ventas " + fechaDesde, Fecha.CurrentDate(),
+				templatePath, 0, maxPag); 
+		this.fechaHasta = fechaHasta;
+		this.fechaDesde = fechaDesde;
 		this.productos = lista;
 	}
 
@@ -27,36 +28,28 @@ public class ObjReporteVentas extends ObjImprimible {
 				/ (getMaxPaginacion() * 1.0));
 	}
 
-	public String getFamilia() {
-		return familia;
-	}
-
-	public void setFamilia(String familia) {
-		this.familia = familia;
-	}
-
-	public int getDia() {
-		return dia;
-	}
-
-	public void setDia(int dia) {
-		this.dia = dia;
-	}
-
-	public int getSemana() {
-		return semana;
-	}
-
-	public void setSemana(int semana) {
-		this.semana = semana;
-	}
-
 	public List<VentaReporteDTO> getProductos() {
 		return productos;
 	}
 
 	public void setProductos(List<VentaReporteDTO> productos) {
 		this.productos = productos;
+	}
+
+	public String getFechaHasta() {
+		return fechaHasta;
+	}
+
+	public void setFechaHasta(String fechaHasta) {
+		this.fechaHasta = fechaHasta;
+	}
+
+	public String getFechaDesde() {
+		return fechaDesde;
+	}
+
+	public void setFechaDesde(String fechaDesde) {
+		this.fechaDesde = fechaDesde;
 	}
 
 	public class ObjProductoReporteVentas {

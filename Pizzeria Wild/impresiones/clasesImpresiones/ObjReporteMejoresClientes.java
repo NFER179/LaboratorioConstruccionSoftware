@@ -7,14 +7,14 @@ import dto.ClienteReporteDTO;
 public class ObjReporteMejoresClientes extends ObjImprimible {
 
 	private static final int maxPag = 10;
-	private static final String tipo = "reporte_clientes_template";
+	private static final String templatePath = "reporte_clientes_template";
 	private List<ClienteReporteDTO> clientes;
 	private String fechaHasta;
 	private String fechaDesde;
 
 	public ObjReporteMejoresClientes(String fechaDesde, String fechaHasta,
 			List<ClienteReporteDTO> clientes) {
-		super("MejoresClientes " + fechaDesde, "", tipo, 0, maxPag);
+		super("MejoresClientes " + fechaDesde, "", templatePath, 0, maxPag);
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
 		this.clientes = clientes;

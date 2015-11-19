@@ -6,13 +6,13 @@ import dto.RepartidoReporteDTO;
 
 public class ObjReporteReparto extends ObjImprimible {
 	private static final int maxPag = 10;
-	private static final String tipo = "reporte_reparto_template";
+	private static final String templatePath = "reporte_reparto_template";
 	private List<RepartidoReporteDTO> repartos;
 	private String nombreRepartidor;
 
 	public ObjReporteReparto(String fecha, String nombreRepartidor,
 			List<RepartidoReporteDTO> repartos) {
-		super(nombreRepartidor + fecha, fecha, tipo, 1, maxPag);
+		super(nombreRepartidor + fecha, fecha, templatePath, 1, maxPag);
 		this.setNombreRepartidor(nombreRepartidor);
 		this.repartos = repartos;
 	}

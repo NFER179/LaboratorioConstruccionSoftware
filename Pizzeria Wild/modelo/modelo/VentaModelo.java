@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import clasesImpresiones.Impresiones;
-import clasesImpresiones.ObjComandaTicket;
+import clasesImpresiones.ObjReporteComandaTicket;
 import clasesImpresiones.ObjDatosCliente;
 import clasesImpresiones.ObjProductoTicketComanda;
 
@@ -139,7 +139,7 @@ public class VentaModelo {
 				.getText(), vista.getTxtDireccion().getText(), vista
 				.getTxtTel().getText());
 
-		ObjComandaTicket obj = new ObjComandaTicket(cliente, vista
+		ObjReporteComandaTicket obj = new ObjReporteComandaTicket(cliente, vista
 				.getTxtFecha().getText(), Integer.parseInt(vista
 				.getTxtNumVenta().getText()), vista.getTxtrObservacion()
 				.getText(), vista.getTxtrObservacionDelivery().getText(),
