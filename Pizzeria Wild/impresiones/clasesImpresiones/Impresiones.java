@@ -45,34 +45,12 @@ public class Impresiones {
 
 	public static void main(String[] args) {
 		try {
-			// itinerarioTest();
-			solicitudMPTest3();
+			ticketComandaTest();
 		} catch (Exception e) {
 			System.out.println("MACANAS");
 			System.out.println(e.toString());
 		}
 	}
-
-	// private static void solicitudMPTest() throws Exception {
-	//
-	// ReportesModelo model = new ReportesModelo();
-	//
-	// List<ClienteReporteDTO> lista = new ArrayList<ClienteReporteDTO>();
-	// lista.add(new ClienteReporteDTO(12, "nombre", 1, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 2, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 3, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 4, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 5, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 6, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 7, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 8, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 9, "12-12-12"));
-	// lista.add(new ClienteReporteDTO(12, "nombre", 10, "12-12-12"));
-	// System.out.println(lista.size());
-	// ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
-	// "2010-1-1", "2020-1-1", lista);
-	// ImprimirReporteMejoresClientes(reporte);
-	// }
 
 	private static void solicitudMPTest2() throws Exception {
 		ReportesModelo model = new ReportesModelo();
@@ -84,80 +62,42 @@ public class Impresiones {
 		ImprimirReporteReparto(reporte);
 	}
 
-	private static void solicitudMPTest3() throws Exception {
-		ReportesModelo model = new ReportesModelo();
-		List<VentaReporteDTO> lista = new ArrayList<VentaReporteDTO>();
-		lista.add(new VentaReporteDTO(0, "papas", 3));
-		lista.add(new VentaReporteDTO(1, "dos", 3));
-		lista.add(new VentaReporteDTO(2, "gfs", 30));
-		lista.add(new VentaReporteDTO(3, "pagfs", 35));
-		lista.add(new VentaReporteDTO(4, "lalas", 43));
-		lista.add(new VentaReporteDTO(5, "JEEJs", 73));
-		lista.add(new VentaReporteDTO(6, "kakaks", 93));
-		lista.add(new VentaReporteDTO(7, "fff", 83));
-		lista.add(new VentaReporteDTO(8, "Gggas", 39));
-		lista.add(new VentaReporteDTO(9, "ttttas", 39));
-		lista.add(new VentaReporteDTO(10, "lllas", 38));
-		lista.add(new VentaReporteDTO(11, "124as", 32));
-		lista.add(new VentaReporteDTO(12, "ñññas", 39));
-		lista.add(new VentaReporteDTO(13, "ggggas", 38));
-		lista.add(new VentaReporteDTO(14, "papas", 32));
-		lista.add(new VentaReporteDTO(15, "ñññas", 39));
-		lista.add(new VentaReporteDTO(16, "ggggas", 38));
-		lista.add(new VentaReporteDTO(17, "papas", 32));
-		ObjReporteVentass reporte = new ObjReporteVentass("2010-1-1",
-				"2016-1-1", lista);
-		ImprimirReporteVentas(reporte);
+	private static void ticketComandaTest() throws Exception {
+		ObjReporteComandaTicket comanda = new ObjReporteComandaTicket(
+				new ObjDatosCliente("Pepe", "CCC 888", "0303456"), "12/12/12",
+				33, "Objseraskjd clienbte ", "obs delivery", null, null);
+		List<ObjProductoTicketComanda> a = new ArrayList<ObjProductoTicketComanda>();
+		a.add(new ObjProductoTicketComanda(1, 50, "bebida", "unidad", "3", true));
+		a.add(new ObjProductoTicketComanda(2, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(30, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(40, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(50, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(60, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(70, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(80, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(90, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(100, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(110, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(120, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(130, 50, "materia", "unidad", "3",
+				false));
+		a.add(new ObjProductoTicketComanda(140, 50, "materia", "unidad", "3",
+				false));
+		comanda.setListaProductos(a);
+
+		ImprimirComandaTicket(comanda);
 	}
-
-	// private static void itinerarioTest() throws Exception {
-	// ObjItinerario itinerario = new ObjItinerario("12/12/12", 33,
-	// new ObjDatosRepartidor("Pepe", "CCC 888", "0303456"),
-	// "lleva cambio ");
-	// itinerario.addPunto("la direccion", "la observacion", 1, 55.4);
-	// itinerario.addPunto("la direccion", "la observacion", 2, 100);
-	// itinerario.addPunto("la direccion", "la observacion", 3, 454);
-	// itinerario.addPunto("la direccion", "la observacion", 4, 11);
-	// itinerario.addPunto("la direccion", "la observacion", 5, 879.00);
-	// itinerario.addPunto("la direccion", "la observacion", 6, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 7, 11);
-	// itinerario.addPunto("la direccion", "la observacion", 8, 879.00);
-	// itinerario.addPunto("la direccion", "la observacion", 9, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 10, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 11, 879.00);
-	// itinerario.addPunto("la direccion", "la observacion", 12, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 13, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 14, 0.1);
-	// itinerario.addPunto("la direccion", "la observacion", 15, 0.1);
-	//
-	// ImprimirItinerario(itinerario);
-	// }
-
-	/*
-	 * private static void ticketComandaTest() throws Exception {
-	 * ObjComandaTicket comanda = new ObjComandaTicket(new ObjDatosCliente(
-	 * "Pepe", "CCC 888", "0303456"), "12/12/12", 33, "Objseraskjd clienbte ",
-	 * "obs delivery", null); List<ObjProductoTicketComanda> a = new
-	 * ArrayList<ObjProductoTicketComanda>(); a.add(new
-	 * ObjProductoTicketComanda(1, 50, "mat", "unidad", "3")); a.add(new
-	 * ObjProductoTicketComanda(2, 50, "materia", "unidad", "3")); a.add(new
-	 * ObjProductoTicketComanda(30, 50, "materia", "unidad", "3"));
-	 * 
-	 * a.add(new ObjProductoTicketComanda(40, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(50, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(60, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(70, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(80, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(90, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(100, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(110, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(120, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(130, 50, "materia", "unidad", "3"));
-	 * a.add(new ObjProductoTicketComanda(140, 50, "materia", "unidad", "3"));
-	 * comanda.setListaProductos(a);
-	 * 
-	 * ImprimirComandaTicket(comanda); }
-	 */
 
 	public static void ImprimirSolicitudMP(ObjReporteSolicitudMP solicitud)
 			throws IOException, DocumentException {
@@ -183,17 +123,7 @@ public class Impresiones {
 		}
 	}
 
-	// TOTEST:
-
-//	public static void ImprimirReporteVentas(ObjReporteVentas reporte)
-//			throws Exception {
-//		int totalHojas = reporte.getCantidadHojas();
-//		for (int i = 1; i <= totalHojas; i++) {
-//			imprimirHojaReporteVentas(reporte, i, totalHojas);
-//		}
-//	}
-
-	public static void ImprimirReporteVentas(ObjReporteVentass reporte)
+	public static void ImprimirReporteVentas(ObjReporteVentas reporte)
 			throws Exception {
 		int totalHojas = reporte.getCantidadHojas();
 		for (int i = 1; i <= totalHojas; i++) {
@@ -220,6 +150,7 @@ public class Impresiones {
 		imprimir();
 	}
 
+	// ---------------------------------------------------------------------------------
 	// REGION REPORTE REPARTO
 	private static void imprimirHojaReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) throws IOException,
@@ -289,67 +220,6 @@ public class Impresiones {
 	}
 
 	// REGION REPORTE VENTAS
-	private static void imprimirHojaReporteVentas(ObjReporteVentass reporte,
-			int numeroPagina, int totalHojas) throws IOException,
-			DocumentException {
-		initAll(reporte, numeroPagina);
-
-		llenarStamperReporteVentas(reporte, numeroPagina, totalHojas);
-
-		closeAll();
-		imprimir();
-	}
-
-	private static void llenarStamperReporteVentas(ObjReporteVentass reporte,
-			int numeroPagina, int totalHojas) throws IOException,
-			DocumentException {
-		llenarCabeceraReporteVentas(reporte);
-		double total = llenarReporteVentas(reporte, numeroPagina);
-		llenarPieReporteVentas(reporte, total, numeroPagina, totalHojas);
-
-	}
-
-	private static void llenarCabeceraReporteVentas(ObjReporteVentass reporte)
-			throws IOException, DocumentException {
-		// txtFamilia txtFecha txtDia txtSemana
-		stamper.getAcroFields().setField("txtDesde", reporte.getFechaDesde());
-		stamper.getAcroFields().setField("txtHasta", reporte.getFechaHasta());
-		// stamper.getAcroFields().setField("txtDia", reporte.getDia() + "");
-		// stamper.getAcroFields().setField("txtSemana", reporte.getSemana() +
-		// "");
-	}
-
-	private static double llenarReporteVentas(ObjReporteVentass reporte,
-			int numeroPagina) throws IOException, DocumentException {
-		// txtPuesto txtProducto txtVenta
-		int desde = 0;
-		if (numeroPagina != 1)
-			desde = ((numeroPagina - 1) * reporte.getMaxPaginacion()) - 1;
-		int hasta = (numeroPagina * reporte.getMaxPaginacion()) - 1;
-		int puntos = reporte.getLista().size();
-		hasta = (hasta > puntos) ? puntos : hasta;
-		int i = 0;
-		for (Object product : reporte.getLista().subList(desde, hasta)) {
-			VentaReporteDTO producto = (VentaReporteDTO) product;
-			stamper.getAcroFields().setField("txtPuesto" + i,
-					producto.getPuesto() + "");
-			stamper.getAcroFields().setField("txtProducto" + i,
-					producto.getProducto());
-			stamper.getAcroFields().setField("txtVenta" + i,
-					producto.getCantidad() + "");
-			i++;
-		}
-		return 0;
-	}
-
-	private static void llenarPieReporteVentas(ObjReporteVentass reporte,
-			double total, int numeroPagina, int totalHojas) throws IOException,
-			DocumentException {
-		stamper.getAcroFields().setField("txtPaginado",
-				numeroPagina + " DE " + totalHojas);
-	}
-
-	// REGION REPORTE VENTASS
 	private static void imprimirHojaReporteVentas(ObjReporteVentas reporte,
 			int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
@@ -372,26 +242,21 @@ public class Impresiones {
 
 	private static void llenarCabeceraReporteVentas(ObjReporteVentas reporte)
 			throws IOException, DocumentException {
-		// txtFamilia txtFecha txtDia txtSemana
-		// stamper.getAcroFields().setField("txtFamilia", reporte.getFamilia());
-		// stamper.getAcroFields().setField("txtFecha", reporte.getFecha());
-		// stamper.getAcroFields().setField("txtDia", reporte.getDia() + "");
-		// stamper.getAcroFields().setField("txtSemana", reporte.getSemana() +
-		// "");
+		stamper.getAcroFields().setField("txtDesde", reporte.getFechaDesde());
+		stamper.getAcroFields().setField("txtHasta", reporte.getFechaHasta());
 	}
 
 	private static double llenarReporteVentas(ObjReporteVentas reporte,
 			int numeroPagina) throws IOException, DocumentException {
-		// txtPuesto txtProducto txtVenta
 		int desde = 0;
 		if (numeroPagina != 1)
 			desde = ((numeroPagina - 1) * reporte.getMaxPaginacion()) - 1;
 		int hasta = (numeroPagina * reporte.getMaxPaginacion()) - 1;
-		int puntos = reporte.getProductos().size();
+		int puntos = reporte.getLista().size();
 		hasta = (hasta > puntos) ? puntos : hasta;
 		int i = 0;
-		for (VentaReporteDTO producto : reporte.getProductos().subList(desde,
-				hasta)) {
+		for (Object product : reporte.getLista().subList(desde, hasta)) {
+			VentaReporteDTO producto = (VentaReporteDTO) product;
 			stamper.getAcroFields().setField("txtPuesto" + i,
 					producto.getPuesto() + "");
 			stamper.getAcroFields().setField("txtProducto" + i,
@@ -569,36 +434,51 @@ public class Impresiones {
 	private static double llenarComandaTicket(ObjReporteComandaTicket comanda,
 			int numeroPagina) throws IOException, DocumentException {
 		double total = 0;
-		int desde = 0;
+		int desdeTicket = 0;
 		if (numeroPagina != 1)
-			desde = ((numeroPagina - 1) * comanda.getMaxPaginacion()) - 1;
-		int hasta = (numeroPagina * comanda.getMaxPaginacion()) - 1;
-		int puntos = comanda.getListaProductos().size();
-		hasta = (hasta > puntos) ? puntos : hasta;
+			desdeTicket = ((numeroPagina - 1) * comanda.getMaxPaginacion()) - 1;
+		int hastaTicket = (numeroPagina * comanda.getMaxPaginacion()) - 1;
+		int productosTicket = comanda.getListaProductos().size();
+		hastaTicket = (hastaTicket > productosTicket) ? productosTicket
+				: hastaTicket;
 		int i = 0;
 		double subtotal = 0;
-		for (ObjProductoTicketComanda punto : comanda.getListaProductos()
-				.subList(desde, hasta)) {
+		for (ObjProductoTicketComanda producto : comanda.getListaProductos()
+				.subList(desdeTicket, hastaTicket)) {
 
 			stamper.getAcroFields().setField("txtCantidad" + i,
-					punto.getCantidad() + "");
+					producto.getCantidad() + "");
 
 			stamper.getAcroFields().setField("txtMaterialRemito" + i,
-					punto.getMaterial());
-			stamper.getAcroFields().setField("txtMaterialComanda" + i,
-					punto.getMaterial());
+					producto.getMaterial());
 
 			stamper.getAcroFields().setField("txtPrecio" + i,
-					punto.getPrecio() + "");
+					"" + (producto.getPrecio() * 1.0));
 
-			subtotal = punto.getPrecio() * punto.getCantidad();
-
-			stamper.getAcroFields().setField("txtSubTotal" + i, subtotal + "");
+			subtotal = producto.getPrecio() * producto.getCantidad();
 
 			stamper.getAcroFields()
-					.setField("txtCodigo" + i, punto.getCodigo());
-			stamper.getAcroFields().setField("txtUnd" + i, punto.getUnd());
+					.setField("txtSubTotal" + i, "$ " + subtotal);
+
 			i++;
+		}
+		int desdeComanda = 0;
+		if (numeroPagina != 1)
+			desdeComanda = ((numeroPagina - 1) * comanda.getMaxPaginacion()) - 1;
+		int hastaComanda = (numeroPagina * comanda.getMaxPaginacion()) - 1;
+		int productosComanda = comanda.getListaCocina().size();
+		hastaComanda = (hastaComanda > productosComanda) ? productosComanda
+				: hastaComanda;
+		i = 0;
+
+		for (ObjProductoTicketComanda producto : comanda.getListaCocina()
+				.subList(desdeComanda, hastaComanda)) {
+			stamper.getAcroFields().setField("txtCodigo" + i,
+					producto.getCodigo());
+
+			stamper.getAcroFields().setField("txtMaterialComanda" + i,
+					producto.getMaterial());
+			stamper.getAcroFields().setField("txtUnd" + i, producto.getUnd());
 		}
 		for (ObjProductoTicketComanda punto : comanda.getListaProductos()) {
 			total += punto.getPrecio() * punto.getCantidad();
@@ -610,7 +490,7 @@ public class Impresiones {
 			double total, int numeroPagina, int totalHojas) throws IOException,
 			DocumentException {
 		// stamper.getAcroFields().setField("txtTotalComanda", total + "");
-		stamper.getAcroFields().setField("txtTotalTicket", total + "");
+		stamper.getAcroFields().setField("txtTotalTicket", "$ " + total);
 
 		stamper.getAcroFields().setField("txtObservacionComanda",
 				"Obser: " + comanda.getObservaciones());
@@ -690,8 +570,8 @@ public class Impresiones {
 				",", ".");
 		double total = new Double(decimalValue);
 		stamper.getAcroFields().setField("txtTotal", "$" + total);
-		// stamper.getAcroFields().setField("txtObservaciones",
-		// "Obser: " + itinerario.getObservacionGral());
+		stamper.getAcroFields().setField("txtObservaciones",
+				"Observaciones: " + itinerario.getObservacionGral());
 		stamper.getAcroFields().setField("txtPaginacion",
 				numeroPagina + " DE " + totalHojas);
 	}

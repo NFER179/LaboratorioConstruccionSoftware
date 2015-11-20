@@ -7,7 +7,7 @@ public class ObjReporteItinerario extends ObjImprimible {
 
 	private List<objPuntoItinerario> puntos;
 	private ObjDatosRepartidor repartidor;
-	private static final int maxPag = 13;
+	private static final int maxPag = 11;
 	private static final String templatePath = "template_itinerario";
 	private String observacionGral;
 
@@ -26,6 +26,7 @@ public class ObjReporteItinerario extends ObjImprimible {
 				templatePath, id, maxPag);
 		this.repartidor = pDatosRepartidor;
 		this.puntos = new ArrayList<objPuntoItinerario>();
+		this.observacionGral = observacionPedido;
 	}
 
 	public int getCantidadHojas() {

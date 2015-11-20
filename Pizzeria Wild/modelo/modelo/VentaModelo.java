@@ -139,11 +139,12 @@ public class VentaModelo {
 				.getText(), vista.getTxtDireccion().getText(), vista
 				.getTxtTel().getText());
 
-		ObjReporteComandaTicket obj = new ObjReporteComandaTicket(cliente, vista
-				.getTxtFecha().getText(), Integer.parseInt(vista
-				.getTxtNumVenta().getText()), vista.getTxtrObservacion()
-				.getText(), vista.getTxtrObservacionDelivery().getText(),
-				productos);
+		ObjReporteComandaTicket obj = new ObjReporteComandaTicket(cliente,
+				vista.getTxtFecha().getText(), Integer.parseInt(vista
+						.getTxtNumVenta().getText()), vista
+						.getTxtrObservacion().getText(), vista
+						.getTxtrObservacionDelivery().getText(), productos,
+				null);
 
 		try {
 

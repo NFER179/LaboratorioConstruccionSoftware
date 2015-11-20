@@ -7,16 +7,14 @@ public class ObjProductoTicketComanda {
 	private String material;
 	private String und;
 	private String codigo;
-	private boolean esBebida;
 
 	public ObjProductoTicketComanda(int cantidad, double precio,
-			String materia, String und, String codigo,boolean esBebida) {
+			String materia, String und, String codigo, boolean esBebida) {
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.material = materia;
 		this.und = und;
 		this.setCodigo(codigo);
-		this.esBebida = esBebida;
 	}
 
 	public int getCantidad() {
@@ -59,11 +57,4 @@ public class ObjProductoTicketComanda {
 		this.codigo = codigo;
 	}
 
-	public boolean isEsBebida() {
-		return esBebida;
-	}
-
-	public void setEsBebida(boolean esBebida) {
-		this.esBebida = esBebida;
-	};
 }

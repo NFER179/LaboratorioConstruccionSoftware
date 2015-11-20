@@ -1,6 +1,8 @@
 package clasesImpresiones;
 
-import java.util.List; 
+import java.util.List;
+
+import utilidades.Fecha;
 
 public class ObjReporteComandaTicket extends ObjImprimible {
 
@@ -10,18 +12,18 @@ public class ObjReporteComandaTicket extends ObjImprimible {
 	private String observaciones;
 	private String observacionDelivery;
 	private List<ObjProductoTicketComanda> listaProductos;
+	private List<ObjProductoTicketComanda> listaCocina;
 
-	public ObjReporteComandaTicket(ObjDatosCliente cliente, String fecha, int id) {
-		super(cliente.getNombre() + "_" + id, fecha, templatePath, id, maxPag);
-	}
-
-	public ObjReporteComandaTicket(ObjDatosCliente cliente, String fecha, int id,
-			String observaciones, String observacionDelivery,
-			List<ObjProductoTicketComanda> listaProductos) {
-		super(cliente.getNombre() + "_" + id, fecha, templatePath, id, maxPag);
+	public ObjReporteComandaTicket(ObjDatosCliente cliente, String fecha,
+			int id, String observaciones, String observacionDelivery,
+			List<ObjProductoTicketComanda> listaProductos,
+			List<ObjProductoTicketComanda> listaCocina) {
+		super(Fecha.CurrentDate() + cliente.getNombre() + "_" + id, fecha,
+				templatePath, id, maxPag);
 		this.observacionDelivery = observacionDelivery;
 		this.observaciones = observaciones;
 		this.listaProductos = listaProductos;
+		this.listaCocina = listaCocina;
 		this.cliente = cliente;
 	}
 
@@ -60,6 +62,14 @@ public class ObjReporteComandaTicket extends ObjImprimible {
 
 	public void setObservacionDelivery(String observacionDelivery) {
 		this.observacionDelivery = observacionDelivery;
+	}
+
+	public List<ObjProductoTicketComanda> getListaCocina() {
+		return listaCocina;
+	}
+
+	public void setListaCocina(List<ObjProductoTicketComanda> listaCocina) {
+		this.listaCocina = listaCocina;
 	}
 
 }
