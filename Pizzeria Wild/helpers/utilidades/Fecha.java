@@ -73,7 +73,17 @@ public class Fecha {
 		cal.add(Calendar.WEEK_OF_MONTH, 1); // Agrego una semana
 		String fechaFin = formato.format(cal.getTime());
 		return new String[] { fechaInicio, fechaFin };
+	}
 
+	public static String[] rangosPorMes(int anio, int numeroMes) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, anio);
+		cal.set(Calendar.MONTH, numeroMes - 1);
+		cal.set(Calendar.DATE, 1);
+		String fechaInicio = formato.format(cal.getTime());
+		cal.add(Calendar.MONTH, 1); // Agrego un mes
+		String fechaFin = formato.format(cal.getTime());
+		return new String[] { fechaInicio, fechaFin };
 	}
 
 	public static int ObtenerDia(String fecha) {

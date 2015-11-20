@@ -108,6 +108,7 @@ public class SeleccionFechasVista extends JDialog {
 		buttonGroupMesAnio.add(rdbtnSemana);
 		rdbtnSemana.setBounds(47, 183, 79, 23);
 		getContentPane().add(rdbtnSemana);
+		rdbtnSemana.setSelected(true);
 
 		txtMes = new JTextField();
 		txtMes.setBounds(126, 212, 26, 24);

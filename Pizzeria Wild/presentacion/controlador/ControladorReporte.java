@@ -3,25 +3,17 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
-
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjReporteMejoresClientes;
 import clasesImpresiones.ObjReporteReparto;
-import clasesImpresiones.ObjReporteVentas;
 import clasesImpresiones.ObjReporteVentass;
-
 import dto.ClienteReporteDTO;
-import dto.ProductoDTO;
 import dto.RepartidoReporteDTO;
 import dto.RepartidorDTO;
 import dto.VentaReporteDTO;
-
-import modelo.ProductoModelo;
 import modelo.RepartidorModelo;
 import modelo.ReportesModelo;
-
 import utilidades.Fecha;
 import utilidades.Msj;
 import vista.ReporteVista;
@@ -34,7 +26,6 @@ public class ControladorReporte implements ActionListener {
 	private String datefrom = "";
 	private String dateTo = "";
 	private RepartidorModelo mdlRepartidor;
-	private ProductoModelo mdlProducto;
 	private boolean ejecutarReporte;
 
 	public ControladorReporte(ControladorVenta Ctr) {
@@ -43,7 +34,6 @@ public class ControladorReporte implements ActionListener {
 		addListeners();
 
 		this.mdlRepartidor = new RepartidorModelo();
-		this.mdlProducto = new ProductoModelo();
 	}
 
 	private void addListeners() {
@@ -70,40 +60,43 @@ public class ControladorReporte implements ActionListener {
 		this.vtReporte.getComboBox().setModel(modelCombo);
 	}
 
+	// REGION COMPARTIDA
 	public void SetRangoFechas(String From, String To) {
 		this.datefrom = From;
 		this.dateTo = To;
-	}
-
-	private void accionVentasDelDia() {
-		ControladorVentasDia ctrVentasDia = new ControladorVentasDia(
-				this.vtReporte);
-		ctrVentasDia.inicializar();
 	}
 
 	public void NoEjecutarReporte() {
 		this.ejecutarReporte = false;
 	}
 
+	// REGION ACCIONES
+	private void accionVentasDelDia() {
+		ControladorVentasDia ctrVentasDia = new ControladorVentasDia(
+				this.vtReporte);
+		ctrVentasDia.inicializar();
+	}
+
 	private void accionReporteMejoresClientes() {
-		this.ejecutarReporte = true;
 		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
 				this.vtReporte);
 		ctr.Inicializar();
-		// NICOF aca, fecha desde y fechaHasta
-		// String fechaDesde = "";
-		// String fechaHasta = "";
 		if (this.ejecutarReporte) {
 			List<ClienteReporteDTO> lista;
 			try {
 				lista = reportes.GetMejoresClientes(this.datefrom, this.dateTo);
-				ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
-						this.datefrom, this.dateTo, lista);
-				try {
-					Impresiones.ImprimirReporteMejoresClientes(reporte);
-				} catch (Exception e) {
-					Msj.error("Error de impresion",
-							"La aplicacion a tenido problemas para imprimir el documento");
+				if (lista.size() == 0) {
+					Msj.info("Informacion",
+							"El rango de fechas seleccionadas no devolvieron datos");
+				} else {
+					ObjReporteMejoresClientes reporte = new ObjReporteMejoresClientes(
+							this.datefrom, this.dateTo, lista);
+					try {
+						Impresiones.ImprimirReporteMejoresClientes(reporte);
+					} catch (Exception e) {
+						Msj.error("Error de impresion",
+								"La aplicacion a tenido problemas para imprimir el documento");
+					}
 				}
 			} catch (Exception e) {
 				Msj.error("Error de coneccion",
@@ -113,69 +106,69 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	private void accionReporteRepartidores() {
-		// NICOF
-		this.ejecutarReporte = true;
 		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
 				this.vtReporte);
 		ctr.Inicializar();
-		// NICOF
-		String from = this.datefrom;
-		String to = this.dateTo;
-		int idRepartidor = Integer.parseInt(this.vtReporte.getComboBox()
-				.getSelectedItem().toString().trim());
-		RepartidorModelo rm = new RepartidorModelo();
-		String nombreRepartidor = rm.ObtenerRepartidor(idRepartidor)
-				.getApellido()
-				+ " "
-				+ rm.ObtenerRepartidor(idRepartidor).getNombre();// "nombreDelReparidro";
-		List<RepartidoReporteDTO> lista = null;
-		try {
-			lista = reportes.GetRepartidores(from, to, idRepartidor);
-			ObjReporteReparto reporte = new ObjReporteReparto(
-					Fecha.CurrentDate()/* fecha */, nombreRepartidor, lista);
-			if (lista.size() != 0) {
-				try {
-					Impresiones.ImprimirReporteReparto(reporte);
-				} catch (Exception e) {
-					Msj.error("Error de impresion",
-							"La aplicacion a tenido problemas para imprimir el documento");
+		if (this.ejecutarReporte) {
+			// NICOF
+			int idRepartidor = Integer.parseInt(this.vtReporte.getComboBox()
+					.getSelectedItem().toString().trim());
+			RepartidorModelo rm = new RepartidorModelo();
+			String nombreRepartidor = rm.ObtenerRepartidor(idRepartidor)
+					.getApellido()
+					+ " "
+					+ rm.ObtenerRepartidor(idRepartidor).getNombre();
+			List<RepartidoReporteDTO> lista = null;
+			try {
+				lista = reportes.GetRepartidores(this.datefrom, this.dateTo,
+						idRepartidor);
+				ObjReporteReparto reporte = new ObjReporteReparto(
+						Fecha.CurrentDate(), nombreRepartidor, lista);
+				if (lista.size() == 0) {
+					Msj.info("Informacion",
+							"El rango de fecha y el repartidor seleccionados no devolvieron datos");
+				} else {
+					try {
+						Impresiones.ImprimirReporteReparto(reporte);
+					} catch (Exception e) {
+						Msj.error("Error de impresion",
+								"La aplicacion a tenido problemas para imprimir el documento");
+					}
 				}
-			}
-			if (lista.size() == 0) {
-				Msj.info("Informacion",
-						"El rango de fecha y el repartidor seleccionados no devolvieron datos");
-			}
-		} catch (Exception e) {
-			Msj.error("Error de coneccion",
-					"La aplicacion a tenido problemas para conectarse a la base de datos");
-		}
 
+			} catch (Exception e) {
+				Msj.error("Error de coneccion",
+						"La aplicacion a tenido problemas para conectarse a la base de datos");
+			}
+		}
 	}
 
 	private void accionReporteVentas() {
+		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
+				this.vtReporte);
+		ctr.Inicializar();
+		if (this.ejecutarReporte) {
 
-		List<VentaReporteDTO> lista = null;
-		try {
-			// NICOF
-			this.ejecutarReporte = true;
-			ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(
-					this, this.vtReporte);
-			ctr.Inicializar();
-			lista = reportes.GetVentas(this.datefrom, this.dateTo);
-			// NICOF
-			int dia = 0;
-			int semana = 0;
-			ObjReporteVentass reporte = new ObjReporteVentass(this.datefrom,
-					this.dateTo, lista);
 			try {
-				Impresiones.ImprimirReporteVentas(reporte);
+				List<VentaReporteDTO> lista = reportes.GetVentas(this.datefrom,
+						this.dateTo);
+				if (lista.size() == 0) {
+					Msj.info("Informacion",
+							"El rango de fechas seleccionadas no devolvieron datos");
+				} else {
+					ObjReporteVentass reporte = new ObjReporteVentass(
+							this.datefrom, this.dateTo, lista);
+					try {
+						Impresiones.ImprimirReporteVentas(reporte);
+					} catch (Exception e) {
+						Msj.error("Error de impresion",
+								"La aplicacion a tenido problemas para imprimir el documento");
+					}
+				}
 			} catch (Exception e) {
-				Msj.error("Error de impresion",
-						"La aplicacion a tenido problemas para imprimir el documento");
+				Msj.error("Error de coneccion",
+						"La aplicacion a tenido problemas para conectarse a la base de datos");
 			}
-		} catch (Exception e) {
-			Msj.error("Error de coneccion",
-					"La aplicacion a tenido problemas para conectarse a la base de datos");
 		}
 	}
 
@@ -200,9 +193,4 @@ public class ControladorReporte implements ActionListener {
 		}
 	}
 
-	private static String elegirCondicionesSql() {
-		String ret = "";
-
-		return ret;
-	}
 }
