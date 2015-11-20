@@ -23,6 +23,7 @@ public class ReporteVista extends JFrame {
 	private JLabel lblNewLabel;
 
 	public ReporteVista() {
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ReporteVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setTitle(" Reportes");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

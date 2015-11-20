@@ -86,7 +86,7 @@ public class VentasVista extends JFrame {
 
 		this.setResizable(false);
 		this.setTitle("Ventas");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(0, 0, 1080, 740);
 		
 		this.contentPane = new JPanel();
