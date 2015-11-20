@@ -87,7 +87,7 @@ public class ControladorBackUp implements ActionListener {
 			if (!path.contains(extension)) {
 				return "";
 			} else {
-				path += extension;
+//				path += extension;
 				return path;
 			}
 		}
