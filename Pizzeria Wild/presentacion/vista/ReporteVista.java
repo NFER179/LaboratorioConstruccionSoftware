@@ -5,6 +5,10 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
 
 public class ReporteVista extends JFrame {
 
@@ -16,12 +20,13 @@ public class ReporteVista extends JFrame {
 	private JButton btnRepartidores;
 	private JComboBox comboBox;
 	private JButton btnVentas;
+	private JLabel lblNewLabel;
 
 	public ReporteVista() {
-		setResizable(false);
-		setTitle("Reportes");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ReporteVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setTitle(" Reportes");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 341, 385);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -29,28 +34,39 @@ public class ReporteVista extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		btnVentasDelDia = new JButton("Ventas del Dia");
-		btnVentasDelDia.setBounds(10, 11, 114, 23);
+		btnVentasDelDia.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVentasDelDia.setBounds(10, 158, 140, 40);
 		contentPane.add(btnVentasDelDia);
 		
 		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(345, 234, 89, 23);
+		btnVolver.setIcon(new ImageIcon(ReporteVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(184, 302, 140, 40);
 		contentPane.add(btnVolver);
 		
-		btnMejoresClientes = new JButton("Mejores Clientes");
-		btnMejoresClientes.setBounds(10, 45, 114, 23);
+		btnMejoresClientes = new JButton(" Top Clientes");
+		btnMejoresClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMejoresClientes.setBounds(10, 229, 140, 40);
 		contentPane.add(btnMejoresClientes);
 		
 		btnRepartidores = new JButton("Repartidores");
-		btnRepartidores.setBounds(10, 77, 114, 23);
+		btnRepartidores.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRepartidores.setBounds(10, 11, 140, 40);
 		contentPane.add(btnRepartidores);
 		
 		btnVentas = new JButton("Ventas");
-		btnVentas.setBounds(10, 111, 114, 23);
+		btnVentas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVentas.setBounds(10, 81, 140, 40);
 		contentPane.add(btnVentas);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(134, 78, 145, 20);
+		comboBox.setBounds(160, 11, 164, 40);
 		contentPane.add(comboBox);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ReporteVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(167, 62, 168, 207);
+		contentPane.add(lblNewLabel);
 	}
 
 	public void Open() {

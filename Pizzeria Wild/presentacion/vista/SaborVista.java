@@ -6,6 +6,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class SaborVista extends JDialog {
 	
@@ -13,44 +16,54 @@ public class SaborVista extends JDialog {
 	private JTextField txtPrecio;
 	private JButton btnAgregar;
 	private JButton btnCancelar;
+	private JLabel lblNewLabel;
 
 	public SaborVista(ABMProductoVista Vista) {
 		super(Vista, true);
-		setTitle("Sabor");
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SaborVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setTitle(" Sabor");
 		setResizable(false);
-		setBounds(100, 100, 450, 128);
+		setBounds(100, 100, 338, 240);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblSabor = new JLabel("Sabor: ");
-		lblSabor.setBounds(10, 11, 67, 14);
+		lblSabor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblSabor.setBounds(10, 11, 67, 25);
 		getContentPane().add(lblSabor);
 		
 		txtSabor = new JTextField();
-		txtSabor.setBounds(70, 8, 318, 20);
+		txtSabor.setBounds(70, 11, 249, 25);
 		getContentPane().add(txtSabor);
 		txtSabor.setColumns(10);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
-		lblPrecio.setBounds(10, 36, 67, 14);
+		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPrecio.setBounds(10, 47, 67, 25);
 		getContentPane().add(lblPrecio);
 		
 		txtPrecio = new JTextField();
-		txtPrecio.setBounds(70, 33, 86, 20);
+		txtPrecio.setBounds(70, 47, 86, 25);
 		getContentPane().add(txtPrecio);
 		txtPrecio.setColumns(10);
 		
-		JLabel label = new JLabel("$");
-		label.setBounds(166, 36, 46, 14);
-		getContentPane().add(label);
-		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(246, 61, 89, 23);
+		btnAgregar = new JButton(" Agregar");
+		btnAgregar.setIcon(new ImageIcon(SaborVista.class.getResource("/Iconos/OK.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregar.setBounds(20, 157, 140, 40);
 		getContentPane().add(btnAgregar);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(345, 61, 89, 23);
+		btnCancelar = new JButton(" Cancelar");
+		btnCancelar.setIcon(new ImageIcon(SaborVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(170, 157, 140, 40);
 		getContentPane().add(btnCancelar);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(SaborVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(143, 11, 163, 135);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public void Open() {

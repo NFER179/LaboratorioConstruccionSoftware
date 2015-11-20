@@ -6,6 +6,9 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class ABMClienteVista extends JDialog {
 	private JTextField txtIdcliente;
@@ -15,73 +18,89 @@ public class ABMClienteVista extends JDialog {
 	private JTextField txtTel;
 	private JButton btnGuardar;
 	private JButton btnCancalar;
+	private JLabel lblNewLabel;
 
 	public ABMClienteVista(ClienteVista Vista) {
 		super(Vista, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ABMClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
 		this.Iniciar();
 	}
 	
 	private void Iniciar() {
-		setTitle("Cliente");
+		setTitle(" Cliente");
 		setResizable(false);
-		setBounds(100, 100, 450, 204);
+		setBounds(0, -21, 476, 297);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblIdCliente = new JLabel("Id Cliente:");
-		lblIdCliente.setBounds(10, 11, 86, 14);
+		lblIdCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblIdCliente.setBounds(10, 11, 86, 25);
 		getContentPane().add(lblIdCliente);
 		
 		txtIdcliente = new JTextField();
 		txtIdcliente.setEditable(false);
 		txtIdcliente.setEnabled(false);
-		txtIdcliente.setBounds(76, 8, 86, 20);
+		txtIdcliente.setBounds(81, 11, 86, 25);
 		getContentPane().add(txtIdcliente);
 		txtIdcliente.setColumns(10);
 		
 		JLabel lblNombres = new JLabel("Nombres: ");
-		lblNombres.setBounds(10, 36, 86, 14);
+		lblNombres.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNombres.setBounds(10, 47, 86, 25);
 		getContentPane().add(lblNombres);
 		
 		txtNombres = new JTextField();
-		txtNombres.setBounds(76, 33, 198, 20);
+		txtNombres.setBounds(81, 47, 198, 25);
 		getContentPane().add(txtNombres);
 		txtNombres.setColumns(10);
 		
 		JLabel lblApellido = new JLabel("Apellido: ");
-		lblApellido.setBounds(10, 61, 86, 14);
+		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblApellido.setBounds(10, 83, 86, 25);
 		getContentPane().add(lblApellido);
 		
 		txtApellido = new JTextField();
-		txtApellido.setBounds(76, 58, 141, 20);
+		txtApellido.setBounds(81, 83, 198, 25);
 		getContentPane().add(txtApellido);
 		txtApellido.setColumns(10);
 		
 		JLabel lblDireccion = new JLabel("Direccion: ");
-		lblDireccion.setBounds(10, 86, 86, 14);
+		lblDireccion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDireccion.setBounds(10, 119, 86, 25);
 		getContentPane().add(lblDireccion);
 		
 		txtDireccion = new JTextField();
-		txtDireccion.setBounds(76, 83, 255, 20);
+		txtDireccion.setBounds(81, 119, 255, 25);
 		getContentPane().add(txtDireccion);
 		txtDireccion.setColumns(10);
 		
 		JLabel lblTelefono = new JLabel("Telefono: ");
-		lblTelefono.setBounds(10, 111, 86, 14);
+		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblTelefono.setBounds(10, 158, 86, 25);
 		getContentPane().add(lblTelefono);
 		
 		txtTel = new JTextField();
-		txtTel.setBounds(76, 108, 107, 20);
+		txtTel.setBounds(81, 158, 107, 25);
 		getContentPane().add(txtTel);
 		txtTel.setColumns(10);
 		
 		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(242, 139, 89, 23);
+		btnGuardar.setIcon(new ImageIcon(ABMClienteVista.class.getResource("/Iconos/OK.png")));
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnGuardar.setBounds(172, 214, 140, 40);
 		getContentPane().add(btnGuardar);
 		
 		btnCancalar = new JButton("Cancalar");
-		btnCancalar.setBounds(345, 139, 89, 23);
+		btnCancalar.setIcon(new ImageIcon(ABMClienteVista.class.getResource("/Iconos/salir.png")));
+		btnCancalar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancalar.setBounds(320, 214, 140, 40);
 		getContentPane().add(btnCancalar);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ABMClienteVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(289, 11, 181, 158);
+		getContentPane().add(lblNewLabel);
 	}
 	
 	public void Open() {

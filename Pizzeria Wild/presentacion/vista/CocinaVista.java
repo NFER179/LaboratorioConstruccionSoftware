@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
 import javax.swing.JTextPane;
+import java.awt.Toolkit;
 
 @SuppressWarnings("serial")
 public class CocinaVista extends JFrame {
@@ -59,10 +60,10 @@ public class CocinaVista extends JFrame {
 	private JTable tblProductosPendientes;
 
 	public CocinaVista() {
-		this.setTitle("Pedidos por Elaborar");
-		this.setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CocinaVista.class.getResource("/Iconos/pizza_1.PNG")));
+		this.setTitle(" Pedidos por Elaborar");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setBounds(100, 100, 1235, 485);
+		this.setBounds(100, 100, 1367, 750);
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
@@ -81,7 +82,7 @@ public class CocinaVista extends JFrame {
 		this.txtPeido1.setColumns(10);
 		
 		this.scrollPane1 = new JScrollPane();
-		this.scrollPane1.setBounds(10, 42, 296, 103);
+		this.scrollPane1.setBounds(10, 42, 296, 249);
 		this.contentPane.add(scrollPane1);
 		
 		this.modelTable1 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -89,7 +90,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane1.setViewportView(tblPedido1);
 		
 		scrollPaneTxt1 = new JScrollPane();
-		scrollPaneTxt1.setBounds(10, 156, 296, 63);
+		scrollPaneTxt1.setBounds(10, 302, 296, 63);
 		contentPane.add(scrollPaneTxt1);
 		
 		txtPane1 = new JTextPane();
@@ -98,18 +99,18 @@ public class CocinaVista extends JFrame {
 		txtPane1.setEditable(false);
 		
 		JLabel label = new JLabel("Pedido:");
-		label.setBounds(622, 14, 69, 14);
+		label.setBounds(681, 16, 321, 14);
 		contentPane.add(label);
 		
 		this.txtPeido2 = new JTextField();
 		this.txtPeido2.setEnabled(false);
 		this.txtPeido2.setEditable(false);
 		this.txtPeido2.setColumns(10);
-		this.txtPeido2.setBounds(375, 11, 86, 20);
+		this.txtPeido2.setBounds(395, 13, 100, 20);
 		this.contentPane.add(txtPeido2);
 		
 		this.scrollPane2 = new JScrollPane();
-		this.scrollPane2.setBounds(316, 42, 296, 103);
+		this.scrollPane2.setBounds(336, 44, 320, 249);
 		this.contentPane.add(scrollPane2);
 		
 		this.modelTable2 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -117,7 +118,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane2.setViewportView(tblPedido2);
 		
 		scrollPaneTxt2 = new JScrollPane();
-		scrollPaneTxt2.setBounds(316, 156, 294, 61);
+		scrollPaneTxt2.setBounds(336, 304, 320, 61);
 		contentPane.add(scrollPaneTxt2);
 		
 		txtPane2 = new JTextPane();
@@ -126,18 +127,18 @@ public class CocinaVista extends JFrame {
 		txtPane2.setEditable(false);
 		
 		JLabel label_1 = new JLabel("Pedido:");
-		label_1.setBounds(316, 233, 69, 14);
+		label_1.setBounds(336, 400, 60, 14);
 		contentPane.add(label_1);
 		
 		this.txtPeido3 = new JTextField();
 		this.txtPeido3.setEnabled(false);
 		this.txtPeido3.setEditable(false);
 		this.txtPeido3.setColumns(10);
-		this.txtPeido3.setBounds(681, 11, 86, 20);
+		this.txtPeido3.setBounds(740, 13, 100, 20);
 		this.contentPane.add(txtPeido3);
 		
 		this.scrollPane3 = new JScrollPane();
-		this.scrollPane3.setBounds(622, 42, 296, 103);
+		this.scrollPane3.setBounds(681, 44, 321, 249);
 		this.contentPane.add(scrollPane3);
 		
 		this.modelTable3 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -145,7 +146,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane3.setViewportView(tblPedido3);
 		
 		scrollPaneTxt3 = new JScrollPane();
-		scrollPaneTxt3.setBounds(622, 156, 294, 61);
+		scrollPaneTxt3.setBounds(681, 304, 321, 61);
 		contentPane.add(scrollPaneTxt3);
 		
 		txtPane3 = new JTextPane();
@@ -154,18 +155,18 @@ public class CocinaVista extends JFrame {
 		txtPane3.setEditable(false);
 		
 		JLabel label_2 = new JLabel("Pedido:");
-		label_2.setBounds(316, 14, 69, 14);
+		label_2.setBounds(336, 16, 320, 14);
 		contentPane.add(label_2);
 		
 		this.txtPeido4 = new JTextField();
 		this.txtPeido4.setEnabled(false);
 		this.txtPeido4.setEditable(false);
 		this.txtPeido4.setColumns(10);
-		this.txtPeido4.setBounds(69, 230, 86, 20);
+		this.txtPeido4.setBounds(69, 397, 86, 20);
 		this.contentPane.add(txtPeido4);
 		
 		this.scrollPane4 = new JScrollPane();
-		this.scrollPane4.setBounds(10, 261, 296, 103);
+		this.scrollPane4.setBounds(10, 431, 296, 155);
 		this.contentPane.add(scrollPane4);
 		
 		this.modelTable4 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -173,7 +174,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane4.setViewportView(tblPedido4);
 		
 		scrollPaneTxt4 = new JScrollPane();
-		scrollPaneTxt4.setBounds(10, 375, 294, 61);
+		scrollPaneTxt4.setBounds(10, 597, 294, 61);
 		contentPane.add(scrollPaneTxt4);
 		
 		txtPane4 = new JTextPane();
@@ -182,18 +183,18 @@ public class CocinaVista extends JFrame {
 		txtPane4.setEditable(false);
 		
 		JLabel label_3 = new JLabel("Pedido:");
-		label_3.setBounds(10, 234, 69, 14);
+		label_3.setBounds(10, 401, 69, 14);
 		contentPane.add(label_3);
 		
 		this.txtPeido5 = new JTextField();
 		this.txtPeido5.setEnabled(false);
 		this.txtPeido5.setEditable(false);
 		this.txtPeido5.setColumns(10);
-		this.txtPeido5.setBounds(375, 230, 86, 20);
+		this.txtPeido5.setBounds(395, 397, 100, 20);
 		this.contentPane.add(txtPeido5);
 		
 		this.scrollPane5 = new JScrollPane();
-		this.scrollPane5.setBounds(316, 261, 296, 103);
+		this.scrollPane5.setBounds(336, 431, 320, 155);
 		this.contentPane.add(scrollPane5);
 		
 		this.modelTable5 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -201,7 +202,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane5.setViewportView(tblPedido5);
 		
 		scrollPaneTxt5 = new JScrollPane();
-		scrollPaneTxt5.setBounds(316, 375, 294, 61);
+		scrollPaneTxt5.setBounds(336, 597, 320, 61);
 		contentPane.add(scrollPaneTxt5);
 		
 		txtPane5 = new JTextPane();
@@ -210,18 +211,18 @@ public class CocinaVista extends JFrame {
 		txtPane5.setEditable(false);
 		
 		JLabel label_4 = new JLabel("Pedido:");
-		label_4.setBounds(622, 234, 69, 14);
+		label_4.setBounds(681, 401, 53, 14);
 		contentPane.add(label_4);
 		
 		this.txtPeido6 = new JTextField();
 		this.txtPeido6.setEnabled(false);
 		this.txtPeido6.setEditable(false);
 		this.txtPeido6.setColumns(10);
-		this.txtPeido6.setBounds(681, 231, 86, 20);
+		this.txtPeido6.setBounds(740, 398, 100, 20);
 		this.contentPane.add(txtPeido6);
 		
 		this.scrollPane6 = new JScrollPane();
-		this.scrollPane6.setBounds(622, 261, 296, 103);
+		this.scrollPane6.setBounds(681, 431, 321, 155);
 		this.contentPane.add(scrollPane6);
 		
 		this.modelTable6 = new WDefaultTableModel(null, this.nombreColumnasPedidos);
@@ -229,7 +230,7 @@ public class CocinaVista extends JFrame {
 		this.scrollPane6.setViewportView(tblPedido6);
 		
 		scrollPaneTxt6 = new JScrollPane();
-		scrollPaneTxt6.setBounds(622, 375, 294, 61);
+		scrollPaneTxt6.setBounds(681, 597, 321, 61);
 		contentPane.add(scrollPaneTxt6);
 		
 		txtPane6 = new JTextPane();
@@ -238,7 +239,7 @@ public class CocinaVista extends JFrame {
 		txtPane6.setEditable(false);
 		
 		this.scrollPanePedidosPendientes = new JScrollPane();
-		this.scrollPanePedidosPendientes.setBounds(926, 42, 296, 394);
+		this.scrollPanePedidosPendientes.setBounds(1031, 42, 320, 616);
 		this.contentPane.add(scrollPanePedidosPendientes);
 		
 		this.modelTablePendientes = new WDefaultTableModel(null, this.nombreColumnasPedidos);

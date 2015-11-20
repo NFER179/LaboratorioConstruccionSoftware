@@ -8,6 +8,12 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JToggleButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 
 public class BackUpVista extends JDialog {
 
@@ -15,12 +21,29 @@ public class BackUpVista extends JDialog {
 	private JButton btnCrearCopiaDe;
 
 	public BackUpVista() {
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(BackUpVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setFont(new Font("Dialog", Font.BOLD, 12));
 		setTitle("BackUp");
-		setBounds(100, 100, 308, 79);
+		setBounds(100, 100, 419, 255);
+		getContentPane().setLayout(null);
 		btnRestaurar = new JButton("Restaurar");
-		getContentPane().add(btnRestaurar, BorderLayout.SOUTH);
+		btnRestaurar.setBounds(165, 115, 220, 80);
+		btnRestaurar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		getContentPane().add(btnRestaurar);
 		btnCrearCopiaDe = new JButton("Crear Copia de Seguridad");
-		getContentPane().add(btnCrearCopiaDe, BorderLayout.CENTER);
+		btnCrearCopiaDe.setBounds(165, 24, 220, 80);
+		btnCrearCopiaDe.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCrearCopiaDe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		getContentPane().add(btnCrearCopiaDe);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(BackUpVista.class.getResource("/Iconos/Database.png")));
+		lblNewLabel.setBounds(23, 24, 96, 158);
+		getContentPane().add(lblNewLabel);
 	}
 
 	public JButton getBtnRestaurar() {

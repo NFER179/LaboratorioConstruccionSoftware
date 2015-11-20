@@ -12,6 +12,10 @@ import javax.swing.table.DefaultTableModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+import java.awt.Color;
 
 public class CreacionSolicitudVista extends JDialog {
 	private JTextField txtFecha;
@@ -30,67 +34,75 @@ public class CreacionSolicitudVista extends JDialog {
 	private JButton btnGuardar;
 	private JButton btnVolver;
 	private JButton btnImprimir;
+	private JLabel lblNewLabel;
 
 	public CreacionSolicitudVista(SolicitudCompraVista arg0) {
 		super(arg0, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreacionSolicitudVista.class.getResource("/Iconos/pizza_1.PNG")));
 
-		setTitle("Creaci\u00F3n Solicitud");
+		setTitle(" Creaci\u00F3n Solicitud");
 		setResizable(false);
-		setBounds(100, 100, 490, 330);
+		setBounds(100, 100, 512, 473);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 
 		JLabel lblFecha = new JLabel("Fecha:");
-		lblFecha.setBounds(10, 11, 99, 14);
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFecha.setBounds(228, 17, 99, 14);
 		getContentPane().add(lblFecha);
 
 		txtFecha = new JTextField();
 		txtFecha.setEnabled(false);
 		txtFecha.setEditable(false);
-		txtFecha.setBounds(105, 8, 86, 20);
+		txtFecha.setBounds(289, 12, 86, 25);
 		getContentPane().add(txtFecha);
 		txtFecha.setColumns(10);
 
-		JLabel lblNumeroPedido = new JLabel("Numero Pedido:");
-		lblNumeroPedido.setBounds(10, 42, 99, 14);
+		JLabel lblNumeroPedido = new JLabel("N\u00AA Pedido:");
+		lblNumeroPedido.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNumeroPedido.setBounds(10, 17, 99, 14);
 		getContentPane().add(lblNumeroPedido);
 
 		txtNumpedido = new JTextField();
 		txtNumpedido.setText("NEXT");
 		txtNumpedido.setEnabled(false);
 		txtNumpedido.setEditable(false);
-		txtNumpedido.setBounds(105, 39, 86, 20);
+		txtNumpedido.setBounds(105, 14, 86, 25);
 		getContentPane().add(txtNumpedido);
 		txtNumpedido.setColumns(10);
 
 		JLabel lblProveedorId = new JLabel("Proveedor ID:");
-		lblProveedorId.setBounds(10, 73, 99, 14);
+		lblProveedorId.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblProveedorId.setBounds(10, 58, 99, 14);
 		getContentPane().add(lblProveedorId);
 
 		txtIdproveedor = new JTextField();
 		txtIdproveedor.setEnabled(false);
 		txtIdproveedor.setEditable(false);
-		txtIdproveedor.setBounds(105, 70, 86, 20);
+		txtIdproveedor.setBounds(105, 55, 134, 25);
 		getContentPane().add(txtIdproveedor);
 		txtIdproveedor.setColumns(10);
 
-		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(201, 69, 89, 23);
+		btnBuscar = new JButton("   Buscar");
+		btnBuscar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Buscar.png")));
+		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnBuscar.setBounds(249, 48, 126, 35);
 		getContentPane().add(btnBuscar);
 
 		lblDescripcin = new JLabel("Descripci\u00F3n:");
-		lblDescripcin.setBounds(10, 101, 99, 14);
+		lblDescripcin.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDescripcin.setBounds(10, 94, 99, 14);
 		getContentPane().add(lblDescripcin);
 
 		txtDescrproveedor = new JTextField();
 		txtDescrproveedor.setEnabled(false);
 		txtDescrproveedor.setEditable(false);
-		txtDescrproveedor.setBounds(105, 98, 272, 20);
+		txtDescrproveedor.setBounds(105, 96, 272, 25);
 		getContentPane().add(txtDescrproveedor);
 		txtDescrproveedor.setColumns(10);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 129, 365, 124);
+		scrollPane.setBounds(10, 132, 365, 236);
 		getContentPane().add(scrollPane);
 
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -98,28 +110,49 @@ public class CreacionSolicitudVista extends JDialog {
 		scrollPane.setViewportView(table);
 
 		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(385, 127, 89, 23);
+		btnAgregar.setBackground(new Color(253, 245, 230));
+		btnAgregar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregar.setBounds(385, 127, 110, 60);
 		getContentPane().add(btnAgregar);
 
 		btnQuitar = new JButton("Quitar");
-		btnQuitar.setBounds(385, 161, 89, 23);
+		btnQuitar.setBackground(new Color(253, 245, 230));
+		btnQuitar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Quitar.png")));
+		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnQuitar.setBounds(385, 198, 110, 60);
 		getContentPane().add(btnQuitar);
 
-		btnEnviar = new JButton("Enviar");
-		btnEnviar.setBounds(189, 264, 89, 23);
+		btnEnviar = new JButton(" Enviar");
+		btnEnviar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/enviar.png")));
+		btnEnviar.setBackground(new Color(152, 251, 152));
+		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEnviar.setBounds(10, 390, 140, 40);
 		getContentPane().add(btnEnviar);
 
-		btnGuardar = new JButton("Guardar");
-		btnGuardar.setBounds(288, 264, 89, 23);
+		btnGuardar = new JButton("");
+		btnGuardar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Guardar.png")));
+		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnGuardar.setBounds(385, 380, 50, 50);
 		getContentPane().add(btnGuardar);
 
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(385, 264, 89, 23);
+		btnVolver = new JButton("");
+		btnVolver.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(445, 380, 50, 50);
 		getContentPane().add(btnVolver);
 
-		btnImprimir = new JButton("Imprimir");
-		btnImprimir.setBounds(10, 264, 75, 23);
+		btnImprimir = new JButton(" Imprimir");
+		btnImprimir.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/print.png")));
+		btnImprimir.setBackground(new Color(152, 251, 152));
+		btnImprimir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnImprimir.setBounds(160, 390, 140, 40);
 		getContentPane().add(btnImprimir);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setBounds(396, 11, 99, 97);
+		getContentPane().add(lblNewLabel);
 	}
 
 	public void Open() {

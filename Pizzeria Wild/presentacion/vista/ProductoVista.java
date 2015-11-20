@@ -14,6 +14,10 @@ import javax.swing.JButton;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
+import java.awt.Dialog.ModalExclusionType;
 
 public class ProductoVista extends JFrame {
 
@@ -25,11 +29,15 @@ public class ProductoVista extends JFrame {
 	private JButton btnModificar;
 	private JButton btnEliminar;
 	private JButton btnVolver;
+	private JLabel lblNewLabel;
 
 	public ProductoVista() {
-		setTitle("Productos");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 274);
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
+		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ProductoVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setTitle(" Productos");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 493, 427);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -37,32 +45,46 @@ public class ProductoVista extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblProductos = new JLabel("Productos: ");
-		lblProductos.setBounds(10, 11, 106, 14);
+		lblProductos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblProductos.setBounds(10, 11, 106, 25);
 		contentPane.add(lblProductos);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 34, 315, 190);
+		scrollPane.setBounds(10, 34, 315, 348);
 		contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(335, 32, 89, 23);
+		btnAgregar = new JButton(" Agregar");
+		btnAgregar.setIcon(new ImageIcon(ProductoVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregar.setBounds(335, 32, 140, 40);
 		contentPane.add(btnAgregar);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(335, 66, 89, 23);
+		btnModificar = new JButton(" Modificar");
+		btnModificar.setIcon(new ImageIcon(ProductoVista.class.getResource("/Iconos/modificar.png")));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnModificar.setBounds(335, 83, 140, 40);
 		contentPane.add(btnModificar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(335, 100, 89, 23);
+		btnEliminar = new JButton(" Eliminar");
+		btnEliminar.setIcon(new ImageIcon(ProductoVista.class.getResource("/Iconos/Quitar.png")));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEliminar.setBounds(335, 134, 140, 40);
 		contentPane.add(btnEliminar);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(335, 201, 89, 23);
+		btnVolver = new JButton(" Volver");
+		btnVolver.setIcon(new ImageIcon(ProductoVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(335, 342, 140, 40);
 		contentPane.add(btnVolver);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ProductoVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setBounds(356, 203, 106, 103);
+		contentPane.add(lblNewLabel);
 	}
 	
 	public void Open() {

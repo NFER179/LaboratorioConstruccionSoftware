@@ -8,6 +8,9 @@ import javax.swing.table.DefaultTableModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class BusquedaMPProveedorVista extends JDialog {
 	
@@ -19,14 +22,16 @@ public class BusquedaMPProveedorVista extends JDialog {
 
 	public BusquedaMPProveedorVista(ABMProveedorVista Vista) {
 		super(Vista, true);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(BusquedaMPProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle("Busqueda de Materia Prima");
-		setBounds(100, 100, 450, 300);
+		setTitle(" Busquer Materia Prima");
+		setBounds(100, 100, 450, 325);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 10, 422, 211);
+		scrollPane.setBounds(10, 10, 422, 221);
 		getContentPane().add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
@@ -34,11 +39,15 @@ public class BusquedaMPProveedorVista extends JDialog {
 		scrollPane.setViewportView(tblMT);
 		
 		btnAsignar = new JButton("Asignar");
-		btnAsignar.setBounds(244, 232, 89, 23);
+		btnAsignar.setIcon(new ImageIcon(BusquedaMPProveedorVista.class.getResource("/Iconos/OK.png")));
+		btnAsignar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAsignar.setBounds(144, 242, 140, 40);
 		getContentPane().add(btnAsignar);
 		
 		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(343, 232, 89, 23);
+		btnCancelar.setIcon(new ImageIcon(BusquedaMPProveedorVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(294, 242, 140, 40);
 		getContentPane().add(btnCancelar);
 	}
 	

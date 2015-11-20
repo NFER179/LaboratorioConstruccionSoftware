@@ -14,6 +14,9 @@ import javax.swing.ListSelectionModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class ProveedorVista extends JFrame {
 
@@ -27,10 +30,11 @@ public class ProveedorVista extends JFrame {
 	private JButton btnVolver;
 
 	public ProveedorVista() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle("Proveedor");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 670, 300);
+		setTitle(" Proveedor");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 677, 297);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -46,20 +50,28 @@ public class ProveedorVista extends JFrame {
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 		
-		btnNuevoProveedor = new JButton("Nuevo Proveedor");
-		btnNuevoProveedor.setBounds(524, 11, 120, 23);
+		btnNuevoProveedor = new JButton(" Nuevo");
+		btnNuevoProveedor.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Nuevo.png")));
+		btnNuevoProveedor.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnNuevoProveedor.setBounds(524, 11, 140, 40);
 		contentPane.add(btnNuevoProveedor);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(524, 45, 120, 23);
+		btnModificar = new JButton(" Modificar");
+		btnModificar.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/modificar.png")));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnModificar.setBounds(524, 62, 140, 40);
 		contentPane.add(btnModificar);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(524, 79, 120, 23);
+		btnEliminar = new JButton(" Eliminar");
+		btnEliminar.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Quitar.png")));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEliminar.setBounds(524, 113, 140, 40);
 		contentPane.add(btnEliminar);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(524, 227, 120, 23);
+		btnVolver = new JButton(" Volver");
+		btnVolver.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(524, 210, 140, 40);
 		contentPane.add(btnVolver);
 	}
 	

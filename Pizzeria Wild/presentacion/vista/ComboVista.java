@@ -14,6 +14,9 @@ import javax.swing.JButton;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class ComboVista extends JFrame {
 
@@ -26,12 +29,14 @@ public class ComboVista extends JFrame {
 	private JButton btnModificar;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	private JLabel lblNewLabel;
 
 	public ComboVista() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ComboVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle("Combo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 641, 300);
+		setTitle(" Combo");
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 534, 418);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -39,32 +44,46 @@ public class ComboVista extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblCombos = new JLabel("Combos:");
-		lblCombos.setBounds(10, 11, 98, 14);
+		lblCombos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCombos.setBounds(10, 11, 98, 25);
 		contentPane.add(lblCombos);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 516, 180);
+		scrollPane.setBounds(10, 36, 355, 288);
 		contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumna);
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(536, 30, 89, 23);
+		btnAgregar = new JButton(" Agregar");
+		btnAgregar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregar.setBounds(375, 36, 140, 40);
 		contentPane.add(btnAgregar);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(536, 64, 89, 23);
+		btnModificar = new JButton(" Modificar");
+		btnModificar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Quitar.png")));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnModificar.setBounds(375, 87, 140, 40);
 		contentPane.add(btnModificar);
 		
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(437, 227, 89, 23);
+		btnAceptar = new JButton(" Aceptar");
+		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/OK.png")));
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAceptar.setBounds(225, 335, 140, 40);
 		contentPane.add(btnAceptar);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(536, 227, 89, 23);
+		btnCancelar = new JButton(" Cancelar");
+		btnCancelar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(375, 335, 140, 40);
 		contentPane.add(btnCancelar);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setBounds(397, 178, 98, 96);
+		contentPane.add(lblNewLabel);
 	}
 	public void Open() {
 		this.setVisible(true);
