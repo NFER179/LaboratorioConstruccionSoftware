@@ -69,6 +69,10 @@ public class MateriaPrimaModelo {
 		return false;
 	}
 
+	public void Eliminar(MateriaPrimaDTO mp) {
+		this.materiaPrima.Delete(mp);
+	}
+
 	// public void AsignarACategoria(String MateriaPrima, String Categoria) {
 	// this.materiaPrima.AsignarMTaCategoria(MateriaPrima, Categoria);
 	// }

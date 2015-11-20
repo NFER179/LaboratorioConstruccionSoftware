@@ -61,4 +61,8 @@ public class ProveedorModelo {
 	public void EliminarProveedor(String proveedor) {
 		this.proveedor.Delete(proveedor);
 	}
+
+	public void ElinarAsignacionMP(CategoriaDTO cat, MateriaPrimaDTO mp) {
+		this.proveedor.DeleteAsignacionMP(cat, mp);
+	}
 }

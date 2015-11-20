@@ -74,4 +74,8 @@ public class CategoriaModelo {
 
 		return repetidas;
 	}
+
+	public void EliminarAsignacionMP(MateriaPrimaDTO mp) {
+		this.categoria.EliminarAsignacionMP(mp);
+	}
 }

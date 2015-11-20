@@ -45,8 +45,8 @@ public class ControladorMateriaPrima implements ActionListener{
 	public void actionPerformed(ActionEvent arg0) {
 		/* Crear una nueva materia prima. */
 		if (arg0.getSource() == this.vtMateriaPrima.getBtnAgregar()) {
-			ControladorCreacionMateriaPrima ctrMP = new ControladorCreacionMateriaPrima(this, this.vtMateriaPrima);
-			ctrMP.Inicializar();
+//			ControladorCreacionMateriaPrima ctrMP = new ControladorCreacionMateriaPrima(this, this.vtMateriaPrima);
+//			ctrMP.Inicializar();
 		}
 		/* Volver al menu principal. */
 		else if (arg0.getSource() == this.vtMateriaPrima.getBtnVolver() ) {

@@ -30,7 +30,7 @@ public class ValidacionCategoria {
 		
 		if (this.mdlProveedor.TieneAsignadoCategoria(categoria)) {
 			sePuedeEliminar = false;
-			JOptionPane.showMessageDialog(this.vtCategoria, "No se puede Eliminar");
+			JOptionPane.showMessageDialog(this.vtCategoria, "No se puede Eliminar por Estar asignada a un proveedor");
 		}
 		
 		return sePuedeEliminar;

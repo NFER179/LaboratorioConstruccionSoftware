@@ -24,6 +24,9 @@ public interface MateriaPrimaDAO {
 	/* Obtiene la Materia Prima especificada. */
 	public MateriaPrimaDTO GetMateriaPrima(String nombre);
 
+	/* Elimna materia prima. */
+	public void Delete(MateriaPrimaDTO mp);
+
 	/* Asigna la Materia Prima a una Categoria. */
 	// public void AsignarMTaCategoria(String materiaPrima, String categoria);
 }

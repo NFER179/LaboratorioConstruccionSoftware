@@ -51,7 +51,7 @@ public class ControladorVenta implements ActionListener {
 
 	private void addListeners() {
 		this.vtVenta.getBtnSolicitudes().addActionListener(this);
-		this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
+//		this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
 		this.vtVenta.getBtnCategorias().addActionListener(this);
 		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.getBtnProveedores().addActionListener(this);
@@ -275,8 +275,8 @@ public class ControladorVenta implements ActionListener {
 		Object source = arg0.getSource();
 		if (source == this.vtVenta.getBtnSolicitudes()) {
 			this.accionSolicitud();
-		} else if (source == this.vtVenta.getBtnMateriasPrimas()) {
-			this.accionMateriaPrima();
+//		} else if (source == this.vtVenta.getBtnMateriasPrimas()) {
+//			this.accionMateriaPrima();
 		} else if (source == this.vtVenta.getBtnCategorias()) {
 			this.accionCategorias();
 		} else if (source == this.vtVenta.getBtnReportes()) {

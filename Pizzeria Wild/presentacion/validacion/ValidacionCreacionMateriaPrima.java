@@ -33,12 +33,12 @@ public class ValidacionCreacionMateriaPrima {
 
 		String NombreMT = Str.trim(vtCreacion.getTxtMateriaprima().getText());
 
-		if (this.mdlMateriaPrima.Existe(NombreMT)) {
-			creacionValida = false;
-			String mensaje = "La Materia Prima ya fue Creada.";
-			String titulo = "Error Duplicidad";
-			Msj.error(titulo, mensaje);
-		}
+//		if (this.mdlMateriaPrima.Existe(NombreMT)) {
+//			creacionValida = false;
+//			String mensaje = "La Materia Prima ya fue Creada.";
+//			String titulo = "Error Duplicidad";
+//			Msj.error(titulo, mensaje);
+//		}
 
 		return creacionValida;
 	}

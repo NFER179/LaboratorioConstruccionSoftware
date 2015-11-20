@@ -35,4 +35,7 @@ public interface ProveedorDAO {
 	/* Eliminacion de proveedor */
 	public void Delete(String proveedor);
 
+	/* Borra la asignacio nde materia prima. */
+	public void DeleteAsignacionMP(CategoriaDTO cat, MateriaPrimaDTO mp);
+
 }

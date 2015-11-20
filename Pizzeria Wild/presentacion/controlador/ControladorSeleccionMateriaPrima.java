@@ -79,30 +79,30 @@ public class ControladorSeleccionMateriaPrima implements ActionListener {
 	// this.CargarTabla();
 	// this.ctrCategoriaDetalle.ActualizarTabla();
 	// }
-	private void AsignarSeleccion() {
-		JTable tabla = this.vtSeleccionMT.getTable();
-		int[] Seleccion = tabla.getSelectedRows();
-		List<MateriaPrimaDTO> materiasPrimas = new ArrayList<MateriaPrimaDTO>();
-
-		for (int i = 0; i < Seleccion.length; i++) {
-			String materiaPrima = tabla.getValueAt(Seleccion[i], 0).toString()
-					.trim();
-			materiasPrimas.add(new MateriaPrimaDTO(materiaPrima, ""));
-		}
-
-		for (int i = Seleccion.length - 1; i >= 0; i--) {
-			this.vtSeleccionMT.getModelTable().removeRow(Seleccion[i]);
-		}
-
-		this.ctrCategoriaDetalle.AgregarMateriasPrimas(materiasPrimas);
-		this.vtSeleccionMT.getTable().setModel(
-				this.vtSeleccionMT.getModelTable());
-	}
+//	private void AsignarSeleccion() {
+//		JTable tabla = this.vtSeleccionMT.getTable();
+//		int[] Seleccion = tabla.getSelectedRows();
+//		List<MateriaPrimaDTO> materiasPrimas = new ArrayList<MateriaPrimaDTO>();
+//
+//		for (int i = 0; i < Seleccion.length; i++) {
+//			String materiaPrima = tabla.getValueAt(Seleccion[i], 0).toString()
+//					.trim();
+//			materiasPrimas.add(new MateriaPrimaDTO(materiaPrima, ""));
+//		}
+//
+//		for (int i = Seleccion.length - 1; i >= 0; i--) {
+//			this.vtSeleccionMT.getModelTable().removeRow(Seleccion[i]);
+//		}
+//
+//		this.ctrCategoriaDetalle.AgregarMateriasPrimas(materiasPrimas);
+//		this.vtSeleccionMT.getTable().setModel(
+//				this.vtSeleccionMT.getModelTable());
+//	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtSeleccionMT.getBtnAsignar()) {
-			this.AsignarSeleccion();
+//			this.AsignarSeleccion();
 			this.vtSeleccionMT.Close();
 		} else if (arg0.getSource() == this.vtSeleccionMT.getBtnCancelar()) {
 			this.vtSeleccionMT.Close();

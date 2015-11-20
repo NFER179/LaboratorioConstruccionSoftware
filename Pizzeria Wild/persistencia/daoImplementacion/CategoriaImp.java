@@ -47,8 +47,11 @@ public class CategoriaImp implements CategoriaDAO {
 	public List<MateriaPrimaDTO> GetMateriasPrimasPara(String Categoria) {
 		
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "select mpc.materia_prima from mp_categoria mpc " +
-						"where categoria_id = '" + Categoria + "'";
+		String sqlString = "select mp.* from materia_prima mp " +
+				"where mp.materia_prima in (select mpc.materia_prima " +
+											"from mp_categoria mpc " +
+											"where mpc.categoria_id = '" + Categoria + "')";
+		
 		ResultSet rs = null;
 		List<MateriaPrimaDTO> materiasPrimas = new ArrayList<MateriaPrimaDTO>();
 		
@@ -56,7 +59,10 @@ public class CategoriaImp implements CategoriaDAO {
 			rs = stm.executeQuery(sqlString);
 			
 			while(rs.next()) {
-				materiasPrimas.add(new MateriaPrimaDTO(rs.getString("materia_prima"),""));
+				String mp = rs.getString("materia_prima");
+				String unidad = rs.getString("unidad");
+				
+				materiasPrimas.add(new MateriaPrimaDTO(mp, unidad));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -195,5 +201,21 @@ public class CategoriaImp implements CategoriaDAO {
 		}
 		
 		return categoria;
+	}
+
+	@Override
+	public void EliminarAsignacionMP(MateriaPrimaDTO mp) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "delete from mp_categoria where materia_prima = '" + mp.getNombre() + "'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally{
+			this.conector.CloseConnection();
+		}
 	}
 }

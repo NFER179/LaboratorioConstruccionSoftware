@@ -33,4 +33,7 @@ public interface CategoriaDAO {
 
 	/* Obtine la Categoria por Id que se Pasa. */
 	public CategoriaDTO GetCategoria(String Categoria);
+
+	/* Elimina la asignacion de mp */
+	public void EliminarAsignacionMP(MateriaPrimaDTO mp);
 }

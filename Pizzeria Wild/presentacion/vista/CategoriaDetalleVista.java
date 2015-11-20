@@ -9,36 +9,31 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
-import java.awt.Font;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 
 public class CategoriaDetalleVista extends JDialog {
 	
 	private JTextField txtIdcategoria;
 	private JTextField txtDescr;
 	private DefaultTableModel modelTable;
-	private String[] nombreColumnas = {"Materias Primas Asociadas"};
+	private String[] nombreColumnas = {"Materias Primas Asociadas", "Unidad"};
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JButton btnAgregar;
+	private JButton btnModificarMt;
 	private JButton btnQuitar;
 	private JButton btnGuardar;
+	private JButton btnCambiarMt;
 	private JButton btnCancelar;
-	private JLabel lblNewLabel;
 
 	public CategoriaDetalleVista(CategoriaVista vtCategoria) {
 		super(vtCategoria, true);
-		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CategoriaDetalleVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		setTitle(" Detalle Categoria");
-		setBounds(100, 100, 420, 338);
+		setTitle("Detalle Categoria");
+		setBounds(100, 100, 460, 298);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblIdCategoria = new JLabel("Id Categoria:");
-		lblIdCategoria.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblIdCategoria.setBounds(10, 11, 91, 14);
 		getContentPane().add(lblIdCategoria);
 		
@@ -48,7 +43,6 @@ public class CategoriaDetalleVista extends JDialog {
 		txtIdcategoria.setColumns(10);
 		
 		JLabel lblDescripcin = new JLabel("Descripci\u00F3n:");
-		lblDescripcin.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblDescripcin.setBounds(10, 39, 91, 14);
 		getContentPane().add(lblDescripcin);
 		
@@ -58,41 +52,36 @@ public class CategoriaDetalleVista extends JDialog {
 		txtDescr.setColumns(10);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 64, 227, 178);
+		scrollPane.setBounds(10, 64, 293, 155);
 		getContentPane().add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Agregar.png")));
-		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAgregar.setBounds(262, 97, 140, 40);
+		btnAgregar = new JButton("Agregar MT");
+		btnAgregar.setBounds(313, 67, 121, 23);
 		getContentPane().add(btnAgregar);
 		
-		btnQuitar = new JButton("Quitar");
-		btnQuitar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Quitar.png")));
-		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnQuitar.setBounds(262, 148, 140, 40);
+		btnModificarMt = new JButton("Modificar MT");
+		btnModificarMt.setBounds(313, 101, 121, 23);
+		getContentPane().add(btnModificarMt);
+		
+		btnQuitar = new JButton("Quitar MT");
+		btnQuitar.setBounds(313, 135, 121, 23);
 		getContentPane().add(btnQuitar);
 		
-		btnGuardar = new JButton(" Guardar");
-		btnGuardar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Guardar.png")));
-		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnGuardar.setBounds(93, 253, 140, 40);
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setBounds(212, 230, 89, 23);
 		getContentPane().add(btnGuardar);
 		
-		btnCancelar = new JButton(" Cancelar");
-		btnCancelar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/salir.png")));
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(262, 253, 140, 40);
+		btnCancelar = new JButton("Cancelar");
+		btnCancelar.setBounds(313, 230, 89, 23);
 		getContentPane().add(btnCancelar);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Logo Pizzeria Wild 2.png")));
-		lblNewLabel.setBounds(330, 7, 72, 67);
-		getContentPane().add(lblNewLabel);
+		btnCambiarMt = new JButton("Cambiar MT");
+		btnCambiarMt.setBounds(313, 169, 121, 23);
+		getContentPane().add(btnCambiarMt);
 	}
 	
 	public void Open() {
@@ -141,5 +130,13 @@ public class CategoriaDetalleVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JButton getBtnModificarMt() {
+		return btnModificarMt;
+	}
+
+	public JButton getBtnCambiarMt() {
+		return btnCambiarMt;
 	}
 }

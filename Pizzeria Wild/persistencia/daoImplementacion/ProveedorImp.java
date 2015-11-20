@@ -242,4 +242,20 @@ public class ProveedorImp implements ProveedorDAO {
 			this.conector.CloseConnection();
 		}
 	}
+
+	@Override
+	public void DeleteAsignacionMP(CategoriaDTO cat, MateriaPrimaDTO mp) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "delete from mp_proveedor where categoria_id = '"+cat.getIdCategoria()+"' and materia_prima = '"+mp.getNombre()+"'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+	}
 }

@@ -46,7 +46,7 @@ public class MateriaPrimaImp implements MateriaPrimaDAO {
 	@Override
 	public void InsertMateriaPrima(MateriaPrimaDTO MateriaPrima) {
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "insert into materia_prima value('"
+		String sqlString = "insert into materia_prima values('"
 				+ MateriaPrima.getNombre() + "', '" + MateriaPrima.getUnidad()
 				+ "')";
 
@@ -156,6 +156,22 @@ public class MateriaPrimaImp implements MateriaPrimaDAO {
 		}
 
 		return materiasPrima;
+	}
+
+	@Override
+	public void Delete(MateriaPrimaDTO mp) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "delete from materia_prima where materia_prima = '" + mp.getNombre()  + "'";
+		
+		try {
+			stm.executeUpdate(sqlString);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
 	}
 
 	// @Override
