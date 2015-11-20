@@ -18,8 +18,8 @@ public class ObjReporteComandaTicket extends ObjImprimible {
 			int id, String observaciones, String observacionDelivery,
 			List<ObjProductoTicketComanda> listaProductos,
 			List<ObjProductoTicketComanda> listaCocina) {
-		super(Fecha.CurrentDate() + cliente.getNombre() + "_" + id, fecha,
-				templatePath, id, maxPag);
+		super(Fecha.CurrentDate() + " TC " + cliente.getNombre() + "(" + id
+				+ ")", fecha, templatePath, id, maxPag);
 		this.observacionDelivery = observacionDelivery;
 		this.observaciones = observaciones;
 		this.listaProductos = listaProductos;

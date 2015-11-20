@@ -52,7 +52,7 @@ public class Impresiones {
 		}
 	}
 
-	private static void solicitudMPTest2() throws Exception {
+	private static void repartidores() throws Exception {
 		ReportesModelo model = new ReportesModelo();
 		List<RepartidoReporteDTO> lista = model.GetRepartidores("2015-11-13",
 				pdfResultPath, 1);
@@ -64,37 +64,44 @@ public class Impresiones {
 
 	private static void ticketComandaTest() throws Exception {
 		ObjReporteComandaTicket comanda = new ObjReporteComandaTicket(
-				new ObjDatosCliente("Pepe", "CCC 888", "0303456"), "12/12/12",
+				new ObjDatosCliente("Pepe", "CCC 888", "0303456"), "12-12-12",
 				33, "Objseraskjd clienbte ", "obs delivery", null, null);
 		List<ObjProductoTicketComanda> a = new ArrayList<ObjProductoTicketComanda>();
-		a.add(new ObjProductoTicketComanda(1, 50, "bebida", "unidad", "3", true));
-		a.add(new ObjProductoTicketComanda(2, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(30, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(40, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(50, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(60, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(70, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(80, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(90, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(100, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(110, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(120, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(130, 50, "materia", "unidad", "3",
-				false));
-		a.add(new ObjProductoTicketComanda(140, 50, "materia", "unidad", "3",
-				false));
+		a.add(new ObjProductoTicketComanda(1, 50, "bebida", "3"));
+		a.add(new ObjProductoTicketComanda(2, 50, "bebida", "3"));
+		a.add(new ObjProductoTicketComanda(30, 50, "bebida", "3"));
+		a.add(new ObjProductoTicketComanda(40, 50, "bebida", "3"));
+		a.add(new ObjProductoTicketComanda(50, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(60, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(70, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(80, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(90, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(100, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(110, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(120, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(130, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(140, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(150, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(160, 50, "materia", "3"));
+		a.add(new ObjProductoTicketComanda(170, 50, "materia", "3"));
 		comanda.setListaProductos(a);
+
+		List<ObjProductoTicketComanda> ab = new ArrayList<ObjProductoTicketComanda>();
+		ab.add(new ObjProductoTicketComanda(50, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(60, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(70, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(80, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(90, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(100, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(110, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(120, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(130, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(140, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(150, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(160, 50, "materia", "3"));
+		ab.add(new ObjProductoTicketComanda(170, 50, "materia", "3"));
+
+		comanda.setListaCocina(ab);
 
 		ImprimirComandaTicket(comanda);
 	}
@@ -150,7 +157,7 @@ public class Impresiones {
 		imprimir();
 	}
 
-	// ---------------------------------------------------------------------------------
+	// ------------------------------------------------------------------------
 	// REGION REPORTE REPARTO
 	private static void imprimirHojaReporteReparto(ObjReporteReparto reporte,
 			int numeroPagina, int totalHojas) throws IOException,
@@ -276,7 +283,6 @@ public class Impresiones {
 	}
 
 	// REGION REPORTE MEJORES CLIENTES
-
 	private static void llenarStamperReporteMejoresClientes(
 			ObjReporteMejoresClientes reporte) throws IOException,
 			DocumentException {
@@ -470,16 +476,18 @@ public class Impresiones {
 		hastaComanda = (hastaComanda > productosComanda) ? productosComanda
 				: hastaComanda;
 		i = 0;
+		if (desdeComanda < hastaComanda)
+			for (ObjProductoTicketComanda producto : comanda.getListaCocina()
+					.subList(desdeComanda, hastaComanda)) {
+				stamper.getAcroFields().setField("txtCodigo" + i,
+						producto.getCodigo());
 
-		for (ObjProductoTicketComanda producto : comanda.getListaCocina()
-				.subList(desdeComanda, hastaComanda)) {
-			stamper.getAcroFields().setField("txtCodigo" + i,
-					producto.getCodigo());
-
-			stamper.getAcroFields().setField("txtMaterialComanda" + i,
-					producto.getMaterial());
-			stamper.getAcroFields().setField("txtUnd" + i, producto.getUnd());
-		}
+				stamper.getAcroFields().setField("txtMaterialComanda" + i,
+						producto.getMaterial());
+				stamper.getAcroFields().setField("txtUnd" + i,
+						producto.getCantidad() + "");
+				i++;
+			}
 		for (ObjProductoTicketComanda punto : comanda.getListaProductos()) {
 			total += punto.getPrecio() * punto.getCantidad();
 		}
@@ -577,7 +585,6 @@ public class Impresiones {
 	}
 
 	// REGION GENERAL
-
 	private static void initAll(ObjImprimible reporte, int numeroPagina)
 			throws IOException, FileNotFoundException, DocumentException {
 		pdfTemplate = getPdfreader(reporte);

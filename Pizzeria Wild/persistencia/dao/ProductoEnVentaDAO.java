@@ -11,4 +11,6 @@ public interface ProductoEnVentaDAO {
 
 	/* Trae por producto la cantidad de cada sabor que falta por elaborar */
 	public List<ProductoEnVentaDTO> GetFaltantesElabracion();
+
+	public List<ProductoEnVentaDTO> GetProductosNoCocina(String Fecha, int Venta);
 }
