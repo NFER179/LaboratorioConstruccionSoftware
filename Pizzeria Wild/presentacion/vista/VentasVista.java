@@ -30,7 +30,6 @@ public class VentasVista extends JFrame {
 	private JButton btnSolicitudes;
 	private JButton btnCategorias;
 	private JButton btnReportes;
-	private JButton btnMateriasPrimas;
 	private JTable tableVentas;
 	private DefaultTableModel modelVentas;
 	private String[] nombreColumnas = { "Fecha", "Nº Venta", "Cliente",
@@ -121,13 +120,8 @@ public class VentasVista extends JFrame {
 		
 		btnCategorias = new JButton("Categorias");
 		btnCategorias.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCategorias.setBounds(10, 135, 140, 40);
+		btnCategorias.setBounds(10, 84, 140, 40);
 		contentPane.add(btnCategorias);
-		
-		btnMateriasPrimas = new JButton("Materias Primas");
-		btnMateriasPrimas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnMateriasPrimas.setBounds(10, 84, 140, 40);
-		contentPane.add(btnMateriasPrimas);
 		
 		btnReportes = new JButton("Reportes");
 		btnReportes.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -136,12 +130,12 @@ public class VentasVista extends JFrame {
 		
 		btnProveedores = new JButton("Proveedores");
 		btnProveedores.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnProveedores.setBounds(10, 219, 140, 40);
+		btnProveedores.setBounds(10, 168, 140, 40);
 		contentPane.add(btnProveedores);
 		
 		btnRepartidores = new JButton("Repartidores");
 		btnRepartidores.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRepartidores.setBounds(10, 321, 140, 40);
+		btnRepartidores.setBounds(10, 270, 140, 40);
 		contentPane.add(btnRepartidores);
 		
 		btnClientes = new JButton("Clientes");
@@ -151,7 +145,7 @@ public class VentasVista extends JFrame {
 		
 		btnProductos = new JButton("Productos");
 		btnProductos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnProductos.setBounds(10, 270, 140, 40);
+		btnProductos.setBounds(10, 219, 140, 40);
 		contentPane.add(btnProductos);
 		
 		btnBackUp = new JButton("Back Up");
@@ -369,9 +363,9 @@ public class VentasVista extends JFrame {
 		return btnReportes;
 	}
 
-	public JButton getBtnMateriasPrimas() {
-		return btnMateriasPrimas;
-	}
+//	public JButton getBtnMateriasPrimas() {
+//		return btnMateriasPrimas;
+//	}
 
 	public JButton getBtnProveedores() {
 		return btnProveedores;
