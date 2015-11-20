@@ -72,13 +72,20 @@ create table venta_producto(effdt date, num_venta integer, producto char(4), sab
 					foreign key (effdt, num_venta) references venta(effdt, num_venta),
 					foreign key (producto, sabor) references sabor_producto(product_id, sabor));
 					
-create table combo(combo_id char(20), effdt date, descr char(30), precio integer, estado char(1),
+/*create table combo(combo_id char(20), effdt date, descr char(30), precio integer, estado char(1),
 			primary key(combo_id, effdt));
 
 create table producto_combo(combo_id char(20), effdt date, product_id char(4), sabor char(100), cantidad integer,
 			primary key(combo_id, effdt, product_id, sabor),
 			foreign key(combo_id, effdt) references combo(combo_id, effdt),
-			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));					
+			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));*/					
+create table combo(combo_id char(20), descr char(30), inicio date, fin date, precio integer,
+			primary key(combo_id));
+
+create table producto_combo(combo_id char(20), product_id char(4), sabor char(100), cantidad integer,
+			primary key(combo_id, product_id, sabor),
+			foreign key(combo_id) references combo(combo_id),
+			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));
 					
 create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30), vehiculo_id char(10), tipo_vehiculo char(20), modelo_vehiculo char(30), activo char(1),
 					primary key(empleado_id));
@@ -139,3 +146,9 @@ create table pedido_mp(effdt date, num_pedido integer, materia_prima char(50), c
 					primary key(effdt, num_pedido, materia_prima),
 					foreign key(effdt, num_pedido) references pedido(effdt, num_pedido),
 					foreign key(materia_prima) references materia_prima(materia_prima));
+					
+					
+select mp.* from materia_prima mp
+where mp.materia_prima in (select mpc.materia_prima from mp_categoria mpc, mp_proveedor mpp
+				where mpc.categoria_id = mpp.categoria_id
+				and mpp.proveedor_id = 'COTOPROV');

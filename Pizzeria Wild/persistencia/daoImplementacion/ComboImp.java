@@ -16,11 +16,7 @@ public class ComboImp implements ComboDAO{
 	@Override
 	public List<ComboDTO> GetActivos() {
 		Statement stm = this.conecctor.GetStatement();
-		String sqlString = "select c.* from combo c " +
-							"where c.effdt = (select max(c1.effdt) from combo c1 " +
-											"where c1.combo_id = c.combo_id" +
-											"and c1.effdt <= curdate()) " +
-							"and c.estado = 'Y'";
+		String sqlString = "select c.* from combo c ";
 		ResultSet rs = null;
 		List<ComboDTO> combos = new ArrayList<ComboDTO>();
 		

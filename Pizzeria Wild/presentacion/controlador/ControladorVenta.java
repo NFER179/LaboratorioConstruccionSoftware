@@ -58,6 +58,7 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.getBtnRepartidores().addActionListener(this);
 		this.vtVenta.getBtnClientes().addActionListener(this);
 		this.vtVenta.getBtnProductos().addActionListener(this);
+		this.vtVenta.getBtnCombos().addActionListener(this);
 		this.vtVenta.getBtnBackUp().addActionListener(this);
 		this.vtVenta.getBtnEnviar().addActionListener(this);
 		this.vtVenta.getBtnEnViaje().addActionListener(this);
@@ -268,6 +269,11 @@ public class ControladorVenta implements ActionListener {
 		ctr.Inicializar();
 		this.vtVenta.Close();
 	}
+	
+	private void Combos() {
+		ControladorCombo ctr = new ControladorCombo(this);
+		ctr.Inicializar();		
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
@@ -289,6 +295,8 @@ public class ControladorVenta implements ActionListener {
 			this.Cliente();
 		} else if (source == vista.getBtnProductos()) {
 			this.Producto();
+		} else if (source == vista.getBtnCombos()) {
+			this.Combos();
 		} else if (source == vista.getBtnBackUp()) {
 			accionBackUp();
 		} else if (source == vista.getBtnEnviar()) {

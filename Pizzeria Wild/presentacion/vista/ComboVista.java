@@ -21,14 +21,13 @@ import javax.swing.ImageIcon;
 public class ComboVista extends JFrame {
 
 	private JPanel contentPane;
-	private String[] nombreColumna = {"Id", "Descripcion", "Activo"};
+	private String[] nombreColumna = {"Id", "Descripcion"};
 	private DefaultTableModel modelTable;
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JButton btnAgregar;
 	private JButton btnModificar;
 	private JButton btnAceptar;
-	private JButton btnCancelar;
 	private JLabel lblNewLabel;
 
 	public ComboVista() {
@@ -68,17 +67,11 @@ public class ComboVista extends JFrame {
 		btnModificar.setBounds(375, 87, 140, 40);
 		contentPane.add(btnModificar);
 		
-		btnAceptar = new JButton(" Aceptar");
+		btnAceptar = new JButton("Volver");
 		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/OK.png")));
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAceptar.setBounds(225, 335, 140, 40);
+		btnAceptar.setBounds(375, 338, 140, 40);
 		contentPane.add(btnAceptar);
-		
-		btnCancelar = new JButton(" Cancelar");
-		btnCancelar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/salir.png")));
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(375, 335, 140, 40);
-		contentPane.add(btnCancelar);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
@@ -116,7 +109,5 @@ public class ComboVista extends JFrame {
 	public JButton getBtnAceptar() {
 		return btnAceptar;
 	}
-	public JButton getBtnCancelar() {
-		return btnCancelar;
-	}
+
 }
