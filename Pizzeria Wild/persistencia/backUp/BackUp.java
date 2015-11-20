@@ -66,8 +66,7 @@ public class BackUp {
 	private static String getDocument(String path)
 			throws FileNotFoundException, IOException {
 		String objString = new String();
-		StringBuffer objSB = new StringBuffer();
-		// String path = String.format(backUpPath, path);
+		StringBuffer objSB = new StringBuffer(); 
 		FileReader objFR = new FileReader(new File(path));
 		BufferedReader objBR = new BufferedReader(objFR);
 		while ((objString = objBR.readLine()) != null) {

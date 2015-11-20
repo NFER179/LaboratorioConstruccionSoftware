@@ -10,6 +10,7 @@ import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjReporteMejoresClientes;
 import clasesImpresiones.ObjReporteReparto;
 import clasesImpresiones.ObjReporteVentas;
+import clasesImpresiones.ObjReporteVentass;
 
 import dto.ClienteReporteDTO;
 import dto.ProductoDTO;
@@ -59,7 +60,7 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	private void CargarComboBox() {
-		/*Cargar repartidores*/
+		/* Cargar repartidores */
 		this.vtReporte.getComboBox().removeAllItems();
 
 		DefaultComboBoxModel<String> modelCombo = new DefaultComboBoxModel<>();
@@ -117,7 +118,7 @@ public class ControladorReporte implements ActionListener {
 		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
 				this.vtReporte);
 		ctr.Inicializar();
-		//NICOF
+		// NICOF
 		String from = this.datefrom;
 		String to = this.dateTo;
 		int idRepartidor = Integer.parseInt(this.vtReporte.getComboBox()
@@ -140,8 +141,9 @@ public class ControladorReporte implements ActionListener {
 							"La aplicacion a tenido problemas para imprimir el documento");
 				}
 			}
-			if(lista.size()==0){
-				Msj.info("Informacion", "El rango de fecha y el repartidor seleccionados no devolvieron datos");
+			if (lista.size() == 0) {
+				Msj.info("Informacion",
+						"El rango de fecha y el repartidor seleccionados no devolvieron datos");
 			}
 		} catch (Exception e) {
 			Msj.error("Error de coneccion",
@@ -156,15 +158,15 @@ public class ControladorReporte implements ActionListener {
 		try {
 			// NICOF
 			this.ejecutarReporte = true;
-			ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
-					this.vtReporte);
-			ctr.Inicializar(); 
-			lista = reportes.GetVentas(this.datefrom,this.dateTo);
+			ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(
+					this, this.vtReporte);
+			ctr.Inicializar();
+			lista = reportes.GetVentas(this.datefrom, this.dateTo);
 			// NICOF
 			int dia = 0;
 			int semana = 0;
-			ObjReporteVentas reporte = new ObjReporteVentas(Fecha.CurrentDate(), "",
-					dia, semana, lista);
+			ObjReporteVentass reporte = new ObjReporteVentass(this.datefrom,
+					this.dateTo, lista);
 			try {
 				Impresiones.ImprimirReporteVentas(reporte);
 			} catch (Exception e) {

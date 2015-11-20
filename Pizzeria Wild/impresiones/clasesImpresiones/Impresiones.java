@@ -185,13 +185,13 @@ public class Impresiones {
 
 	// TOTEST:
 
-	public static void ImprimirReporteVentas(ObjReporteVentas reporte)
-			throws Exception {
-		int totalHojas = reporte.getCantidadHojas();
-		for (int i = 1; i <= totalHojas; i++) {
-			imprimirHojaReporteVentas(reporte, i, totalHojas);
-		}
-	}
+//	public static void ImprimirReporteVentas(ObjReporteVentas reporte)
+//			throws Exception {
+//		int totalHojas = reporte.getCantidadHojas();
+//		for (int i = 1; i <= totalHojas; i++) {
+//			imprimirHojaReporteVentas(reporte, i, totalHojas);
+//		}
+//	}
 
 	public static void ImprimirReporteVentas(ObjReporteVentass reporte)
 			throws Exception {
