@@ -49,6 +49,7 @@ public class ControladorReporte implements ActionListener {
 		this.vtReporte.Open();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void CargarComboBox() {
 		/* Cargar repartidores */
 		this.vtReporte.getComboBox().removeAllItems();

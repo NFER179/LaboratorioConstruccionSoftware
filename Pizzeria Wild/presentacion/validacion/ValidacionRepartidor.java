@@ -1,7 +1,5 @@
 package validacion;
 
-import javax.swing.JOptionPane;
-
 import utilidades.Msj;
 import vista.RepartidorVista;
 
