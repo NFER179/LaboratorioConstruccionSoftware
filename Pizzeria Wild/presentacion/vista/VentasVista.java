@@ -1,3 +1,4 @@
+
 package vista;
 
 import javax.swing.JFrame;
@@ -17,6 +18,10 @@ import javax.swing.JMenu;
 import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.Toolkit;
+import java.awt.Font;
+import java.awt.Color;
 
 @SuppressWarnings("serial")
 public class VentasVista extends JFrame {
@@ -25,7 +30,7 @@ public class VentasVista extends JFrame {
 	private JButton btnSolicitudes;
 	private JButton btnCategorias;
 	private JButton btnReportes;
-//	private JButton btnMateriasPrimas;
+	private JButton btnMateriasPrimas;
 	private JTable tableVentas;
 	private DefaultTableModel modelVentas;
 	private String[] nombreColumnas = { "Fecha", "Nº Venta", "Cliente",
@@ -41,7 +46,9 @@ public class VentasVista extends JFrame {
 	private JButton btnVentaEntregada;
 	private JButton btnSalir;
 	private JButton btnProveedores;
+
 	private JButton btnCombos;
+
 	private JButton btnBackUp;
 	private JLabel lblVentasDelDia;
 	private JButton btnRepartidores;
@@ -65,6 +72,7 @@ public class VentasVista extends JFrame {
 	}
 
 	public VentasVista() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(VentasVista.class.getResource("/Iconos/pizza_1.PNG")));
 		try {
 			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 		}
@@ -79,62 +87,76 @@ public class VentasVista extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Ventas");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 994, 419);
+		this.setBounds(0, 0, 1080, 740);
 		
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
-		this.setLocationRelativeTo(null);
-		
-		lblVentasDelDia = new JLabel("Ventas del Dia:");
-		lblVentasDelDia.setBounds(160, 11, 140, 14);
+		//this.setLocationRelativeTo(null);
+//////////////////////////////////////////////////////////////		
+	btnCombos = new JButton("Combos");
+	btnCombos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCombos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnCombos.setBounds(10, 426, 140, 40);
+		contentPane.add(btnCombos);
+
+//////////////////////////////////////////////////////////////
+
+
+	lblVentasDelDia = new JLabel("Ventas del Dia:");
+		lblVentasDelDia.setForeground(Color.WHITE);
+		lblVentasDelDia.setBackground(Color.WHITE);
+		lblVentasDelDia.setFont(new Font("Tahoma", Font.BOLD, 13));
+		lblVentasDelDia.setBounds(160, 11, 140, 25);
 		contentPane.add(lblVentasDelDia);
 		
 		btnSolicitudes = new JButton("Solicitudes");
-		btnSolicitudes.setBounds(10, 36, 140, 23);
+		btnSolicitudes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSolicitudes.setBounds(10, 33, 140, 40);
 		contentPane.add(btnSolicitudes);
 		
 		btnCategorias = new JButton("Categorias");
-		btnCategorias.setBounds(10, 70, 140, 23);
+		btnCategorias.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCategorias.setBounds(10, 135, 140, 40);
 		contentPane.add(btnCategorias);
 		
-//		btnMateriasPrimas = new JButton("Materias Primas");
-//		btnMateriasPrimas.setBounds(10, 104, 140, 23);
-//		contentPane.add(btnMateriasPrimas);
+		btnMateriasPrimas = new JButton("Materias Primas");
+		btnMateriasPrimas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnMateriasPrimas.setBounds(10, 84, 140, 40);
+		contentPane.add(btnMateriasPrimas);
 		
 		btnReportes = new JButton("Reportes");
-		//		btnReportes.setBounds(10, 138, 140, 23);
-		btnReportes.setBounds(10, 104, 140, 23);
+		btnReportes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnReportes.setBounds(10, 525, 140, 40);
 		contentPane.add(btnReportes);
 		
 		btnProveedores = new JButton("Proveedores");
-		//btnProveedores.setBounds(10, 172, 140, 23);
-		btnProveedores.setBounds(10, 138, 140, 23);
+		btnProveedores.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnProveedores.setBounds(10, 219, 140, 40);
 		contentPane.add(btnProveedores);
 		
 		btnRepartidores = new JButton("Repartidores");
-		//btnRepartidores.setBounds(10, 206, 140, 23);
-		btnRepartidores.setBounds(10, 172, 140, 23);
+		btnRepartidores.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnRepartidores.setBounds(10, 321, 140, 40);
 		contentPane.add(btnRepartidores);
 		
 		btnClientes = new JButton("Clientes");
-		//btnClientes.setBounds(10, 240, 140, 23);
-		btnClientes.setBounds(10, 206, 140, 23);
+		btnClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnClientes.setBounds(10, 372, 140, 40);
 		contentPane.add(btnClientes);
 		
 		btnProductos = new JButton("Productos");
-		//btnProductos.setBounds(10, 274, 140, 23);
-		btnProductos.setBounds(10, 240, 140, 23);
+		btnProductos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnProductos.setBounds(10, 270, 140, 40);
 		contentPane.add(btnProductos);
 		
-		btnCombos = new JButton("Combos");
-		btnCombos.setBounds(10, 274, 140, 23);
-		contentPane.add(btnCombos);
-		
 		btnBackUp = new JButton("Back Up");
-		//btnBackUp.setBounds(10, 308, 140, 23);
-		btnBackUp.setBounds(10, 308, 140, 23);
+		btnBackUp.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnBackUp.setBounds(10, 576, 140, 40);
 		contentPane.add(btnBackUp);
 		
 //		JMenuBar menuBar_1 = new JMenuBar();
@@ -172,7 +194,7 @@ public class VentasVista extends JFrame {
 //		mnMateriasPrimas.add(mntmEditarSolicitudesGuardadas);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(160, 36, 668, 306);
+		scrollPane.setBounds(160, 36, 745, 580);
 		this.contentPane.add(scrollPane);
 
 		this.modelVentas = new WDefaultTableModel(null, this.nombreColumnas);
@@ -180,44 +202,61 @@ public class VentasVista extends JFrame {
 		scrollPane.setViewportView(tableVentas);
 
 		this.btnEnviar = new JButton("Enviar");
-		this.btnEnviar.setBounds(838, 36, 140, 23);
+		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnviar.setBounds(924, 270, 140, 40);
 		this.contentPane.add(btnEnviar);
 
 		this.btnEnViaje = new JButton("En Viaje");
-		this.btnEnViaje.setBounds(838, 70, 140, 23);
+		btnEnViaje.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnViaje.setBounds(924, 321, 140, 40);
 		this.contentPane.add(btnEnViaje);
 
 		this.btnEnMostrador = new JButton("En mostrador");
-		this.btnEnMostrador.setBounds(838, 104, 140, 23);
+		btnEnMostrador.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnEnMostrador.setBounds(924, 186, 140, 40);
 		this.contentPane.add(btnEnMostrador);
 
 		this.btnInformacin = new JButton("Informaci\u00F3n");
-		this.btnInformacin.setBounds(838, 138, 140, 23);
+		btnInformacin.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnInformacin.setBounds(924, 449, 140, 40);
 		this.contentPane.add(btnInformacin);
 
 		this.btnModificar = new JButton("Modificar");
-		this.btnModificar.setBounds(838, 172, 140, 23);
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnModificar.setBounds(924, 372, 140, 40);
 		this.contentPane.add(btnModificar);
 		
 		btnTodasLasVentas = new JButton("Todas las Ventas");
-		btnTodasLasVentas.setBounds(838, 206, 140, 23);
+		btnTodasLasVentas.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnTodasLasVentas.setBounds(924, 500, 140, 40);
 		contentPane.add(btnTodasLasVentas);
 		
 		this.btnNuevaVenta = new JButton("Nueva Venta");
-		this.btnNuevaVenta.setBounds(160, 353, 140, 23);
+		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnNuevaVenta.setBounds(924, 33, 140, 40);
 		this.contentPane.add(btnNuevaVenta);
 		
 		this.btnCancelarVenta = new JButton("Cancelar Venta");
-		this.btnCancelarVenta.setBounds(310, 353, 140, 23);
+		btnCancelarVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnCancelarVenta.setBounds(924, 84, 140, 40);
 		this.contentPane.add(btnCancelarVenta);
 		
 		this.btnVentaEntregada = new JButton("Venta Entregada");
-		this.btnVentaEntregada.setBounds(460, 353, 140, 23);
+		btnVentaEntregada.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnVentaEntregada.setBounds(924, 135, 140, 40);
 		this.contentPane.add(btnVentaEntregada);
 
-		this.btnSalir = new JButton("Salir");
-		this.btnSalir.setBounds(610, 353, 140, 23);
+		this.btnSalir = new JButton(" Salir");
+		btnSalir.setBackground(new Color(255, 228, 196));
+		btnSalir.setIcon(new ImageIcon(VentasVista.class.getResource("/Iconos/salir.png")));
+		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnSalir.setBounds(924, 645, 140, 40);
 		this.contentPane.add(btnSalir);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(VentasVista.class.getResource("/Iconos/catering_pizzetas_y_empanadas.png")));
+		lblNewLabel.setBounds(0, 0, 1074, 708);
+		contentPane.add(lblNewLabel);
 	}
 
 //	public JMenuItem getMntmReporteSemanal() {
@@ -330,9 +369,9 @@ public class VentasVista extends JFrame {
 		return btnReportes;
 	}
 
-//	public JButton getBtnMateriasPrimas() {
-//		return btnMateriasPrimas;
-//	}
+	public JButton getBtnMateriasPrimas() {
+		return btnMateriasPrimas;
+	}
 
 	public JButton getBtnProveedores() {
 		return btnProveedores;
@@ -354,8 +393,12 @@ public class VentasVista extends JFrame {
 		return btnProductos;
 	}
 
-	public JButton getBtnCombos() {
+////////////////////////////////////////////
+public JButton getBtnCombos() {
 		return btnCombos;
 	}
-	
+
+///////////////////////////////////////////
+
+
 }
