@@ -6,6 +6,9 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class CreacionMateriaPrimaVista extends JDialog {
 
@@ -14,6 +17,7 @@ public class CreacionMateriaPrimaVista extends JDialog {
 	private JComboBox comboBox;
 	private JButton btnCrear;
 	private JButton btnCancelar;
+	private JLabel lblNewLabel;
 //	private DefaultComboBoxModel modelCbxCategoria;
 //	private String[] valoresCbxCategoria  = {"Ninguno"};
 //	private JComboBox cbbCategoria;
@@ -21,36 +25,49 @@ public class CreacionMateriaPrimaVista extends JDialog {
 //	public CreacionMateriaPrimaVista(MateriaPrimaVista MPV) {
 	public CreacionMateriaPrimaVista(CategoriaDetalleVista CDV ) {
 		super(CDV, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CreacionMateriaPrimaVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		this.setTitle("Nueva Materia Prima");
-		this.setBounds(100, 100, 303, 190);
+		this.setTitle(" Nueva Materia Prima");
+		this.setBounds(100, 100, 342, 271);
 		this.getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblMateriaPrima = new JLabel("Materia Prima:");
-		lblMateriaPrima.setBounds(10, 11, 90, 14);
+		lblMateriaPrima.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblMateriaPrima.setBounds(10, 11, 90, 25);
 		getContentPane().add(lblMateriaPrima);
 		
 		this.txtMateriaprima = new JTextField();
-		this.txtMateriaprima.setBounds(10, 36, 270, 20);
+		this.txtMateriaprima.setBounds(10, 36, 270, 25);
 		getContentPane().add(this.txtMateriaprima);
 		this.txtMateriaprima.setColumns(10);
 		
 		JLabel lblUnidad = new JLabel("Unidad:");
-		lblUnidad.setBounds(10, 67, 90, 14);
+		lblUnidad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblUnidad.setBounds(10, 67, 90, 25);
 		getContentPane().add(lblUnidad);
 		
 		this.comboBox = new JComboBox(this.valoresComboBox);
-		this.comboBox.setBounds(10, 92, 90, 20);
+		comboBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.comboBox.setBounds(10, 92, 90, 25);
 		getContentPane().add(this.comboBox);
 		
-		this.btnCrear = new JButton("Crear");
-		this.btnCrear.setBounds(92, 123, 89, 23);
+		this.btnCrear = new JButton(" Crear");
+		btnCrear.setIcon(new ImageIcon(CreacionMateriaPrimaVista.class.getResource("/Iconos/Guardar.png")));
+		btnCrear.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnCrear.setBounds(26, 182, 140, 40);
 		getContentPane().add(this.btnCrear);
 		
-		this.btnCancelar = new JButton("Cancelar");
-		this.btnCancelar.setBounds(191, 123, 89, 23);
+		this.btnCancelar = new JButton(" Cancelar");
+		btnCancelar.setIcon(new ImageIcon(CreacionMateriaPrimaVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.btnCancelar.setBounds(176, 182, 140, 40);
 		getContentPane().add(this.btnCancelar);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(CreacionMateriaPrimaVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(147, 11, 169, 172);
+		getContentPane().add(lblNewLabel);
 		
 //		JLabel lblCategoria = new JLabel("Categoria:");
 //		lblCategoria.setBounds(110, 67, 90, 14);

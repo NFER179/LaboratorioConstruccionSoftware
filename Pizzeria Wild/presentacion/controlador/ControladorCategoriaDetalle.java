@@ -31,7 +31,7 @@ public class ControladorCategoriaDetalle implements ActionListener {
 		this.vtCategoriadetalle.getBtnAgregar().addActionListener(this);
 		this.vtCategoriadetalle.getBtnModificarMt().addActionListener(this);
 		this.vtCategoriadetalle.getBtnQuitar().addActionListener(this);
-		this.vtCategoriadetalle.getBtnCambiarMt().addActionListener(this);
+	//	this.vtCategoriadetalle.getBtnCambiarMt().addActionListener(this);
 		this.vtCategoriadetalle.getBtnGuardar().addActionListener(this);
 		this.vtCategoriadetalle.getBtnCancelar().addActionListener(this);
 		
@@ -198,9 +198,9 @@ public class ControladorCategoriaDetalle implements ActionListener {
 		else if(arg0.getSource() == this.vtCategoriadetalle.getBtnQuitar()) {
 			this.QuitarAsignacion();
 		}
-		else if(arg0.getSource() == this.vtCategoriadetalle.getBtnCambiarMt()) {
-			
-		}
+//		else if(arg0.getSource() == this.vtCategoriadetalle.getBtnCambiarMt()) {
+//			
+//		}
 		else if(arg0.getSource() == this.vtCategoriadetalle.getBtnGuardar()) {
 			this.Guardar();
 			this.vtCategoriadetalle.Close();

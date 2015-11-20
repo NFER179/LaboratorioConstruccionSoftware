@@ -25,7 +25,6 @@ public class CategoriaDetalleVista extends JDialog {
 	private JButton btnModificarMt;
 	private JButton btnQuitar;
 	private JButton btnGuardar;
-	private JButton btnCambiarMt;
 	private JButton btnCancelar;
 	private JLabel lblNewLabel;
 
@@ -70,19 +69,19 @@ public class CategoriaDetalleVista extends JDialog {
 		btnAgregar = new JButton("Agregar MT");
 		btnAgregar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Agregar.png")));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAgregar.setBounds(313, 179, 140, 40);
+		btnAgregar.setBounds(313, 204, 140, 40);
 		getContentPane().add(btnAgregar);
 		
 		btnModificarMt = new JButton("Modificar MT");
 		btnModificarMt.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/modificar.png")));
 		btnModificarMt.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnModificarMt.setBounds(313, 238, 140, 40);
+		btnModificarMt.setBounds(313, 277, 140, 40);
 		getContentPane().add(btnModificarMt);
 		
 		btnQuitar = new JButton("Quitar MT");
 		btnQuitar.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Quitar.png")));
 		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnQuitar.setBounds(313, 289, 140, 40);
+		btnQuitar.setBounds(313, 340, 140, 40);
 		getContentPane().add(btnQuitar);
 		
 		btnGuardar = new JButton("Guardar");
@@ -96,11 +95,6 @@ public class CategoriaDetalleVista extends JDialog {
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCancelar.setBounds(313, 425, 140, 40);
 		getContentPane().add(btnCancelar);
-		
-		btnCambiarMt = new JButton("Cambiar MT");
-		btnCambiarMt.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCambiarMt.setBounds(313, 340, 140, 40);
-		getContentPane().add(btnCambiarMt);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CategoriaDetalleVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
@@ -160,7 +154,7 @@ public class CategoriaDetalleVista extends JDialog {
 		return btnModificarMt;
 	}
 
-	public JButton getBtnCambiarMt() {
-		return btnCambiarMt;
-	}
+//	public JButton getBtnCambiarMt() {
+//		return btnCambiarMt;
+//	}
 }

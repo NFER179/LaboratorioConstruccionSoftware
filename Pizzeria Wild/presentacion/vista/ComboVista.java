@@ -31,8 +31,8 @@ public class ComboVista extends JFrame {
 	private JLabel lblNewLabel;
 
 	public ComboVista() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ComboVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ComboVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setTitle(" Combo");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 534, 418);
@@ -67,15 +67,15 @@ public class ComboVista extends JFrame {
 		btnModificar.setBounds(375, 87, 140, 40);
 		contentPane.add(btnModificar);
 		
-		btnAceptar = new JButton("Volver");
-		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/OK.png")));
+		btnAceptar = new JButton(" Volver");
+		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Volver.png")));
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAceptar.setBounds(375, 338, 140, 40);
 		contentPane.add(btnAceptar);
 		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
-		lblNewLabel.setBounds(397, 178, 98, 96);
+		lblNewLabel.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(365, 151, 163, 158);
 		contentPane.add(lblNewLabel);
 	}
 	public void Open() {
