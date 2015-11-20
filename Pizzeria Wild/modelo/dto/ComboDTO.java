@@ -7,8 +7,9 @@ public class ComboDTO {
 	private String descripcion;
 	private int precio;
 	private boolean estado;
-	
-	public void ComboDTO(int ComboId, String Fecha, String Descripcion, int Precio, boolean Estado) {
+
+	public ComboDTO(int ComboId, String Fecha, String Descripcion, int Precio,
+			boolean Estado) {
 		this.comboId = ComboId;
 		this.fecha = Fecha;
 		this.descripcion = Descripcion;
@@ -49,10 +50,9 @@ public class ComboDTO {
 	}
 
 	public String getLongActivo() {
-		if(this.estado){
+		if (this.estado) {
 			return "Si";
-		}
-		else
+		} else
 			return "No";
 	}
 
@@ -63,6 +63,5 @@ public class ComboDTO {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
-	
+
 }
