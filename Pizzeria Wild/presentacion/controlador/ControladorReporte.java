@@ -7,7 +7,7 @@ import javax.swing.DefaultComboBoxModel;
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjReporteMejoresClientes;
 import clasesImpresiones.ObjReporteReparto;
-import clasesImpresiones.ObjReporteVentass;
+import clasesImpresiones.ObjReporteVentas;
 import dto.ClienteReporteDTO;
 import dto.RepartidoReporteDTO;
 import dto.RepartidorDTO;
@@ -156,7 +156,7 @@ public class ControladorReporte implements ActionListener {
 					Msj.info("Informacion",
 							"El rango de fechas seleccionadas no devolvieron datos");
 				} else {
-					ObjReporteVentass reporte = new ObjReporteVentass(
+					ObjReporteVentas reporte = new ObjReporteVentas(
 							this.datefrom, this.dateTo, lista);
 					try {
 						Impresiones.ImprimirReporteVentas(reporte);
