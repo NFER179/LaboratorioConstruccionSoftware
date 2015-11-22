@@ -228,11 +228,11 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.Close();
 	}
 
-	private void accionMateriaPrima() {
-		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
-		ctrMP.Inicializar();
-		this.vtVenta.Close();
-	}
+//	private void accionMateriaPrima() {
+//		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
+//		ctrMP.Inicializar();
+//		this.vtVenta.Close();
+//	}
 
 	private void accionCategorias() {
 		ControladorCategoria ctrCategoria = new ControladorCategoria(this);

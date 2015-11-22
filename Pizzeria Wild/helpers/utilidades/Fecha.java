@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import modelo.VentaModelo;
@@ -126,5 +127,20 @@ public class Fecha {
 		}
 
 		return fechas;
+	}
+
+	public static String format(Date fecha){
+		String ret = "";
+		ret = formato.format(fecha);
+		return ret;
+	}
+
+	@SuppressWarnings("deprecation")
+	public static int numSemana(Date fecha){ 
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR, fecha.getYear());
+		c.set(Calendar.MONTH, fecha.getMonth());
+		c.set(Calendar.DATE, fecha.getDate());
+		return c.get(Calendar.WEEK_OF_YEAR);
 	}
 }

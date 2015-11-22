@@ -4,17 +4,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
-
-import dto.CategoriaDTO;
-import dto.MateriaPrimaDTO;
-
-import modelo.CategoriaModelo;
-import modelo.MateriaPrimaModelo;
+ 
+import dto.MateriaPrimaDTO; 
 
 import validacion.ValidacionCreacionMateriaPrima;
 import vista.CategoriaDetalleVista;
-import vista.CreacionMateriaPrimaVista;
-import vista.MateriaPrimaVista;
+import vista.CreacionMateriaPrimaVista; 
 
 public class ControladorCreacionMateriaPrima implements ActionListener {
 

@@ -5,8 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
@@ -16,8 +14,6 @@ import javax.print.PrintServiceLookup;
 import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
-
-import modelo.ReportesModelo;
 
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjReporteItinerario.objPuntoItinerario;
@@ -43,75 +39,28 @@ public class Impresiones {
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
 	private static DecimalFormat formato = new DecimalFormat("##.##");
 
-	public static void main(String[] args) {
-		try {
-			ticketComandaTest();
-		} catch (Exception e) {
-			System.out.println("MACANAS");
-			System.out.println(e.toString());
-		}
-	}
-
-	private static void repartidores() throws Exception {
-		ReportesModelo model = new ReportesModelo();
-		List<RepartidoReporteDTO> lista = model.GetRepartidores("2015-11-13",
-				pdfResultPath, 1);
-
-		ObjReporteReparto reporte = new ObjReporteReparto("2010-1-1",
-				"Fulano mengano", lista);
-		ImprimirReporteReparto(reporte);
-	}
-
-	private static void ticketComandaTest() throws Exception {
-		ObjReporteComandaTicket comanda = new ObjReporteComandaTicket(
-				new ObjDatosCliente("Pepe", "CCC 888", "0303456"), "12-12-12",
-				33, "Objseraskjd clienbte ", "obs delivery", null, null);
-		List<ObjProductoTicketComanda> a = new ArrayList<ObjProductoTicketComanda>();
-		a.add(new ObjProductoTicketComanda(1, 50, "bebida", "3"));
-		a.add(new ObjProductoTicketComanda(2, 50, "bebida", "3"));
-		a.add(new ObjProductoTicketComanda(30, 50, "bebida", "3"));
-		a.add(new ObjProductoTicketComanda(40, 50, "bebida", "3"));
-		a.add(new ObjProductoTicketComanda(50, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(60, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(70, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(80, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(90, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(100, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(110, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(120, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(130, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(140, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(150, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(160, 50, "materia", "3"));
-		a.add(new ObjProductoTicketComanda(170, 50, "materia", "3"));
-		comanda.setListaProductos(a);
-
-		List<ObjProductoTicketComanda> ab = new ArrayList<ObjProductoTicketComanda>();
-		ab.add(new ObjProductoTicketComanda(50, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(60, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(70, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(80, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(90, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(100, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(110, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(120, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(130, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(140, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(150, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(160, 50, "materia", "3"));
-		ab.add(new ObjProductoTicketComanda(170, 50, "materia", "3"));
-
-		comanda.setListaCocina(ab);
-
-		ImprimirComandaTicket(comanda);
-	}
-
 	public static void ImprimirSolicitudMP(ObjReporteSolicitudMP solicitud)
 			throws IOException, DocumentException {
 		int totalHojas = solicitud.getCantidadHojas();
 		for (int i = 1; i <= totalHojas; i++) {
 			imprimirHojaSolicitudMP(solicitud, i, totalHojas);
 		}
+	}
+
+	public static void imprimir(ObjImprimible imprimible)
+			throws FileNotFoundException, IOException, DocumentException {
+		initAll(imprimible, imprimible.getId());
+		if (imprimible instanceof ObjReporteComandaTicket) {
+			ImprimirComandaTicket((ObjReporteComandaTicket) imprimible);
+		} else if (imprimible instanceof ObjReporteItinerario) {
+		} else if (imprimible instanceof ObjReporteVentas) {
+		} else if (imprimible instanceof ObjReporteReparto) {
+		} else if (imprimible instanceof ObjReporteSolicitudMP) {
+		} else if (imprimible instanceof ObjReporteMejoresClientes) {
+		}
+
+		closeAll();
+		imprimir();
 	}
 
 	public static void ImprimirComandaTicket(ObjReporteComandaTicket comanda)

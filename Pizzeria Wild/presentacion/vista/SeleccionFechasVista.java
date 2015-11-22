@@ -11,18 +11,17 @@ import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 
+import com.toedter.calendar.JMonthChooser;
+import com.toedter.calendar.JYearChooser;
+import com.toedter.calendar.JDateChooser;
+
 public class SeleccionFechasVista extends JDialog {
 
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroupMesAnio = new ButtonGroup();
 	private JRadioButton rdbtnPorDia;
 
-	private JComboBox cbxDia;
-
 	private JRadioButton rdbtnRangoDeFechas;
-
-	private JComboBox cbxFrom;
-	private JComboBox cbxTo;
 
 	private JRadioButton rdbtnOtro;
 
@@ -32,22 +31,26 @@ public class SeleccionFechasVista extends JDialog {
 	private JLabel lblAo;
 
 	private JRadioButton rdbtnMes;
-	private JTextField txtMes;
-
-	private JTextField txtSemana;
 	private JRadioButton rdbtnSemana;
-
-	private JTextField txtAnio;
 	private JLabel lblNewLabel;
+	private JMonthChooser txtMes;
+	private JYearChooser txtAnio;
+
+	private JDateChooser cbxDia;
+	private JDateChooser txtSemana;
+
+	private JDateChooser cbxFrom;
+	private JDateChooser cbxTo;
 
 	public SeleccionFechasVista(ReporteVista Vista) {
 		super(Vista, true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionFechasVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				SeleccionFechasVista.class.getResource("/Iconos/pizza_1.PNG")));
 
 		setResizable(false);
 		setTitle(" Seleccion Rango Fechas");
-		setBounds(100, 100, 356, 430);
+		setBounds(100, 100, 356, 401);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 
@@ -62,11 +65,6 @@ public class SeleccionFechasVista extends JDialog {
 		lblFecha.setBounds(30, 34, 85, 25);
 		getContentPane().add(lblFecha);
 
-		cbxDia = new JComboBox<Object>();
-		cbxDia.setEditable(false);
-		cbxDia.setBounds(85, 34, 109, 25);
-		getContentPane().add(cbxDia);
-
 		rdbtnRangoDeFechas = new JRadioButton("Rango de Fechas");
 		rdbtnRangoDeFechas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonGroup.add(rdbtnRangoDeFechas);
@@ -78,31 +76,23 @@ public class SeleccionFechasVista extends JDialog {
 		lblDesde.setBounds(30, 97, 85, 14);
 		getContentPane().add(lblDesde);
 
-		cbxFrom = new JComboBox<Object>();
-		cbxFrom.setEditable(false);
-		cbxFrom.setBounds(85, 94, 109, 20);
-		getContentPane().add(cbxFrom);
-
 		JLabel lblHasta = new JLabel("Hasta: ");
 		lblHasta.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblHasta.setBounds(30, 140, 46, 14);
+		lblHasta.setBounds(30, 128, 46, 14);
 		getContentPane().add(lblHasta);
 
-		cbxTo = new JComboBox<Object>();
-		cbxTo.setEditable(false);
-		cbxTo.setBounds(86, 137, 109, 20);
-		getContentPane().add(cbxTo);
-
 		btnAceptar = new JButton(" Aceptar");
-		btnAceptar.setIcon(new ImageIcon(SeleccionFechasVista.class.getResource("/Iconos/OK.png")));
+		btnAceptar.setIcon(new ImageIcon(SeleccionFechasVista.class
+				.getResource("/Iconos/OK.png")));
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAceptar.setBounds(54, 344, 140, 40);
+		btnAceptar.setBounds(30, 318, 140, 40);
 		getContentPane().add(btnAceptar);
 
 		btnCancelar = new JButton(" Cancelar");
-		btnCancelar.setIcon(new ImageIcon(SeleccionFechasVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setIcon(new ImageIcon(SeleccionFechasVista.class
+				.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(200, 344, 140, 40);
+		btnCancelar.setBounds(176, 318, 140, 40);
 		getContentPane().add(btnCancelar);
 
 		rdbtnOtro = new JRadioButton("Otro");
@@ -113,42 +103,71 @@ public class SeleccionFechasVista extends JDialog {
 
 		lblAo = new JLabel("A\u00F1o:");
 		lblAo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblAo.setBounds(47, 198, 33, 14);
+		lblAo.setBounds(30, 198, 33, 14);
 		getContentPane().add(lblAo);
 
 		rdbtnMes = new JRadioButton("Mes");
 		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonGroupMesAnio.add(rdbtnMes);
-		rdbtnMes.setBounds(47, 257, 62, 23);
+		rdbtnMes.setBounds(28, 232, 49, 23);
 		getContentPane().add(rdbtnMes);
 
 		rdbtnSemana = new JRadioButton("Semana");
 		rdbtnSemana.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonGroupMesAnio.add(rdbtnSemana);
-		rdbtnSemana.setBounds(47, 227, 79, 23);
+		rdbtnSemana.setBounds(30, 270, 76, 23);
 		getContentPane().add(rdbtnSemana);
 		rdbtnSemana.setSelected(true);
 
-		txtMes = new JTextField();
-		txtMes.setBounds(126, 256, 26, 24);
-		getContentPane().add(txtMes);
-		txtMes.setColumns(10);
-
-		txtSemana = new JTextField();
-		txtSemana.setBounds(126, 227, 26, 23);
-		getContentPane().add(txtSemana);
-		txtSemana.setColumns(10);
-
-		txtAnio = new JTextField();
-		txtAnio.setBounds(76, 194, 39, 23);
-		getContentPane().add(txtAnio);
-		txtAnio.setColumns(10);
-		
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(SeleccionFechasVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
-		lblNewLabel.setBounds(177, 150, 163, 193);
+		lblNewLabel.setIcon(new ImageIcon(SeleccionFechasVista.class
+				.getResource("/Iconos/Logo Pizzeria Wild .png")));
+		lblNewLabel.setBounds(215, 97, 163, 193);
 		getContentPane().add(lblNewLabel);
 
+		txtMes = new JMonthChooser();
+		txtMes.setBounds(76, 232, 104, 20);
+		getContentPane().add(txtMes);
+
+		cbxDia = new JDateChooser();
+		cbxDia.setBounds(67, 37, 178, 20);
+		getContentPane().add(cbxDia);
+
+		cbxFrom = new JDateChooser();
+		cbxFrom.setBounds(67, 94, 178, 20);
+		getContentPane().add(cbxFrom);
+
+		cbxTo = new JDateChooser();
+		cbxTo.setBounds(67, 122, 178, 20);
+		getContentPane().add(cbxTo);
+
+		txtAnio = new JYearChooser();
+		txtAnio.setBounds(60, 195, 47, 20);
+		// JTextFieldDateEditor editor = (JTextFieldDateEditor)
+		// txtAnio.getDateEditor();
+		// editor.setEditable(false);
+		getContentPane().add(txtAnio);
+
+		txtSemana = new JDateChooser();
+		txtSemana.setBounds(106, 270, 169, 20);
+		getContentPane().add(txtSemana);
+
+	}
+
+	public JYearChooser getTxtAnio() {
+		return txtAnio;
+	}
+
+	public void setTxtAnio(JYearChooser txtAnio) {
+		this.txtAnio = txtAnio;
+	}
+
+	public JMonthChooser getTxtMes() {
+		return txtMes;
+	}
+
+	public void setTxtMes(JMonthChooser txtMes) {
+		this.txtMes = txtMes;
 	}
 
 	public void Open() {
@@ -167,20 +186,8 @@ public class SeleccionFechasVista extends JDialog {
 		return rdbtnPorDia;
 	}
 
-	public JComboBox getCbxDia() {
-		return cbxDia;
-	}
-
 	public JRadioButton getRdbtnRangoDeFechas() {
 		return rdbtnRangoDeFechas;
-	}
-
-	public JComboBox getCbxFrom() {
-		return cbxFrom;
-	}
-
-	public JComboBox getCbxTo() {
-		return cbxTo;
 	}
 
 	public JRadioButton getRdbtnOtro() {
@@ -207,20 +214,36 @@ public class SeleccionFechasVista extends JDialog {
 		this.rdbtnMes = rdbtnMes;
 	}
 
-	public JTextField getTxtMes() {
-		return txtMes;
-	}
-
-	public void setTxtMes(JTextField txtMes) {
-		this.txtMes = txtMes;
-	}
-
-	public JTextField getTxtSemana() {
+	public JDateChooser getTxtSemana() {
 		return txtSemana;
 	}
 
-	public void setTxtSemana(JTextField txtSemana) {
+	public void setTxtSemana(JDateChooser txtSemana) {
 		this.txtSemana = txtSemana;
+	}
+
+	public JDateChooser getCbxDia() {
+		return cbxDia;
+	}
+
+	public void setCbxDia(JDateChooser cbxDia) {
+		this.cbxDia = cbxDia;
+	}
+
+	public JDateChooser getCbxFrom() {
+		return cbxFrom;
+	}
+
+	public void setCbxFrom(JDateChooser cbxFrom) {
+		this.cbxFrom = cbxFrom;
+	}
+
+	public JDateChooser getCbxTo() {
+		return cbxTo;
+	}
+
+	public void setCbxTo(JDateChooser cbxTo) {
+		this.cbxTo = cbxTo;
 	}
 
 	public JRadioButton getRdbtnSemana() {
@@ -229,13 +252,5 @@ public class SeleccionFechasVista extends JDialog {
 
 	public void setRdbtnSemana(JRadioButton rdbtnSemana) {
 		this.rdbtnSemana = rdbtnSemana;
-	}
-
-	public JTextField getTxtAnio() {
-		return txtAnio;
-	}
-
-	public void setTxtAnio(JTextField txtAnio) {
-		this.txtAnio = txtAnio;
 	}
 }

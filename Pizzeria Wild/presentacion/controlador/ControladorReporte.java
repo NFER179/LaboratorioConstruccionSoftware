@@ -62,13 +62,17 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	// REGION COMPARTIDA
-	public void SetRangoFechas(String From, String To) {
+	public void fechaFin(String From, String To) {
 		this.datefrom = From;
 		this.dateTo = To;
 	}
 
 	public void NoEjecutarReporte() {
 		this.ejecutarReporte = false;
+	}
+
+	public void EjecutarReporte() {
+		this.ejecutarReporte = true;
 	}
 
 	// REGION ACCIONES
@@ -143,23 +147,28 @@ public class ControladorReporte implements ActionListener {
 			try {
 				List<VentaReporteDTO> lista = reportes.GetVentas(this.datefrom,
 						this.dateTo);
-				if (lista.size() == 0) {
+				boolean laListaEstaVacia = lista.size() == 0;
+				if (laListaEstaVacia) {
 					Msj.info("Informacion",
 							"El rango de fechas seleccionadas no devolvieron datos");
 				} else {
-					ObjReporteVentas reporte = new ObjReporteVentas(
-							this.datefrom, this.dateTo, lista);
-					try {
-						Impresiones.ImprimirReporteVentas(reporte);
-					} catch (Exception e) {
-						Msj.error("Error de impresion",
-								"La aplicacion a tenido problemas para imprimir el documento");
-					}
+					imprimirReporteVentas(lista);
 				}
 			} catch (Exception e) {
 				Msj.error("Error de coneccion",
 						"La aplicacion a tenido problemas para conectarse a la base de datos");
 			}
+		}
+	}
+
+	private void imprimirReporteVentas(List<VentaReporteDTO> lista) {
+		ObjReporteVentas reporte = new ObjReporteVentas(this.datefrom,
+				this.dateTo, lista);
+		try {
+			Impresiones.ImprimirReporteVentas(reporte);
+		} catch (Exception e) {
+			Msj.error("Error de impresion",
+					"La aplicacion a tenido problemas para imprimir el documento");
 		}
 	}
 
@@ -177,7 +186,7 @@ public class ControladorReporte implements ActionListener {
 		}
 		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
 				this.vtReporte);
-		ctr.Inicializar(); 
+		ctr.Inicializar();
 		if (source == this.vtReporte.getBtnVentasDelDia()) {
 			accionVentasDelDia();
 		} else if (source == this.vtReporte.getBtnMejoresClientes()) {
@@ -188,5 +197,10 @@ public class ControladorReporte implements ActionListener {
 			this.accionReporteVentas();
 		}
 	}
+
+	public void SetRangoFechas(String from, String to) {
+		this.datefrom = from;
+		this.dateTo = to;
+	} 
 
 }
