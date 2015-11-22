@@ -26,7 +26,7 @@ public class ControladorReporte implements ActionListener {
 	private String datefrom = "";
 	private String dateTo = "";
 	private RepartidorModelo mdlRepartidor;
-	private boolean ejecutarReporte;
+	private boolean ejecutarReporte = true;
 
 	public ControladorReporte(ControladorVenta Ctr) {
 		this.ctr = Ctr;
@@ -79,9 +79,6 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	private void accionReporteMejoresClientes() {
-		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
-				this.vtReporte);
-		ctr.Inicializar();
 		if (this.ejecutarReporte) {
 			List<ClienteReporteDTO> lista;
 			try {
@@ -107,11 +104,7 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	private void accionReporteRepartidores() {
-		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
-				this.vtReporte);
-		ctr.Inicializar();
 		if (this.ejecutarReporte) {
-			// NICOF
 			int idRepartidor = Integer.parseInt(this.vtReporte.getComboBox()
 					.getSelectedItem().toString().trim());
 			RepartidorModelo rm = new RepartidorModelo();
@@ -145,9 +138,6 @@ public class ControladorReporte implements ActionListener {
 	}
 
 	private void accionReporteVentas() {
-		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
-				this.vtReporte);
-		ctr.Inicializar();
 		if (this.ejecutarReporte) {
 
 			try {
@@ -181,6 +171,13 @@ public class ControladorReporte implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
+		if (source == this.vtReporte.getBtnVolver()) {
+			accionVolver();
+			return;
+		}
+		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
+				this.vtReporte);
+		ctr.Inicializar(); 
 		if (source == this.vtReporte.getBtnVentasDelDia()) {
 			accionVentasDelDia();
 		} else if (source == this.vtReporte.getBtnMejoresClientes()) {
@@ -189,8 +186,6 @@ public class ControladorReporte implements ActionListener {
 			this.accionReporteRepartidores();
 		} else if (source == this.vtReporte.getBtnVentas()) {
 			this.accionReporteVentas();
-		} else if (source == this.vtReporte.getBtnVolver()) {
-			accionVolver();
 		}
 	}
 
