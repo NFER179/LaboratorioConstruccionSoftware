@@ -3,6 +3,8 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JTable;
+
 import dto.ComboDTO;
 
 import modelo.ComboModelo;
@@ -20,7 +22,8 @@ public class ControladorCombo implements ActionListener {
 		
 		this.vtCombo = new ComboVista();
 		this.vtCombo.getBtnAgregar().addActionListener(this);
-		this.vtCombo.getBtnModificar().addActionListener(this);
+		this.vtCombo.getBtnInformacion().addActionListener(this);
+		this.vtCombo.getBtnEliminar().addActionListener(this);
 		this.vtCombo.getBtnAceptar().addActionListener(this);
 		
 		this.mdlCombo = new ComboModelo();
@@ -36,7 +39,7 @@ public class ControladorCombo implements ActionListener {
 		this.vtCombo.getModelTable().setColumnCount(0);
 		this.vtCombo.getModelTable().setColumnIdentifiers(this.vtCombo.getNombreColumna());
 		for(ComboDTO c:this.mdlCombo.ObtenerCombosActivos()) {
-			Object[] fila = {c.getComboId(), c.getDescripcion()};
+			Object[] fila = {c.getId(), c.getDescripcion()};
 			this.vtCombo.getModelTable().addRow(fila);
 		}
 		this.vtCombo.getTable().setModel(this.vtCombo.getModelTable());
@@ -47,9 +50,21 @@ public class ControladorCombo implements ActionListener {
 		ctr.InicializarCreacion();
 	}
 
-	private void Modificar() {
-		// TODO Auto-generated method stub
+	private void ObtenerInformacion() {
+		JTable t = this.vtCombo.getTable();
+		int selectesRow = t.getSelectedRow();
 		
+		String id = t.getValueAt(selectesRow, 0).toString().trim();
+		String Descr = t.getValueAt(selectesRow, 1).toString().trim();
+		
+		ComboDTO c = new ComboDTO(Integer.parseInt(id), Descr);
+		
+		ControladorABMCombo ctr = new ControladorABMCombo(this, this.vtCombo);
+		ctr.InicializarInformacion(c);
+	}
+	
+	public void Eliminar(){
+		// TODO;
 	}
 
 	private void Volver() {
@@ -61,8 +76,10 @@ public class ControladorCombo implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if(arg0.getSource() == this.vtCombo.getBtnAgregar()) {
 			this.Agregar();
-		}else if(arg0.getSource() == this.vtCombo.getBtnModificar()) {
-			this.Modificar();
+		}else if(arg0.getSource() == this.vtCombo.getBtnInformacion()) {
+			this.ObtenerInformacion();
+		}else if(arg0.getSource() == this.vtCombo.getBtnEliminar()){
+			this.Eliminar();
 		}else if(arg0.getSource() == this.vtCombo.getBtnAceptar()) {
 			this.Volver();
 		}

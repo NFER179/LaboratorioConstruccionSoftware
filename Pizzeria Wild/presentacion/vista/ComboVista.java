@@ -26,7 +26,8 @@ public class ComboVista extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
 	private JButton btnAgregar;
-	private JButton btnModificar;
+	private JButton btnInformacion;
+	private JButton btnEliminar;
 	private JButton btnAceptar;
 	private JLabel lblNewLabel;
 
@@ -61,11 +62,15 @@ public class ComboVista extends JFrame {
 		btnAgregar.setBounds(375, 36, 140, 40);
 		contentPane.add(btnAgregar);
 		
-		btnModificar = new JButton(" Modificar");
-		btnModificar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Quitar.png")));
-		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnModificar.setBounds(375, 87, 140, 40);
-		contentPane.add(btnModificar);
+		btnInformacion = new JButton("Informacion");
+		btnInformacion.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Quitar.png")));
+		btnInformacion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnInformacion.setBounds(375, 87, 140, 40);
+		contentPane.add(btnInformacion);
+		
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(380, 143, 115, 29);
+		contentPane.add(btnEliminar);
 		
 		btnAceptar = new JButton(" Volver");
 		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Volver.png")));
@@ -103,11 +108,13 @@ public class ComboVista extends JFrame {
 	public JButton getBtnAgregar() {
 		return btnAgregar;
 	}
-	public JButton getBtnModificar() {
-		return btnModificar;
+	public JButton getBtnInformacion() {
+		return btnInformacion;
+	}
+	public JButton getBtnEliminar() {
+		return this.btnEliminar;
 	}
 	public JButton getBtnAceptar() {
 		return btnAceptar;
 	}
-
 }

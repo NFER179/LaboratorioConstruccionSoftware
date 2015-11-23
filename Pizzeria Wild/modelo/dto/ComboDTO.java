@@ -1,27 +1,22 @@
 package dto;
 
 public class ComboDTO {
-
-	private int comboId;
+	
+	private int id;
 	private String descripcion;
-	private String inicio;
-	private String fin;
-	private int precio;
-
-	public ComboDTO(int ComboId, String Descripcion, String FechaInicio, String FechaFin, int Precio) {
-		this.comboId = ComboId;
+	
+	public ComboDTO(int Id, String Descripcion) {
+		this.id = Id;
 		this.descripcion = Descripcion;
-		this.inicio = FechaInicio;
-		this.fin = FechaFin;
-		this.precio = Precio;
+		
 	}
 
-	public int getComboId() {
-		return comboId;
+	public int getId() {
+		return id;
 	}
 
-	public void setComboId(int comboId) {
-		this.comboId = comboId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getDescripcion() {
@@ -31,29 +26,4 @@ public class ComboDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public String getInicio() {
-		return inicio;
-	}
-
-	public void setInicio(String inicio) {
-		this.inicio = inicio;
-	}
-
-	public String getFin() {
-		return fin;
-	}
-
-	public void setFin(String fin) {
-		this.fin = fin;
-	}
-
-	public int getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(int precio) {
-		this.precio = precio;
-	}
-	
 }

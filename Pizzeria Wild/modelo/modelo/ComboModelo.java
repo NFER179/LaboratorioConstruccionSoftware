@@ -17,4 +17,9 @@ public class ComboModelo {
 	public List<ComboDTO> ObtenerCombosActivos() {
 		return this.combo.GetActivos();
 	}
+
+	public int ObtenerNuevoIdCombo() {
+		int max = this.combo.GetMaxNumCombo();
+		return max + 1;
+	}
 }

@@ -31,6 +31,9 @@ select * from pedido;*/
 /* ************************************************************************************************************************************* */
 /* ******************************************************** Modulo Preferencias. ******************************************************* */
 /* ************************************************************************************************************************************* */
+insert into preferencias value('root', 'root', '  ');
+
+select * from preferencias;
 select * from estilos;
 			
 /* ************************************************************************************************************************************* */
@@ -52,9 +55,11 @@ insert into producto values
 insert into sabor_producto values
 ('PIZZ','Muzzarella'						,100),
 ('PIZZ','Crudo y Tomates Cherry'			,120),
+('PIZZ','Choclo'			,90),
 ('EMPA','Horno Carnes Picada'				,7),
 ('EMPA','Horno Carne Cortada a Cuchillo'	,8),
 ('EMPA','Frita Carne Cortada a Cuchillo'	,8),
+('EMPA','Choco'	,8),
 ('FAIN','Apio'								,7),
 ('BEBI','Coca-Cola 1,5 Lts'					,16),
 ('BEBI','Coca-Cola 600 cc'					,11);
@@ -81,7 +86,8 @@ select * from sabor_producto;
 select * from venta;
 select * from venta_producto;
 select * from combo;
-select * from producto_combo;
+select * from combo_activo;
+select * from combo_producto;
 /*select * from vehiculo;*/
 select * from repartidor;
 select * from delivery;	

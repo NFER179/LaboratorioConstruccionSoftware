@@ -36,4 +36,28 @@ public class ComboImp implements ComboDAO{
 		
 		return combos;
 	}
+
+	@Override
+	public int GetMaxNumCombo() {
+		Statement stm = this.conecctor.GetStatement();
+		String sqlString = "select max(id) as 'id' from combo";
+		ResultSet rs = null;
+		int max = 0;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				max = rs.getInt("id");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conecctor.CloseConnection();
+		}
+		
+		return max;
+	}
 }

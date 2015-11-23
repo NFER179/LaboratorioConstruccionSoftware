@@ -273,6 +273,7 @@ public class ControladorVenta implements ActionListener {
 	private void Combos() {
 		ControladorCombo ctr = new ControladorCombo(this);
 		ctr.Inicializar();		
+		this.vtVenta.Close();
 	}
 
 	@Override

@@ -92,37 +92,25 @@ public class VentasVista extends JFrame {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
-		//this.setLocationRelativeTo(null);
-//////////////////////////////////////////////////////////////		
-	btnCombos = new JButton("Combos");
-	btnCombos.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCombos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnCombos.setBounds(10, 426, 140, 40);
-		contentPane.add(btnCombos);
+		this.setLocationRelativeTo(null);
 
-//////////////////////////////////////////////////////////////
-
-
-	lblVentasDelDia = new JLabel("Ventas del Dia:");
+		lblVentasDelDia = new JLabel("Ventas del Dia:");
 		lblVentasDelDia.setForeground(Color.WHITE);
 		lblVentasDelDia.setBackground(Color.WHITE);
 		lblVentasDelDia.setFont(new Font("Tahoma", Font.BOLD, 13));
 		lblVentasDelDia.setBounds(160, 11, 140, 25);
 		contentPane.add(lblVentasDelDia);
-		
+			
 		btnSolicitudes = new JButton("Solicitudes");
 		btnSolicitudes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSolicitudes.setBounds(10, 33, 140, 40);
 		contentPane.add(btnSolicitudes);
-		
+			
 		btnCategorias = new JButton("Categorias");
 		btnCategorias.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCategorias.setBounds(10, 84, 140, 40);
 		contentPane.add(btnCategorias);
-		
+			
 		btnReportes = new JButton("Reportes");
 		btnReportes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnReportes.setBounds(10, 525, 140, 40);
@@ -148,11 +136,16 @@ public class VentasVista extends JFrame {
 		btnProductos.setBounds(10, 219, 140, 40);
 		contentPane.add(btnProductos);
 		
+		btnCombos = new JButton("Combos");
+		btnCombos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCombos.setBounds(10, 426, 140, 40);
+		contentPane.add(btnCombos);
+		
 		btnBackUp = new JButton("Back Up");
 		btnBackUp.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBackUp.setBounds(10, 576, 140, 40);
 		contentPane.add(btnBackUp);
-		
+	
 //		JMenuBar menuBar_1 = new JMenuBar();
 //		setJMenuBar(menuBar_1);
 
@@ -190,51 +183,51 @@ public class VentasVista extends JFrame {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(160, 36, 745, 580);
 		this.contentPane.add(scrollPane);
-
+	
 		this.modelVentas = new WDefaultTableModel(null, this.nombreColumnas);
 		this.tableVentas = new WTable(this.modelVentas);
 		scrollPane.setViewportView(tableVentas);
-
+	
 		this.btnEnviar = new JButton("Enviar");
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnEnviar.setBounds(924, 270, 140, 40);
 		this.contentPane.add(btnEnviar);
-
+	
 		this.btnEnViaje = new JButton("En Viaje");
 		btnEnViaje.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnEnViaje.setBounds(924, 321, 140, 40);
 		this.contentPane.add(btnEnViaje);
-
+	
 		this.btnEnMostrador = new JButton("En mostrador");
 		btnEnMostrador.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnEnMostrador.setBounds(924, 186, 140, 40);
 		this.contentPane.add(btnEnMostrador);
-
+	
 		this.btnInformacin = new JButton("Informaci\u00F3n");
 		btnInformacin.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnInformacin.setBounds(924, 449, 140, 40);
 		this.contentPane.add(btnInformacin);
-
+	
 		this.btnModificar = new JButton("Modificar");
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnModificar.setBounds(924, 372, 140, 40);
 		this.contentPane.add(btnModificar);
-		
+			
 		btnTodasLasVentas = new JButton("Todas las Ventas");
 		btnTodasLasVentas.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTodasLasVentas.setBounds(924, 500, 140, 40);
 		contentPane.add(btnTodasLasVentas);
-		
+			
 		this.btnNuevaVenta = new JButton("Nueva Venta");
 		btnNuevaVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnNuevaVenta.setBounds(924, 33, 140, 40);
 		this.contentPane.add(btnNuevaVenta);
-		
+			
 		this.btnCancelarVenta = new JButton("Cancelar Venta");
 		btnCancelarVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnCancelarVenta.setBounds(924, 84, 140, 40);
 		this.contentPane.add(btnCancelarVenta);
-		
+			
 		this.btnVentaEntregada = new JButton("Venta Entregada");
 		btnVentaEntregada.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnVentaEntregada.setBounds(924, 135, 140, 40);
