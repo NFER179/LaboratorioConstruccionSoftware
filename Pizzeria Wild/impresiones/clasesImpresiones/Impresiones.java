@@ -33,7 +33,7 @@ public class Impresiones {
 	private static String tempPath = "Templates/%s.pdf";
 	private static String resultPath = "reportesImpresiones/%s.pdf";
 	private static String pdfResultPath;
-	private static PdfReader pdfTemplate;
+	private static PdfReader pdfTemplate; 
 	private static FileOutputStream pdfOut;
 	private static PdfStamper stamper;
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
