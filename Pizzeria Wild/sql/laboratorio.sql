@@ -77,7 +77,7 @@ create table venta_producto(effdt date, num_venta integer, producto char(4), sab
 create table combo(id integer, descr char(30) unique,
 			primary key(id));
 
-create table combo_activo(combo_id integer, effdt date, descr char(30), precio integer, estado char(1),
+create table combo_activo(combo_id integer, effdt date, precio integer, estado char(1),
 			primary key(combo_id, effdt),
 			foreign key(combo_id) references combo(id));
 

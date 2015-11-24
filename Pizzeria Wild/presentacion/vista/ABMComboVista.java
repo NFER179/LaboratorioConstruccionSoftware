@@ -46,6 +46,7 @@ public class ABMComboVista extends JDialog {
 	private JButton btnVolver;
 	private JButton btnGuardar;
 	private JButton btnCancelar;
+	private JTextField txtFecha;
 
 	public ABMComboVista(ComboVista Vista) {
 		super(Vista, true);
@@ -108,6 +109,13 @@ public class ABMComboVista extends JDialog {
 		JLabel lblFecha = new JLabel("Fecha:");
 		lblFecha.setBounds(15, 61, 96, 20);
 		panel.add(lblFecha);
+		
+		txtFecha = new JTextField();
+		txtFecha.setEnabled(false);
+		txtFecha.setEditable(false);
+		txtFecha.setBounds(84, 61, 86, 20);
+		panel.add(txtFecha);
+		txtFecha.setColumns(10);
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setBounds(84, 55, 188, 26);
@@ -282,5 +290,9 @@ public class ABMComboVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JTextField getTxtFecha() {
+		return txtFecha;
 	}
 }

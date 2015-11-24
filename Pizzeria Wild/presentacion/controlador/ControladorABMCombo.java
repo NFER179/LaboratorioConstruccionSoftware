@@ -2,8 +2,15 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+
+import dto.ComboActivoDTO;
 import dto.ComboDTO;
+import dto.ComboProductoDTO;
 
 import modelo.ComboModelo;
 import modelo.SaborModelo;
@@ -18,7 +25,10 @@ public class ControladorABMCombo implements ActionListener {
 	private ABMComboVista vtCombo;
 	private ComboModelo mdlCombo;
 	private SaborModelo mdlSabor;
+	private List<ComboActivoDTO> cActivoList;
+	private int Pos;
 	private boolean creacion;
+	private boolean close;
 	
 	public ControladorABMCombo(ControladorCombo Ctr, ComboVista Vista) {
 		this.ctrCombo = Ctr;
@@ -38,10 +48,13 @@ public class ControladorABMCombo implements ActionListener {
 		
 		this.mdlCombo = new ComboModelo();
 		this.mdlSabor = new SaborModelo();
+		this.cActivoList = new ArrayList<ComboActivoDTO>();
+		this.close = false;
 	}
 	
 	public void InicializarCreacion() {
 		this.creacion = true;
+		this.close = true;
 		
 		int numCombo = this.mdlCombo.ObtenerNuevoIdCombo();
 		this.vtCombo.getTxtIdcombo().setText(Integer.toString(numCombo));
@@ -54,6 +67,7 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAnterior());
 		this.vtCombo.getLblFila().setText("1 / 1");
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnSiguiente());
+		this.vtCombo.getPanel().remove(this.vtCombo.getTxtFecha());
 		
 		this.vtCombo.getChckbxActivo().setEnabled(true);
 		
@@ -71,11 +85,41 @@ public class ControladorABMCombo implements ActionListener {
 	public void InicializarInformacion(ComboDTO combo) {
 		this.creacion = false;
 		
+		this.vtCombo.getTxtIdcombo().setText(combo.getId()+"");
+		this.vtCombo.getTxtDescripcion().setText(combo.getDescripcion());
 		
+		this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(combo);
+		this.Pos = 0;
+		this.vtCombo.getLblFila().setText( (this.Pos + 1) + " de " + this.cActivoList.size());
+		this.vtCombo.getChckbxActivo().setSelected(this.cActivoList.get(this.Pos).isActivo());
+		this.vtCombo.getTxtFecha().setText(this.cActivoList.get(this.Pos).getEfft());
+		this.vtCombo.getPanel().remove(this.vtCombo.getDateChooser());
+		
+		this.CargarProductosPara(this.cActivoList.get(this.Pos));
+		
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAgregarProducto());
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnEliminarProducto());
+		
+		this.vtCombo.getTxtPrecio().setText(this.cActivoList.get(this.Pos).getPrecio()+"");
+		
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnGuardar());
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnCancelar());
 		
 		this.vtCombo.Open();
 	}
 	
+	private void CargarProductosPara(ComboActivoDTO cActivo) {
+		this.vtCombo.getModelTable().setRowCount(0);
+		this.vtCombo.getModelTable().setColumnCount(0);
+		this.vtCombo.getModelTable().setColumnIdentifiers(this.vtCombo.getNombreColumnas());
+		for(ComboProductoDTO cp:this.mdlCombo.ObtenerProductosPara(cActivo)) {
+			int precioTotal = cp.getCantidad() * this.mdlSabor.ObtenerPrecio(cp.getProducto(), cp.getSabor());
+			Object[] fila = {cp.getProducto(), cp.getSabor(), cp.getCantidad(), precioTotal};
+			this.vtCombo.getModelTable().addRow(fila);
+		}
+		this.vtCombo.getTable().setModel(this.vtCombo.getModelTable());
+	}
+
 	public void AgregarProductoALista(String producto, String sabor, int cantidad) {
 		int precioparcial = this.mdlSabor.ObtenerPrecio(producto, sabor);
 		
@@ -125,56 +169,192 @@ public class ControladorABMCombo implements ActionListener {
 	}
 
 	private void EditarDescripcion() {
-		// TODO Auto-generated method stub
+		String Ndescr = JOptionPane.showInputDialog(null, "Nueva Descripcion", this.vtCombo.getTxtIdcombo().getText());
 		
+		int Id = Integer.parseInt(this.vtCombo.getTxtIdcombo().getText().trim());
+		ComboDTO c = new ComboDTO(Id, Ndescr);
+		
+		this.mdlCombo.ModificarDescripcion(c);
+		this.vtCombo.getTxtDescripcion().setText(Ndescr);
+		this.ctrCombo.CargarTabla();
 	}
 
 	private void AnteriorEffdt() {
-		// TODO Auto-generated method stub
-		
+		if(this.Pos > 0)
+			this.Pos--;
+		this.RepaintEffdt(this.cActivoList.get(this.Pos));
 	}
 
 	private void SiguienteEffdt() {
-		// TODO Auto-generated method stub
+		if(this.Pos < this.cActivoList.size() - 1 )
+			this.Pos++;
+		this.RepaintEffdt(this.cActivoList.get(this.Pos));
+	}
+
+	private void RepaintEffdt(ComboActivoDTO ca) {
+		this.vtCombo.getLblFila().setText((this.Pos + 1) + " de " + this.cActivoList.size());
 		
+		this.vtCombo.getTxtFecha().setText(ca.getEfft());
+		this.vtCombo.getChckbxActivo().setSelected(ca.isActivo());
+		
+		this.CargarProductosPara(ca);
+		
+		this.vtCombo.getTxtPrecio().setText(ca.getPrecio()+"");
 	}
 
 	private void AgregarProducto() {
+		/* falta ver que se agregue el mismo producto. */
 		ControladorBusquedaProductosCombos ctr = new ControladorBusquedaProductosCombos(this, this.vtCombo);
 		ctr.Inicializar();
 	}
 
 	private void EliminarProducto() {
-		// TODO Auto-generated method stub
+		JTable t = this.vtCombo.getTable();
+		int[] selected = t.getSelectedRows();
 		
+		for(int i = selected.length - 1 ; i >= 0 ; i--) {
+			this.vtCombo.getModelTable().removeRow(selected[i]);
+		}
+		
+		t.setModel(this.vtCombo.getModelTable());
 	}
 
 	private void AgregarEffdt() {
-		// TODO Auto-generated method stub
-		
+		this.creacion = true;
+		this.ModoCreacion(false);
 	}
 
 	private void ModificarEffdt() {
-		// TODO Auto-generated method stub
+		this.ModoCreacion(true);
+	}
+	
+	private void ModoCreacion(boolean modificar) {
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAnterior());
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnSiguiente());
 		
+		if(!modificar){
+			this.vtCombo.getPanel().remove(this.vtCombo.getTxtFecha());
+			this.vtCombo.getPanel().add(this.vtCombo.getDateChooser());
+		}
+		
+		this.vtCombo.getPanel().add(this.vtCombo.getBtnAgregarProducto());
+		this.vtCombo.getPanel().add(this.vtCombo.getBtnEliminarProducto());
+		
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnAgregar());
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnModificar());
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnEliminar());
+		this.vtCombo.EliminarComponente(this.vtCombo.getBtnVolver());
+		
+		this.vtCombo.add(this.vtCombo.getBtnGuardar());
+		this.vtCombo.add(this.vtCombo.getBtnCancelar());
+		
+		this.vtCombo.getChckbxActivo().setEnabled(true);
+		this.vtCombo.getTxtPrecio().setEditable(true);
+		this.vtCombo.getTxtPrecio().setEnabled(true);
+		
+		this.vtCombo.repaint();
+	}
+	
+	private void ModoInformacion(){
+		this.vtCombo.getTxtDescripcion().setEditable(false);
+		this.vtCombo.getTxtDescripcion().setEditable(false);
+		
+		this.vtCombo.getPanel().add(this.vtCombo.getBtnAnterior());
+		this.vtCombo.getPanel().add(this.vtCombo.getBtnSiguiente());
+		
+		this.vtCombo.getPanel().add(this.vtCombo.getTxtFecha());
+		this.vtCombo.getPanel().remove(this.vtCombo.getDateChooser());
+		
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAgregarProducto());
+		this.vtCombo.getPanel().remove(this.vtCombo.getBtnEliminarProducto());
+		
+		this.vtCombo.add(this.vtCombo.getBtnAgregar());
+		this.vtCombo.add(this.vtCombo.getBtnModificar());
+		this.vtCombo.add(this.vtCombo.getBtnEliminar());
+		this.vtCombo.add(this.vtCombo.getBtnVolver());
+		
+		this.vtCombo.remove(this.vtCombo.getBtnGuardar());
+		this.vtCombo.remove(this.vtCombo.getBtnCancelar());
+
+		this.vtCombo.getChckbxActivo().setEnabled(false);
+		this.vtCombo.getTxtPrecio().setEditable(false);
+		this.vtCombo.getTxtPrecio().setEnabled(false);
+		
+		this.vtCombo.repaint();
 	}
 
-	private void Eliminar() {
-		// TODO Auto-generated method stub
-		
+	private void Eliminar() {		
+		if(this.Pos != 0) {
+			this.mdlCombo.EliminarEffdt(this.cActivoList.get(this.Pos));
+		}
+		this.AnteriorEffdt();
 	}
 
 	private void Guardar() {
-		// TODO Auto-generated method stub
+		String IdS = this.vtCombo.getTxtIdcombo().getText().trim();
+		int Id = Integer.parseInt(IdS);
+		String Descripcion = this.vtCombo.getTxtDescripcion().getText().trim();
+		
+		ComboDTO c = new ComboDTO(Id, Descripcion);
+
+		if(this.mdlCombo.NoExisteCombo(c)){
+			this.mdlCombo.CrearCombo(c);
+		}
+		
+		String Effdt = Fecha.format(this.vtCombo.getDateChooser().getDate());
+		String PrecioS = this.vtCombo.getTxtPrecio().getText().trim();
+		int Precio = Integer.parseInt(PrecioS);
+		boolean Activo = this.vtCombo.getChckbxActivo().isSelected();
+		
+		ComboActivoDTO cActivo = new ComboActivoDTO(Id, Effdt, Precio, Activo);
+		
+		List<ComboProductoDTO> cProductoList = new ArrayList<ComboProductoDTO>();
+		
+		JTable t = this.vtCombo.getTable();
+		for(int i = 0; i < t.getRowCount() ; i++) {
+			String Producto = t.getValueAt(i, 0).toString().trim();
+			String Sabor = t.getValueAt(i, 1).toString().trim();
+			String cantidadS = t.getValueAt(i, 2).toString().trim();
+			int Cantidad = Integer.parseInt(cantidadS);
+			ComboProductoDTO cProducto = new ComboProductoDTO(Id, Effdt, Producto, Sabor, Cantidad);
+			cProductoList.add(cProducto);
+		}
+		
+		if(this.creacion) {
+			this.mdlCombo.CrearFechaEffdt(cActivo);
+		}
+		else{
+			this.mdlCombo.ModificarEffdt(cActivo);
+			this.mdlCombo.EliminarProductosDe(cActivo);
+		}
+		
+		for(ComboProductoDTO cp:cProductoList){
+			this.mdlCombo.AgregarProducto(cp);
+		}
+		
+		this.ctrCombo.CargarTabla();
+		
+		if(this.creacion){
+			this.ModoInformacion();
+			this.creacion = false;
+		}
+		else{
+			this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(c);
+			this.AnteriorEffdt();
+			this.ModoInformacion();
+		}
 	}
 
 	private void Cancelar() {
-		// TODO Auto-generated method stub
-		
+		if(this.close){
+			this.vtCombo.Close();
+		}
+		else{
+			this.ModoInformacion();
+		}
 	}
 
 	private void Volver() {
-		// TODO Auto-generated method stub
-		
+		this.vtCombo.Close();
 	}
 }

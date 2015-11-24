@@ -1,6 +1,6 @@
 package dto;
 
-public class ComboProducto {
+public class ComboProductoDTO {
 	
 	private int id;
 	private String effdt;
@@ -8,7 +8,7 @@ public class ComboProducto {
 	private String sabor;
 	private int cantidad;
 	
-	public ComboProducto(int Id, String Effdt, String Producto, String Sabor, int Cantidad) {
+	public ComboProductoDTO(int Id, String Effdt, String Producto, String Sabor, int Cantidad) {
 		this.id = Id;
 		this.effdt = Effdt;
 		this.producto = Producto;
