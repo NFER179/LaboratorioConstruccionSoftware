@@ -1,7 +1,5 @@
 package vista;
 
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -38,7 +36,10 @@ public class CreacionSolicitudVista extends JDialog {
 
 	public CreacionSolicitudVista(SolicitudCompraVista arg0) {
 		super(arg0, true);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(CreacionSolicitudVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(
+						CreacionSolicitudVista.class
+								.getResource("/Iconos/pizza_1.PNG")));
 
 		setTitle(" Creaci\u00F3n Solicitud");
 		setResizable(false);
@@ -84,7 +85,8 @@ public class CreacionSolicitudVista extends JDialog {
 		txtIdproveedor.setColumns(10);
 
 		btnBuscar = new JButton("   Buscar");
-		btnBuscar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Buscar.png")));
+		btnBuscar.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Buscar.png")));
 		btnBuscar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnBuscar.setBounds(249, 48, 126, 35);
 		getContentPane().add(btnBuscar);
@@ -111,46 +113,53 @@ public class CreacionSolicitudVista extends JDialog {
 
 		btnAgregar = new JButton("Agregar");
 		btnAgregar.setBackground(new Color(253, 245, 230));
-		btnAgregar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Agregar.png")));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAgregar.setBounds(385, 127, 110, 60);
 		getContentPane().add(btnAgregar);
 
 		btnQuitar = new JButton("Quitar");
 		btnQuitar.setBackground(new Color(253, 245, 230));
-		btnQuitar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Quitar.png")));
+		btnQuitar.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Quitar.png")));
 		btnQuitar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnQuitar.setBounds(385, 198, 110, 60);
 		getContentPane().add(btnQuitar);
 
 		btnEnviar = new JButton(" Enviar");
-		btnEnviar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/enviar.png")));
+		btnEnviar.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/enviar.png")));
 		btnEnviar.setBackground(new Color(152, 251, 152));
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEnviar.setBounds(10, 390, 140, 40);
 		getContentPane().add(btnEnviar);
 
 		btnGuardar = new JButton("");
-		btnGuardar.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Guardar.png")));
+		btnGuardar.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Guardar.png")));
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnGuardar.setBounds(385, 380, 50, 50);
 		getContentPane().add(btnGuardar);
 
 		btnVolver = new JButton("");
-		btnVolver.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Volver.png")));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVolver.setBounds(445, 380, 50, 50);
 		getContentPane().add(btnVolver);
 
 		btnImprimir = new JButton(" Imprimir");
-		btnImprimir.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/print.png")));
+		btnImprimir.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/print.png")));
 		btnImprimir.setBackground(new Color(152, 251, 152));
 		btnImprimir.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnImprimir.setBounds(160, 390, 140, 40);
 		getContentPane().add(btnImprimir);
-		
+
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CreacionSolicitudVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setIcon(new ImageIcon(CreacionSolicitudVista.class
+				.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
 		lblNewLabel.setBounds(396, 11, 99, 97);
 		getContentPane().add(lblNewLabel);
 	}
