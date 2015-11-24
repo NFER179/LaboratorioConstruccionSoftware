@@ -187,7 +187,8 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	}
 
 	private ObjReporteItinerario construirItinerario(int numDelivery) {
-		String descripcion = " ";
+		String descripcion = this.vtAsignacionRepartidores.getTxtObservacion()
+				.getText().trim();
 		ObjDatosRepartidor repartidor = new ObjDatosRepartidor(
 				vtAsignacionRepartidores.getTxtNombrerepartidor().getText(),
 				"datos del vehiculo", "numero de tel");
