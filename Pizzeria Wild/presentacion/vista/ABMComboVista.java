@@ -1,6 +1,5 @@
 package vista;
-
-import java.awt.EventQueue;
+ 
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;

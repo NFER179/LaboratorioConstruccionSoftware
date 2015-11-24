@@ -1,6 +1,5 @@
 package vista;
-
-import java.awt.EventQueue;
+ 
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
@@ -20,7 +19,7 @@ public class BusquedaProductosCombosVista extends JDialog {
 	private String[] cbx = {"Ninguno"};
 	private DefaultComboBoxModel modelCbx;
 	private JComboBox comboBox;
-	private String[] nombreColumna = {"Sabor"};
+	private String[] nombreColumna = {"Producto"};
 	private DefaultTableModel modelTable;
 	private JTable table;
 	private JTextField txtCantidad;
