@@ -54,7 +54,7 @@ public class ReportesImp implements ReportesDAO {
 	public List<RepartidoReporteDTO> getInformeReparitodes(String from, String to, int idRepartidor) {
 		Statement stm;
 		String sqlString = String.format(repartos, from, to, idRepartidor);
-		System.out.println(sqlString);
+		 
 		ResultSet rs = null;
 		List<RepartidoReporteDTO> lstCliente = new ArrayList<RepartidoReporteDTO>();
 
@@ -82,7 +82,7 @@ public class ReportesImp implements ReportesDAO {
 	public List<VentaReporteDTO> getReporteVentas(String fechaIni, String fechaFin) throws Exception {
 		Statement stm;
 		String sqlString = String.format(reporteVentas, fechaIni, fechaFin);
-		System.out.println(sqlString);
+		 
 		ResultSet rs = null;
 		List<VentaReporteDTO> lstVentas = new ArrayList<VentaReporteDTO>();
 

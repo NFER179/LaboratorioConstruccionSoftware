@@ -304,7 +304,8 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		// NICOF TODO
 		int id = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido()
 				.getText().trim());
-		ObjReporteSolicitudMP solicitud = new ObjReporteSolicitudMP(fecha, id, proveedor);
+		ObjReporteSolicitudMP solicitud = new ObjReporteSolicitudMP(fecha, id,
+				proveedor);
 		for (MateriaPrimaSolicitudDTO mp : GetMateriasPrimas()) {
 			solicitud.addMateriaPrima(mp.getMateriaPrima(), mp.getCantidad()
 					+ "");
@@ -318,7 +319,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	 * */
 	private ProveedorDTO buildProveedor() {
 		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
-		// int numPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(fecha);
+
 		String numPedido = this.vtCreacionSolicitud.getTxtNumpedido().getText()
 				.trim();
 		ProveedorDTO proveedor = this.mdlSolicitud.ObtenerProveedor(fecha,

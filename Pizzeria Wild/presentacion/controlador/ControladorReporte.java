@@ -56,7 +56,9 @@ public class ControladorReporte implements ActionListener {
 
 		DefaultComboBoxModel<String> modelCombo = new DefaultComboBoxModel<>();
 		for (RepartidorDTO r : this.mdlRepartidor.ObtenerRepartidoresActivos()) {
-			modelCombo.addElement(Integer.toString(r.getRepartidorId()));
+			String element = r.getNombre() + ", " + r.getApellido() + " - "
+					+ Integer.toString(r.getRepartidorId());
+			modelCombo.addElement(element);
 		}
 		this.vtReporte.getComboBox().setModel(modelCombo);
 	}
@@ -109,8 +111,9 @@ public class ControladorReporte implements ActionListener {
 
 	private void accionReporteRepartidores() {
 		if (this.ejecutarReporte) {
-			int idRepartidor = Integer.parseInt(this.vtReporte.getComboBox()
-					.getSelectedItem().toString().trim());
+			String id = this.vtReporte.getComboBox().getSelectedItem()
+					.toString().trim().split(" - ")[1];
+			int idRepartidor = Integer.parseInt(id);
 			RepartidorModelo rm = new RepartidorModelo();
 			String nombreRepartidor = rm.ObtenerRepartidor(idRepartidor)
 					.getApellido()
@@ -184,23 +187,24 @@ public class ControladorReporte implements ActionListener {
 			accionVolver();
 			return;
 		}
-		ControladorSeleccionFechas ctr = new ControladorSeleccionFechas(this,
-				this.vtReporte);
-		ctr.Inicializar();
 		if (source == this.vtReporte.getBtnVentasDelDia()) {
-			accionVentasDelDia();
-		} else if (source == this.vtReporte.getBtnMejoresClientes()) {
-			this.accionReporteMejoresClientes();
-		} else if (source == this.vtReporte.getBtnRepartidores()) {
-			this.accionReporteRepartidores();
-		} else if (source == this.vtReporte.getBtnVentas()) {
-			this.accionReporteVentas();
+			this.accionVentasDelDia();
+		} else {
+			new ControladorSeleccionFechas(this, this.vtReporte).Inicializar();
+			if (source == this.vtReporte.getBtnMejoresClientes()) {
+				this.accionReporteMejoresClientes();
+			} else if (source == this.vtReporte.getBtnRepartidores()) {
+				this.accionReporteRepartidores();
+			} else if (source == this.vtReporte.getBtnVentas()) {
+				this.accionReporteVentas();
+			}
 		}
+
 	}
 
 	public void SetRangoFechas(String from, String to) {
 		this.datefrom = from;
 		this.dateTo = to;
-	} 
+	}
 
 }

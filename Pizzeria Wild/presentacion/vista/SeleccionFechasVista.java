@@ -109,7 +109,7 @@ public class SeleccionFechasVista extends JDialog {
 		rdbtnMes = new JRadioButton("Mes");
 		rdbtnMes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonGroupMesAnio.add(rdbtnMes);
-		rdbtnMes.setBounds(28, 232, 49, 23);
+		rdbtnMes.setBounds(28, 232, 53, 23);
 		getContentPane().add(rdbtnMes);
 
 		rdbtnSemana = new JRadioButton("Semana");
@@ -126,7 +126,7 @@ public class SeleccionFechasVista extends JDialog {
 		getContentPane().add(lblNewLabel);
 
 		txtMes = new JMonthChooser();
-		txtMes.setBounds(76, 232, 104, 20);
+		txtMes.setBounds(83, 232, 103, 20);
 		getContentPane().add(txtMes);
 
 		cbxDia = new JDateChooser();
@@ -142,10 +142,7 @@ public class SeleccionFechasVista extends JDialog {
 		getContentPane().add(cbxTo);
 
 		txtAnio = new JYearChooser();
-		txtAnio.setBounds(60, 195, 47, 20);
-		// JTextFieldDateEditor editor = (JTextFieldDateEditor)
-		// txtAnio.getDateEditor();
-		// editor.setEditable(false);
+		txtAnio.setBounds(60, 195, 47, 20); 
 		getContentPane().add(txtAnio);
 
 		txtSemana = new JDateChooser();

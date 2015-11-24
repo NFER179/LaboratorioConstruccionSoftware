@@ -17,7 +17,6 @@ public class ControladorSeleccionFechas implements ActionListener {
 
 	public ControladorSeleccionFechas(ControladorReporte Ctr, ReporteVista Vista) {
 		this.ctrReporte = Ctr;
-
 		this.vtSeleccion = new SeleccionFechasVista(Vista);
 		addListeners();
 	}
@@ -36,42 +35,38 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.GrisarTodo();
 		this.vtSeleccion.getRdbtnPorDia().setSelected(true);
 		this.vtSeleccion.getCbxDia().setEnabled(true);
-		// this.CargarComboBox();
-
+		this.vtSeleccion.getRdbtnMes().setSelected(true);
 		this.vtSeleccion.Open();
 	}
-
-	// @SuppressWarnings("unchecked")
-	// private void CargarComboBox() {
-	// this.vtSeleccion.getCbxDia().removeAllItems();
-	// DefaultComboBoxModel<String> cm = new DefaultComboBoxModel<String>();
-	// DefaultComboBoxModel<String> cm1 = new DefaultComboBoxModel<String>();
-	// DefaultComboBoxModel<String> cm2 = new DefaultComboBoxModel<String>();
-	// for (String s : Fecha.Fechas()) {
-	// cm.addElement(s);
-	// cm1.addElement(s);
-	// cm2.addElement(s);
-	// }
-	// this.vtSeleccion.getCbxDia().setModel(cm);
-	// this.vtSeleccion.getCbxFrom().setModel(cm1);
-	// this.vtSeleccion.getCbxTo().setModel(cm2);
-	// }
 
 	// REGION GRISAR
 	private void GrisarTodo() {
 		this.vtSeleccion.getCbxDia().setEnabled(false);
+		this.vtSeleccion.getCbxDia().getComponent(0).setEnabled(false);
+		this.vtSeleccion.getCbxDia().getComponent(1).setEnabled(false);
 
 		this.vtSeleccion.getCbxFrom().setEnabled(false);
+		this.vtSeleccion.getCbxFrom().getComponent(0).setEnabled(false);
+		this.vtSeleccion.getCbxFrom().getComponent(1).setEnabled(false);
+
 		this.vtSeleccion.getCbxTo().setEnabled(false);
+		this.vtSeleccion.getCbxTo().getComponent(0).setEnabled(false);
+		this.vtSeleccion.getCbxTo().getComponent(1).setEnabled(false);
 
 		this.vtSeleccion.getRdbtnSemana().setEnabled(false);
 		this.vtSeleccion.getRdbtnMes().setEnabled(false);
-		this.vtSeleccion.getTxtAnio().setValue(Calendar.YEAR);
-		this.vtSeleccion.getTxtMes().setMonth(Calendar.MONTH);
-		// this.vtSeleccion.getTxtSemana().setText("");
+
+		Calendar c = Calendar.getInstance();
+		this.vtSeleccion.getTxtAnio().setValue(c.get(Calendar.YEAR));
+		this.vtSeleccion.getTxtMes().setMonth(c.get(Calendar.MONTH));
+		//
 		this.vtSeleccion.getTxtSemana().setEnabled(false);
+		this.vtSeleccion.getTxtSemana().getComponent(0).setEnabled(false);
+		this.vtSeleccion.getTxtSemana().getComponent(1).setEnabled(false);
+
 		this.vtSeleccion.getTxtMes().setEnabled(false);
 		this.vtSeleccion.getTxtAnio().setEnabled(false);
+
 	}
 
 	private void DesgrisarDia() {
@@ -82,7 +77,12 @@ public class ControladorSeleccionFechas implements ActionListener {
 	private void DesgrisarRango() {
 		this.GrisarTodo();
 		this.vtSeleccion.getCbxFrom().setEnabled(true);
+		this.vtSeleccion.getCbxFrom().getComponent(0).setEnabled(true);
+		this.vtSeleccion.getCbxFrom().getComponent(1).setEnabled(true);
+
 		this.vtSeleccion.getCbxTo().setEnabled(true);
+		this.vtSeleccion.getCbxTo().getComponent(0).setEnabled(true);
+		this.vtSeleccion.getCbxTo().getComponent(1).setEnabled(true);
 	}
 
 	private void DesgrisarOtro() {
@@ -90,18 +90,23 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.vtSeleccion.getRdbtnSemana().setEnabled(true);
 		this.vtSeleccion.getRdbtnMes().setEnabled(true);
 		this.vtSeleccion.getTxtAnio().setEnabled(true);
-		this.vtSeleccion.getTxtSemana().setEnabled(true);
+		this.vtSeleccion.getTxtMes().setEnabled(true);
 	}
 
 	private void DesgrisarSemana() {
 		this.vtSeleccion.getTxtSemana().setEnabled(true);
 		this.vtSeleccion.getTxtMes().setEnabled(false);
+		this.vtSeleccion.getTxtSemana().getComponent(0).setEnabled(true);
+		this.vtSeleccion.getTxtSemana().getComponent(1).setEnabled(true);
+		this.vtSeleccion.getTxtAnio().setEnabled(false);
 
 	}
 
 	private void DesgrisarMes() {
 		this.vtSeleccion.getTxtSemana().setEnabled(false);
 		this.vtSeleccion.getTxtMes().setEnabled(true);
+		this.vtSeleccion.getTxtSemana().getComponent(0).setEnabled(false);
+		this.vtSeleccion.getTxtSemana().getComponent(1).setEnabled(false);
 
 	}
 
@@ -125,6 +130,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 		} else {
 			System.out.println("Estado ilegal en metodo opcionOtros");
 			this.ctrReporte.NoEjecutarReporte();
+			return;
 		}
 		String from = fechas[0];
 		String to = fechas[1];

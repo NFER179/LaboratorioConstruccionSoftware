@@ -22,7 +22,8 @@ public class ControladorVentasDia implements ActionListener {
 	private SolicitudModelo mdlSolicitud;
 
 	public ControladorVentasDia(ReporteVista Vista) {
-		this.vtVentasDia = new VentasDiasVista(Vista);
+		this.vtVentasDia = new VentasDiasVista(Vista); 
+		
 		this.vtVentasDia.getBtnVolver().addActionListener(this);
 
 		this.mdlventa = new VentaModelo();
