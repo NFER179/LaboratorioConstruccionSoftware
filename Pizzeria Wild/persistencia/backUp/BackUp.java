@@ -19,27 +19,60 @@ public class BackUp {
 	private static String user = "root";
 	private static String pass = "root";
 	private static String dbName = "pizzeriawild";
-	private static String mysqldumpPath = System.getenv().get("ProgramFiles").replace("\\","/" )
+	private static String mysqldumpPath = System.getenv().get("ProgramFiles")
+			.replace("\\", "/")
 			+ "/MySQL/MySQL Server 5.5/bin/mysqldump ";
+	private static String mysqldumpPath2 = System.getenv().get("ProgramFiles")
+			.replace("\\", "/")
+			+ "/MySQL/MySQL Server 5.6/bin/mysqldump ";
 
-	public static void backUp(String path) throws IOException {
-		System.out.println(mysqldumpPath);
-		String comando = mysqldumpPath + getCredentials();
-		Runtime objRT = Runtime.getRuntime();
-		Process objProcess = objRT.exec(comando);
+	public static void backUp(String path) throws Exception {
+		try {
+			String comando = mysqldumpPath + getCredentials();
+			Runtime objRT = Runtime.getRuntime();
 
-		InputStream is = objProcess.getInputStream();
-		// String path = String.format(backUpPath, path);
-		FileOutputStream fos = new FileOutputStream(path);
-		byte[] buffer = new byte[1000];
+			Process objProcess = objRT.exec(comando);
 
-		int esLeido = is.read(buffer);
-		while (esLeido > 0) {
-			fos.write(buffer, 0, esLeido);
-			esLeido = is.read(buffer);
+			InputStream is = objProcess.getInputStream();
+			FileOutputStream fos = new FileOutputStream(path);
+			byte[] buffer = new byte[1000];
+
+			int esLeido = is.read(buffer);
+			while (esLeido > 0) {
+				fos.write(buffer, 0, esLeido);
+				esLeido = is.read(buffer);
+			}
+			fos.close();
+		} catch (Exception e) {
+			try {
+				backUp2(path);
+			} catch (Exception e2) {
+				throw new Exception(e.toString());
+			}
 		}
-		fos.close();
+	}
 
+	public static void backUp2(String path) throws Exception {
+		try {
+			String comando = mysqldumpPath2 + getCredentials();
+			Runtime objRT = Runtime.getRuntime();
+
+			Process objProcess = objRT.exec(comando);
+
+			InputStream is = objProcess.getInputStream();
+			// String path = String.format(backUpPath, path);
+			FileOutputStream fos = new FileOutputStream(path);
+			byte[] buffer = new byte[1000];
+
+			int esLeido = is.read(buffer);
+			while (esLeido > 0) {
+				fos.write(buffer, 0, esLeido);
+				esLeido = is.read(buffer);
+			}
+			fos.close();
+		} catch (Exception e) {
+			throw new Exception(e.toString());
+		}
 	}
 
 	public static void restore(String nombreArchivo) throws IOException,
