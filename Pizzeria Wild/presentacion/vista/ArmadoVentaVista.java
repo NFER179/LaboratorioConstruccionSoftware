@@ -22,6 +22,7 @@ import objetosVistaCustom.WTable;
 import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import javax.swing.ListSelectionModel;
 
 @SuppressWarnings("serial")
 public class ArmadoVentaVista extends JDialog {
@@ -50,6 +51,13 @@ public class ArmadoVentaVista extends JDialog {
 	private JButton btnCancelar;
 	private JScrollPane scrollPane;
 	private JTextField txtFecha;
+	private String[] nombreColumnasCombos = {"Nombre Combo", "Descripcion", "Cantidad", "Precio"};
+	private DefaultTableModel modelTableCombo;
+	private JTable tblCombo;
+	private JScrollPane scrollPaneCombo;
+	private JButton btnAgregarCombo;
+	private JButton btnQuitarCombo;
+	private JLabel lblCombo;
 	
 	public ArmadoVentaVista(JFrame frame) {
 		super(frame, true);
@@ -58,7 +66,7 @@ public class ArmadoVentaVista extends JDialog {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ArmadoVentaVista.class.getResource("/Iconos/pizza_1.PNG")));
 		this.setTitle(" Armado Venta");
 		
-		this.setBounds(750, 50, 564, 680);
+		this.setBounds(750, 50, 564, 834);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -72,6 +80,7 @@ public class ArmadoVentaVista extends JDialog {
 		this.contentPanel.add(lblNVenta);
 		
 		this.txtNumVenta = new JTextField();
+		txtNumVenta.setText("NEXT");
 		txtNumVenta.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.txtNumVenta.setEditable(false);
 		this.txtNumVenta.setEnabled(false);
@@ -115,6 +124,26 @@ public class ArmadoVentaVista extends JDialog {
 		this.contentPanel.add(txtCliente);
 		this.txtCliente.setColumns(10);
 		
+		JLabel lblDireccion = new JLabel("Direccion:");
+		lblDireccion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDireccion.setBounds(10, 86, 90, 20);
+		this.contentPanel.add(lblDireccion);
+		
+		this.txtDireccion = new JTextField();
+		this.txtDireccion.setBounds(103, 83, 279, 25);
+		this.contentPanel.add(txtDireccion);
+		this.txtDireccion.setColumns(10);
+		
+		this.lblTelefono = new JLabel("Telefono:");
+		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.lblTelefono.setBounds(10, 120, 90, 20);
+		this.contentPanel.add(lblTelefono);
+		
+		this.txtTel = new JTextField();
+		this.txtTel.setBounds(103, 117, 169, 25);
+		this.contentPanel.add(txtTel);
+		this.txtTel.setColumns(10);
+		
 		this.btnBusquedaCliente = new JButton("Cliente");
 		btnBusquedaCliente.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Buscar.png")));
 		btnBusquedaCliente.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -142,40 +171,30 @@ public class ArmadoVentaVista extends JDialog {
 		this.btnQuitar.setBounds(401, 234, 140, 60);
 		this.contentPanel.add(btnQuitar);
 		
+		this.chckbxDelivery = new JCheckBox("Delivery");
+		chckbxDelivery.setFont(new Font("Tahoma", Font.BOLD, 11));
+		this.chckbxDelivery.setBounds(10, 587, 97, 23);
+		this.contentPanel.add(chckbxDelivery);
+		
 		JLabel lblPrecio = new JLabel("Precio:");
 		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPrecio.setBounds(232, 434, 54, 20);
+		lblPrecio.setBounds(232, 590, 54, 20);
 		this.contentPanel.add(lblPrecio);
 		
 		this.txtPrecio = new JTextField();
 		this.txtPrecio.setEditable(false);
 		this.txtPrecio.setEnabled(false);
-		this.txtPrecio.setBounds(296, 434, 86, 20);
+		this.txtPrecio.setBounds(296, 590, 86, 20);
 		this.contentPanel.add(txtPrecio);
 		this.txtPrecio.setColumns(10);
 		
-		this.chckbxDelivery = new JCheckBox("Delivery");
-		chckbxDelivery.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.chckbxDelivery.setBounds(10, 431, 97, 23);
-		this.contentPanel.add(chckbxDelivery);
-		
-		JLabel lblDireccion = new JLabel("Direccion:");
-		lblDireccion.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblDireccion.setBounds(10, 86, 90, 20);
-		this.contentPanel.add(lblDireccion);
-		
-		this.txtDireccion = new JTextField();
-		this.txtDireccion.setBounds(103, 83, 279, 25);
-		this.contentPanel.add(txtDireccion);
-		this.txtDireccion.setColumns(10);
-		
 		JLabel lblObservacionDelivery = new JLabel("Observaciones Delivery:");
 		lblObservacionDelivery.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblObservacionDelivery.setBounds(10, 461, 152, 20);
+		lblObservacionDelivery.setBounds(10, 617, 152, 20);
 		this.contentPanel.add(lblObservacionDelivery);
 		
 		this.scrollPane_1 = new JScrollPane();
-		this.scrollPane_1.setBounds(10, 492, 522, 25);
+		this.scrollPane_1.setBounds(10, 648, 522, 25);
 		this.contentPanel.add(scrollPane_1);
 		
 		this.txtrObservacionDelivery = new JTextArea();
@@ -184,24 +203,38 @@ public class ArmadoVentaVista extends JDialog {
 		this.txtrObservacionDelivery.setEnabled(false);
 		this.txtrObservacionDelivery.setLineWrap(true);
 		
-		this.lblTelefono = new JLabel("Telefono:");
-		lblTelefono.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.lblTelefono.setBounds(10, 120, 90, 20);
-		this.contentPanel.add(lblTelefono);
-		
-		this.txtTel = new JTextField();
-		this.txtTel.setBounds(103, 117, 169, 25);
-		this.contentPanel.add(txtTel);
-		this.txtTel.setColumns(10);
-		
 		JLabel lblObservaciones = new JLabel("Observaciones:");
 		lblObservaciones.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblObservaciones.setBounds(10, 528, 90, 20);
+		lblObservaciones.setBounds(10, 684, 90, 20);
 		this.contentPanel.add(lblObservaciones);
 		
 		this.scrollPane_2 = new JScrollPane();
-		this.scrollPane_2.setBounds(10, 559, 522, 25);
+		this.scrollPane_2.setBounds(10, 715, 522, 25);
 		this.contentPanel.add(scrollPane_2);
+		
+		scrollPaneCombo = new JScrollPane();
+		scrollPaneCombo.setBounds(20, 459, 353, 117);
+		contentPanel.add(scrollPaneCombo);
+		
+		this.modelTableCombo = new WDefaultTableModel(null, this.nombreColumnasCombos);
+		tblCombo = new WTable(this.modelTableCombo);
+		tblCombo.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		scrollPaneCombo.setViewportView(tblCombo);
+		
+		btnAgregarCombo = new JButton("Agregar Combo");
+		btnAgregarCombo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregarCombo.setBounds(401, 459, 140, 60);
+		contentPanel.add(btnAgregarCombo);
+		
+		btnQuitarCombo = new JButton("Quitar Combo");
+		btnQuitarCombo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnQuitarCombo.setBounds(401, 525, 140, 60);
+		contentPanel.add(btnQuitarCombo);
+		
+		lblCombo = new JLabel("Combos:");
+		lblCombo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCombo.setBounds(10, 434, 152, 20);
+		contentPanel.add(lblCombo);
 		
 		this.txtrObservacion = new JTextArea();
 		scrollPane_2.setViewportView(txtrObservacion);
@@ -210,13 +243,13 @@ public class ArmadoVentaVista extends JDialog {
 		this.btnArmar = new JButton("Armar");
 		btnArmar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/OK.png")));
 		btnArmar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnArmar.setBounds(242, 595, 140, 40);
+		this.btnArmar.setBounds(242, 751, 140, 40);
 		this.contentPanel.add(btnArmar);
 		
 		this.btnCancelar = new JButton("Cancelar");
 		btnCancelar.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnCancelar.setBounds(392, 595, 140, 40);
+		this.btnCancelar.setBounds(392, 751, 140, 40);
 		this.contentPanel.add(btnCancelar);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -323,5 +356,33 @@ public class ArmadoVentaVista extends JDialog {
 
 	public JTextField getTxtFecha() {
 		return txtFecha;
+	}
+
+	public String[] getNombreColumnasCombos() {
+		return nombreColumnasCombos;
+	}
+
+	public DefaultTableModel getModelTableCombo() {
+		return modelTableCombo;
+	}
+
+	public JTable getTblCombo() {
+		return tblCombo;
+	}
+
+	public JScrollPane getScrollPaneCombo() {
+		return scrollPaneCombo;
+	}
+
+	public JButton getBtnAgregarCombo() {
+		return btnAgregarCombo;
+	}
+
+	public JButton getBtnQuitarCombo() {
+		return btnQuitarCombo;
+	}
+
+	public JLabel getLblCombo() {
+		return lblCombo;
 	}
 }

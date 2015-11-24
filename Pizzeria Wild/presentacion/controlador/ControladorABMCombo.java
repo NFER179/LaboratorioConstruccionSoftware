@@ -101,7 +101,7 @@ public class ControladorABMCombo implements ActionListener {
 				this.cActivoList.get(this.Pos).isActivo());
 		this.vtCombo.getTxtFecha().setText(
 				this.cActivoList.get(this.Pos).getEfft());
-		this.vtCombo.getPanel().remove(this.vtCombo.getDateChooser());
+		this.vtCombo.getDateChooser().setVisible(false);
 
 		this.CargarProductosPara(this.cActivoList.get(this.Pos));
 
@@ -261,7 +261,7 @@ public class ControladorABMCombo implements ActionListener {
 
 		if (!modificar) {
 			this.vtCombo.getPanel().remove(this.vtCombo.getTxtFecha());
-			this.vtCombo.getPanel().add(this.vtCombo.getDateChooser());
+			this.vtCombo.getDateChooser().setVisible(true);
 		}
 
 		this.vtCombo.getPanel().add(this.vtCombo.getBtnAgregarProducto());
@@ -290,7 +290,7 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getPanel().add(this.vtCombo.getBtnSiguiente());
 
 		this.vtCombo.getPanel().add(this.vtCombo.getTxtFecha());
-		this.vtCombo.getPanel().remove(this.vtCombo.getDateChooser());
+		this.vtCombo.getDateChooser().setVisible(false);
 
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAgregarProducto());
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnEliminarProducto());

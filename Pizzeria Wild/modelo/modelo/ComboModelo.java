@@ -7,6 +7,7 @@ import daoImplementacion.ComboImp;
 import dto.ComboActivoDTO;
 import dto.ComboDTO;
 import dto.ComboProductoDTO;
+import dto.VentaDTO;
 
 public class ComboModelo {
 
@@ -88,5 +89,21 @@ public class ComboModelo {
 
 	public void EliminarEffdt(ComboActivoDTO cActivo) {
 		this.combo.DeleteEffdt(cActivo);
+	}
+
+	public int ObtenerPrecioActual(ComboDTO c) {
+		return this.combo.GetPrecio(c);
+	}
+
+	public List<ComboActivoDTO> ObtenerCombosEnVenta(VentaDTO venta) {
+		return this.combo.GetComboIn(venta);
+	}
+
+	public ComboDTO ObtenerCombo(int comboId) {
+		return this.combo.GetCombo(comboId);
+	}
+
+	public int ObtenerCantidadEnVenta(VentaDTO venta, ComboActivoDTO ca) {
+		return this.combo.GetCantidadEnventa(venta, ca);
 	}
 }

@@ -12,6 +12,7 @@ import dao.ComboDAO;
 import dto.ComboActivoDTO;
 import dto.ComboDTO;
 import dto.ComboProductoDTO;
+import dto.VentaDTO;
 
 public class ComboImp implements ComboDAO{
 	
@@ -280,5 +281,118 @@ public class ComboImp implements ComboDAO{
 		finally {
 			this.conector.CloseConnection();
 		}
+	}
+
+	@Override
+	public int GetPrecio(ComboDTO c) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select a.precio as 'precio' from combo_activo a " +
+							"where a.combo_id = " + c.getId() +
+							" and a.effdt = (select max(b.effdt) " +
+							"				from combo_activo b	" +
+							"				where a.combo_id = b.combo_id " +
+							"				and b.effdt <= curdate())";
+		ResultSet rs = null;
+		int precio = 0;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				precio = rs.getInt("precio");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return precio;
+	}
+
+	@Override
+	public List<ComboActivoDTO> GetComboIn(VentaDTO venta) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from combo_venta " +
+							"where effdt = '" + venta.getFecha() + "' " +
+							"and num_venta = " + venta.getNumVenta();
+		ResultSet rs = null;
+		List<ComboActivoDTO> combos = new ArrayList<ComboActivoDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				int ComboId = rs.getInt("combo_id");
+				String Effdt = rs.getString("fecha_combo");
+				ComboActivoDTO ca = new ComboActivoDTO(ComboId, Effdt, 0, true);
+				
+				combos.add(ca);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return combos;
+	}
+
+	@Override
+	public ComboDTO GetCombo(int comboId) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select * from combo where id = " + comboId;
+		ResultSet rs = null;
+		ComboDTO c = null;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				int Id = rs.getInt("id");
+				String Descripcion = rs.getString("descr");
+				
+				c = new ComboDTO(Id, Descripcion);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return c;
+	}
+
+	@Override
+	public int GetCantidadEnventa(VentaDTO venta, ComboActivoDTO c) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select cantidad from combo_venta " +
+						"where effdt = '"+venta.getFecha()+"' " +
+						"and num_venta = "+venta.getNumVenta()+" " +
+						"and combo_id = "+c.getComboId()+" " +
+						"and fecha_combo = '"+c.getEfft()+"'";
+		ResultSet rs = null;
+		int cantidad = 0;
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				cantidad = rs.getInt("cantidad");
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		return cantidad;
 	}
 }

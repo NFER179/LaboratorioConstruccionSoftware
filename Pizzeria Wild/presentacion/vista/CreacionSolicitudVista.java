@@ -65,7 +65,6 @@ public class CreacionSolicitudVista extends JDialog {
 		getContentPane().add(lblNumeroPedido);
 
 		txtNumpedido = new JTextField();
-		txtNumpedido.setText("NEXT");
 		txtNumpedido.setEnabled(false);
 		txtNumpedido.setEditable(false);
 		txtNumpedido.setBounds(105, 14, 86, 25);

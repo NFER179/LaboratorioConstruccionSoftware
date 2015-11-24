@@ -11,10 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JTable; 
 
+import modelo.ComboModelo;
 import modelo.VentaModelo;
 import modelo.SaborModelo;
 
 import dto.ClienteDTO;
+import dto.ComboActivoDTO;
+import dto.ComboDTO;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
 
@@ -26,6 +29,7 @@ public class ControladorArmadoVenta implements ActionListener {
 	private VentaModelo mdlPedido;
 	private ControladorVentasCocina ctrPedidoCocina;
 	private ValidacionArmadoPedido vldArmado;
+	private ComboModelo mdlCombo;
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
 			JFrame Frame) {
@@ -34,6 +38,8 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.vtArmadoPedido.getBtnBusquedaCliente().addActionListener(this);
 		this.vtArmadoPedido.getBtnAgregar().addActionListener(this);
 		this.vtArmadoPedido.getBtnQuitar().addActionListener(this);
+		this.vtArmadoPedido.getBtnAgregarCombo().addActionListener(this);
+		this.vtArmadoPedido.getBtnQuitarCombo().addActionListener(this);
 		this.vtArmadoPedido.getChckbxDelivery().addActionListener(this);
 		this.vtArmadoPedido.getBtnArmar().addActionListener(this);
 		this.vtArmadoPedido.getBtnCancelar().addActionListener(this);
@@ -41,6 +47,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.ctrPedido = ControladorPedido;
 		this.mdlSabor = new SaborModelo();
 		this.mdlPedido = new VentaModelo();
+		this.mdlCombo = new ComboModelo();
 		this.ctrPedidoCocina = ControladorVentasCocina.GetInstancia();
 		this.vldArmado = new ValidacionArmadoPedido(this.vtArmadoPedido);
 	}
@@ -88,6 +95,8 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnBusquedaCliente());
 		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnAgregar());
 		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnQuitar());
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnAgregarCombo());
+		this.vtArmadoPedido.Quitar(this.vtArmadoPedido.getBtnQuitarCombo());
 		this.vtArmadoPedido.getTxtPrecio().setEnabled(false);
 		this.vtArmadoPedido.getChckbxDelivery().setEnabled(false);
 		this.vtArmadoPedido.getTxtDireccion().setEnabled(false);
@@ -141,6 +150,20 @@ public class ControladorArmadoVenta implements ActionListener {
 		}
 		this.vtArmadoPedido.getTblProductos().setModel(
 				this.vtArmadoPedido.getModelProductos());
+		
+		/* Carga la tabla de los combos */
+		this.vtArmadoPedido.getModelTableCombo().setRowCount(0);
+		this.vtArmadoPedido.getModelTableCombo().setColumnCount(0);
+		this.vtArmadoPedido.getModelTableCombo().setColumnIdentifiers(this.vtArmadoPedido.getNombreColumnasCombos());
+		for(ComboActivoDTO ca:this.mdlCombo.ObtenerCombosEnVenta(nuevaVenta)) {
+			ComboDTO c = this.mdlCombo.ObtenerCombo(ca.getComboId());
+			int cantidad = this.mdlCombo.ObtenerCantidadEnVenta(nuevaVenta, ca);
+			int precio = this.mdlCombo.ObtenerPrecioActual(c) * cantidad;
+			
+			Object[] fila = {ca.getComboId(), c.getDescripcion(), cantidad, this.AgregarMoneda(Integer.toString(precio))};
+			this.vtArmadoPedido.getModelTableCombo().addRow(fila);
+		}
+		this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
 
 		this.ActualizarPrecio();
 	}
@@ -259,6 +282,13 @@ public class ControladorArmadoVenta implements ActionListener {
 			String nuevoPrecio = tblProducto.getValueAt(i, 4).toString();
 			precio += Integer.parseInt(this.QuitarMoneda(nuevoPrecio));
 		}
+		
+		JTable tCombo = this.vtArmadoPedido.getTblCombo();
+		int rows = tCombo.getRowCount();
+		for(int j = 0 ; j < rows ; j++){
+			String precioCombo = tCombo.getValueAt(j, 3).toString();
+			precio += Integer.parseInt(this.QuitarMoneda(precioCombo));
+		}
 		/** <- Fin, NVR,04/10/2015 refactor */
 		// this.vtArmadoPedido.getTblProductos().getRowCount(); i++) {
 		// precio = precio
@@ -280,6 +310,46 @@ public class ControladorArmadoVenta implements ActionListener {
 		ActualizarPrecio();
 	}
 
+	private void AgregarCombo() {
+		ControladorSeleccionadorCombo ctr = new ControladorSeleccionadorCombo(this, this.vtArmadoPedido);
+		ctr.Inicializar();
+	}
+
+	private void QuitarCombo() {
+		JTable t = this.vtArmadoPedido.getTblCombo();
+		int[] selectedRows = t.getSelectedRows();
+		
+		for(int i = selectedRows.length - 1 ; i >= 0 ; i++) {
+			this.vtArmadoPedido.getModelTableCombo().removeRow(selectedRows[i]);
+		}
+		this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
+	}
+	
+	public void AgregarItemCombo(ComboDTO c, int cantidad) {
+		boolean noAgrego = true;
+		JTable t = this.vtArmadoPedido.getTblCombo();
+		for(int i = 0 ; i < t.getRowCount() ; i++) {
+			if(t.getValueAt(i, 0).toString().equals(c.getId())) {
+				String cantidadS = t.getValueAt(i, 2).toString().trim();
+				int total = Integer.parseInt(cantidadS) + cantidad;
+				
+				t.setValueAt(Integer.toString(total), i, 2);
+				
+				int precioCombo = this.mdlCombo.ObtenerPrecioActual(c) * total;
+				t.setValueAt(this.AgregarMoneda(Integer.toString(precioCombo)), i, 3);
+				
+				noAgrego = false;
+			}
+		}
+		
+		if (noAgrego) {
+			int precioCombo = this.mdlCombo.ObtenerPrecioActual(c) * cantidad;
+			Object[] f = {c.getId(), c.getDescripcion(), cantidad, this.AgregarMoneda(Integer.toString(precioCombo))};
+			this.vtArmadoPedido.getModelTableCombo().addRow(f);
+			this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
+		}
+	}
+	
 	private boolean CheckDelivery() {
 		if (this.vtArmadoPedido.getChckbxDelivery().isSelected())
 			return true;
@@ -364,6 +434,10 @@ public class ControladorArmadoVenta implements ActionListener {
 				QuitarProducto();
 			}
 			/* Verifica si la venta es a domicilio. */
+		} else if(arg0.getSource() == this.vtArmadoPedido.getBtnAgregarCombo()) {
+			this.AgregarCombo();
+		} else if(arg0.getSource() == this.vtArmadoPedido.getBtnQuitarCombo()) {
+			this.QuitarCombo();
 		} else if (arg0.getSource() == this.vtArmadoPedido.getChckbxDelivery()) {
 			this.PresionarCheck();
 			/* Boton para terminar con el armado de la venta. */
