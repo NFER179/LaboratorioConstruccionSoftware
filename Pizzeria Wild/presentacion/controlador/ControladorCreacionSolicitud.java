@@ -18,7 +18,9 @@ import modelo.MateriaPrimaModelo;
 import modelo.SolicitudModelo;
 
 import utilidades.Fecha;
+import utilidades.Msj;
 import validacion.ValidacionCreacionSolicitud;
+import validacionesCampos.Valida;
 import vista.CreacionSolicitudVista;
 import vista.SolicitudCompraVista;
 
@@ -40,6 +42,18 @@ public class ControladorCreacionSolicitud implements ActionListener {
 				this.vtCreacionSolicitud);
 		this.mdlSolicitud = new SolicitudModelo();
 		this.mdlMateriaPrima = new MateriaPrimaModelo();
+
+		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
+
+		int NumPedido;
+		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+			NumPedido = this.mdlSolicitud
+					.ObtenerNumNuevaSolicitud(FechaCreacion);
+		} else {
+			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
+					.getTxtNumpedido().getText().trim());
+		}
+
 	}
 
 	private void addListeners() {
@@ -348,14 +362,35 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	}
 
 	private void accionEnviar() {
-		this.EnviarSolicitud();
-		this.ctrSolicitud.CargarTabla();
-		this.vtCreacionSolicitud.Close();
+		if (validaGuardadoEnvio()) {
+			this.EnviarSolicitud();
+			this.ctrSolicitud.CargarTabla();
+			this.vtCreacionSolicitud.Close();
+		}
+	}
+
+	private boolean validaGuardadoEnvio() {
+		if (Valida.esNullOVacio(this.vtCreacionSolicitud.getTxtIdproveedor()
+				.getText())) {
+			Msj.error("Error", "Debe ingresar un proveedor");
+			return false;
+		}
+		if (Valida.esNullOVacio(this.vtCreacionSolicitud.getTxtDescrproveedor()
+				.getText())) {
+			this.vtCreacionSolicitud.getTxtDescrproveedor().setText("");
+		}
+		if (this.vtCreacionSolicitud.getTable().getRowCount() <= 0) {
+			Msj.error("Error", "Debe ingresar al menos una materia prima");
+			return false;
+		}
+		return true;
 	}
 
 	private void accionGuardar() {
-		this.GuardarPedido();
-		this.ctrSolicitud.CargarTabla();
-		this.vtCreacionSolicitud.Close();
+		if (validaGuardadoEnvio()) {
+			this.GuardarPedido();
+			this.ctrSolicitud.CargarTabla();
+			this.vtCreacionSolicitud.Close();
+		}
 	}
 }

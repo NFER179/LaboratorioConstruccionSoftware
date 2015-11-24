@@ -26,7 +26,7 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 		super(arg0, true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionMateriaPrimaSolicitudVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		setTitle("Seleccion Materi Prima");
+		setTitle("Seleccion Materia Prima");
 		setBounds(100, 100, 380, 453);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
