@@ -3,6 +3,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -46,14 +47,22 @@ public class ControladorBackUp implements ActionListener {
 	private void accionRestaurar() {
 		try {
 			String path = abrir();
-			if (path != null) {
-				if (path != "") {
-					BackUp.restore(path);
-				} else {
-					Msj.advertencia("Error de Seleccion",
-							"Debe seleccionar un archivo .SQL");
+			int respuesta = JOptionPane.showConfirmDialog(null,
+					"¿Esta seguro de restaurar los datos de la apliacacion?",
+					"Restaurar base de datos", JOptionPane.YES_NO_OPTION);
+			if (respuesta == JOptionPane.YES_OPTION) {
+				if (path != null) {
+					if (path != "") {
+						BackUp.restore(path);
+						Msj.info("Informacion",
+								"Back Up realizado correctamente, debe reiniciar la aplicacion");
+					} else {
+						Msj.advertencia("Error de Seleccion",
+								"Debe seleccionar un archivo .SQL");
+					}
 				}
-			}
+			} else
+				return;
 		} catch (Exception e) {
 			Msj.error("Error", "Error inesperado al restaurar el backup");
 		}

@@ -19,10 +19,11 @@ public class BackUp {
 	private static String user = "root";
 	private static String pass = "root";
 	private static String dbName = "pizzeriawild";
-	private static String mysqldumpPath = "C:/Archivos de programa/MySQL/MySQL Server 5.5/bin/mysqldump ";
+	private static String mysqldumpPath = System.getenv().get("ProgramFiles").replace("\\","/" )
+			+ "/MySQL/MySQL Server 5.5/bin/mysqldump ";
 
 	public static void backUp(String path) throws IOException {
-
+		System.out.println(mysqldumpPath);
 		String comando = mysqldumpPath + getCredentials();
 		Runtime objRT = Runtime.getRuntime();
 		Process objProcess = objRT.exec(comando);
@@ -66,7 +67,7 @@ public class BackUp {
 	private static String getDocument(String path)
 			throws FileNotFoundException, IOException {
 		String objString = new String();
-		StringBuffer objSB = new StringBuffer(); 
+		StringBuffer objSB = new StringBuffer();
 		FileReader objFR = new FileReader(new File(path));
 		BufferedReader objBR = new BufferedReader(objFR);
 		while ((objString = objBR.readLine()) != null) {

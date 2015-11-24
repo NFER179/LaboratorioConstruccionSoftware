@@ -51,7 +51,7 @@ public class ControladorVenta implements ActionListener {
 
 	private void addListeners() {
 		this.vtVenta.getBtnSolicitudes().addActionListener(this);
-//		this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
+		// this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
 		this.vtVenta.getBtnCategorias().addActionListener(this);
 		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.getBtnProveedores().addActionListener(this);
@@ -228,11 +228,11 @@ public class ControladorVenta implements ActionListener {
 		this.vtVenta.Close();
 	}
 
-//	private void accionMateriaPrima() {
-//		ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
-//		ctrMP.Inicializar();
-//		this.vtVenta.Close();
-//	}
+	// private void accionMateriaPrima() {
+	// ControladorMateriaPrima ctrMP = new ControladorMateriaPrima(this);
+	// ctrMP.Inicializar();
+	// this.vtVenta.Close();
+	// }
 
 	private void accionCategorias() {
 		ControladorCategoria ctrCategoria = new ControladorCategoria(this);
@@ -251,28 +251,28 @@ public class ControladorVenta implements ActionListener {
 		ctrProveedor.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void Repartidores() {
 		ControladorRepartidor ctrRepartidor = new ControladorRepartidor(this);
 		ctrRepartidor.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void Cliente() {
 		ControladorCliente ctr = new ControladorCliente(this);
 		ctr.Iniciarlizar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void Producto() {
 		ControladorProducto ctr = new ControladorProducto(this);
 		ctr.Inicializar();
 		this.vtVenta.Close();
 	}
-	
+
 	private void Combos() {
 		ControladorCombo ctr = new ControladorCombo(this);
-		ctr.Inicializar();		
+		ctr.Inicializar();
 		this.vtVenta.Close();
 	}
 
@@ -282,8 +282,8 @@ public class ControladorVenta implements ActionListener {
 		Object source = arg0.getSource();
 		if (source == this.vtVenta.getBtnSolicitudes()) {
 			this.accionSolicitud();
-//		} else if (source == this.vtVenta.getBtnMateriasPrimas()) {
-//			this.accionMateriaPrima();
+			// } else if (source == this.vtVenta.getBtnMateriasPrimas()) {
+			// this.accionMateriaPrima();
 		} else if (source == this.vtVenta.getBtnCategorias()) {
 			this.accionCategorias();
 		} else if (source == this.vtVenta.getBtnReportes()) {
@@ -397,8 +397,7 @@ public class ControladorVenta implements ActionListener {
 		if (b) {
 			this.vtVenta.getLblVentasDelDia().setText("Ventas del Día");
 			this.vtVenta.getBtnTodasLasVentas().setText("Todas las Ventas");
-		}
-		else {
+		} else {
 			this.vtVenta.getLblVentasDelDia().setText("Todas las Vnetas");
 			this.vtVenta.getBtnTodasLasVentas().setText("Ventas del Dia");
 		}
@@ -431,11 +430,17 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void accionSalir() {
-		// this.controlador.Return();
-		String mensaje = "Muchas Gracias por Usar el Sistema WildPizzeria";
-		JOptionPane.showMessageDialog(null, mensaje);
-		this.ctrPedidosCocina.Close();
-		this.vtVenta.Salir();
+		int respuesta = JOptionPane.showConfirmDialog(null,
+				"¿Esta seguro de salir de la aplicacion?", "Salir",
+				JOptionPane.YES_NO_OPTION);
+		if (respuesta == JOptionPane.YES_OPTION) {
+			String mensaje = "Muchas Gracias por Usar el Sistema WildPizzeria";
+			Msj.info("Wild Pizzeria", mensaje);
+			this.ctrPedidosCocina.Close();
+			this.vtVenta.Salir();
+		} else if (respuesta == JOptionPane.NO_OPTION) {
+			return;
+		}
 	}
 
 	/**
