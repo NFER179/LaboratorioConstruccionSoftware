@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
+import java.awt.Toolkit;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class BusquedaProductosCombosVista extends JDialog {
 	
@@ -30,8 +33,9 @@ public class BusquedaProductosCombosVista extends JDialog {
 
 	public BusquedaProductosCombosVista(ABMComboVista Vista) {
 		super(Vista, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(BusquedaProductosCombosVista.class.getResource("/Iconos/pizza_1.PNG")));
 		
-		setTitle("Busueda Producto");
+		setTitle(" Buscar Producto");
 		setBounds(100, 100, 515, 413);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
@@ -43,7 +47,7 @@ public class BusquedaProductosCombosVista extends JDialog {
 		getContentPane().add(comboBox);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(15, 100, 452, 157);
+		scrollPane.setBounds(15, 100, 474, 157);
 		getContentPane().add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumna);
@@ -51,7 +55,8 @@ public class BusquedaProductosCombosVista extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		JLabel lblCantidad = new JLabel("Cantidad: ");
-		lblCantidad.setBounds(15, 273, 99, 20);
+		lblCantidad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCantidad.setBounds(15, 273, 99, 25);
 		getContentPane().add(lblCantidad);
 		
 		txtCantidad = new JTextField();
@@ -59,20 +64,25 @@ public class BusquedaProductosCombosVista extends JDialog {
 		getContentPane().add(txtCantidad);
 		txtCantidad.setColumns(10);
 		
-		btnAceptar = new JButton("Aceptar");
-		btnAceptar.setBounds(233, 312, 115, 29);
+		btnAceptar = new JButton(" Aceptar");
+		btnAceptar.setIcon(new ImageIcon(BusquedaProductosCombosVista.class.getResource("/Iconos/OK.png")));
+		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAceptar.setBounds(199, 324, 140, 40);
 		getContentPane().add(btnAceptar);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(363, 312, 115, 29);
+		btnCancelar = new JButton(" Cancelar");
+		btnCancelar.setIcon(new ImageIcon(BusquedaProductosCombosVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(349, 324, 140, 40);
 		getContentPane().add(btnCancelar);
 		
 		lblDescripcion = new JLabel("Descripcion: ");
-		lblDescripcion.setBounds(15, 58, 109, 20);
+		lblDescripcion.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblDescripcion.setBounds(15, 53, 109, 25);
 		getContentPane().add(lblDescripcion);
 		
 		txtDescripcion = new JTextField();
-		txtDescripcion.setBounds(124, 58, 354, 26);
+		txtDescripcion.setBounds(113, 53, 376, 25);
 		getContentPane().add(txtDescripcion);
 		txtDescripcion.setColumns(10);
 

@@ -36,7 +36,7 @@ public class ComboVista extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ComboVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setTitle(" Combo");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 534, 418);
+		setBounds(100, 100, 534, 481);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -49,7 +49,7 @@ public class ComboVista extends JFrame {
 		contentPane.add(lblCombos);
 		
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 355, 288);
+		scrollPane.setBounds(10, 36, 355, 406);
 		contentPane.add(scrollPane);
 		
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumna);
@@ -62,25 +62,27 @@ public class ComboVista extends JFrame {
 		btnAgregar.setBounds(375, 36, 140, 40);
 		contentPane.add(btnAgregar);
 		
-		btnInformacion = new JButton("Informacion");
-		btnInformacion.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Quitar.png")));
+		btnInformacion = new JButton(" Informacion");
+		btnInformacion.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/info.png")));
 		btnInformacion.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnInformacion.setBounds(375, 87, 140, 40);
 		contentPane.add(btnInformacion);
 		
-		btnEliminar = new JButton("Eliminar");
-		btnEliminar.setBounds(380, 143, 115, 29);
+		btnEliminar = new JButton(" Eliminar");
+		btnEliminar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Quitar.png")));
+		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEliminar.setBounds(375, 138, 140, 40);
 		contentPane.add(btnEliminar);
 		
 		btnAceptar = new JButton(" Volver");
 		btnAceptar.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Volver.png")));
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAceptar.setBounds(375, 338, 140, 40);
+		btnAceptar.setBounds(375, 402, 140, 40);
 		contentPane.add(btnAceptar);
 		
 		lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(ComboVista.class.getResource("/Iconos/Logo Pizzeria Wild .png")));
-		lblNewLabel.setBounds(365, 151, 163, 158);
+		lblNewLabel.setBounds(365, 214, 163, 158);
 		contentPane.add(lblNewLabel);
 	}
 	public void Open() {

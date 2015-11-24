@@ -88,31 +88,35 @@ public class ABMComboVista extends JDialog {
 		
 		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel.setBounds(10, 80, 525, 368);
+		panel.setBounds(10, 75, 525, 368);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		btnAnterior = new JButton("Anterior");
+		btnAnterior.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAnterior.setBounds(15, 16, 115, 29);
 		panel.add(btnAnterior);
 		
-		lblFila = new JLabel("fila");
+		lblFila = new JLabel("Fila");
+		lblFila.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFila.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFila.setBounds(222, 20, 69, 20);
 		panel.add(lblFila);
 		
 		btnSiguiente = new JButton("Siguiente");
+		btnSiguiente.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSiguiente.setBounds(395, 16, 115, 29);
 		panel.add(btnSiguiente);
 		
 		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFecha.setBounds(15, 61, 96, 20);
 		panel.add(lblFecha);
 		
 		txtFecha = new JTextField();
 		txtFecha.setEnabled(false);
 		txtFecha.setEditable(false);
-		txtFecha.setBounds(84, 61, 86, 20);
+		txtFecha.setBounds(84, 56, 146, 25);
 		panel.add(txtFecha);
 		txtFecha.setColumns(10);
 		
@@ -121,6 +125,7 @@ public class ABMComboVista extends JDialog {
 		panel.add(dateChooser);
 		
 		chckbxActivo = new JCheckBox("Activo");
+		chckbxActivo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		chckbxActivo.setEnabled(false);
 		chckbxActivo.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxActivo.setBounds(371, 57, 139, 29);
@@ -135,14 +140,17 @@ public class ABMComboVista extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		btnAgregarProducto = new JButton("Agregar");
-		btnAgregarProducto.setBounds(395, 133, 115, 29);
+		btnAgregarProducto.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregarProducto.setBounds(395, 133, 115, 40);
 		panel.add(btnAgregarProducto);
 		
 		btnEliminarProducto = new JButton("Eliminar");
-		btnEliminarProducto.setBounds(395, 178, 115, 29);
+		btnEliminarProducto.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnEliminarProducto.setBounds(395, 184, 115, 40);
 		panel.add(btnEliminarProducto);
 		
 		JLabel lblPrecio = new JLabel("Precio:");
+		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblPrecio.setBounds(15, 329, 69, 20);
 		panel.add(lblPrecio);
 		
@@ -156,33 +164,37 @@ public class ABMComboVista extends JDialog {
 		btnAgregar = new JButton(" Agregar");
 		btnAgregar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/Agregar.png")));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnAgregar.setBounds(560, 191, 140, 40);
+		btnAgregar.setBounds(560, 201, 140, 40);
 		getContentPane().add(btnAgregar);
 		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setBounds(585, 247, 115, 29);
+		btnModificar = new JButton(" Modificar");
+		btnModificar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/modificar.png")));
+		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnModificar.setBounds(560, 268, 140, 40);
 		getContentPane().add(btnModificar);
 		
 		btnEliminar = new JButton(" Quitar");
 		btnEliminar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/Quitar.png")));
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnEliminar.setBounds(560, 292, 140, 40);
+		btnEliminar.setBounds(560, 331, 140, 40);
 		getContentPane().add(btnEliminar);
 		
-		btnVolver = new JButton("Volver");
-		btnVolver.setBounds(602, 475, 115, 29);
+		btnVolver = new JButton(" Volver");
+		btnVolver.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnVolver.setBounds(573, 481, 140, 40);
 		getContentPane().add(btnVolver);
 		
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/Guardar.png")));
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnGuardar.setBounds(422, 464, 140, 40);
+		btnGuardar.setBounds(423, 481, 140, 40);
 		getContentPane().add(btnGuardar);
 		
 		btnCancelar = new JButton(" Cancelar");
 		btnCancelar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnCancelar.setBounds(577, 464, 140, 40);
+		btnCancelar.setBounds(573, 481, 140, 40);
 		getContentPane().add(btnCancelar);
 		
 		JLabel lblNewLabel = new JLabel("");
