@@ -152,6 +152,8 @@ public class BackUp {
 
 	private static List<String> ordenTablas() {
 		List<String> ret = new LinkedList<String>();
+		ret.add("DROP TABLE IF EXISTS `preferencias`");
+		ret.add("CREATE TABLE `preferencias`");
 		ret.add("DROP TABLE IF EXISTS `estilos`");
 		ret.add("CREATE TABLE `estilos`");
 		ret.add("DROP TABLE IF EXISTS `cliente`");
@@ -166,8 +168,16 @@ public class BackUp {
 		ret.add("CREATE TABLE `venta_producto`");
 		ret.add("DROP TABLE IF EXISTS `combo`");
 		ret.add("CREATE TABLE `combo`");
-		ret.add("DROP TABLE IF EXISTS `producto_combo`");
-		ret.add("CREATE TABLE `producto_combo`");
+
+		ret.add("DROP TABLE IF EXISTS `combo_activo`");
+		ret.add("CREATE TABLE `combo_activo`");
+
+		ret.add("DROP TABLE IF EXISTS `combo_producto`");
+		ret.add("CREATE TABLE `combo_producto`");
+
+		ret.add("DROP TABLE IF EXISTS `combo_venta`");
+		ret.add("CREATE TABLE `combo_venta`");
+
 		ret.add("DROP TABLE IF EXISTS `repartidor`");
 		ret.add("CREATE TABLE `repartidor`");
 		ret.add("DROP TABLE IF EXISTS `delivery`");
@@ -191,14 +201,20 @@ public class BackUp {
 		ret.add("DROP TABLE IF EXISTS `pedido_mp`");
 		ret.add("CREATE TABLE `pedido_mp`");
 
+		ret.add("INSERT INTO `preferencias");
+		ret.add("INSERT INTO `estilos");
 		ret.add("INSERT INTO `cliente");
 		ret.add("INSERT INTO `producto");
 		ret.add("INSERT INTO `sabor_producto");
 		ret.add("INSERT INTO `venta");
 		ret.add("INSERT INTO `venta_producto");
-		ret.add("INSERT INTO `repartidor");
 		ret.add("INSERT INTO `combo");
-		ret.add("INSERT INTO `producto_combo");
+
+		ret.add("INSERT INTO `combo_activo");
+		ret.add("INSERT INTO `combo_producto");
+		ret.add("INSERT INTO `combo_venta");
+
+		ret.add("INSERT INTO `repartidor");
 		ret.add("INSERT INTO `delivery");
 		ret.add("INSERT INTO `delivery_venta");
 		ret.add("INSERT INTO `proveedor");
