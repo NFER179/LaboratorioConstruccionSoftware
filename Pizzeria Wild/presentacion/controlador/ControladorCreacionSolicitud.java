@@ -42,18 +42,6 @@ public class ControladorCreacionSolicitud implements ActionListener {
 				this.vtCreacionSolicitud);
 		this.mdlSolicitud = new SolicitudModelo();
 		this.mdlMateriaPrima = new MateriaPrimaModelo();
-
-		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
-
-		int NumPedido;
-		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
-			NumPedido = this.mdlSolicitud
-					.ObtenerNumNuevaSolicitud(FechaCreacion);
-		} else {
-			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
-					.getTxtNumpedido().getText().trim());
-		}
-
 	}
 
 	private void addListeners() {
@@ -70,6 +58,17 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		this.CargarFecha();
 		this.vtCreacionSolicitud.getContentPane().remove(
 				this.vtCreacionSolicitud.getBtnImprimir());
+		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
+
+		int NumPedido;
+		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+			NumPedido = this.mdlSolicitud
+					.ObtenerNumNuevaSolicitud(FechaCreacion);
+		} else {
+			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
+					.getTxtNumpedido().getText().trim());
+		}
+		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumPedido + "");
 		this.vtCreacionSolicitud.Open();
 	}
 
