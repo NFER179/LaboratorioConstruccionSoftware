@@ -10,7 +10,7 @@ import dto.ComboProductoDTO;
 import dto.VentaDTO;
 
 public class ComboModelo {
-
+ 
 	private ComboDAO combo;
 	
 	public ComboModelo() {
