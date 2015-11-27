@@ -5,8 +5,10 @@ import controlador.ControladorVenta;
 public class Main {
 
 	public static void main(String[] args) {
+		boolean ini = true;
 		if (Sistema.esPrimeraEjecucion())
-			Sistema.inicializarAplicacion();
-		new ControladorVenta().Inicializar();
+			ini = Sistema.inicializarAplicacion();
+		if (ini)
+			new ControladorVenta().Inicializar();
 	}
 }

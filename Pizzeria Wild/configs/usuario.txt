@@ -1,3 +1,1 @@
-user:root;
-pass:root;
-db:pizzeriawild;
+user: ; pass: ; db: ;
