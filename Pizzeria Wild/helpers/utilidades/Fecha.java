@@ -129,18 +129,25 @@ public class Fecha {
 		return fechas;
 	}
 
-	public static String format(Date fecha){
+	public static String format(Date fecha) {
 		String ret = "";
 		ret = formato.format(fecha);
 		return ret;
 	}
 
 	@SuppressWarnings("deprecation")
-	public static int numSemana(Date fecha){ 
+	public static int numSemana(Date fecha) {
 		Calendar c = Calendar.getInstance();
 		c.set(Calendar.YEAR, fecha.getYear());
 		c.set(Calendar.MONTH, fecha.getMonth());
 		c.set(Calendar.DATE, fecha.getDate());
 		return c.get(Calendar.WEEK_OF_YEAR);
+	}
+
+	public static String format(String date) {
+		String ret = "";
+		String[] datos = date.split("-");
+		ret = datos[2] + "/" + datos[1] + "/" + datos[0];
+		return ret;
 	}
 }

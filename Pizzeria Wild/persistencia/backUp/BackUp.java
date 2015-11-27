@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -16,15 +18,16 @@ import java.util.List;
 import conexion.ConectorDB;
 
 public class BackUp {
-	private static String user = "root";
-	private static String pass = "root";
-	private static String dbName = "pizzeriawild";
+
+	private static String rutaUsuario = "configs/usuario.txt";
 	private static String mysqldumpPath = System.getenv().get("ProgramFiles")
 			.replace("\\", "/")
 			+ "/MySQL/MySQL Server 5.5/bin/mysqldump ";
 	private static String mysqldumpPath2 = System.getenv().get("ProgramFiles")
 			.replace("\\", "/")
 			+ "/MySQL/MySQL Server 5.6/bin/mysqldump ";
+
+	private static String rutaDB = "configs/db.sql";
 
 	public static void backUp(String path) throws Exception {
 		try {
@@ -79,6 +82,12 @@ public class BackUp {
 			SQLException {
 		String sql = getSql(nombreArchivo);
 		ejecutarSql(sql);
+	}
+
+	public static void inicializarBD() throws IOException, SQLException {
+		File file = new File(rutaDB);
+		String path = file.getAbsolutePath();
+		ejecutarSql(getTextoArchivo(path));
 	}
 
 	private static void ejecutarSql(String sql) throws SQLException {
@@ -230,7 +239,58 @@ public class BackUp {
 	}
 
 	private static String getCredentials() {
+		String documento = getTextoArchivo(rutaUsuario);
+		String[] partes = documento.split(";");
+		String user = partes[0].split(":")[1];
+		String pass = partes[1].split(":")[1];
+		String dbName = partes[2].split(":")[1];
 		String mask = "-u%s -p%s %s";
 		return String.format(mask, user, pass, dbName);
 	}
+
+	public static String getTextoArchivo(String ruta) {
+		File archivo = null;
+		FileReader fr = null;
+		BufferedReader br = null;
+		String ret = "";
+		try {
+			archivo = new File(ruta);
+			fr = new FileReader(archivo);
+			br = new BufferedReader(fr);
+			String linea;
+			while ((linea = br.readLine()) != null)
+				ret += linea;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fr) {
+					fr.close();
+				}
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return ret;
+	}
+
+	public static void modificarTextoArchivo(String ruta, String contenido) {
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		try {
+			fichero = new FileWriter(ruta);
+			fichero.write("");
+			fichero.append(contenido);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (null != fichero)
+					fichero.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
+
 }

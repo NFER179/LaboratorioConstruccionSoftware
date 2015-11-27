@@ -15,6 +15,8 @@ import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 
+import utilidades.Fecha;
+
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjReporteItinerario.objPuntoItinerario;
 
@@ -33,7 +35,7 @@ public class Impresiones {
 	private static String tempPath = "Templates/%s.pdf";
 	private static String resultPath = "reportesImpresiones/%s.pdf";
 	private static String pdfResultPath;
-	private static PdfReader pdfTemplate; 
+	private static PdfReader pdfTemplate;
 	private static FileOutputStream pdfOut;
 	private static PdfStamper stamper;
 	private static ObjDatosPizzeria wild = new ObjDatosPizzeria();
@@ -45,22 +47,6 @@ public class Impresiones {
 		for (int i = 1; i <= totalHojas; i++) {
 			imprimirHojaSolicitudMP(solicitud, i, totalHojas);
 		}
-	}
-
-	public static void imprimir(ObjImprimible imprimible)
-			throws FileNotFoundException, IOException, DocumentException {
-		initAll(imprimible, imprimible.getId());
-		if (imprimible instanceof ObjReporteComandaTicket) {
-			ImprimirComandaTicket((ObjReporteComandaTicket) imprimible);
-		} else if (imprimible instanceof ObjReporteItinerario) {
-		} else if (imprimible instanceof ObjReporteVentas) {
-		} else if (imprimible instanceof ObjReporteReparto) {
-		} else if (imprimible instanceof ObjReporteSolicitudMP) {
-		} else if (imprimible instanceof ObjReporteMejoresClientes) {
-		}
-
-		closeAll();
-		imprimir();
 	}
 
 	public static void ImprimirComandaTicket(ObjReporteComandaTicket comanda)
@@ -130,7 +116,8 @@ public class Impresiones {
 
 	private static void llenarCabeceraReporteReparto(ObjReporteReparto reporte)
 			throws IOException, DocumentException {
-		stamper.getAcroFields().setField("txtFecha", reporte.getFecha());
+		stamper.getAcroFields().setField("txtFecha",
+				Fecha.format(reporte.getFecha()));
 		stamper.getAcroFields().setField("txtRepartidor",
 				reporte.getNombreRepartidor());
 	}
@@ -198,8 +185,10 @@ public class Impresiones {
 
 	private static void llenarCabeceraReporteVentas(ObjReporteVentas reporte)
 			throws IOException, DocumentException {
-		stamper.getAcroFields().setField("txtDesde", reporte.getFechaDesde());
-		stamper.getAcroFields().setField("txtHasta", reporte.getFechaHasta());
+		stamper.getAcroFields().setField("txtDesde",
+				Fecha.format(reporte.getFechaDesde()));
+		stamper.getAcroFields().setField("txtHasta",
+				Fecha.format(reporte.getFechaHasta()));
 	}
 
 	private static double llenarReporteVentas(ObjReporteVentas reporte,
@@ -243,8 +232,10 @@ public class Impresiones {
 	private static void llenarCabeceraReporteMejoresClientes(
 			ObjReporteMejoresClientes reporte) throws IOException,
 			DocumentException {
-		stamper.getAcroFields().setField("txtDesde", reporte.getFechaDesde());
-		stamper.getAcroFields().setField("txtHasta", reporte.getFechaHasta());
+		stamper.getAcroFields().setField("txtDesde",
+				Fecha.format(reporte.getFechaDesde()));
+		stamper.getAcroFields().setField("txtHasta",
+				Fecha.format(reporte.getFechaHasta()));
 	}
 
 	private static void llenarReporteMejoresClientes(
@@ -293,7 +284,8 @@ public class Impresiones {
 	private static void llenarCabeceraSolicitudMP(
 			ObjReporteSolicitudMP solicitud) throws IOException,
 			DocumentException {
-		stamper.getAcroFields().setField("txtFecha", solicitud.getFecha());
+		stamper.getAcroFields().setField("txtFecha",
+				Fecha.format(solicitud.getFecha()));
 		stamper.getAcroFields().setField("txtId", solicitud.getId() + "");
 
 		stamper.getAcroFields().setField("txtTelefonoPizzeria",
@@ -359,8 +351,10 @@ public class Impresiones {
 	private static void llenarCabeceraComandaTicket(
 			ObjReporteComandaTicket comanda) throws IOException,
 			DocumentException {
-		stamper.getAcroFields().setField("txtFechaTicket", comanda.getFecha());
-		stamper.getAcroFields().setField("txtFechaComanda", comanda.getFecha());
+		stamper.getAcroFields().setField("txtFechaTicket",
+				Fecha.format(comanda.getFecha()));
+		stamper.getAcroFields().setField("txtFechaComanda",
+				Fecha.format(comanda.getFecha()));
 		stamper.getAcroFields().setField("txtIdComanda", comanda.getId() + "");
 		stamper.getAcroFields().setField("txtIdTicket", comanda.getId() + "");
 
@@ -485,7 +479,8 @@ public class Impresiones {
 
 	private static void llenarCabeceraItinerario(ObjReporteItinerario itinerario)
 			throws IOException, DocumentException {
-		stamper.getAcroFields().setField("txtFecha", itinerario.getFecha());
+		stamper.getAcroFields().setField("txtFecha",
+				Fecha.format(itinerario.getFecha()));
 		stamper.getAcroFields().setField("txtId", itinerario.getId() + "");
 		ObjDatosRepartidor repartidor = itinerario.getRepartidor();
 		stamper.getAcroFields().setField("txtRepartidor",
