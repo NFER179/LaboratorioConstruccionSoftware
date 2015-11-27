@@ -25,10 +25,10 @@ public class BackUp {
 
 	private static String mysqldumpPath = System.getenv().get("ProgramFiles")
 			.replace("\\", "/")
-			+ "/MySQL/MySQL Server 5.5/bin/mysqldump ";
+			+ "/MySQL/MySQL Server 5.7/bin/mysqldump ";
 	private static String mysqldumpPath2 = System.getenv().get("ProgramFiles")
 			.replace("\\", "/")
-			+ "/MySQL/MySQL Server 5.6/bin/mysqldump ";
+			+ "/MySQL/MySQL Server 5.7/bin/mysqldump ";
 
 	public static void backUp(String path) throws Exception {
 		try {
