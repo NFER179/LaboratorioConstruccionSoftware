@@ -21,7 +21,8 @@ public class ComboImp implements ComboDAO{
 	@Override
 	public List<ComboDTO> GetCombos() {
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "select c.* from combo c ";
+		String sqlString = "select c.* from combo c " +
+							"order by id";
 		ResultSet rs = null;
 		List<ComboDTO> combos = new ArrayList<ComboDTO>();
 		
@@ -219,10 +220,11 @@ public class ComboImp implements ComboDAO{
 	public List<ComboActivoDTO> GetCurrentCombos(ComboDTO combo) {
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "select a.* from combo_activo a " +
-							"where a.effdt >= (select max(b.effdt)" +
-							"					from combo_activo b" +
-							"					where a.combo_id = b.combo_id" +
-							"					  and b.effdt <= curdate()) " +
+							"where a.effdt >= curdate() " +
+//							"where a.effdt >= (select max(b.effdt)" +
+//							"					from combo_activo b" +
+//							"					where a.combo_id = b.combo_id" +
+//							"					  and b.effdt <= curdate()) " +
 							"and a.combo_id = " + combo.getId();
 		ResultSet rs = null;
 		List<ComboActivoDTO> aclist = new ArrayList<ComboActivoDTO>();
@@ -370,7 +372,7 @@ public class ComboImp implements ComboDAO{
 	}
 
 	@Override
-	public int GetCantidadEnventa(VentaDTO venta, ComboActivoDTO c) {
+	public int GetCantidadEnVenta(VentaDTO venta, ComboActivoDTO c) {
 		Statement stm = this.conector.GetStatement();
 		String sqlString = "select cantidad from combo_venta " +
 						"where effdt = '"+venta.getFecha()+"' " +
@@ -394,5 +396,29 @@ public class ComboImp implements ComboDAO{
 			this.conector.CloseConnection();
 		}
 		return cantidad;
+	}
+
+	@Override
+	public String GetNewEffdt(ComboDTO c) {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select adddate(max(effdt),1) as 'fecha' from combo_activo " +
+							"where combo_id = " + c.getId();
+		ResultSet rs = null;
+		String fecha = "";
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				fecha = rs.getString("fecha");
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		return fecha;
 	}
 }

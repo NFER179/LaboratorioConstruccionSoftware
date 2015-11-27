@@ -104,6 +104,10 @@ public class ComboModelo {
 	}
 
 	public int ObtenerCantidadEnVenta(VentaDTO venta, ComboActivoDTO ca) {
-		return this.combo.GetCantidadEnventa(venta, ca);
+		return this.combo.GetCantidadEnVenta(venta, ca);
+	}
+
+	public String ObtenerSiguienteFecha(ComboDTO c) {
+		return this.combo.GetNewEffdt(c);
 	}
 }

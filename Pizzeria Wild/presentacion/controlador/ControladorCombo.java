@@ -24,7 +24,7 @@ public class ControladorCombo implements ActionListener {
 		this.vtCombo = new ComboVista();
 		this.vtCombo.getBtnAgregar().addActionListener(this);
 		this.vtCombo.getBtnInformacion().addActionListener(this);
-		this.vtCombo.getBtnEliminar().addActionListener(this);
+//		this.vtCombo.getBtnEliminar().addActionListener(this);
 		this.vtCombo.getBtnAceptar().addActionListener(this);
 
 		this.mdlCombo = new ComboModelo();
@@ -68,9 +68,9 @@ public class ControladorCombo implements ActionListener {
 		ctr.InicializarInformacion(c, selectesRow);
 	}
 
-	public void Eliminar() {
-		// TODO;
-	}
+//	public void Eliminar() {
+//		// TODO;
+//	}
 
 	private void Volver() {
 		this.ctrVenta.Return();
@@ -83,8 +83,8 @@ public class ControladorCombo implements ActionListener {
 			this.Agregar();
 		} else if (arg0.getSource() == this.vtCombo.getBtnInformacion()) {
 			this.ObtenerInformacion();
-		} else if (arg0.getSource() == this.vtCombo.getBtnEliminar()) {
-			this.Eliminar();
+//		} else if (arg0.getSource() == this.vtCombo.getBtnEliminar()) {
+//			this.Eliminar();
 		} else if (arg0.getSource() == this.vtCombo.getBtnAceptar()) {
 			this.Volver();
 		}

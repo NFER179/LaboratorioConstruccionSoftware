@@ -49,6 +49,8 @@ public interface ComboDAO {
 
 	public ComboDTO GetCombo(int comboId);
 
-	public int GetCantidadEnventa(VentaDTO venta, ComboActivoDTO ca);
+	public int GetCantidadEnVenta(VentaDTO venta, ComboActivoDTO ca);
+
+	public String GetNewEffdt(ComboDTO c);
 
 }

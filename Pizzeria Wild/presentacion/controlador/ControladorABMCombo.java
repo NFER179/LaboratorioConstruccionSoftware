@@ -2,7 +2,10 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -248,18 +251,34 @@ public class ControladorABMCombo implements ActionListener {
 
 	private void AgregarEffdt() {
 		this.creacion = true;
-		this.ModoCreacion(false);
-	}
-
-	private void ModificarEffdt() {
+		this.close = false;
 		this.ModoCreacion(true);
 	}
 
-	private void ModoCreacion(boolean modificar) {
+	private void ModificarEffdt() {
+		this.close = false;
+		this.ModoCreacion(false);
+	}
+
+	private void ModoCreacion(boolean creacion) {
+		this.vtCombo.getLblFila().setText("");
+		
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAnterior());
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnSiguiente());
-
-		if (!modificar) {
+		
+		if (creacion) {
+			String IdS = this.vtCombo.getTxtIdcombo().getText().trim();
+			int Id = Integer.parseInt(IdS);
+			String Descripcion = this.vtCombo.getTxtDescripcion().getText().trim();
+			
+			ComboDTO c = new ComboDTO(Id, Descripcion);
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			try{
+				this.vtCombo.getDateChooser().setDate(sdf.parse(this.mdlCombo.ObtenerSiguienteFecha(c)));
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
 			this.vtCombo.getPanel().remove(this.vtCombo.getTxtFecha());
 			this.vtCombo.getDateChooser().setVisible(true);
 		}
@@ -283,6 +302,9 @@ public class ControladorABMCombo implements ActionListener {
 	}
 
 	private void ModoInformacion() {
+		this.vtCombo.getLblFila().setText(
+				(this.Pos + 1) + " de " + this.cActivoList.size());
+		
 		this.vtCombo.getTxtDescripcion().setEditable(false);
 		this.vtCombo.getTxtDescripcion().setEditable(false);
 
@@ -311,8 +333,15 @@ public class ControladorABMCombo implements ActionListener {
 	}
 
 	private void Eliminar() {
-		if (this.Pos != 0) {
+		if (this.cActivoList.size() > 1) {
 			this.mdlCombo.EliminarEffdt(this.cActivoList.get(this.Pos));
+			
+			int ComboId = Integer.parseInt(this.vtCombo.getTxtIdcombo().getText().trim());
+			String Effdt = this.vtCombo.getTxtFecha().getText().trim();
+			
+			ComboDTO combo = new ComboDTO(ComboId, Effdt);
+			
+			this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(combo);
 		}
 		this.AnteriorEffdt();
 	}
@@ -334,7 +363,16 @@ public class ControladorABMCombo implements ActionListener {
 		if (this.mdlCombo.NoExisteCombo(c)) {
 			this.mdlCombo.CrearCombo(c);
 		}
-		String Effdt = Fecha.format(this.vtCombo.getDateChooser().getDate());
+		
+		String Effdt = "";
+		if (this.creacion) {
+			Effdt = Fecha.format(this.vtCombo.getDateChooser().getDate());
+			this.vtCombo.getTxtFecha().setText(Effdt);
+		}
+		else{
+			Effdt = this.vtCombo.getTxtFecha().getText().trim();
+		}
+		
 		String PrecioS = this.vtCombo.getTxtPrecio().getText().trim();
 		if (!Valida.esEnteroPositivo(PrecioS)) {
 			Msj.error("Error", "Debe asignar un precio final valido al combo");
@@ -371,14 +409,10 @@ public class ControladorABMCombo implements ActionListener {
 
 		this.ctrCombo.CargarTabla();
 
-		if (this.creacion) {
-			this.ModoInformacion();
-			this.creacion = false;
-		} else {
-			this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(c);
-			this.AnteriorEffdt();
-			this.ModoInformacion();
-		}
+		this.creacion = false;
+		this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(c);
+		this.AnteriorEffdt();
+		this.ModoInformacion();
 	}
 
 	private void Cancelar() {
