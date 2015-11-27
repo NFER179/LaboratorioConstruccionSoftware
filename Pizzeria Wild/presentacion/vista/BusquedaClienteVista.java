@@ -7,6 +7,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -16,24 +18,29 @@ import objetosVistaCustom.WTable;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
-
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 public class BusquedaClienteVista extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	
+
 	private JTable table;
+	private TableRowSorter sorter;
 	private DefaultTableModel modelCliente;
-	private String[] nombreColumnas = {"ID Cliente", "Nombre"};
+	private String[] nombreColumnas = { "ID Cliente", "Nombre" };
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	private JTextField txtFiltro;
 
 	public BusquedaClienteVista(JDialog FramePadre) {
 		super(FramePadre, true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(BusquedaClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				BusquedaClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
+
 		this.setTitle(" Busqueda de Cliente");
 		this.setBounds(100, 100, 328, 459);
 		this.getContentPane().setLayout(new BorderLayout());
@@ -43,7 +50,7 @@ public class BusquedaClienteVista extends JDialog {
 		this.setLocationRelativeTo(null);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 11, 300, 333);
+		scrollPane.setBounds(10, 30, 300, 333);
 		this.contentPanel.add(scrollPane);
 
 		this.modelCliente = new WDefaultTableModel(null, this.nombreColumnas);
@@ -51,23 +58,38 @@ public class BusquedaClienteVista extends JDialog {
 		this.table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
 
+		this.sorter = new TableRowSorter<TableModel>(modelCliente);
+		table.setRowSorter(sorter);
+
 		this.btnAceptar = new JButton("Aceptar");
-		btnAceptar.setIcon(new ImageIcon(BusquedaClienteVista.class.getResource("/Iconos/OK.png")));
+		btnAceptar.setIcon(new ImageIcon(BusquedaClienteVista.class
+				.getResource("/Iconos/OK.png")));
 		btnAceptar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnAceptar.setBounds(10, 374, 140, 40);
 		this.contentPanel.add(btnAceptar);
 
 		this.btnCancelar = new JButton("Cancelar");
-		btnCancelar.setIcon(new ImageIcon(BusquedaClienteVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setIcon(new ImageIcon(BusquedaClienteVista.class
+				.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnCancelar.setBounds(170, 374, 140, 40);
-		this.contentPanel.add(btnCancelar);		
+		this.contentPanel.add(btnCancelar);
+
+		txtFiltro = new JTextField();
+		txtFiltro.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+			}
+		});
+		txtFiltro.setBounds(10, 11, 300, 20);
+		contentPanel.add(txtFiltro);
+		txtFiltro.setColumns(10);
 	}
-	
+
 	public void Open() {
 		this.setVisible(true);
 	}
-	
+
 	public void Close() {
 		this.setVisible(false);
 	}

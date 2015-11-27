@@ -66,9 +66,19 @@ public class ConectorDB {
 		if (this.conexion == null || this.statement == null) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				String url = "jdbc:mysql://localhost/PizzeriaWild";
+				String url = "jdbc:mysql://localhost";
+				String texto = ManejoArchivos.getTextoArchivo(rutaUsuario);
+				String[] partes = texto.split(";");
+				String dbUser = partes[0].split(":")[1].trim();
+				String dbPass = partes[1].split(":")[1].trim();
+				String dbName = partes[2].split(":")[1].trim();
+
+				if (!dbName.equals(""))
+					url += "/" + dbName;
+				if (dbUser.equals("") && dbPass.equals(""))
+					dbPass = dbUser = "root";
 				this.conexion = DriverManager
-						.getConnection(url, "root", "root");
+						.getConnection(url, dbUser, dbPass);
 				this.statement = this.conexion.createStatement();
 			} catch (Exception e) {
 				e.printStackTrace();
