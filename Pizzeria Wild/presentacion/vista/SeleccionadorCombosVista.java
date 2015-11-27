@@ -13,6 +13,9 @@ import javax.swing.table.DefaultTableModel;
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
 import javax.swing.ListSelectionModel;
+import java.awt.Font;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 public class SeleccionadorCombosVista extends JDialog {
 	
@@ -26,14 +29,16 @@ public class SeleccionadorCombosVista extends JDialog {
 
 	public SeleccionadorCombosVista(ArmadoVentaVista Vista) {
 		super(Vista, true);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionadorCombosVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle("Seleccion Combo");
+		setTitle(" Seleccion Combo");
 		setBounds(100, 100, 491, 321);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 		
 		JLabel lblCombos = new JLabel("Combos:");
-		lblCombos.setBounds(10, 11, 80, 14);
+		lblCombos.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCombos.setBounds(10, 11, 80, 25);
 		getContentPane().add(lblCombos);
 		
 		JScrollPane scrollPane = new JScrollPane();
@@ -46,20 +51,25 @@ public class SeleccionadorCombosVista extends JDialog {
 		scrollPane.setViewportView(table);
 		
 		lblCantidad = new JLabel("Cantidad:");
-		lblCantidad.setBounds(10, 207, 80, 14);
+		lblCantidad.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblCantidad.setBounds(10, 207, 80, 25);
 		getContentPane().add(lblCantidad);
 		
 		textField = new JTextField();
-		textField.setBounds(74, 204, 116, 20);
+		textField.setBounds(71, 207, 116, 25);
 		getContentPane().add(textField);
 		textField.setColumns(10);
 		
-		btnAgregar = new JButton("Agregar");
-		btnAgregar.setBounds(285, 253, 89, 23);
+		btnAgregar = new JButton(" Agregar");
+		btnAgregar.setIcon(new ImageIcon(SeleccionadorCombosVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAgregar.setBounds(183, 242, 140, 40);
 		getContentPane().add(btnAgregar);
 		
-		btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(384, 253, 89, 23);
+		btnCancelar = new JButton(" Cancelar");
+		btnCancelar.setIcon(new ImageIcon(SeleccionadorCombosVista.class.getResource("/Iconos/Quitar.png")));
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnCancelar.setBounds(333, 242, 140, 40);
 		getContentPane().add(btnCancelar);
 	}
 	public void Open() {
