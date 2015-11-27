@@ -1,1 +1,1 @@
-user:nicoo; pass:nicoo; db:PizzeriaWild;
+user: ; pass: ; db: ;
