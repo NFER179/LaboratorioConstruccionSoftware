@@ -23,12 +23,10 @@ public class Sistema {
 		return ret;
 	}
 
-	public static boolean inicializarAplicacion() {
+	public static void inicializarAplicacion() {
 		inicializarBaseDeDatos();
 		modificarPrimeraEjecucion();
-		ControladorCreacionUsuario c = new ControladorCreacionUsuario();
-		return true;
-
+		new ControladorCreacionUsuario();
 	}
 
 	private static void inicializarBaseDeDatos() {

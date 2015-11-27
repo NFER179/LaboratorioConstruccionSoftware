@@ -7,25 +7,26 @@ import java.awt.event.ActionListener;
 import main.Sistema;
 
 import utilidades.Msj;
-import vista.CreacionUsuarioVista;
+import vista.CreacionUserVista;
 
 public class ControladorCreacionUsuario implements ActionListener {
 
-	private CreacionUsuarioVista vtCreacion;
+	private CreacionUserVista vtCreacion;
 
 	public ControladorCreacionUsuario() {
-		this.vtCreacion = new CreacionUsuarioVista();
+		this.vtCreacion = new CreacionUserVista();
+		this.vtCreacion.Open();
 		addListeners();
 	}
 
 	private void addListeners() {
-		this.vtCreacion.getOkButton().addActionListener(this);
+		this.vtCreacion.getBtnGuardar().addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
-		if (source == this.vtCreacion.getOkButton()) {
+		if (source == this.vtCreacion.getBtnGuardar()) {
 			String usuario = this.vtCreacion.getTxtUsuario().getText().trim();
 			char[] contras1 = this.vtCreacion.getTxtContra1().getPassword();
 			char[] contras2 = this.vtCreacion.getTxtContra2().getPassword();
@@ -59,6 +60,7 @@ public class ControladorCreacionUsuario implements ActionListener {
 			}
 			Sistema.newUsuario(usuario, contra1);
 			this.vtCreacion.Close();
+			new ControladorVenta().Inicializar();
 		}
 	}
 
