@@ -53,4 +53,6 @@ public interface ComboDAO {
 
 	public String GetNewEffdt(ComboDTO c);
 
+	public List<ComboDTO> GetCombosActivos();
+
 }

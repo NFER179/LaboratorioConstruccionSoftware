@@ -46,6 +46,9 @@ public class ABMComboVista extends JDialog {
 	private JButton btnGuardar;
 	private JButton btnCancelar;
 	private JTextField txtFecha;
+	private JTextField txtPrecioTotal;
+	private JLabel label;
+	private JLabel label_1;
 
 	public ABMComboVista(ComboVista Vista) {
 		super(Vista, true);
@@ -88,7 +91,7 @@ public class ABMComboVista extends JDialog {
 		
 		panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		panel.setBounds(10, 75, 525, 368);
+		panel.setBounds(10, 75, 525, 395);
 		getContentPane().add(panel);
 		panel.setLayout(null);
 		
@@ -149,17 +152,39 @@ public class ABMComboVista extends JDialog {
 		btnEliminarProducto.setBounds(395, 184, 115, 40);
 		panel.add(btnEliminarProducto);
 		
-		JLabel lblPrecio = new JLabel("Precio:");
+		JLabel lblPrecio = new JLabel("Precio Combo:");
 		lblPrecio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblPrecio.setBounds(15, 329, 69, 20);
+		lblPrecio.setBounds(15, 361, 115, 20);
 		panel.add(lblPrecio);
 		
 		txtPrecio = new JTextField();
 		txtPrecio.setEnabled(false);
 		txtPrecio.setEditable(false);
-		txtPrecio.setBounds(84, 326, 146, 26);
+		txtPrecio.setBounds(140, 358, 146, 26);
 		panel.add(txtPrecio);
 		txtPrecio.setColumns(10);
+		
+		JLabel lblPrecioTotal = new JLabel("Precio Total:");
+		lblPrecioTotal.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblPrecioTotal.setBounds(15, 324, 115, 20);
+		panel.add(lblPrecioTotal);
+		
+		txtPrecioTotal = new JTextField();
+		txtPrecioTotal.setEnabled(false);
+		txtPrecioTotal.setEditable(false);
+		txtPrecioTotal.setColumns(10);
+		txtPrecioTotal.setBounds(140, 321, 146, 26);
+		panel.add(txtPrecioTotal);
+		
+		label = new JLabel("$");
+		label.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label.setBounds(296, 324, 50, 20);
+		panel.add(label);
+		
+		label_1 = new JLabel("$");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		label_1.setBounds(296, 361, 50, 20);
+		panel.add(label_1);
 		
 		btnAgregar = new JButton(" Agregar");
 		btnAgregar.setIcon(new ImageIcon(ABMComboVista.class.getResource("/Iconos/Agregar.png")));
@@ -306,4 +331,18 @@ public class ABMComboVista extends JDialog {
 	public JTextField getTxtFecha() {
 		return txtFecha;
 	}
+
+	public JTextField getTxtPrecioTotal() {
+		return txtPrecioTotal;
+	}
+
+	public JLabel getLabel() {
+		return label;
+	}
+
+	public JLabel getLabel_1() {
+		return label_1;
+	}
+	
+	
 }

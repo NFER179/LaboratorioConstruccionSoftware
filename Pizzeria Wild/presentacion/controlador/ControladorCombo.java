@@ -40,7 +40,7 @@ public class ControladorCombo implements ActionListener {
 		this.vtCombo.getModelTable().setColumnCount(0);
 		this.vtCombo.getModelTable().setColumnIdentifiers(
 				this.vtCombo.getNombreColumna());
-		for (ComboDTO c : this.mdlCombo.ObtenerCombosActivos()) {
+		for (ComboDTO c : this.mdlCombo.ObtenerCombos()) {
 			Object[] fila = { c.getId(), c.getDescripcion() };
 			this.vtCombo.getModelTable().addRow(fila);
 		}

@@ -421,4 +421,41 @@ public class ComboImp implements ComboDAO{
 		}
 		return fecha;
 	}
+
+	@Override
+	public List<ComboDTO> GetCombosActivos() {
+		Statement stm = this.conector.GetStatement();
+		String sqlString = "select a.id, a.descr " +
+							"from combo a " +
+							", combo_activo b " +
+							"where b.effdt = (select max(b1.effdt) " +
+							"					from combo_activo b1 " +
+							"					where b1.combo_id = b1.combo_id " +
+							"					and b1.effdt <= curdate()) " +
+							"and a.id = b.combo_id " +
+							"and b.estado = 'Y'";
+		ResultSet rs = null;
+		List<ComboDTO> combosL = new ArrayList<ComboDTO>();
+		
+		try {
+			rs = stm.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				int Id = rs.getInt("id");
+				String Descripcion = rs.getString("descr");
+				
+				ComboDTO c = new ComboDTO(Id, Descripcion);
+				
+				combosL.add(c);
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.conector.CloseConnection();
+		}
+		
+		return combosL;
+	}
 }

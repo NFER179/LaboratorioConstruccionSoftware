@@ -111,6 +111,7 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnAgregarProducto());
 		this.vtCombo.getPanel().remove(this.vtCombo.getBtnEliminarProducto());
 
+		this.CalcularPrecioTotal();
 		this.vtCombo.getTxtPrecio().setText(
 				this.cActivoList.get(this.Pos).getPrecio() + "");
 
@@ -126,11 +127,8 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getModelTable().setColumnIdentifiers(
 				this.vtCombo.getNombreColumnas());
 		for (ComboProductoDTO cp : this.mdlCombo.ObtenerProductosPara(cActivo)) {
-			int precioTotal = cp.getCantidad()
-					* this.mdlSabor.ObtenerPrecio(cp.getProducto(),
-							cp.getSabor());
-			Object[] fila = { cp.getProducto(), cp.getSabor(),
-					cp.getCantidad(), precioTotal };
+			int precioTotal = cp.getCantidad() * this.mdlSabor.ObtenerPrecio(cp.getProducto(), cp.getSabor());
+			Object[] fila = { cp.getProducto(), cp.getSabor(),	cp.getCantidad(), this.AgregarMoneda(precioTotal) };
 			this.vtCombo.getModelTable().addRow(fila);
 		}
 		this.vtCombo.getTable().setModel(this.vtCombo.getModelTable());
@@ -140,9 +138,9 @@ public class ControladorABMCombo implements ActionListener {
 			int cantidad) {
 		int precioparcial = this.mdlSabor.ObtenerPrecio(producto, sabor);
 
-		double precioTotal = precioparcial * cantidad;
+		int precioTotal = precioparcial * cantidad;
 
-		Object[] fila = { producto, sabor, cantidad, "$ " + precioTotal };
+		Object[] fila = { producto, sabor, cantidad, this.AgregarMoneda(precioTotal) };
 		boolean debeAgregar = true;
 		for (int i = 0; i < this.vtCombo.getModelTable().getRowCount(); i++) {
 			String tipo = this.vtCombo.getModelTable().getValueAt(i, 0)
@@ -158,15 +156,35 @@ public class ControladorABMCombo implements ActionListener {
 				int nuevaCantidad = Integer.parseInt(cant) + cantidad;
 				this.vtCombo.getModelTable().setValueAt(nuevaCantidad, i, 2);
 				this.vtCombo.getModelTable().setValueAt(
-						("$" + (precioparcial * nuevaCantidad)), i, 3);
+						this.AgregarMoneda(precioparcial * nuevaCantidad), i, 3);
 			}
 		}
 		if (debeAgregar) {
 			this.vtCombo.getModelTable().addRow(fila);
 		}
 		this.vtCombo.getTable().setModel(this.vtCombo.getModelTable());
+		
+		this.CalcularPrecioTotal();
+	}
+	
+	private void CalcularPrecioTotal() {
+		JTable t = this.vtCombo.getTable();
+		int precioTotal = 0;
+		for(int i = 0 ; i < t.getRowCount() ; i++) {
+			precioTotal += this.QuitarMondeda(t.getValueAt(i, 3).toString().trim());			
+		}
+		
+		this.vtCombo.getTxtPrecioTotal().setText("" + precioTotal);
 	}
 
+	private String AgregarMoneda(int arg0) {
+		return "$ " + Integer.toString(arg0); 
+	}
+	
+	private int QuitarMondeda(String arg0){
+		return Integer.parseInt(arg0.split(" ")[1]);
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtCombo.getBtnEdit()) {
@@ -230,6 +248,8 @@ public class ControladorABMCombo implements ActionListener {
 
 		this.CargarProductosPara(ca);
 
+		this.CalcularPrecioTotal();
+		
 		this.vtCombo.getTxtPrecio().setText(ca.getPrecio() + "");
 	}
 
@@ -247,6 +267,8 @@ public class ControladorABMCombo implements ActionListener {
 		}
 
 		t.setModel(this.vtCombo.getModelTable());
+		
+		this.CalcularPrecioTotal();
 	}
 
 	private void AgregarEffdt() {
@@ -329,6 +351,8 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getTxtPrecio().setEditable(false);
 		this.vtCombo.getTxtPrecio().setEnabled(false);
 
+		this.CalcularPrecioTotal();
+		
 		this.vtCombo.repaint();
 	}
 
@@ -419,6 +443,8 @@ public class ControladorABMCombo implements ActionListener {
 		if (this.close) {
 			this.vtCombo.Close();
 		} else {
+			this.AnteriorEffdt();
+			this.SiguienteEffdt();
 			this.ModoInformacion();
 		}
 	}

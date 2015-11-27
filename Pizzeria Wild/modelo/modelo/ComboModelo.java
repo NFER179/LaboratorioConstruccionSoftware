@@ -38,8 +38,12 @@ public class ComboModelo {
 			return false;
 	}
 
-	public List<ComboDTO> ObtenerCombosActivos() {
+	public List<ComboDTO> ObtenerCombos() {
 		return this.combo.GetCombos();
+	}
+	
+	public List<ComboDTO> ObtenerCombosActivos() {
+		return this.combo.GetCombosActivos();
 	}
 
 	public int ObtenerNuevoIdCombo() {
