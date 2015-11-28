@@ -25,14 +25,19 @@ public class BackUp {
 
 	public static void guardarDump() {
 		String dump = "mysqldump.exe";
-		String[] discos = { "C:\\", "D:\\" };
+		String[] discos = { System.getenv().get("ProgramFiles"), "C:\\", "D:\\" };
 		for (String disco : discos) {
-			File dir = new File(disco);
-			String dumpPath = encontrarDump(dir, dump);
-			ManejoArchivos.modificarTextoArchivo(rutaDump,
-					dumpPath.split(".exe")[0]);
-			if (!dumpPath.equals(""))
-				break;
+			if (disco != null) {
+				disco = disco.trim();
+				if (!disco.equals("")) {
+					File dir = new File(disco);
+					String dumpPath = encontrarDump(dir, dump);
+					ManejoArchivos.modificarTextoArchivo(rutaDump,
+							dumpPath.split(".exe")[0]);
+					if (!dumpPath.equals(""))
+						break;
+				}
+			}
 		}
 
 	}
