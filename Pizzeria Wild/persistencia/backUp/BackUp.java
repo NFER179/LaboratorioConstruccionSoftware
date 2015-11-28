@@ -23,10 +23,6 @@ public class BackUp {
 	private static String rutaDump = "configs/conf/dump.txt";
 	private static String rutaDB = "configs/conf/db.sql";
 
-	public static void main(String args[]) {
-		guardarDump();
-	}
-
 	public static void guardarDump() {
 		String dump = "mysqldump.exe";
 		String[] discos = { "C:\\", "D:\\" };
