@@ -85,6 +85,7 @@ public class VentaModelo {
 
 	public List<ProductoEnVentaDTO> GetProductosEnVenta(String Fecha,
 			int NumVenta) {
+		
 		return this.productos.GetProductosPara(Fecha, NumVenta);
 	}
 

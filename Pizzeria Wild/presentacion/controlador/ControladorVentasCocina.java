@@ -67,9 +67,7 @@ public class ControladorVentasCocina implements ActionListener {
 			this.vtCocina.getTxtPeido1().setText(
 					Integer.toString(this.ventas.get(0).getNumVenta()));
 
-			List<ProductoEnVentaDTO> productos1 = this.mdlVenta
-					.GetProductosEnVenta(this.ventas.get(0).getFecha(),
-							this.ventas.get(0).getNumVenta());
+			List<ProductoEnVentaDTO> productos1 = this.mdlVenta.GetProductosEnVenta(this.ventas.get(0).getFecha(),this.ventas.get(0).getNumVenta());
 			for (ProductoEnVentaDTO pp : productos1) {
 				String NombreCompletoProcucto = this.mdlProducto.ObtenerDescr(pp
 						.getProducto()) + " " + pp.getSabor();

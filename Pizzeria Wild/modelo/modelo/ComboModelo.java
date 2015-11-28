@@ -124,7 +124,7 @@ public class ComboModelo {
 	}
 
 	public void ModificarCombosEnVenta(List<ComboVentaDTO> combosVenta) {
-		this.EliminarCombosDeVenta(this.mdlVenta.GetVenta(combosVenta.get(1).getFechaVenta(), combosVenta.get(1).getNumVenta()));
+		this.EliminarCombosDeVenta(this.mdlVenta.GetVenta(combosVenta.get(0).getFechaVenta(), combosVenta.get(0).getNumVenta()));
 		for(ComboVentaDTO cv:combosVenta){
 			this.AgregarComboVenta(cv);
 		}
