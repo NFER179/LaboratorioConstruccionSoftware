@@ -32,9 +32,9 @@ public class ValidacionArmadoPedido {
 			this.vista.getTxtDireccion().setBackground(this.vista.getTxtrObservacion().getBackground());
 		
 		/* Error de crear sin ingresar productos. */
-		if(this.vista.getTblProductos().getRowCount() == 0){
+		if(this.vista.getTblProductos().getRowCount() == 0 & this.vista.getTblCombo().getRowCount() == 0){
 			titulo = "Error Producto" + titulo.replaceAll("Error", ",");
-			mensaje = "No se Pueden Crear Pedidos Vacios.\n" + mensaje;
+			mensaje = "No se Pueden Crear Pedidos Vacios(Debe Ingresar al Menos un Producto o un Combo).\n" + mensaje;
 			valido = false;
 		}
 		

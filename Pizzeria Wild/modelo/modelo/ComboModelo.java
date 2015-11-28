@@ -7,14 +7,18 @@ import daoImplementacion.ComboImp;
 import dto.ComboActivoDTO;
 import dto.ComboDTO;
 import dto.ComboProductoDTO;
+import dto.ComboVentaDTO;
 import dto.VentaDTO;
 
 public class ComboModelo {
  
 	private ComboDAO combo;
+	private VentaModelo mdlVenta;
 	
 	public ComboModelo() {
 		this.combo = new ComboImp();
+		
+		this.mdlVenta = new VentaModelo();
 	}
 	
 	public static String ShortDesciption(boolean arg0) {
@@ -99,7 +103,7 @@ public class ComboModelo {
 		return this.combo.GetPrecio(c);
 	}
 
-	public List<ComboActivoDTO> ObtenerCombosEnVenta(VentaDTO venta) {
+	public List<ComboVentaDTO> ObtenerCombosEnVenta(VentaDTO venta) {
 		return this.combo.GetComboIn(venta);
 	}
 
@@ -107,11 +111,26 @@ public class ComboModelo {
 		return this.combo.GetCombo(comboId);
 	}
 
-	public int ObtenerCantidadEnVenta(VentaDTO venta, ComboActivoDTO ca) {
-		return this.combo.GetCantidadEnVenta(venta, ca);
-	}
+//	public int ObtenerCantidadEnVenta(VentaDTO venta, ComboVentaDTO ca) {
+//		return this.combo.GetCantidadEnVenta(venta, ca);
+//	}
 
 	public String ObtenerSiguienteFecha(ComboDTO c) {
 		return this.combo.GetNewEffdt(c);
+	}
+
+	public void AgregarComboVenta(ComboVentaDTO comboVenta) {
+		this.combo.InsertIntoComboVenta(comboVenta);
+	}
+
+	public void ModificarCombosEnVenta(List<ComboVentaDTO> combosVenta) {
+		this.EliminarCombosDeVenta(this.mdlVenta.GetVenta(combosVenta.get(1).getFechaVenta(), combosVenta.get(1).getNumVenta()));
+		for(ComboVentaDTO cv:combosVenta){
+			this.AgregarComboVenta(cv);
+		}
+	}
+
+	public void EliminarCombosDeVenta(VentaDTO venta) {
+		this.combo.DeteleCombosFrom(venta);
 	}
 }

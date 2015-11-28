@@ -54,6 +54,7 @@ public class ControladorABMCombo implements ActionListener {
 		this.mdlCombo = new ComboModelo();
 		this.mdlSabor = new SaborModelo();
 		this.cActivoList = new ArrayList<ComboActivoDTO>();
+		this.Pos = 0;
 		this.close = false;
 	}
 
@@ -94,8 +95,6 @@ public class ControladorABMCombo implements ActionListener {
 		this.vtCombo.getTxtDescripcion().setText(combo.getDescripcion());
 
 		this.cActivoList = this.mdlCombo.ObtenerCombosEnAdelante(combo);
-
-		this.Pos = 0;
 
 		this.vtCombo.getLblFila().setText(
 				(this.Pos + 1) + " de " + this.cActivoList.size());

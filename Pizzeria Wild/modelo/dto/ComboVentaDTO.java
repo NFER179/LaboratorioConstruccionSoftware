@@ -2,18 +2,15 @@ package dto;
 
 public class ComboVentaDTO {
 
-	int numVenta;
 	String fechaVenta;
+	int numVenta;
 	int numCombo;
-	String fechaCombo;
 	int cantidad;
-	public ComboVentaDTO(int numVenta, String fechaVenta, int numCombo,
-			String fechaCombo, int cantidad) {
-		super();
-		this.numVenta = numVenta;
+	
+	public ComboVentaDTO(String fechaVenta, int numVenta, int numCombo,	int cantidad) {
 		this.fechaVenta = fechaVenta;
+		this.numVenta = numVenta;
 		this.numCombo = numCombo;
-		this.fechaCombo = fechaCombo;
 		this.cantidad = cantidad;
 	}
 	public int getNumVenta() {
@@ -33,12 +30,6 @@ public class ComboVentaDTO {
 	}
 	public void setNumCombo(int numCombo) {
 		this.numCombo = numCombo;
-	}
-	public String getFechaCombo() {
-		return fechaCombo;
-	}
-	public void setFechaCombo(String fechaCombo) {
-		this.fechaCombo = fechaCombo;
 	}
 	public int getCantidad() {
 		return cantidad;

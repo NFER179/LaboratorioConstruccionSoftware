@@ -86,10 +86,10 @@ create table combo_producto(combo_id integer, effdt date, product_id char(4), sa
 			foreign key(combo_id, effdt) references combo_activo(combo_id, effdt),
 			foreign key(product_id, sabor) references sabor_producto(product_id, sabor));
 
-create table combo_venta(effdt date, num_venta integer, combo_id integer, fecha_combo date, cantidad integer,
-			primary key (effdt, num_venta, combo_id, fecha_combo),
+create table combo_venta(effdt date, num_venta integer, combo_id integer, cantidad integer,
+			primary key (effdt, num_venta, combo_id),
 			foreign key (effdt, num_venta) references venta(effdt,num_venta),
-			foreign key (combo_id, fecha_combo) references combo_activo(combo_id, effdt));			
+			foreign key (combo_id) references combo(id));			
 
 create table repartidor(empleado_id integer, nombre char(30), apellido char(30), tel char(14), direccion char(30), vehiculo_id char(10), tipo_vehiculo char(20), modelo_vehiculo char(30), activo char(1),
 					primary key(empleado_id));

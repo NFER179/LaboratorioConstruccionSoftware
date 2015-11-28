@@ -7,9 +7,12 @@ import vista.ArmadoVentaVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener; 
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JTable; 
+import javax.swing.table.DefaultTableModel;
 
 import modelo.ComboModelo;
 import modelo.VentaModelo;
@@ -18,6 +21,7 @@ import modelo.SaborModelo;
 import dto.ClienteDTO;
 import dto.ComboActivoDTO;
 import dto.ComboDTO;
+import dto.ComboVentaDTO;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
 
@@ -69,6 +73,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.ctrPedido = ControladorPedido;
 		this.mdlSabor = new SaborModelo();
 		this.mdlPedido = new VentaModelo();
+		this.mdlCombo = new ComboModelo();
 		this.ctrPedidoCocina = ControladorVentasCocina.GetInstancia();
 		this.vldArmado = new ValidacionArmadoPedido(this.vtArmadoPedido);
 	}
@@ -155,12 +160,12 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.vtArmadoPedido.getModelTableCombo().setRowCount(0);
 		this.vtArmadoPedido.getModelTableCombo().setColumnCount(0);
 		this.vtArmadoPedido.getModelTableCombo().setColumnIdentifiers(this.vtArmadoPedido.getNombreColumnasCombos());
-		for(ComboActivoDTO ca:this.mdlCombo.ObtenerCombosEnVenta(nuevaVenta)) {
-			ComboDTO c = this.mdlCombo.ObtenerCombo(ca.getComboId());
-			int cantidad = this.mdlCombo.ObtenerCantidadEnVenta(nuevaVenta, ca);
-			int precio = this.mdlCombo.ObtenerPrecioActual(c) * cantidad;
+		for(ComboVentaDTO ca:this.mdlCombo.ObtenerCombosEnVenta(nuevaVenta)) {
+			ComboDTO c = this.mdlCombo.ObtenerCombo(ca.getNumCombo());
+//			int cantidad = this.mdlCombo.ObtenerCantidadEnVenta(nuevaVenta, ca);
+			int precio = this.mdlCombo.ObtenerPrecioActual(c) * ca.getCantidad();
 			
-			Object[] fila = {ca.getComboId(), c.getDescripcion(), cantidad, this.AgregarMoneda(Integer.toString(precio))};
+			Object[] fila = {ca.getNumCombo(), c.getDescripcion(), ca.getCantidad(), this.AgregarMoneda(Integer.toString(precio))};
 			this.vtArmadoPedido.getModelTableCombo().addRow(fila);
 		}
 		this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
@@ -323,6 +328,8 @@ public class ControladorArmadoVenta implements ActionListener {
 			this.vtArmadoPedido.getModelTableCombo().removeRow(selectedRows[i]);
 		}
 		this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
+		
+		this.ActualizarPrecio();
 	}
 	
 	public void AgregarItemCombo(ComboDTO c, int cantidad) {
@@ -348,6 +355,8 @@ public class ControladorArmadoVenta implements ActionListener {
 			this.vtArmadoPedido.getModelTableCombo().addRow(f);
 			this.vtArmadoPedido.getTblCombo().setModel(this.vtArmadoPedido.getModelTableCombo());
 		}
+		
+		this.ActualizarPrecio();
 	}
 	
 	private boolean CheckDelivery() {
@@ -371,26 +380,37 @@ public class ControladorArmadoVenta implements ActionListener {
 					this.vtArmadoPedido.getTxtHora().getText(), "Pendiente",
 					this.vtArmadoPedido.getTxtrObservacion().getText(),
 					CheckDelivery(), this.vtArmadoPedido.getTxtrObservacionDelivery().getText());
-
+			
+			/*Carga los productos en la vanta para despues cargar todo junto.*/
 			for (int i = 0; i < this.vtArmadoPedido.getModelProductos().getRowCount(); i++) {
 				NewPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(),
 						this.vtArmadoPedido.getTblProductos().getValueAt(i, 1).toString(),
 						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
 			}
 			this.mdlPedido.AgregarVenta(NewPedido);
+			
+			/* Carga los Combos en la Venta */
+			JTable tc = this.vtArmadoPedido.getTblCombo();
+			
+			for(int i = 0 ; i < this.vtArmadoPedido.getModelTableCombo().getRowCount() ; i++) {
+				int numCombo = Integer.parseInt(tc.getValueAt(i, 0).toString().trim());
+				int cantidad = Integer.parseInt(tc.getValueAt(i, 2).toString().trim());
+				
+				ComboVentaDTO cv = new ComboVentaDTO(fecha, numPedido, numCombo, cantidad);
+				this.mdlCombo.AgregarComboVenta(cv);
+			}
 		} else {
-			VentaDTO OldPedido = new VentaDTO(this.vtArmadoPedido.getTxtFecha()
-					.getText().trim(), Integer.parseInt(this.vtArmadoPedido
-					.getTxtNumVenta().getText().trim()), this.vtArmadoPedido
-					.getTxtCliente().getText().trim(), this.vtArmadoPedido
-					.getTxtDireccion().getText().trim(), this.vtArmadoPedido
-					.getTxtTel().getText().trim(), Integer.parseInt(this
-					.QuitarMoneda(this.vtArmadoPedido.getTxtPrecio().getText()
-							.trim())), this.vtArmadoPedido.getTxtHora()
-					.getText().trim(), "Pendiente", this.vtArmadoPedido
-					.getTxtrObservacion().getText().trim(), CheckDelivery(),
-					this.vtArmadoPedido.getTxtrObservacionDelivery().getText()
-							.trim());
+			VentaDTO OldPedido = new VentaDTO(this.vtArmadoPedido.getTxtFecha().getText().trim(), 
+					Integer.parseInt(this.vtArmadoPedido.getTxtNumVenta().getText().trim()), 
+					this.vtArmadoPedido.getTxtCliente().getText().trim(), 
+					this.vtArmadoPedido.getTxtDireccion().getText().trim(), 
+					this.vtArmadoPedido.getTxtTel().getText().trim(), 
+					Integer.parseInt(this.QuitarMoneda(this.vtArmadoPedido.getTxtPrecio().getText().trim())), 
+					this.vtArmadoPedido.getTxtHora().getText().trim(), 
+					"Pendiente", 
+					this.vtArmadoPedido.getTxtrObservacion().getText().trim(), 
+					CheckDelivery(),
+					this.vtArmadoPedido.getTxtrObservacionDelivery().getText().trim());
 
 			for (int i = 0; i < this.vtArmadoPedido.getModelProductos().getRowCount(); i++) {
 				OldPedido.agregarProducto(this.vtArmadoPedido.getTblProductos().getValueAt(i, 0).toString(),
@@ -398,6 +418,22 @@ public class ControladorArmadoVenta implements ActionListener {
 						Integer.parseInt(this.vtArmadoPedido.getTblProductos().getValueAt(i, 2).toString()));
 			}
 			this.mdlPedido.ModificarVenta(OldPedido);
+			
+			/* Modifica los combos del pedido */
+			List<ComboVentaDTO> cvList = new ArrayList<ComboVentaDTO>();
+			DefaultTableModel combos = this.vtArmadoPedido.getModelTableCombo();
+			for(int i = 0; i < combos.getRowCount() ; i++) {
+				String fechaVenta = this.vtArmadoPedido.getTxtFecha().getText().trim();
+				int numVenta = Integer.parseInt(this.vtArmadoPedido.getTxtNumVenta().getText().trim());
+				int numCombo = Integer.parseInt(combos.getValueAt(i, 0).toString().trim());
+				int cantidad = Integer.parseInt(combos.getValueAt(i, 2).toString().trim());
+				
+				ComboVentaDTO cv = new ComboVentaDTO(fechaVenta, numVenta, numCombo, cantidad);
+				
+				cvList.add(cv);
+			}
+			
+			this.mdlCombo.ModificarCombosEnVenta(cvList);
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.util.List;
 import dto.ComboActivoDTO;
 import dto.ComboDTO;
 import dto.ComboProductoDTO;
+import dto.ComboVentaDTO;
 import dto.VentaDTO;
 
 public interface ComboDAO {
@@ -45,14 +46,17 @@ public interface ComboDAO {
 
 	public int GetPrecio(ComboDTO c);
 
-	public List<ComboActivoDTO> GetComboIn(VentaDTO venta);
+	public List<ComboVentaDTO> GetComboIn(VentaDTO venta);
 
 	public ComboDTO GetCombo(int comboId);
 
-	public int GetCantidadEnVenta(VentaDTO venta, ComboActivoDTO ca);
+//	public int GetCantidadEnVenta(VentaDTO venta, ComboVentaDTO ca);
 
 	public String GetNewEffdt(ComboDTO c);
 
 	public List<ComboDTO> GetCombosActivos();
 
+	public void InsertIntoComboVenta(ComboVentaDTO comboVenta);
+
+	public void DeteleCombosFrom(VentaDTO venta);
 }
