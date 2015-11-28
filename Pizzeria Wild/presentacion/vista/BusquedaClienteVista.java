@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -79,6 +80,7 @@ public class BusquedaClienteVista extends JDialog {
 		txtFiltro.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
+				sorter.setRowFilter(RowFilter.regexFilter(txtFiltro.getText()));
 			}
 		});
 		txtFiltro.setBounds(10, 11, 300, 20);
