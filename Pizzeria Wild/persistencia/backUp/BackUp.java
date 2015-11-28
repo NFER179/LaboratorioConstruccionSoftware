@@ -23,26 +23,39 @@ public class BackUp {
 	private static String rutaDump = "configs/conf/dump.txt";
 	private static String rutaDB = "configs/conf/db.sql";
 
+	public static void main(String args[]) {
+		guardarDump();
+	}
+
 	public static void guardarDump() {
 		String dump = "mysqldump.exe";
-		File dir = new File(System.getenv().get("ProgramFiles"));
-		String dumpPath = encontrarDump(dir, dump);
-		ManejoArchivos.modificarTextoArchivo(rutaDump,
-				dumpPath.split(".exe")[0]);
+		String[] discos = { "C:\\", "D:\\" };
+		for (String disco : discos) {
+			File dir = new File(disco);
+			String dumpPath = encontrarDump(dir, dump);
+			ManejoArchivos.modificarTextoArchivo(rutaDump,
+					dumpPath.split(".exe")[0]);
+			if (!dumpPath.equals(""))
+				break;
+		}
+
 	}
 
 	private static String encontrarDump(final File folder, String encontrado) {
 		String ret = "";
-		for (final File fileEntry : folder.listFiles()) {
-			if (fileEntry.isDirectory()) {
-				ret = encontrarDump(fileEntry, encontrado);
-				if (ret != "")
-					return ret;
-			} else {
-				String name = fileEntry.getName();
-				if (name.equals(encontrado)) {
-					ret = fileEntry.getAbsolutePath();
-					return ret;
+		File[] archivos = folder.listFiles();
+		if (archivos != null) {
+			for (final File archivo : archivos) {
+				if (archivo.isDirectory()) {
+					ret = encontrarDump(archivo, encontrado);
+					if (ret != "")
+						return ret;
+				} else {
+					String name = archivo.getName();
+					if (name.equals(encontrado)) {
+						ret = archivo.getAbsolutePath();
+						return ret;
+					}
 				}
 			}
 		}
