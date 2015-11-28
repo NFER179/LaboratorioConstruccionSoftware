@@ -35,6 +35,15 @@ public class BusquedaClienteVista extends JDialog {
 	private JButton btnAceptar;
 	private JButton btnCancelar;
 	private JTextField txtFiltro;
+	private JButton btnBuscar;
+
+	public JButton getBtnBuscar() {
+		return btnBuscar;
+	}
+
+	public void setBtnBuscar(JButton btnBuscar) {
+		this.btnBuscar = btnBuscar;
+	}
 
 	public BusquedaClienteVista(JDialog FramePadre) {
 		super(FramePadre, true);
@@ -77,15 +86,13 @@ public class BusquedaClienteVista extends JDialog {
 		this.contentPanel.add(btnCancelar);
 
 		txtFiltro = new JTextField();
-		txtFiltro.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				sorter.setRowFilter(RowFilter.regexFilter(txtFiltro.getText()));
-			}
-		});
-		txtFiltro.setBounds(10, 11, 300, 20);
+		txtFiltro.setBounds(10, 11, 218, 20);
 		contentPanel.add(txtFiltro);
 		txtFiltro.setColumns(10);
+
+		btnBuscar = new JButton("Buscar");
+		btnBuscar.setBounds(221, 10, 89, 23);
+		contentPanel.add(btnBuscar);
 	}
 
 	public void Open() {
@@ -114,5 +121,21 @@ public class BusquedaClienteVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public TableRowSorter getSorter() {
+		return sorter;
+	}
+
+	public void setSorter(TableRowSorter sorter) {
+		this.sorter = sorter;
+	}
+
+	public JTextField getTxtFiltro() {
+		return txtFiltro;
+	}
+
+	public void setTxtFiltro(JTextField txtFiltro) {
+		this.txtFiltro = txtFiltro;
 	}
 }

@@ -2,9 +2,11 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JDialog; 
+import javax.swing.JDialog;
 import javax.swing.JTable;
+import javax.swing.RowFilter;
 
 import utilidades.Msj;
 import vista.BusquedaClienteVista;
@@ -37,6 +39,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 	private void addListeners() {
 		this.vtBusquedaCliente.getBtnAceptar().addActionListener(this);
 		this.vtBusquedaCliente.getBtnCancelar().addActionListener(this);
+		this.vtBusquedaCliente.getBtnBuscar().addActionListener(this);
 	}
 
 	private void CargarClientes() {
@@ -60,7 +63,16 @@ public class ControladorBusquedaCliente implements ActionListener {
 			accionAceptar();
 		} else if (arg0.getSource() == this.vtBusquedaCliente.getBtnCancelar()) {
 			this.vtBusquedaCliente.Close();
+		} else if (arg0.getSource() == this.vtBusquedaCliente.getBtnBuscar()) {
+			accionBuscar();
 		}
+	}
+
+	private void accionBuscar() {
+		String busqueda = this.vtBusquedaCliente.getTxtFiltro().getText();
+		this.vtBusquedaCliente.getSorter().setRowFilter(
+				RowFilter.regexFilter(busqueda));
+
 	}
 
 	private void accionAceptar() {
