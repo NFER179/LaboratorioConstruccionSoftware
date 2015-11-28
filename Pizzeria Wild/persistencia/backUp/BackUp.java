@@ -19,9 +19,9 @@ import conexion.ConectorDB;
 
 public class BackUp {
 
-	private static String rutaUsuario = "configs/usuario.txt";
-	private static String rutaDump = "configs/dump.txt";
-	private static String rutaDB = "configs/db.sql";
+	private static String rutaUsuario = "configs/conf/usuario.txt";
+	private static String rutaDump = "configs/conf/dump.txt";
+	private static String rutaDB = "configs/conf/db.sql";
 
 	public static void guardarDump() {
 		String dump = "mysqldump.exe";

@@ -32,8 +32,8 @@ import dto.VentaReporteDTO;
 
 public class Impresiones {
 
-	private static String tempPath = "Templates/%s.pdf";
-	private static String resultPath = "reportesImpresiones/%s.pdf";
+	private static String tempPath = "Templates/templates/%s.pdf";
+	private static String resultPath = "reportesImpresiones/reportes/%s.pdf";
 	private static String pdfResultPath;
 	private static PdfReader pdfTemplate;
 	private static FileOutputStream pdfOut;

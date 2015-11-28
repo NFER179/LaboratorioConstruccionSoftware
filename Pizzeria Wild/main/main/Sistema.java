@@ -10,8 +10,8 @@ import backUp.BackUp;
 
 public class Sistema {
 
-	private static String rutaIni = "configs/init.txt";
-	private static String rutaUserPass = "configs/usuario.txt";
+	private static String rutaIni = "configs/conf/init.txt";
+	private static String rutaUserPass = "configs/conf/usuario.txt";
 
 	public static boolean esPrimeraEjecucion() {
 		boolean ret = true;

@@ -11,7 +11,7 @@ import archivos.ManejoArchivos;
 
 public class ConectorDB {
 
-	private static String rutaUsuario = "configs/usuario.txt";
+	private static String rutaUsuario = "configs/conf/usuario.txt";
 	private static ConectorDB instancia = null;
 	private Connection conexion = null;
 	private Statement statement = null;
