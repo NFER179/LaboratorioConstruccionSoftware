@@ -26,6 +26,7 @@ public class Sistema {
 	public static void inicializarAplicacion() {
 		inicializarBaseDeDatos();
 		modificarPrimeraEjecucion();
+		BackUp.guardarDump();
 		new ControladorCreacionUsuario();
 	}
 

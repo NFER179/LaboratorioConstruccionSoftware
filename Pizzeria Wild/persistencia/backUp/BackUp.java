@@ -20,51 +20,44 @@ import conexion.ConectorDB;
 public class BackUp {
 
 	private static String rutaUsuario = "configs/usuario.txt";
-
+	private static String rutaDump = "configs/dump.txt";
 	private static String rutaDB = "configs/db.sql";
 
-	private static String mysqldumpPath = System.getenv().get("ProgramFiles")
-			.replace("\\", "/")
-			+ "/MySQL/MySQL Server 5.7/bin/mysqldump ";
-	private static String mysqldumpPath2 = System.getenv().get("ProgramFiles")
-			.replace("\\", "/")
-			+ "/MySQL/MySQL Server 5.7/bin/mysqldump ";
+	public static void guardarDump() {
+		String dump = "mysqldump.exe";
+		File dir = new File(System.getenv().get("ProgramFiles"));
+		String dumpPath = encontrarDump(dir, dump);
+		ManejoArchivos.modificarTextoArchivo(rutaDump,
+				dumpPath.split(".exe")[0]);
+	}
+
+	private static String encontrarDump(final File folder, String encontrado) {
+		String ret = "";
+		for (final File fileEntry : folder.listFiles()) {
+			if (fileEntry.isDirectory()) {
+				ret = encontrarDump(fileEntry, encontrado);
+				if (ret != "")
+					return ret;
+			} else {
+				String name = fileEntry.getName();
+				if (name.equals(encontrado)) {
+					ret = fileEntry.getAbsolutePath();
+					return ret;
+				}
+			}
+		}
+		return ret;
+	}
 
 	public static void backUp(String path) throws Exception {
 		try {
+			String mysqldumpPath = ManejoArchivos.getTextoArchivo(rutaDump)
+					.replace("\\", "/") + " ";
 			String comando = mysqldumpPath + getCredentials();
-			Runtime objRT = Runtime.getRuntime();
 
-			Process objProcess = objRT.exec(comando);
-
-			InputStream is = objProcess.getInputStream();
-			FileOutputStream fos = new FileOutputStream(path);
-			byte[] buffer = new byte[1000];
-
-			int esLeido = is.read(buffer);
-			while (esLeido > 0) {
-				fos.write(buffer, 0, esLeido);
-				esLeido = is.read(buffer);
-			}
-			fos.close();
-		} catch (Exception e) {
-			try {
-				backUp2(path);
-			} catch (Exception e2) {
-				throw new Exception(e.toString());
-			}
-		}
-	}
-
-	public static void backUp2(String path) throws Exception {
-		try {
-			String comando = mysqldumpPath2 + getCredentials();
-			Runtime objRT = Runtime.getRuntime();
-
-			Process objProcess = objRT.exec(comando);
+			Process objProcess = Runtime.getRuntime().exec(comando);
 
 			InputStream is = objProcess.getInputStream();
-			// String path = String.format(backUpPath, path);
 			FileOutputStream fos = new FileOutputStream(path);
 			byte[] buffer = new byte[1000];
 
