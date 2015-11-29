@@ -13,8 +13,8 @@ import clasesImpresiones.ObjProductoTicketComanda;
 import utilidades.Fecha;
 import utilidades.Msj;
 import vista.ArmadoVentaVista;
-import dto.ComboActivoDTO; 
-import dto.ComboProductoDTO; 
+import dto.ComboActivoDTO;
+import dto.ComboProductoDTO;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
 import dao.ComboDAO;
@@ -200,7 +200,7 @@ public class VentaModelo {
 
 	private List<ComboProductoDTO> getItemsTicketCombo(
 			vista.ArmadoVentaVista vista) {
-		List<ComboProductoDTO> ret = null;
+		List<ComboProductoDTO> ret = new ArrayList<ComboProductoDTO>();
 		JTable tc = vista.getTblCombo();
 		for (int i = 0; i < vista.getModelTableCombo().getRowCount(); i++) {
 			int numCombo = Integer.parseInt(tc.getValueAt(i, 0).toString()
