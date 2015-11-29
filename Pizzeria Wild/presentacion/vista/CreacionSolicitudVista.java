@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 
 public class CreacionSolicitudVista extends JDialog {
+	private static final long serialVersionUID = 1L;
 	private JTextField txtFecha;
 	private JTextField txtNumpedido;
 	private JTextField txtIdproveedor;

@@ -9,6 +9,7 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 public class ABMClienteVista extends JDialog {
+	private static final long serialVersionUID = 1L;
 	private JTextField txtIdcliente;
 	private JTextField txtNombres;
 	private JTextField txtApellido;

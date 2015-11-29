@@ -14,7 +14,7 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 
 public class CategoriaDetalleVista extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private JTextField txtIdcategoria;
 	private JTextField txtDescr;
 	private DefaultTableModel modelTable;

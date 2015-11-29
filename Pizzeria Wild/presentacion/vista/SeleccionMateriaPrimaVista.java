@@ -12,9 +12,9 @@ import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
 public class SeleccionMateriaPrimaVista extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private DefaultTableModel modelTable;
-	private String[] nombreColumnas = {"Materias Primas"};
+	private String[] nombreColumnas = { "Materias Primas" };
 	private JTable table;
 	private JButton btnAsignar;
 	private JButton btnCancelar;
@@ -22,29 +22,33 @@ public class SeleccionMateriaPrimaVista extends JDialog {
 	public SeleccionMateriaPrimaVista(CategoriaDetalleVista CategoriaDetalle) {
 		super(CategoriaDetalle, true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(SeleccionMateriaPrimaVista.class.getResource("/Iconos/pizza_1.PNG")));
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				SeleccionMateriaPrimaVista.class
+						.getResource("/Iconos/pizza_1.PNG")));
+
 		setTitle("Seleccion Materias Primas");
 		setBounds(100, 100, 380, 453);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 352, 346);
 		getContentPane().add(scrollPane);
-		
+
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
-		
+
 		btnAsignar = new JButton(" Asignar");
-		btnAsignar.setIcon(new ImageIcon(SeleccionMateriaPrimaVista.class.getResource("/Iconos/OK.png")));
+		btnAsignar.setIcon(new ImageIcon(SeleccionMateriaPrimaVista.class
+				.getResource("/Iconos/OK.png")));
 		btnAsignar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAsignar.setBounds(10, 368, 140, 40);
 		getContentPane().add(btnAsignar);
-		
+
 		btnCancelar = new JButton(" Cancelar");
-		btnCancelar.setIcon(new ImageIcon(SeleccionMateriaPrimaVista.class.getResource("/Iconos/salir.png")));
+		btnCancelar.setIcon(new ImageIcon(SeleccionMateriaPrimaVista.class
+				.getResource("/Iconos/salir.png")));
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCancelar.setBounds(222, 368, 140, 40);
 		getContentPane().add(btnCancelar);
@@ -53,11 +57,11 @@ public class SeleccionMateriaPrimaVista extends JDialog {
 	public void Open() {
 		this.setVisible(true);
 	}
-	
+
 	public void Close() {
 		this.setVisible(false);
 	}
-	
+
 	public DefaultTableModel getModelTable() {
 		return modelTable;
 	}

@@ -1,13 +1,7 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JToggleButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -16,13 +10,14 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 
 public class BackUpVista extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private JButton btnRestaurar;
 	private JButton btnCrearCopiaDe;
 
 	public BackUpVista() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(BackUpVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				BackUpVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setFont(new Font("Dialog", Font.BOLD, 12));
 		setTitle("BackUp");
 		setBounds(100, 100, 419, 255);
@@ -39,9 +34,10 @@ public class BackUpVista extends JDialog {
 			}
 		});
 		getContentPane().add(btnCrearCopiaDe);
-		
+
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(BackUpVista.class.getResource("/Iconos/Database.png")));
+		lblNewLabel.setIcon(new ImageIcon(BackUpVista.class
+				.getResource("/Iconos/Database.png")));
 		lblNewLabel.setBounds(23, 24, 96, 158);
 		getContentPane().add(lblNewLabel);
 	}

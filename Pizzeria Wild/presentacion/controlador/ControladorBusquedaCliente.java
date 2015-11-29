@@ -67,6 +67,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void accionBuscar() {
 		String busqueda = this.vtBusquedaCliente.getTxtFiltro().getText();
 		this.vtBusquedaCliente.getSorter().setRowFilter(

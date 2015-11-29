@@ -48,6 +48,7 @@ public class ControladorBusquedaProductosCombos implements ActionListener {
 		this.vtBusqueda.Open();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void CargarComboBox() {
 		this.vtBusqueda.getModelCbx().removeAllElements();
 		for (ProductoDTO p : this.mdlProducto.ObtenerProductos()) {

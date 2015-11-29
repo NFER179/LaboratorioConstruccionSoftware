@@ -1,8 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,10 +16,10 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 
 public class ProveedorVista extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelTable;
-	private String[] nombreColumnas = {"ID","Nombre","Activo"};
+	private String[] nombreColumnas = { "ID", "Nombre", "Activo" };
 	private JTable table;
 	private JButton btnNuevoProveedor;
 	private JButton btnModificar;
@@ -30,7 +27,8 @@ public class ProveedorVista extends JFrame {
 	private JButton btnVolver;
 
 	public ProveedorVista() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				ProveedorVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
 		setTitle(" Proveedor");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -40,45 +38,49 @@ public class ProveedorVista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 504, 239);
 		contentPane.add(scrollPane);
-		
+
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
 		table = new WTable(this.modelTable);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(table);
-		
+
 		btnNuevoProveedor = new JButton(" Nuevo");
-		btnNuevoProveedor.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Nuevo.png")));
+		btnNuevoProveedor.setIcon(new ImageIcon(ProveedorVista.class
+				.getResource("/Iconos/Nuevo.png")));
 		btnNuevoProveedor.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNuevoProveedor.setBounds(524, 11, 140, 40);
 		contentPane.add(btnNuevoProveedor);
-		
+
 		btnModificar = new JButton(" Modificar");
-		btnModificar.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/modificar.png")));
+		btnModificar.setIcon(new ImageIcon(ProveedorVista.class
+				.getResource("/Iconos/modificar.png")));
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnModificar.setBounds(524, 62, 140, 40);
 		contentPane.add(btnModificar);
-		
+
 		btnEliminar = new JButton(" Eliminar");
-		btnEliminar.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Quitar.png")));
+		btnEliminar.setIcon(new ImageIcon(ProveedorVista.class
+				.getResource("/Iconos/Quitar.png")));
 		btnEliminar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnEliminar.setBounds(524, 113, 140, 40);
 		contentPane.add(btnEliminar);
-		
+
 		btnVolver = new JButton(" Volver");
-		btnVolver.setIcon(new ImageIcon(ProveedorVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setIcon(new ImageIcon(ProveedorVista.class
+				.getResource("/Iconos/Volver.png")));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVolver.setBounds(524, 210, 140, 40);
 		contentPane.add(btnVolver);
 	}
-	
+
 	public void Open() {
 		this.setVisible(true);
 	}
-	
+
 	public void Close() {
 		this.setVisible(false);
 	}

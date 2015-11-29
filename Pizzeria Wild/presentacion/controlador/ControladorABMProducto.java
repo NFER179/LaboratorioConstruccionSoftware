@@ -11,6 +11,7 @@ import modelo.SaborModelo;
 import dto.ProductoDTO;
 import dto.SaborDTO;
 
+import utilidades.Msj;
 import vista.ABMProductoVista;
 import vista.ProductoVista;
 
@@ -21,61 +22,64 @@ public class ControladorABMProducto implements ActionListener {
 	private ProductoModelo mdlProducto;
 	private SaborModelo mdlSabor;
 	boolean crear;
-	
+
 	public ControladorABMProducto(ControladorProducto Ctr, ProductoVista Vista) {
 		this.ctrProducto = Ctr;
-		
+
 		this.vtABM = new ABMProductoVista(Vista);
 		this.vtABM.getBtnAgregar().addActionListener(this);
 		this.vtABM.getBtnEliminar().addActionListener(this);
 		this.vtABM.getBtnGuardar().addActionListener(this);
 		this.vtABM.getBtnCancelar().addActionListener(this);
-		
+
 		this.mdlProducto = new ProductoModelo();
 		this.mdlSabor = new SaborModelo();
 	}
-	
+
 	public void InicializarCreacion() {
 		this.crear = true;
 		this.vtABM.Open();
 	}
-	
+
 	public void InicializarModificacion(ProductoDTO producto) {
 		this.crear = false;
-		
+
 		this.vtABM.getTxtIdproducto().setEditable(false);
 		this.vtABM.getTxtIdproducto().setEnabled(false);
 		this.vtABM.getTxtIdproducto().setText(producto.getProductoId());
-		
+
 		this.vtABM.getTxtDescipcion().setText(producto.getDescipcion());
-		this.vtABM.getChckbxEleboraCocina().setSelected(producto.isElaboraCocina());
-		
+		this.vtABM.getChckbxEleboraCocina().setSelected(
+				producto.isElaboraCocina());
+
 		this.CargarSabores(producto);
-		
+
 		this.vtABM.Open();
 	}
-	
+
 	private void CargarSabores(ProductoDTO Producto) {
 		this.vtABM.getModelTable().setRowCount(0);
 		this.vtABM.getModelTable().setColumnCount(0);
-		this.vtABM.getModelTable().setColumnIdentifiers(this.vtABM.getNombreColumnas());
-		for(SaborDTO s:this.mdlSabor.ObtenerSabores(Producto.getProductoId())) {
-			Object[] fila = {s.getNombre(), s.getPrecio()};
+		this.vtABM.getModelTable().setColumnIdentifiers(
+				this.vtABM.getNombreColumnas());
+		for (SaborDTO s : this.mdlSabor
+				.ObtenerSabores(Producto.getProductoId())) {
+			Object[] fila = { s.getNombre(), s.getPrecio() };
 			this.vtABM.getModelTable().addRow(fila);
 		}
 		this.vtABM.getTable().setModel(this.vtABM.getModelTable());
 	}
-	
+
 	public boolean Agregar(String sabor, int precio) {
-		//hay que validar que el sabor no se repita.
-		
-		Object[] fila = {sabor, precio};
+		// hay que validar que el sabor no se repita.
+
+		Object[] fila = { sabor, precio };
 		this.vtABM.getModelTable().addRow(fila);
 		this.vtABM.getTable().setModel(this.vtABM.getModelTable());
-		
+
 		return true;
 	}
-	
+
 	private void Agregar() {
 		ControladorSabor ctr = new ControladorSabor(this, this.vtABM);
 		ctr.Inicializar();
@@ -84,8 +88,8 @@ public class ControladorABMProducto implements ActionListener {
 	private void Eliminar() {
 		JTable t = this.vtABM.getTable();
 		int[] selectedRows = t.getSelectedRows();
-		
-		for(int i = selectedRows.length -1 ; i >= 0 ; i--) {
+
+		for (int i = selectedRows.length - 1; i >= 0; i--) {
 			this.vtABM.getModelTable().removeRow(selectedRows[i]);
 		}
 		this.vtABM.getTable().setModel(this.vtABM.getModelTable());
@@ -94,31 +98,45 @@ public class ControladorABMProducto implements ActionListener {
 	private void Guardar() {
 		String ProductoId = this.vtABM.getTxtIdproducto().getText().trim();
 		String Descripcion = this.vtABM.getTxtDescipcion().getText().trim();
-		boolean ElaboraCocina = this.vtABM.getChckbxEleboraCocina().isSelected();
-		
-		ProductoDTO p = new ProductoDTO(ProductoId, Descripcion, false, ElaboraCocina);
-		
-		if(this.crear) {
-			this.mdlProducto.CrearProducto(p);
+		if (ProductoId.equals("")) {
+			Msj.error("Error",
+					"El identificador de producto no puede ser vacio");
+			return;
 		}
-		else{
+		if (Descripcion.equals("")) {
+			Msj.error("Error", "La descripcion no puede ser vacia");
+			return;
+		}
+		boolean ElaboraCocina = this.vtABM.getChckbxEleboraCocina()
+				.isSelected();
+
+		ProductoDTO p = new ProductoDTO(ProductoId, Descripcion, false,
+				ElaboraCocina);
+
+		if (this.crear) {
+			if (mdlProducto.ObtenerProducto(Descripcion).getProductoId()
+					.equals(ProductoId)) {
+				Msj.error("Error", "El identificador ya existe");
+			} else {
+				this.mdlProducto.CrearProducto(p);
+			}
+		} else {
 			this.mdlProducto.ModificarProducto(p);
 		}
-		
+
 		this.mdlSabor.ElimnarPara(p);
-		
-		
+
 		JTable t = this.vtABM.getTable();
-		for(int i = 0 ; i < t.getRowCount() ; i++) {
+		for (int i = 0; i < t.getRowCount(); i++) {
 			String Nombre = t.getValueAt(i, 0).toString().trim();
 			String pString = t.getValueAt(i, 1).toString().trim();
 			int Precio = Integer.parseInt(pString);
-			
-			SaborDTO s =  new SaborDTO(Nombre, Precio);
-			
+
+			SaborDTO s = new SaborDTO(Nombre, Precio);
+
 			this.mdlSabor.AgregarSabor(p, s);
 		}
-		
+
 		this.ctrProducto.RecargarTabla();
 		this.vtABM.Close();
 	}
@@ -129,13 +147,13 @@ public class ControladorABMProducto implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == this.vtABM.getBtnAgregar()) {
+		if (arg0.getSource() == this.vtABM.getBtnAgregar()) {
 			this.Agregar();
-		}else if(arg0.getSource() == this.vtABM.getBtnEliminar()) {
+		} else if (arg0.getSource() == this.vtABM.getBtnEliminar()) {
 			this.Eliminar();
-		}else if(arg0.getSource() == this.vtABM.getBtnGuardar()) {
+		} else if (arg0.getSource() == this.vtABM.getBtnGuardar()) {
 			this.Guardar();
-		}else if(arg0.getSource() == this.vtABM.getBtnCancelar()) {
+		} else if (arg0.getSource() == this.vtABM.getBtnCancelar()) {
 			this.Cancelar();
 		}
 	}

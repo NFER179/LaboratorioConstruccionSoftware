@@ -1,5 +1,5 @@
 package vista;
- 
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,10 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalExclusionType;
 
 public class MateriaPrimaVista extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultTableModel modelTable;
-	private String[] nombreColumnas = {"Materia Prima","Unidad"};
+	private String[] nombreColumnas = { "Materia Prima", "Unidad" };
 	private JTable table;
 	private JButton btnAgregar;
 	private JButton btnVolver;
@@ -29,7 +29,8 @@ public class MateriaPrimaVista extends JFrame {
 	public MateriaPrimaVista() {
 		setResizable(false);
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MateriaPrimaVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				MateriaPrimaVista.class.getResource("/Iconos/pizza_1.PNG")));
 		this.setTitle(" Materia Prima");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setBounds(100, 100, 327, 430);
@@ -38,36 +39,38 @@ public class MateriaPrimaVista extends JFrame {
 		this.setContentPane(contentPane);
 		this.contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 298, 313);
 		this.contentPane.add(scrollPane);
-		
+
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumnas);
 		this.table = new WTable(this.modelTable);
 		scrollPane.setViewportView(this.table);
-		
+
 		this.btnAgregar = new JButton("Agregar");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnAgregar.setIcon(new ImageIcon(MateriaPrimaVista.class.getResource("/Iconos/Agregar.png")));
+		btnAgregar.setIcon(new ImageIcon(MateriaPrimaVista.class
+				.getResource("/Iconos/Agregar.png")));
 		btnAgregar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		this.btnAgregar.setBounds(10, 345, 140, 40);
 		this.contentPane.add(this.btnAgregar);
-		
+
 		this.btnVolver = new JButton(" Volver");
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnVolver.setIcon(new ImageIcon(MateriaPrimaVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setIcon(new ImageIcon(MateriaPrimaVista.class
+				.getResource("/Iconos/Volver.png")));
 		this.btnVolver.setBounds(169, 345, 140, 40);
 		this.contentPane.add(this.btnVolver);
 	}
-	
+
 	public void Open() {
 		this.setVisible(true);
 	}
-	
+
 	public void Close() {
 		this.setVisible(false);
 	}

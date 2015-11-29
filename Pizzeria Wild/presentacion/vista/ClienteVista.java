@@ -1,8 +1,5 @@
 package vista;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,9 +16,9 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 
 public class ClienteVista extends JFrame {
-
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private String[] nombreColumna = {"Id", "Nombre"};
+	private String[] nombreColumna = { "Id", "Nombre" };
 	private DefaultTableModel modelTable;
 	private JTable table;
 	private JButton btnCrear;
@@ -30,7 +27,8 @@ public class ClienteVista extends JFrame {
 	private JLabel lblNewLabel;
 
 	public ClienteVista() {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(
+				ClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setTitle(" Cliente");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,40 +38,44 @@ public class ClienteVista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		this.setLocationRelativeTo(null);
-		
+
 		JLabel lblClientes = new JLabel("Clientes:");
 		lblClientes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblClientes.setBounds(10, 11, 96, 25);
 		contentPane.add(lblClientes);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 38, 318, 349);
 		contentPane.add(scrollPane);
-		
+
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumna);
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
-		
+
 		btnCrear = new JButton(" Crear");
-		btnCrear.setIcon(new ImageIcon(ClienteVista.class.getResource("/Iconos/Agregar.png")));
+		btnCrear.setIcon(new ImageIcon(ClienteVista.class
+				.getResource("/Iconos/Agregar.png")));
 		btnCrear.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnCrear.setBounds(338, 36, 140, 40);
 		contentPane.add(btnCrear);
-		
+
 		btnModificar = new JButton(" Modificar");
-		btnModificar.setIcon(new ImageIcon(ClienteVista.class.getResource("/Iconos/modificar.png")));
+		btnModificar.setIcon(new ImageIcon(ClienteVista.class
+				.getResource("/Iconos/modificar.png")));
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnModificar.setBounds(338, 87, 140, 40);
 		contentPane.add(btnModificar);
-		
+
 		btnVolver = new JButton(" Volver");
-		btnVolver.setIcon(new ImageIcon(ClienteVista.class.getResource("/Iconos/Volver.png")));
+		btnVolver.setIcon(new ImageIcon(ClienteVista.class
+				.getResource("/Iconos/Volver.png")));
 		btnVolver.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnVolver.setBounds(338, 347, 140, 40);
 		contentPane.add(btnVolver);
-		
+
 		lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ClienteVista.class.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
+		lblNewLabel.setIcon(new ImageIcon(ClienteVista.class
+				.getResource("/Iconos/Logo Pizzeria Wild 96x96.png")));
 		lblNewLabel.setBounds(366, 171, 96, 105);
 		contentPane.add(lblNewLabel);
 	}
@@ -81,7 +83,7 @@ public class ClienteVista extends JFrame {
 	public void Open() {
 		this.setVisible(true);
 	}
-	
+
 	public void Close() {
 		this.setVisible(false);
 	}

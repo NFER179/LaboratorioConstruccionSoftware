@@ -2,11 +2,9 @@ package vista;
 
 import javax.swing.JDialog;
 import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import java.awt.Toolkit;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -16,7 +14,7 @@ import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JDateChooser;
 
 public class SeleccionFechasVista extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroupMesAnio = new ButtonGroup();
 	private JRadioButton rdbtnPorDia;
@@ -142,7 +140,7 @@ public class SeleccionFechasVista extends JDialog {
 		getContentPane().add(cbxTo);
 
 		txtAnio = new JYearChooser();
-		txtAnio.setBounds(60, 195, 47, 20); 
+		txtAnio.setBounds(60, 195, 47, 20);
 		getContentPane().add(txtAnio);
 
 		txtSemana = new JDateChooser();

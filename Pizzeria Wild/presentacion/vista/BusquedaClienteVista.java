@@ -5,7 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -20,15 +19,12 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 import javax.swing.JTextField;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
-@SuppressWarnings("serial")
 public class BusquedaClienteVista extends JDialog {
-
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
-
 	private JTable table;
+	@SuppressWarnings("rawtypes")
 	private TableRowSorter sorter;
 	private DefaultTableModel modelCliente;
 	private String[] nombreColumnas = { "ID Cliente", "Nombre" };
@@ -45,6 +41,7 @@ public class BusquedaClienteVista extends JDialog {
 		this.btnBuscar = btnBuscar;
 	}
 
+	@SuppressWarnings("unchecked")
 	public BusquedaClienteVista(JDialog FramePadre) {
 		super(FramePadre, true);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -123,10 +120,12 @@ public class BusquedaClienteVista extends JDialog {
 		return btnCancelar;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public TableRowSorter getSorter() {
 		return sorter;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void setSorter(TableRowSorter sorter) {
 		this.sorter = sorter;
 	}
