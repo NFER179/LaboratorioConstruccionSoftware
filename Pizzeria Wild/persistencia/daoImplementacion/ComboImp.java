@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+ 
 
 import modelo.ComboModelo;
 
@@ -464,11 +465,10 @@ public class ComboImp implements ComboDAO{
 	@Override
 	public void InsertIntoComboVenta(ComboVentaDTO comboVenta) {
 		Statement stm = this.conector.GetStatement();
-		String sqlString = "insert into combo_venta value('"+comboVenta.getFechaVenta()+"', "+
+		String sqlString = "insert into combo_venta values('"+comboVenta.getFechaVenta()+"', "+
 							comboVenta.getNumVenta()+", "+
-							comboVenta.getNumCombo()+", "+
-							comboVenta.getCantidad()+")";
-		
+							comboVenta.getNumCombo()+", "+ 
+							comboVenta.getCantidad()+");";
 		try{
 			stm.execute(sqlString);
 		}
