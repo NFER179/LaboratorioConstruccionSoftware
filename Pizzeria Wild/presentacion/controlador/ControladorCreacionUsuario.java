@@ -28,6 +28,9 @@ public class ControladorCreacionUsuario implements ActionListener {
 		Object source = arg0.getSource();
 		if (source == this.vtCreacion.getBtnGuardar()) {
 			String usuario = this.vtCreacion.getTxtUsuario().getText().trim();
+			String telefono = this.vtCreacion.getTxtTelefono().getText().trim();
+			String direccion = this.vtCreacion.getTxtDireccion().getText()
+					.trim();
 			char[] contras1 = this.vtCreacion.getTxtContra1().getPassword();
 			char[] contras2 = this.vtCreacion.getTxtContra2().getPassword();
 			String contra1 = "";
@@ -38,8 +41,19 @@ public class ControladorCreacionUsuario implements ActionListener {
 				contra2 += c.toString();
 			contra1 = contra1.trim();
 			contra2 = contra2.trim();
+
 			if ("".equals(usuario)) {
 				Msj.error("Error", "El nombre de usuario no puede ser vacio");
+				this.vtCreacion.getTxtUsuario().setBackground(Color.RED);
+				return;
+			}
+			if ("".equals(telefono)) {
+				Msj.error("Error", "El numero de telefono no puede ser vacio");
+				this.vtCreacion.getTxtUsuario().setBackground(Color.RED);
+				return;
+			}
+			if ("".equals(direccion)) {
+				Msj.error("Error", "La direccion no puede ser vacia");
 				this.vtCreacion.getTxtUsuario().setBackground(Color.RED);
 				return;
 			}
@@ -58,7 +72,7 @@ public class ControladorCreacionUsuario implements ActionListener {
 						"Las contraseñas deben coincidir");
 				return;
 			}
-			Sistema.newUsuario(usuario, contra1);
+			Sistema.newUsuario(usuario, contra1, telefono, direccion);
 			this.vtCreacion.Close();
 			new ControladorVenta().Inicializar();
 		}

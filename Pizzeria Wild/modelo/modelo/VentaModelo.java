@@ -3,6 +3,8 @@ package modelo;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JTable;
+
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjReporteComandaTicket;
 import clasesImpresiones.ObjDatosCliente;
@@ -10,12 +12,17 @@ import clasesImpresiones.ObjProductoTicketComanda;
 
 import utilidades.Fecha;
 import utilidades.Msj;
+import vista.ArmadoVentaVista;
+import dto.ComboActivoDTO; 
+import dto.ComboProductoDTO; 
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
+import dao.ComboDAO;
 import dao.ProductoDAO;
 import dao.SaborDAO;
 import dao.VentaDAO;
 import dao.ProductoEnVentaDAO;
+import daoImplementacion.ComboImp;
 import daoImplementacion.ProductoImp;
 import daoImplementacion.SaborImp;
 import daoImplementacion.VentaImp;
@@ -27,12 +34,14 @@ public class VentaModelo {
 	private ProductoEnVentaDAO productos;
 	private SaborDAO Sabor;
 	private ProductoDAO productoImp;
+	private ComboDAO mdlCombo;
 
 	public VentaModelo() {
 		this.venta = new VentaImp();
 		this.productos = new ProductoEnVentaImp();
 		this.Sabor = new SaborImp();
 		this.productoImp = new ProductoImp();
+		this.mdlCombo = new ComboImp();
 	}
 
 	public int GetNuevoNumeroVenta() {
@@ -85,7 +94,7 @@ public class VentaModelo {
 
 	public List<ProductoEnVentaDTO> GetProductosEnVenta(String Fecha,
 			int NumVenta) {
-		
+
 		return this.productos.GetProductosPara(Fecha, NumVenta);
 	}
 
@@ -122,15 +131,18 @@ public class VentaModelo {
 		return this.venta.GetPerdidas(Fecha.CurrentDate(), Fecha.CurrentDate());
 	}
 
-	public void crearComanda(vista.ArmadoVentaVista vista) {
+	public void crearComanda(ArmadoVentaVista vista) {
 		String fecha = vista.getTxtFecha().getText();
 		int id = Integer.parseInt(vista.getTxtNumVenta().getText());
 		String obs = vista.getTxtrObservacion().getText();
 		String obsDelivery = vista.getTxtrObservacionDelivery().getText();
 		ObjDatosCliente cliente = getDatosCliente(vista);
 
-		List<ObjProductoTicketComanda> listaTicket = getItemsTicket(vista);
-		List<ObjProductoTicketComanda> listaComanda = getItemsComanda(vista);
+		List<ComboProductoDTO> listaCombo = getItemsTicketCombo(vista);
+		List<ObjProductoTicketComanda> listaTicket = getItemsTicket(vista,
+				listaCombo);
+		List<ObjProductoTicketComanda> listaComanda = getItemsComanda(vista,
+				listaCombo);
 
 		ObjReporteComandaTicket reporte = new ObjReporteComandaTicket(cliente,
 				fecha, id, obs, obsDelivery, listaTicket, listaComanda);
@@ -142,31 +154,67 @@ public class VentaModelo {
 	}
 
 	private List<ObjProductoTicketComanda> getItemsComanda(
-			vista.ArmadoVentaVista vista) {
+			ArmadoVentaVista vista, List<ComboProductoDTO> listaCombo) {
 		int id = Integer.parseInt(vista.getTxtNumVenta().getText());
 		String fecha = vista.getTxtFecha().getText();
-		List<ProductoEnVentaDTO> query = productos.GetProductosPara(fecha, id);
-		List<ObjProductoTicketComanda> listaComanda = castToReportObject(query);
+		List<ProductoEnVentaDTO> prodComanda = productos.GetProductosPara(
+				fecha, id);
+		for (ProductoEnVentaDTO producto : prodComanda) {
+			for (ComboProductoDTO itemCombo : listaCombo) {
+				if (producto.getProducto().equals(itemCombo.getProducto())
+						&& producto.getSabor().equals(itemCombo.getSabor())) {
+					producto.setCantidad(producto.getCantidad()
+							+ itemCombo.getCantidad());
+				}
+			}
+		}
+		List<ObjProductoTicketComanda> listaComanda = castToReportObject(prodComanda);
 
 		return listaComanda;
 	}
 
-	// NICOF
 	private List<ObjProductoTicketComanda> getItemsTicket(
-			vista.ArmadoVentaVista vista) {
+			ArmadoVentaVista vista, List<ComboProductoDTO> listaCombo) {
 		int id = Integer.parseInt(vista.getTxtNumVenta().getText());
 		String fecha = vista.getTxtFecha().getText();
 		List<ProductoEnVentaDTO> productosComanda = productos.GetProductosPara(
 				fecha, id);
-
-		// ACA ESTA LA MAGIA - reemplazar por items de bebida
-		List<ProductoEnVentaDTO> productosNOComanda = productos
+		List<ProductoEnVentaDTO> productosTicket = productos
 				.GetProductosNoCocina(fecha, id);
+
+		for (ProductoEnVentaDTO producto : productosTicket) {
+			for (ComboProductoDTO itemCombo : listaCombo) {
+				if (producto.getProducto().equals(itemCombo.getProducto())
+						&& producto.getSabor().equals(itemCombo.getSabor())) {
+					producto.setCantidad(producto.getCantidad()
+							+ itemCombo.getCantidad());
+				}
+			}
+		}
 		List<ObjProductoTicketComanda> listaTicket = castToReportObject(productosComanda);
 
-		listaTicket.addAll(castToReportObject(productosNOComanda));
+		listaTicket.addAll(castToReportObject(productosTicket));
 
 		return listaTicket;
+	}
+
+	private List<ComboProductoDTO> getItemsTicketCombo(
+			vista.ArmadoVentaVista vista) {
+		List<ComboProductoDTO> ret = null;
+		JTable tc = vista.getTblCombo();
+		for (int i = 0; i < vista.getModelTableCombo().getRowCount(); i++) {
+			int numCombo = Integer.parseInt(tc.getValueAt(i, 0).toString()
+					.trim());
+			int cantidad = Integer.parseInt(tc.getValueAt(i, 2).toString()
+					.trim());
+			ret = this.mdlCombo.GetProductos(new ComboActivoDTO(numCombo, "",
+					0, true));
+
+			for (ComboProductoDTO itemCombo : ret) {
+				itemCombo.setCantidad(itemCombo.getCantidad() * cantidad);
+			}
+		}
+		return ret;
 	}
 
 	private List<ObjProductoTicketComanda> castToReportObject(

@@ -46,9 +46,10 @@ public class Sistema {
 		ManejoArchivos.modificarTextoArchivo(rutaIni, nuevoValor);
 	}
 
-	public static void newUsuario(String user, String pass) {
+	public static void newUsuario(String user, String pass, String phone,
+			String dir) {
 		crearUsuario(user, pass);
-		modificarUserPass(user, pass);
+		modificarUserPass(user, pass, phone, dir);
 	}
 
 	private static void crearUsuario(String user, String pass) {
@@ -59,9 +60,10 @@ public class Sistema {
 		}
 	}
 
-	private static void modificarUserPass(String user, String pass) {
-		String nuevoValor = "user:%s; pass:%s; db:PizzeriaWild;";
-		nuevoValor = String.format(nuevoValor, user, pass);
+	private static void modificarUserPass(String user, String pass,
+			String phone, String dir) {
+		String nuevoValor = "user:%s; pass:%s; db:PizzeriaWild; phone:%s; dir:%s;";
+		nuevoValor = String.format(nuevoValor, user, pass, phone, dir);
 		ManejoArchivos.modificarTextoArchivo(rutaUserPass, nuevoValor);
 	}
 }

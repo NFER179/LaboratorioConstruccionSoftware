@@ -370,10 +370,7 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private boolean CheckDelivery() {
-		if (this.vtArmadoPedido.getChckbxDelivery().isSelected())
-			return true;
-		else
-			return false;
+		return this.vtArmadoPedido.getChckbxDelivery().isSelected();
 	}
 
 	private void ArmarPedido() {
