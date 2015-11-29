@@ -66,7 +66,7 @@ public class ControladorABMProducto implements ActionListener {
 		this.vtABM.getTable().setModel(this.vtABM.getModelTable());
 	}
 	
-	public boolean Agregar(String sabor, String precio) {
+	public boolean Agregar(String sabor, int precio) {
 		//hay que validar que el sabor no se repita.
 		
 		Object[] fila = {sabor, precio};

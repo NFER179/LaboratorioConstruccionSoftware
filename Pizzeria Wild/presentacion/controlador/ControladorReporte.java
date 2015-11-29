@@ -111,36 +111,40 @@ public class ControladorReporte implements ActionListener {
 
 	private void accionReporteRepartidores() {
 		if (this.ejecutarReporte) {
-			String id = this.vtReporte.getComboBox().getSelectedItem()
-					.toString().trim().split(" - ")[1];
-			int idRepartidor = Integer.parseInt(id);
-			RepartidorModelo rm = new RepartidorModelo();
-			String nombreRepartidor = rm.ObtenerRepartidor(idRepartidor)
-					.getApellido()
-					+ " "
-					+ rm.ObtenerRepartidor(idRepartidor).getNombre();
-			List<RepartidoReporteDTO> lista = null;
-			try {
-				lista = reportes.GetRepartidores(this.datefrom, this.dateTo,
-						idRepartidor);
-				ObjReporteReparto reporte = new ObjReporteReparto(
-						Fecha.CurrentDate(), nombreRepartidor, lista);
-				if (lista.size() == 0) {
-					Msj.info("Informacion",
-							"El rango de fecha y el repartidor seleccionados no devolvieron datos");
-				} else {
-					try {
-						Impresiones.ImprimirReporteReparto(reporte);
-					} catch (Exception e) {
-						Msj.error("Error de impresion",
-								"La aplicacion a tenido problemas para imprimir el documento");
+			Object item = this.vtReporte.getComboBox().getSelectedItem();
+			if (item != null) {
+				String id = item.toString().trim().split(" - ")[1];
+				int idRepartidor = Integer.parseInt(id);
+				RepartidorModelo rm = new RepartidorModelo();
+				String nombreRepartidor = rm.ObtenerRepartidor(idRepartidor)
+						.getApellido()
+						+ " "
+						+ rm.ObtenerRepartidor(idRepartidor).getNombre();
+				List<RepartidoReporteDTO> lista = null;
+				try {
+					lista = reportes.GetRepartidores(this.datefrom,
+							this.dateTo, idRepartidor);
+					ObjReporteReparto reporte = new ObjReporteReparto(
+							Fecha.CurrentDate(), nombreRepartidor, lista);
+					if (lista.size() == 0) {
+						Msj.info("Informacion",
+								"El rango de fecha y el repartidor seleccionados no devolvieron datos");
+					} else {
+						try {
+							Impresiones.ImprimirReporteReparto(reporte);
+						} catch (Exception e) {
+							Msj.error("Error de impresion",
+									"La aplicacion a tenido problemas para imprimir el documento");
+						}
 					}
-				}
 
-			} catch (Exception e) {
-				Msj.error("Error de coneccion",
-						"La aplicacion a tenido problemas para conectarse a la base de datos");
-			}
+				} catch (Exception e) {
+					Msj.error("Error de coneccion",
+							"La aplicacion a tenido problemas para conectarse a la base de datos");
+				}
+			} else
+				Msj.error("Error de repartidores",
+						"Debe ingresar un repartidor antes de poder realizar el reporte");
 		}
 	}
 

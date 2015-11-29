@@ -185,6 +185,10 @@ public class ControladorVenta implements ActionListener {
 		return venta.getEstado().toUpperCase().equals("VIAJE");
 	}
 
+	private boolean esVentaPendiente(VentaDTO venta) {
+		return venta.getEstado().toUpperCase().equals("PENDIENTE");
+	}
+
 	// private boolean SinVentasPendientes(List<VentaDTO> Ventas) {
 	// boolean sinPendientes = true;
 	// for (VentaDTO venta : Ventas) {
@@ -449,12 +453,27 @@ public class ControladorVenta implements ActionListener {
 	private void accionVentaEntregada() {
 		List<VentaDTO> ventas = this.GetVentasSeleccionadas();
 		if (this.NoTieneVentasEnViaje(ventas)) {
-			this.FinalizarVentas(ventas);
-			this.ctrPedidosCocina.RecargarTablas();
+			if (this.noTieneVentasPendientes(ventas)) {
+				this.FinalizarVentas(ventas);
+				this.ctrPedidosCocina.RecargarTablas();
+			} else {
+				Msj.error("Error en Entregar Venta",
+						"Las Ventas que Estan en Pendientes no Pueden Entregarse por Mostrador.");
+			}
 		} else {
 			Msj.error("Error en Entregar Venta",
 					"Las Ventas que Estan en Viaje no Pueden Entregarse por Mostrador.");
 		}
+	}
+
+	private boolean noTieneVentasPendientes(List<VentaDTO> ventas) {
+		boolean pendientes = true;
+		for (VentaDTO venta : ventas) {
+			if (esVentaPendiente(venta)) {
+				pendientes = false;
+			}
+		}
+		return pendientes;
 	}
 
 	/** Boton para cancelar las ventas. */

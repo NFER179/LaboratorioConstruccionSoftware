@@ -9,6 +9,7 @@ import dto.ProductoDTO;
 
 import modelo.ProductoModelo;
 
+import utilidades.Msj;
 import vista.ProductoVista;
 
 public class ControladorProducto implements ActionListener {
@@ -16,81 +17,92 @@ public class ControladorProducto implements ActionListener {
 	private ControladorVenta ctrVenta;
 	private ProductoVista vtProducto;
 	private ProductoModelo mdlProducto;
-	
+
 	public ControladorProducto(ControladorVenta Ctr) {
 		this.ctrVenta = Ctr;
-		
+
 		this.vtProducto = new ProductoVista();
 		this.vtProducto.getBtnAgregar().addActionListener(this);
 		this.vtProducto.getBtnModificar().addActionListener(this);
 		this.vtProducto.getBtnEliminar().addActionListener(this);
 		this.vtProducto.getBtnVolver().addActionListener(this);
-		
+
 		this.mdlProducto = new ProductoModelo();
 	}
-	
+
 	public void Inicializar() {
 		this.CargarTabla();
 		this.vtProducto.Open();
 	}
-	
+
 	private void CargarTabla() {
 		this.vtProducto.getModelTable().setRowCount(0);
 		this.vtProducto.getModelTable().setColumnCount(0);
-		this.vtProducto.getModelTable().setColumnIdentifiers(this.vtProducto.getNombreColumnas());
-		for(ProductoDTO p:this.mdlProducto.ObtenerProductos()) {
-			Object[] fila = {p.getProductoId(), p.getDescipcion()};
+		this.vtProducto.getModelTable().setColumnIdentifiers(
+				this.vtProducto.getNombreColumnas());
+		for (ProductoDTO p : this.mdlProducto.ObtenerProductos()) {
+			Object[] fila = { p.getProductoId(), p.getDescipcion() };
 			this.vtProducto.getModelTable().addRow(fila);
 		}
 		this.vtProducto.getTable().setModel(this.vtProducto.getModelTable());
 	}
-	
+
 	public void RecargarTabla() {
 		this.CargarTabla();
 	}
-	
+
 	private void Agregar() {
-		ControladorABMProducto ctr = new ControladorABMProducto(this, this.vtProducto);
+		ControladorABMProducto ctr = new ControladorABMProducto(this,
+				this.vtProducto);
 		ctr.InicializarCreacion();
 	}
 
 	private void Modificar() {
 		JTable t = this.vtProducto.getTable();
-		int selectted = t.getSelectedRow();
-		
-		String pr = t.getValueAt(selectted, 0).toString().trim();
-		
-		ProductoDTO producto = this.mdlProducto.ObtenerProducto(pr);
-		
-		ControladorABMProducto ctr = new ControladorABMProducto(this, this.vtProducto);
-		ctr.InicializarModificacion(producto);
+		int selected = t.getSelectedRow();
+		if (selected >= 0) {
+			String pr = t.getValueAt(selected, 0).toString().trim();
+
+			ProductoDTO producto = this.mdlProducto.ObtenerProducto(pr);
+
+			ControladorABMProducto ctr = new ControladorABMProducto(this,
+					this.vtProducto);
+			ctr.InicializarModificacion(producto);
+		} else {
+			Msj.error("Error de seleccion",
+					"Debe seleccionar al menos un producto a modificar");
+		}
 	}
 
 	private void Eliminar() {
 		JTable t = this.vtProducto.getTable();
-		int selectedRow = t.getSelectedRow();
-		
-		String id = t.getValueAt(selectedRow, 0).toString().trim();
-		
-		this.mdlProducto.QuitarProducto(id);
-		
-		this.CargarTabla();
+		int selected = t.getSelectedRow();
+		if (selected >= 0) {
+			String id = t.getValueAt(selected, 0).toString().trim();
+
+			this.mdlProducto.QuitarProducto(id);
+
+			this.CargarTabla();
+		} else {
+			Msj.error("Error de seleccion",
+					"Debe seleccionar al menos un producto a modificar");
+		}
 	}
 
 	private void Volver() {
 		this.ctrVenta.Return();
 		this.vtProducto.Close();
 	}
-	
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == this.vtProducto.getBtnAgregar()) {
+		if (arg0.getSource() == this.vtProducto.getBtnAgregar()) {
 			this.Agregar();
-		}else if(arg0.getSource() == this.vtProducto.getBtnModificar()) {
+		} else if (arg0.getSource() == this.vtProducto.getBtnModificar()) {
 			this.Modificar();
-		}else if(arg0.getSource() == this.vtProducto.getBtnEliminar()) {
+		} else if (arg0.getSource() == this.vtProducto.getBtnEliminar()) {
 			this.Eliminar();
-		}else if(arg0.getSource() == this.vtProducto.getBtnVolver()) {
+		} else if (arg0.getSource() == this.vtProducto.getBtnVolver()) {
 			this.Volver();
 		}
 	}

@@ -54,7 +54,7 @@ public class ConectorDB {
 			try {
 				instancia = new ConectorDB();
 			} catch (Exception e) {
-				Msj.error("Error de coneccion",
+				Msj.error("Error de conexion",
 						"Ocurrio un error al conectarse a la base de datos: "
 								+ e.toString());
 			}
