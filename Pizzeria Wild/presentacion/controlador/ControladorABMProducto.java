@@ -114,11 +114,15 @@ public class ControladorABMProducto implements ActionListener {
 				ElaboraCocina);
 
 		if (this.crear) {
-			if (mdlProducto.ObtenerProducto(Descripcion).getProductoId()
-					.equals(ProductoId)) {
-				Msj.error("Error", "El identificador ya existe");
-			} else {
+			if (mdlProducto.ObtenerProducto(Descripcion) == null)
 				this.mdlProducto.CrearProducto(p);
+			else {
+				if (mdlProducto.ObtenerProducto(Descripcion).getProductoId()
+						.equals(ProductoId)) {
+					Msj.error("Error", "El identificador ya existe");
+				} else {
+					this.mdlProducto.CrearProducto(p);
+				}
 			}
 		} else {
 			this.mdlProducto.ModificarProducto(p);
