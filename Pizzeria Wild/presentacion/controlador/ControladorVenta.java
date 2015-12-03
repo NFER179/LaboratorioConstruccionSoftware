@@ -413,8 +413,7 @@ public class ControladorVenta implements ActionListener {
 		} else {
 			String titulo = "Error De Ventas";
 			String mensaje = "Debe Encontrarse en las Ventas Del Dia para Realizar Ciertas Acciones.";
-			JOptionPane.showMessageDialog(null, mensaje, titulo,
-					JOptionPane.ERROR_MESSAGE);
+			Msj.error(titulo, mensaje);
 			return false;
 		}
 	}
@@ -498,43 +497,8 @@ public class ControladorVenta implements ActionListener {
 
 	/** Boton para poder modificar una venta. */
 	private void accionModificar() {
-		// JTable tabla = this.vtVenta.GetTable();
-		// Si marco una fila ??
-		// boolean seleccionoUnaVenta = tabla.getSelectedRow() >= 0;
-		// Si es exactamente una
-		// seleccionoUnaVenta = seleccionoUnaVenta
-		// && tabla.getSelectedRows().length == 1;
-		// if (seleccionoUnaVenta) {
-		revisarVentaEnViaje();
-		// } else {
-		// Msj.advertencia("Atencion", "Debe Seleccionar una Unica Venta.");
-		// }
-
-	}
-
-	private void revisarVentaEnViaje() {
-		// VentaDTO ventaMarcada = GetVentaSeleccionada();
-		// boolean noEstaEnViaje = !esVentaEnViaje(ventaMarcada);
-		// if (noEstaEnViaje) {
-		verificarVentaPendiente();
-		// } else {
-		// Msj.error("Error de Modificación",
-		// "No Puede Modificar Ventas que Esten en Viaje");
-		// }
-	}
-
-	private void verificarVentaPendiente() {
-		// VentaDTO ventaMarcada = GetVentaSeleccionada();
-		// if (!esVentaPendiente(ventaMarcada)) {
-		modificarVenta();
-		// } else {
-		// Msj.error("Error Estado Ventas",
-		// "No se pueden modificar las Ventas Armadas.");
-		// }
-	}
-
-	private void modificarVenta() {
 		JTable tabla = this.vtVenta.getTableVentas();
+
 		String fecha = Str.trim(tabla.getValueAt(tabla.getSelectedRow(),
 				columnaFecha));
 		int numVenta = Str.toInt(tabla.getValueAt(tabla.getSelectedRow(),
@@ -542,23 +506,23 @@ public class ControladorVenta implements ActionListener {
 		ControladorArmadoVenta ctrArmadoVenta = new ControladorArmadoVenta(
 				this, this.vtVenta, fecha, numVenta);
 		ctrArmadoVenta.Inicializar();
+
 	}
 
 	/** Boton para asignar las ventas que estan en el mostrador. */
 	private void accionEnMostrador() {
 		List<VentaDTO> ventas = this.GetVentasSeleccionadas();
-		if (this.NoTieneVentasEnViaje(ventas)) {
-			this.VentasEnMostrador(ventas);
-			this.ctrPedidosCocina.RecargarTablas();
+		String titulo = "Error de seleccion de Ventas";
+		if (ventas.size() == 0) {
+			Msj.error(titulo, "Debe seleccionar una venta");
 		} else {
-			Msj.error("Error Seleccion de Ventas",
-					"No Puede Usar esta Funcionalidad Para Ventas que esten en Viaje");
-			// JOptionPane
-			// .showMessageDialog(
-			// null,
-			// "No Puede Usar esta Funcionalidad Para Ventas que esten en Viaje",
-			// "Error Seleccion de Ventas",
-			// JOptionPane.ERROR_MESSAGE);
+			if (this.NoTieneVentasEnViaje(ventas)) {
+				this.VentasEnMostrador(ventas);
+				this.ctrPedidosCocina.RecargarTablas();
+			} else {
+				Msj.error(titulo,
+						"No Puede Usar esta Funcionalidad Para Ventas que esten en Viaje");
+			}
 		}
 
 	}

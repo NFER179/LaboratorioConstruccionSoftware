@@ -9,6 +9,7 @@ import dto.CategoriaDTO;
 
 import modelo.CategoriaModelo;
 
+import utilidades.Msj;
 import validacion.ValidacionCategoria;
 import vista.CategoriaVista;
 
@@ -57,41 +58,64 @@ public class ControladorCategoria implements ActionListener {
 	private void EliminarCategoria() {
 		JTable tabla = this.vtCategoria.getTable();
 		int FilaSeleccionada = tabla.getSelectedRow();
-		String IdCategoria = tabla.getValueAt(FilaSeleccionada, 0).toString()
-				.trim();
-		String Descripcion = tabla.getValueAt(FilaSeleccionada, 1).toString()
-				.trim();
-		CategoriaDTO categoria = new CategoriaDTO(IdCategoria, Descripcion);
+		if (FilaSeleccionada < 0) {
+			Msj.error("Error de seleccion",
+					"Debe seleccionar una categoria a eliminar");
+		} else {
 
-		this.mdlCategoria.QuitarAsignaciones(categoria);
-		this.mdlCategoria.EliminarCategoria(categoria);
+			String IdCategoria = tabla.getValueAt(FilaSeleccionada, 0)
+					.toString().trim();
+			String Descripcion = tabla.getValueAt(FilaSeleccionada, 1)
+					.toString().trim();
+			CategoriaDTO categoria = new CategoriaDTO(IdCategoria, Descripcion);
 
-		this.CargarTabla();
+			this.mdlCategoria.QuitarAsignaciones(categoria);
+			this.mdlCategoria.EliminarCategoria(categoria);
+
+			this.CargarTabla();
+		}
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == this.vtCategoria.getBtnAgregar()) {
-			this.vtCategoria.Close();
-			ControladorCategoriaDetalle ctrCategotiaDetalle = new ControladorCategoriaDetalle(
-					this, this.vtCategoria);
-			ctrCategotiaDetalle.InicializarNueva();
+			accionAgregar();
 
 		} else if (arg0.getSource() == this.vtCategoria.getBtnModificar()) {
-			ControladorCategoriaDetalle ctrCategotiaDetalle = new ControladorCategoriaDetalle(
-					this, this.vtCategoria);
-			JTable tabla = this.vtCategoria.getTable();
-			int filaSeleccionada = tabla.getSelectedRow();
-			String Categoria = tabla.getValueAt(filaSeleccionada, 0).toString()
-					.trim();
-			ctrCategotiaDetalle.InicializarModificacion(Categoria);
+			accionModificar();
 		} else if (arg0.getSource() == this.vtCategoria.getBtnEliminar()) {
-			if (this.validCategoria.SePuedeEliminar()) {
-				this.EliminarCategoria();
-			}
+			accionEliminar();
 		} else if (arg0.getSource() == this.vtCategoria.getBtnVolver()) {
 			this.ctr.Return();
 			this.vtCategoria.Close();
+		}
+	}
+
+	private void accionEliminar() {
+		if (this.validCategoria.SePuedeEliminar()) {
+			this.EliminarCategoria();
+		}
+	}
+
+	private void accionAgregar() {
+		this.vtCategoria.Close();
+		ControladorCategoriaDetalle ctrCategotiaDetalle = new ControladorCategoriaDetalle(
+				this, this.vtCategoria);
+		ctrCategotiaDetalle.InicializarNueva();
+	}
+
+	private void accionModificar() {
+		ControladorCategoriaDetalle ctrCategotiaDetalle = new ControladorCategoriaDetalle(
+				this, this.vtCategoria);
+		JTable tabla = this.vtCategoria.getTable();
+		int filaSeleccionada = tabla.getSelectedRow();
+		if (filaSeleccionada < 0) {
+			Msj.error("Error de seleccion",
+					"Debe seleccionar una categoria a modificar");
+		} else {
+			String Categoria = tabla.getValueAt(filaSeleccionada, 0).toString()
+					.trim();
+			ctrCategotiaDetalle.InicializarModificacion(Categoria);
 		}
 	}
 
