@@ -14,6 +14,7 @@ import modelo.CategoriaModelo;
 import modelo.MateriaPrimaModelo;
 import modelo.ProveedorModelo;
 
+import utilidades.Msj;
 import vista.CategoriaDetalleVista;
 import vista.CategoriaVista;
 
@@ -135,14 +136,17 @@ public class ControladorCategoriaDetalle implements ActionListener {
 	private void Modificar() {
 		JTable t = this.vtCategoriadetalle.getTable();
 		int selected = t.getSelectedRow();
+		if (selected < 0) {
+			Msj.error("Error", "Debe seleccionar una categoria");
+		} else {
+			String Nombre = t.getValueAt(selected, 0).toString().trim();
+			String Unidad = t.getValueAt(selected, 1).toString().trim();
 
-		String Nombre = t.getValueAt(selected, 0).toString().trim();
-		String Unidad = t.getValueAt(selected, 1).toString().trim();
-
-		MateriaPrimaDTO mp = new MateriaPrimaDTO(Nombre, Unidad);
-		ControladorCreacionMateriaPrima ctr = new ControladorCreacionMateriaPrima(
-				this, this.vtCategoriadetalle);
-		ctr.InicializarModificacion(mp);
+			MateriaPrimaDTO mp = new MateriaPrimaDTO(Nombre, Unidad);
+			ControladorCreacionMateriaPrima ctr = new ControladorCreacionMateriaPrima(
+					this, this.vtCategoriadetalle);
+			ctr.InicializarModificacion(mp);
+		}
 
 	}
 

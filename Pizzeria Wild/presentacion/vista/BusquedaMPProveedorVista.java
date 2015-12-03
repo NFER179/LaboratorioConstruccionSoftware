@@ -27,7 +27,7 @@ public class BusquedaMPProveedorVista extends JDialog {
 				BusquedaMPProveedorVista.class
 						.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
-		setTitle(" Busquer Materia Prima");
+		setTitle(" Busqueda de Materia Prima");
 		setBounds(100, 100, 450, 325);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);

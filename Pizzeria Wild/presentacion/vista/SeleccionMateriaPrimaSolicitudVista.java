@@ -22,6 +22,7 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 	private JTextField txtCantidad;
 	private JButton btnAceptar;
 	private JButton btnCancelar;
+	private JScrollPane scrollPane;
 
 	public SeleccionMateriaPrimaSolicitudVista(CreacionSolicitudVista arg0) {
 		super(arg0, true);
@@ -34,7 +35,7 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 352, 309);
 		getContentPane().add(scrollPane);
 
@@ -100,5 +101,13 @@ public class SeleccionMateriaPrimaSolicitudVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
 	}
 }

@@ -60,14 +60,17 @@ public class ControladorCreacionSolicitud implements ActionListener {
 				this.vtCreacionSolicitud.getBtnImprimir());
 		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
 
-		int NumPedido;
+		int NumPedido = 0;
 		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
 			NumPedido = this.mdlSolicitud
 					.ObtenerNumNuevaSolicitud(FechaCreacion);
 		} else {
-			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
-					.getTxtNumpedido().getText().trim());
-		}
+			String textNumPedido = this.vtCreacionSolicitud.getTxtNumpedido()
+					.getText().trim();
+			if (!textNumPedido.equals("")) {
+				NumPedido = Integer.parseInt(textNumPedido);
+			}
+		} 
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumPedido + "");
 		this.vtCreacionSolicitud.Open();
 	}

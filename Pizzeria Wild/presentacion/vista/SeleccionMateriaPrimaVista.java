@@ -18,6 +18,7 @@ public class SeleccionMateriaPrimaVista extends JDialog {
 	private JTable table;
 	private JButton btnAsignar;
 	private JButton btnCancelar;
+	private JScrollPane scrollPane;
 
 	public SeleccionMateriaPrimaVista(CategoriaDetalleVista CategoriaDetalle) {
 		super(CategoriaDetalle, true);
@@ -26,12 +27,12 @@ public class SeleccionMateriaPrimaVista extends JDialog {
 				SeleccionMateriaPrimaVista.class
 						.getResource("/Iconos/pizza_1.PNG")));
 
-		setTitle("Seleccion Materias Primas");
+		setTitle("Seleccion de Materias Primas");
 		setBounds(100, 100, 380, 453);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 
-		JScrollPane scrollPane = new JScrollPane();
+		scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 11, 352, 346);
 		getContentPane().add(scrollPane);
 
@@ -80,5 +81,13 @@ public class SeleccionMateriaPrimaVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public void setScrollPane(JScrollPane scrollPane) {
+		this.scrollPane = scrollPane;
 	}
 }
