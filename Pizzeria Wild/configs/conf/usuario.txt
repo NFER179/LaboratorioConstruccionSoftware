@@ -1,1 +1,1 @@
-user:Nykoo; pass:123123; db:PizzeriaWild; phone:03 03 456; dir:Triunvirato;
+user:; pass:; db:; phone:; dir:;
