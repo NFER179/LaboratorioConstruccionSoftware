@@ -1,1 +1,1 @@
-user: ; pass: ; db: ;
+user:; pass:; db:; phone:; dir:;
