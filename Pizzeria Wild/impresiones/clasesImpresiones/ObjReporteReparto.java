@@ -9,10 +9,12 @@ public class ObjReporteReparto extends ObjImprimible {
 	private static final String templatePath = "reporte_reparto_template";
 	private List<RepartidoReporteDTO> repartos;
 	private String nombreRepartidor;
+	private static String nombreCarpeta = "Repartos";
 
 	public ObjReporteReparto(String fecha, String nombreRepartidor,
 			List<RepartidoReporteDTO> repartos) {
-		super(nombreRepartidor + fecha, fecha, templatePath, 1, maxPag);
+		super(nombreRepartidor + fecha, fecha, templatePath, 1, maxPag,
+				nombreCarpeta);
 		this.setNombreRepartidor(nombreRepartidor);
 		this.repartos = repartos;
 	}

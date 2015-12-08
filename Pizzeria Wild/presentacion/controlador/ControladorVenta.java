@@ -51,8 +51,7 @@ public class ControladorVenta implements ActionListener {
 	}
 
 	private void addListeners() {
-		this.vtVenta.getBtnSolicitudes().addActionListener(this);
-		// this.vtVenta.getBtnMateriasPrimas().addActionListener(this);
+		this.vtVenta.getBtnSolicitudes().addActionListener(this); 
 		this.vtVenta.getBtnCategorias().addActionListener(this);
 		this.vtVenta.getBtnReportes().addActionListener(this);
 		this.vtVenta.getBtnProveedores().addActionListener(this);

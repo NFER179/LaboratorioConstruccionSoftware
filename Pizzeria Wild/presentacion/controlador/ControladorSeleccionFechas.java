@@ -36,7 +36,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 	public void Inicializar() {
 		this.GrisarTodo();
 		this.vtSeleccion.getRdbtnPorDia().setSelected(true);
-		this.vtSeleccion.getCbxDia().setEnabled(true);
+		DesgrisarDia();
 		this.vtSeleccion.getRdbtnMes().setSelected(true);
 		this.vtReporte.Close();
 		this.vtSeleccion.Open();
@@ -75,6 +75,8 @@ public class ControladorSeleccionFechas implements ActionListener {
 	private void DesgrisarDia() {
 		this.GrisarTodo();
 		this.vtSeleccion.getCbxDia().setEnabled(true);
+		this.vtSeleccion.getCbxDia().getComponent(0).setEnabled(true);
+		this.vtSeleccion.getCbxDia().getComponent(1).setEnabled(true);
 	}
 
 	private void DesgrisarRango() {
@@ -151,7 +153,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 	}
 
 	private String[] opcionMes(int anio) {
-		int numeroMes = this.vtSeleccion.getTxtMes().getMonth();
+		int numeroMes = this.vtSeleccion.getTxtMes().getMonth() + 1;
 		String[] fechas = Fecha.rangosPorMes(anio, numeroMes);
 		return fechas;
 	}

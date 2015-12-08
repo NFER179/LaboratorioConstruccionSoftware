@@ -10,17 +10,19 @@ public class ObjReporteSolicitudMP extends ObjImprimible {
 	private static final String templatePath = "template_solicitud_mp";
 	private ProveedorDTO proveedor;
 	private ArrayList<MateriaPrimaDTO> materiasPrimas;
+	private static String nombreCarpeta = "Solicitudes Materias Primas";
 
 	public ObjReporteSolicitudMP(String nombreArchivo, String fecha, int id,
 			ProveedorDTO pProveedor, ObjDatosCliente cliente,
 			ArrayList<MateriaPrimaDTO> pMateriasPrimas) {
-		super(nombreArchivo, fecha, templatePath, id, maxPag);
+		super(nombreArchivo, fecha, templatePath, id, maxPag, nombreCarpeta);
 		this.proveedor = pProveedor;
 		this.materiasPrimas = pMateriasPrimas;
 	}
 
 	public ObjReporteSolicitudMP(String fecha, int id, ProveedorDTO pProveedor) {
-		super(pProveedor.getNombre(), fecha, templatePath, id, maxPag);
+		super(pProveedor.getNombre(), fecha, templatePath, id, maxPag,
+				nombreCarpeta);
 		this.proveedor = pProveedor;
 		this.materiasPrimas = new ArrayList<MateriaPrimaDTO>();
 	}

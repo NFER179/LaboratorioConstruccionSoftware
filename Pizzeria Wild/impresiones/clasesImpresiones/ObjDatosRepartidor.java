@@ -13,14 +13,6 @@ public class ObjDatosRepartidor {
 		this.numTelefono = numTelefono;
 	}
 
-	// private void CargaAutomatica(int Id) {
-	// RepartidorModelo r = new RepartidorModelo();
-	// RepartidorDTO repartidor = r.GetRepartidor(Id);
-	// this.nombre = repartidor.getApellido() + " " + repartidor.getNombre();
-	// this.datosVehiculo = "moto";
-	// this.numTelefono = repartidor.getTel();
-	// }
-
 	@Override
 	public String toString() {
 		return "Repartidor: " + nombre + "\n Vehiculo" + datosVehiculo

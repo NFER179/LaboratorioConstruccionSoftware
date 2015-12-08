@@ -1,5 +1,6 @@
 package clasesImpresiones;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -33,7 +34,8 @@ import dto.VentaReporteDTO;
 public class Impresiones {
 
 	private static String tempPath = "Templates/templates/%s.pdf";
-	private static String resultPath = "reportesImpresiones/reportes/%s.pdf";
+	private static String resultPath;
+	private static final String root = "reportesImpresiones/reportes/";
 	private static String pdfResultPath;
 	private static PdfReader pdfTemplate;
 	private static FileOutputStream pdfOut;
@@ -546,10 +548,21 @@ public class Impresiones {
 
 	private static FileOutputStream getPdfOut(ObjImprimible imprimible,
 			int numeroPagina) throws FileNotFoundException {
+		createTodayFolder(imprimible);
 		pdfResultPath = String.format(resultPath, imprimible.getNombreArchivo()
 				+ "_" + numeroPagina);
 		FileOutputStream pdfOut = new FileOutputStream(pdfResultPath);
 		return pdfOut;
+	}
+
+	private static void createTodayFolder(ObjImprimible imprimible) {
+		resultPath = root;
+		resultPath += Fecha.CurrentDateFormato();
+		resultPath += "/" + imprimible.getNombreCarpeta();
+		File folder = new File(resultPath);
+		if (!folder.exists())
+			folder.mkdirs();
+		resultPath += "/%s.pdf";
 	}
 
 	private static PdfReader getPdfreader(ObjImprimible itinerario)

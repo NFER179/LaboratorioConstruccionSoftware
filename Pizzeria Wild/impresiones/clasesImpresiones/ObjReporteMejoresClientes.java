@@ -11,10 +11,12 @@ public class ObjReporteMejoresClientes extends ObjImprimible {
 	private List<ClienteReporteDTO> clientes;
 	private String fechaHasta;
 	private String fechaDesde;
+	private static String nombreCarpeta = "Mejores Clientes";
 
 	public ObjReporteMejoresClientes(String fechaDesde, String fechaHasta,
 			List<ClienteReporteDTO> clientes) {
-		super("MejoresClientes " + fechaDesde, "", templatePath, 0, maxPag);
+		super("MejoresClientes " + fechaDesde, "", templatePath, 0, maxPag,
+				nombreCarpeta);
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
 		this.clientes = clientes;

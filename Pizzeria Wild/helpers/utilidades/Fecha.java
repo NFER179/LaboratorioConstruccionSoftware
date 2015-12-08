@@ -45,6 +45,12 @@ public class Fecha {
 		return formato.format(cal.getTime());
 	}
 
+	public static String CurrentDateFormato() {
+		Calendar cal = Calendar.getInstance();
+		DateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+		return formato.format(cal.getTime());
+	}
+
 	public static String CurrentTime() {
 		Calendar c = Calendar.getInstance();
 		String time = "";
@@ -68,6 +74,7 @@ public class Fecha {
 
 	public static String[] rangosPorSemana(int anio, int numeroSemana) {
 		Calendar cal = Calendar.getInstance();
+		cal.clear();
 		cal.set(Calendar.YEAR, anio);
 		cal.set(Calendar.WEEK_OF_YEAR, numeroSemana);
 		String fechaInicio = formato.format(cal.getTime());
@@ -141,7 +148,7 @@ public class Fecha {
 		c.set(Calendar.YEAR, fecha.getYear());
 		c.set(Calendar.MONTH, fecha.getMonth());
 		c.set(Calendar.DATE, fecha.getDate());
-		return c.get(Calendar.WEEK_OF_YEAR);
+		return c.get(Calendar.WEEK_OF_YEAR) + 1;
 	}
 
 	public static String format(String date) {

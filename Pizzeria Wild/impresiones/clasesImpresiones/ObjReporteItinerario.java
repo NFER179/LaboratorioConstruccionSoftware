@@ -10,12 +10,13 @@ public class ObjReporteItinerario extends ObjImprimible {
 	private static final int maxPag = 11;
 	private static final String templatePath = "template_itinerario";
 	private String observacionGral;
+	private static String nombreCarpeta = "Itinerarios";
 
 	public ObjReporteItinerario(String fecha, int id,
 			List<objPuntoItinerario> pPuntos,
 			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
-		super(fecha + pDatosRepartidor.getNombre() + "_" + id, fecha,
-				templatePath, id, maxPag);
+		super(pDatosRepartidor.getNombre() + "_" + id, fecha, templatePath, id,
+				maxPag, nombreCarpeta);
 		this.puntos = pPuntos;
 		this.repartidor = pDatosRepartidor;
 	}
@@ -23,7 +24,7 @@ public class ObjReporteItinerario extends ObjImprimible {
 	public ObjReporteItinerario(String fecha, int id,
 			ObjDatosRepartidor pDatosRepartidor, String observacionPedido) {
 		super(fecha + pDatosRepartidor.getNombre() + "_" + id, fecha,
-				templatePath, id, maxPag);
+				templatePath, id, maxPag, nombreCarpeta);
 		this.repartidor = pDatosRepartidor;
 		this.puntos = new ArrayList<objPuntoItinerario>();
 		this.observacionGral = observacionPedido;

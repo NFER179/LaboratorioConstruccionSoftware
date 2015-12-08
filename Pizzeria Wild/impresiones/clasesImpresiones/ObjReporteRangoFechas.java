@@ -12,9 +12,9 @@ public class ObjReporteRangoFechas extends ObjImprimible {
 
 	public ObjReporteRangoFechas(String nombreArchivo, String templateName,
 			int id, int maxPaginacion, String fechaDesde, String fechaHasta,
-			List<?> lista) {
+			List<?> lista, String nombreCarpeta) {
 		super(nombreArchivo, Fecha.CurrentDate(), templateName, id,
-				maxPaginacion);
+				maxPaginacion, nombreCarpeta);
 		this.fechaDesde = fechaDesde;
 		this.fechaHasta = fechaHasta;
 		this.lista = lista;
