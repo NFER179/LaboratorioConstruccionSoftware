@@ -12,20 +12,22 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import archivos.ManejoArchivos;
+
 import validacionesCampos.Valida;
 
 public class MailWildPizzeria extends Mail {
 
-	private static String usuario = "wildprizzeria@gmail.com";
-	private static String contrasenia = "wildpizzeri";
-	public String host = "smtp.gmail.com";
-
-	public MailWildPizzeria() {
-		super(usuario, contrasenia);
-	}
+	private static String rutaArchivo = "configs/conf/email.txt";
+	private String host = "smtp.gmail.com";
 
 	public MailWildPizzeria(String pReceptor, String pAsunto, String pMensaje) {
-		super(usuario, contrasenia, pReceptor, pAsunto, pMensaje);
+		super("", "", pReceptor, pAsunto, pMensaje);
+		String[] datos = ManejoArchivos.getTextoArchivo(rutaArchivo).split(";");
+		String emisor = datos[0];
+		String contrasenia = datos[1];
+		this.setEmisor(emisor);
+		this.setContrasenia(contrasenia);
 	}
 
 	public String getHost() {

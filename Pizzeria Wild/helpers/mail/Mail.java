@@ -28,4 +28,12 @@ public class Mail {
 	public String getContrasenia() {
 		return this.contrasenia;
 	}
+
+	public void setEmisor(String emisor) {
+		this.emisor = emisor;
+	}
+
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
+	}
 }
