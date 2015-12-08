@@ -238,10 +238,8 @@ public class ControladorCreacionSolicitud implements ActionListener {
 				"Enviado", FechaEnvio, referenciaNumeroPedido,
 				Fecha.CurrentDate(), 0);
 
-		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
-				.getText().trim();
-
-		this.mdlSolicitud.EnviarSolicitud(solicitud, proveedor,
+		ProveedorDTO provee = buildProveedor();
+		this.mdlSolicitud.EnviarSolicitud(solicitud, provee,
 				this.GetMateriasPrimas());
 
 		this.vtCreacionSolicitud.getContentPane().add(

@@ -4,8 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JDialog;
+ 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,6 +12,7 @@ import modelo.RepartidorModelo;
 
 import dto.RepartidorDTO;
 
+import vista.AsignacionRepartidoresVista;
 import vista.BuscadorRepartidorVista;
 
 public class ControladorBuscadorRepartidor implements ActionListener {
@@ -21,10 +21,12 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 	private List<RepartidorDTO> lRepartidor;
 	private RepartidorModelo mdlRepartidor;
 	private ControladorAsignacionRepartidor ctrAsignacionRep;
+	private AsignacionRepartidoresVista vtAsignacion;
 
 	public ControladorBuscadorRepartidor(ControladorAsignacionRepartidor Ctr,
-			JDialog Dialog) {
-		this.vtBuscadorRepartidor = new BuscadorRepartidorVista(Dialog);
+			AsignacionRepartidoresVista vista) {
+		this.vtAsignacion = vista;
+		this.vtBuscadorRepartidor = new BuscadorRepartidorVista(vista);
 		this.lRepartidor = new ArrayList<RepartidorDTO>();
 		this.mdlRepartidor = new RepartidorModelo();
 		addListeners();
@@ -33,6 +35,7 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarTabla();
+		this.vtAsignacion.Close();
 		this.vtBuscadorRepartidor.Open();
 	}
 
@@ -70,7 +73,7 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 	}
 
 	private void inicializarRepartidores() {
-		this.lRepartidor = this.mdlRepartidor.ObtenerTodosLosRepartidores();
+		this.lRepartidor = this.mdlRepartidor.ObtenerRepartidoresActivos();
 	}
 
 	private DefaultTableModel inicializarTableModel() {
@@ -92,8 +95,8 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 	}
 
 	private void accionCancelar() {
-		this.ctrAsignacionRep.Inicializar();
 		this.vtBuscadorRepartidor.Close();
+		this.ctrAsignacionRep.Inicializar(); 
 	}
 
 	private void accionAceptar() {
@@ -103,6 +106,7 @@ public class ControladorBuscadorRepartidor implements ActionListener {
 		if (seleccionoFila)
 			agregarRepartidor();
 		this.vtBuscadorRepartidor.Close();
+		this.vtAsignacion.Open();
 	}
 
 	private void agregarRepartidor() {

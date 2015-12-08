@@ -7,7 +7,6 @@ import mail.MailWildPizzeria;
 import utilidades.Fecha;
 import utilidades.Msj;
 
-import dao.ProveedorDAO;
 import dao.SolicitudDAO;
 import daoImplementacion.SolicitudImp;
 import dto.MateriaPrimaSolicitudDTO;
@@ -17,7 +16,6 @@ import dto.SolicitudDTO;
 public class SolicitudModelo {
 
 	private SolicitudDAO solicitud;
-	private ProveedorDAO mdlProveedor;
 
 	public SolicitudModelo() {
 		solicitud = new SolicitudImp();
@@ -31,53 +29,55 @@ public class SolicitudModelo {
 		return this.solicitud.GetNuevoNumeroSolicitud(Fecha);
 	}
 
-	public void EnviarSolicitud(SolicitudDTO Solicitud, String Proveedor,
+	// JJJJ
+	public void EnviarSolicitud(SolicitudDTO Solicitud, ProveedorDTO Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 
 		if (Solicitud.getEffdt().equals(Fecha.CurrentDate())) {
 			if (this.solicitud.Existe(Solicitud)) {
-				this.solicitud.ActualizarSolicitud(Solicitud, Proveedor,
-						MateriasPrimas);
+				this.solicitud.ActualizarSolicitud(Solicitud,
+						Proveedor.getProveedorId(), MateriasPrimas);
 			} else {
-				this.solicitud.CrearSolicitud(Solicitud, Proveedor,
-						MateriasPrimas);
+				this.solicitud.CrearSolicitud(Solicitud,
+						Proveedor.getProveedorId(), MateriasPrimas);
 			}
 		} else {
 			Solicitud.setFecha_envio(Fecha.CurrentDate());
 			Solicitud.setReferenciaNumPedido(this.solicitud
 					.GetNuevoNumeroSolicitud(Fecha.CurrentDate()));
-			this.solicitud.ActualizarSolicitud(Solicitud, Proveedor,
-					MateriasPrimas);
+			this.solicitud.ActualizarSolicitud(Solicitud,
+					Proveedor.getProveedorId(), MateriasPrimas);
 
 			SolicitudDTO soli = this.SolicitudReferenteA(Solicitud);
-			this.solicitud.CrearSolicitud(soli, Proveedor, MateriasPrimas);
+			this.solicitud.CrearSolicitud(soli, Proveedor.getProveedorId(),
+					MateriasPrimas);
 			this.solicitud.Enviar(soli);
 		}
-		this.solicitud.Enviar(Solicitud);
 		this.EnviarMailSolicitud(Solicitud, Proveedor, MateriasPrimas);
+		this.solicitud.Enviar(Solicitud);
 	}
 
-	private void EnviarMailSolicitud(SolicitudDTO solicitud, String Proveedor,
+	private void EnviarMailSolicitud(SolicitudDTO solicitud,
+			ProveedorDTO Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		/* Conseguir el mail del proveedor */
-		ProveedorDTO p = mdlProveedor.GetProveedor(Proveedor);
-		String mail = p.getMail();
+
 		/* Armar mensaje */
 		String enter = "\n";
 		String tab = "\t";
-		String pMensaje = "Por medio del presente hago pedido de productos."
+		String mensaje = "Por medio del presente hago pedido de productos."
 				+ enter + enter;
 
 		for (MateriaPrimaSolicitudDTO mps : MateriasPrimas) {
-			pMensaje = pMensaje + mps.getMateriaPrima() + tab
-					+ mps.getCantidad() + enter;
+			mensaje = mensaje + mps.getMateriaPrima() + tab + mps.getCantidad()
+					+ enter;
 		}
 
-		pMensaje = pMensaje + enter + "Desde ya muchas gracias." + enter
+		mensaje = mensaje + enter + "Desde ya muchas gracias." + enter
 				+ "PizzeriaWild";
 
-		MailWildPizzeria Sender = new MailWildPizzeria(mail,
-				"Solicitud Materia Prima", pMensaje);
+		MailWildPizzeria Sender = new MailWildPizzeria(Proveedor.getMail(),
+				"Solicitud Materia Prima", mensaje);
 		// JNVR ADD
 		try {
 			Sender.mandarMail();

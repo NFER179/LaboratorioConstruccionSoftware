@@ -15,10 +15,12 @@ public class ControladorSeleccionProveedor implements ActionListener {
 	private SeleccionProveedorVista vtSeleccion;
 	private ControladorCreacionSolicitud ctrCreacion;
 	private ProveedorModelo mdlProveedor;
+	private CreacionSolicitudVista vtCreacionSolicitud;
 
 	public ControladorSeleccionProveedor(
 			ControladorCreacionSolicitud Controlador,
 			CreacionSolicitudVista Vista) {
+		this.vtCreacionSolicitud = Vista;
 		this.vtSeleccion = new SeleccionProveedorVista(Vista);
 		this.vtSeleccion.getBtnSeleccionar().addActionListener(this);
 		this.vtSeleccion.getBtnCancelar().addActionListener(this);
@@ -29,6 +31,7 @@ public class ControladorSeleccionProveedor implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarTabla();
+		this.vtCreacionSolicitud.Close();
 		this.vtSeleccion.Open();
 	}
 
@@ -57,6 +60,7 @@ public class ControladorSeleccionProveedor implements ActionListener {
 					.toString().trim();
 			this.ctrCreacion.CargarProveedor(IdProveedor, Descripcion);
 			this.vtSeleccion.Close();
+			this.vtCreacionSolicitud.Open();
 		}
 	}
 
@@ -66,6 +70,7 @@ public class ControladorSeleccionProveedor implements ActionListener {
 			this.SeleccionarProveedor();
 		} else if (arg0.getSource() == this.vtSeleccion.getBtnCancelar()) {
 			this.vtSeleccion.Close();
+			this.vtCreacionSolicitud.Open();
 		}
 	}
 }

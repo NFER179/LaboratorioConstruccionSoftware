@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.JFrame;
 import clasesImpresiones.Impresiones;
 import clasesImpresiones.ObjDatosRepartidor;
 import clasesImpresiones.ObjReporteItinerario;
@@ -21,6 +20,7 @@ import utilidades.Msj;
 import utilidades.Str;
 import validacionesCampos.*;
 import vista.AsignacionRepartidoresVista;
+import vista.VentasVista;
 
 public class ControladorAsignacionRepartidor implements ActionListener {
 
@@ -29,10 +29,12 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	private List<VentaDTO> lVentas;
 	private VentaModelo mdlPedido;
 	private DeliveryModelo mdlDelivery;
+	private VentasVista vtVentas;
 
 	public ControladorAsignacionRepartidor(ControladorVenta ControladorVenta,
-			JFrame Frame, List<VentaDTO> LVentas) {
-		this.vtAsignacionRepartidores = new AsignacionRepartidoresVista(Frame);
+			VentasVista vista, List<VentaDTO> LVentas) {
+		this.vtVentas = vista;
+		this.vtAsignacionRepartidores = new AsignacionRepartidoresVista(vista);
 
 		setDateAndHour();
 
@@ -49,6 +51,7 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarTabla();
+		this.vtVentas.Close();
 		this.vtAsignacionRepartidores.Open();
 	}
 
@@ -71,37 +74,12 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 				Integer.toString(Repartidor.getRepartidorId()));
 		this.vtAsignacionRepartidores.getTxtNombrerepartidor().setText(
 				Repartidor.getApellido() + " " + Repartidor.getNombre());
+		this.vtAsignacionRepartidores.getLblDatosVehiculo().setText(
+				Repartidor.getTipoVehiculo() + "  "
+						+ Repartidor.getModeloVehiculo());
+		this.vtAsignacionRepartidores.getLblTel().setText(Repartidor.getTel());
 	}
 
-	/**
-	 * -> Inicio, Nicolas Fernandez, 07-Oct-2015, Se comenta porque para la
-	 * impresion de direcciones se van a pedir mas datos que unicamente la
-	 * direccion.
-	 */
-	// private List<String> ListaDireccones() {
-	// List<String> direcciones = new ArrayList<String>();
-	// for (VentaDTO pedido : this.lVentas) {
-	// direcciones.add(pedido.getDireccion());
-	// }
-	//
-	// return direcciones;
-	// }
-
-	/**
-	 * Se comenta porque para el nombre del archivo se va a utilizar el id del
-	 * delivery.
-	 */
-	// private String FechaDelDia() {
-	// String fecha = "";
-	// Calendar c = Calendar.getInstance();
-	// fecha = fecha + c.get(Calendar.YEAR) + "-";
-	// fecha = fecha + c.get(Calendar.MONTH) + "-";
-	// fecha = fecha + c.get(Calendar.DATE) + " ";
-	// fecha = fecha + c.get(Calendar.HOUR) + "_";
-	// fecha = fecha + c.get(Calendar.MINUTE);
-	//
-	// return fecha;
-	// }
 	/**
 	 * <- Fin, Nicolas Fernandez, 07-Oct-2015.
 	 */
@@ -148,6 +126,7 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	private void accionRepartidorCancelar() {
 		this.ctrVenta.Inicializar();
 		this.vtAsignacionRepartidores.Close();
+		this.vtVentas.Open();
 	}
 
 	private void accionRepartidorAsignar() {
@@ -181,6 +160,7 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 				e.getStackTrace();
 			}
 			this.vtAsignacionRepartidores.Close();
+			this.vtVentas.Open();
 		} else {
 			Msj.advertencia("Atencion", "Debe seleccionar a un repartidor");
 		}
@@ -189,9 +169,14 @@ public class ControladorAsignacionRepartidor implements ActionListener {
 	private ObjReporteItinerario construirItinerario(int numDelivery) {
 		String descripcion = this.vtAsignacionRepartidores.getTxtObservacion()
 				.getText().trim();
+		String nombreRepartidor = vtAsignacionRepartidores
+				.getTxtNombrerepartidor().getText();
+		String datosVehiculo = vtAsignacionRepartidores.getLblDatosVehiculo()
+				.getText();
+		String numTel = vtAsignacionRepartidores.getLblTel().getText();
 		ObjDatosRepartidor repartidor = new ObjDatosRepartidor(
-				vtAsignacionRepartidores.getTxtNombrerepartidor().getText(),
-				"datos del vehiculo", "numero de tel");
+				nombreRepartidor, datosVehiculo, numTel);
+
 		ObjReporteItinerario itinerario = new ObjReporteItinerario(
 				this.vtAsignacionRepartidores.getTxtFecha().getText(),
 				numDelivery, repartidor, descripcion);

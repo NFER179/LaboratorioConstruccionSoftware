@@ -21,9 +21,11 @@ public class ControladorSeleccionMateriaPrimaSolicitud implements
 	private ControladorCreacionSolicitud ctrCreacionSolicitud;
 	private ProveedorModelo mdlProveedor;
 	private String proveedor;
+	private CreacionSolicitudVista vtCreacionSolicitud;
 
 	public ControladorSeleccionMateriaPrimaSolicitud(
 			ControladorCreacionSolicitud ctr, CreacionSolicitudVista Vista) {
+		this.vtCreacionSolicitud = Vista;
 		this.vtSMPS = new SeleccionMateriaPrimaSolicitudVista(Vista);
 		addListeners();
 
@@ -49,6 +51,7 @@ public class ControladorSeleccionMateriaPrimaSolicitud implements
 		} else {
 			vtSMPS.getScrollPane().setToolTipText("");
 		}
+		this.vtCreacionSolicitud.Close();
 		this.vtSMPS.Open();
 
 	}
@@ -86,9 +89,11 @@ public class ControladorSeleccionMateriaPrimaSolicitud implements
 			if (this.vldSeleccion.Valido()) {
 				this.CargarMateriaPrimaSolicitud();
 				this.vtSMPS.Close();
+				this.vtCreacionSolicitud.Open();
 			}
 		} else if (arg0.getSource() == this.vtSMPS.getBtnCancelar()) {
 			this.vtSMPS.Close();
+			this.vtCreacionSolicitud.Open();
 		}
 	}
 }

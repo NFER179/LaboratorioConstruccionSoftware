@@ -37,6 +37,8 @@ public class AsignacionRepartidoresVista extends JDialog {
 	private JTextArea txtObservacion;
 	private JButton btnAsignar;
 	private JButton btnCancelar;
+	private JLabel lblTel;
+	private JLabel lblDatosVehiculo;
 
 	public AsignacionRepartidoresVista(JFrame Frame) {
 
@@ -157,6 +159,16 @@ public class AsignacionRepartidoresVista extends JDialog {
 				.getResource("/Iconos/salir.png")));
 		this.btnCancelar.setBounds(342, 382, 140, 40);
 		this.contentPanel.add(this.btnCancelar);
+
+		lblDatosVehiculo = new JLabel("");
+		lblDatosVehiculo.setVisible(false);
+		lblDatosVehiculo.setBounds(106, 39, 46, 14);
+		contentPanel.add(lblDatosVehiculo);
+
+		lblTel = new JLabel(" ");
+		lblTel.setVisible(false);
+		lblTel.setBounds(162, 39, 46, 14);
+		contentPanel.add(lblTel);
 	}
 
 	public void Open() {
@@ -221,5 +233,21 @@ public class AsignacionRepartidoresVista extends JDialog {
 
 	public JButton getBtnCancelar() {
 		return btnCancelar;
+	}
+
+	public JLabel getLblTel() {
+		return lblTel;
+	}
+
+	public void setLblTel(JLabel lblTel) {
+		this.lblTel = lblTel;
+	}
+
+	public JLabel getLblDatosVehiculo() {
+		return lblDatosVehiculo;
+	}
+
+	public void setLblDatosVehiculo(JLabel lblDatosVehiculo) {
+		this.lblDatosVehiculo = lblDatosVehiculo;
 	}
 }
