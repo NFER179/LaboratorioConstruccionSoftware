@@ -170,10 +170,10 @@ public class ControladorArmadoVenta implements ActionListener {
 			// ca);
 			int precio = this.mdlCombo.ObtenerPrecioActual(c)
 					* ca.getCantidad();
-
+			String fecha = this.mdlCombo.ObtenerFechaActual(c);
 			Object[] fila = { ca.getNumCombo(), c.getDescripcion(),
 					ca.getCantidad(),
-					this.AgregarMoneda(Integer.toString(precio)) };
+					this.AgregarMoneda(Integer.toString(precio)), fecha };
 			this.vtArmadoPedido.getModelTableCombo().addRow(fila);
 		}
 		this.vtArmadoPedido.getTblCombo().setModel(
@@ -347,12 +347,12 @@ public class ControladorArmadoVenta implements ActionListener {
 		}
 	}
 
-	public void AgregarItemCombo(ComboDTO c, int cantidad) {
+	public void AgregarItemCombo(ComboDTO c, int cantidad, String fecha) {
 		boolean debeAgregar = true;
 		JTable t = this.vtArmadoPedido.getTblCombo();
-		for (int i = 0; i < t.getRowCount(); i++) {
+		for (int i = 0; i < t.getSelectedRowCount(); i++) {
 			String idActual = t.getValueAt(i, 0).toString();
-			if (idActual.equals(c.getId()+"")) {
+			if (idActual.equals(c.getId() + "")) {
 				String cantidadS = t.getValueAt(i, 2).toString().trim();
 				int total = Integer.parseInt(cantidadS) + cantidad;
 
@@ -362,6 +362,8 @@ public class ControladorArmadoVenta implements ActionListener {
 				t.setValueAt(this.AgregarMoneda(Integer.toString(precioCombo)),
 						i, 3);
 
+				t.setValueAt(fecha, i, 4);
+
 				debeAgregar = false;
 			}
 		}
@@ -369,7 +371,7 @@ public class ControladorArmadoVenta implements ActionListener {
 		if (debeAgregar) {
 			int precioCombo = this.mdlCombo.ObtenerPrecioActual(c) * cantidad;
 			Object[] f = { c.getId(), c.getDescripcion(), cantidad,
-					this.AgregarMoneda(Integer.toString(precioCombo)) };
+					this.AgregarMoneda(Integer.toString(precioCombo)), fecha };
 			this.vtArmadoPedido.getModelTableCombo().addRow(f);
 			this.vtArmadoPedido.getTblCombo().setModel(
 					this.vtArmadoPedido.getModelTableCombo());

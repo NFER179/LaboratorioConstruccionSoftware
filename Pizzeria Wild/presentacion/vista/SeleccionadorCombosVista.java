@@ -17,7 +17,8 @@ import javax.swing.ImageIcon;
 
 public class SeleccionadorCombosVista extends JDialog {
 	private static final long serialVersionUID = 1L;
-	private String[] nombreColumnas = { "Id Combo", "Descripcion", "Precio" };
+	private String[] nombreColumnas = { "Id Combo", "Descripcion", "Precio",
+			"Fecha" };
 	private DefaultTableModel modelTable;
 	private JTable table;
 	private JButton btnAgregar;

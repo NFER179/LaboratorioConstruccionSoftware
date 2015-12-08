@@ -19,7 +19,7 @@ public interface ComboDAO {
 	/* Obtiene la cantidad de Filas que tiene el combo. */
 	public int GetCountRowFor(ComboDTO c);
 
-	/*Ingresa nuevo combo a la base*/
+	/* Ingresa nuevo combo a la base */
 	public void Insert(ComboDTO c);
 
 	/* Ingresa nuevas Effdt para un determinado combo. */
@@ -34,7 +34,7 @@ public interface ComboDAO {
 	/* ingresa los productos que conforman al combo */
 	public void InsertProducto(ComboProductoDTO cp);
 
-	/*Obtiene producto de determinado combo en determinada fecha.*/
+	/* Obtiene producto de determinado combo en determinada fecha. */
 	public List<ComboProductoDTO> GetProductos(ComboActivoDTO cActivo);
 
 	/*  */
@@ -46,15 +46,19 @@ public interface ComboDAO {
 
 	public int GetPrecio(ComboDTO c);
 
+	public String GetFecha(ComboDTO c);
+
 	public List<ComboVentaDTO> GetComboIn(VentaDTO venta);
 
 	public ComboDTO GetCombo(int comboId);
 
-//	public int GetCantidadEnVenta(VentaDTO venta, ComboVentaDTO ca);
+	// public int GetCantidadEnVenta(VentaDTO venta, ComboVentaDTO ca);
 
 	public String GetNewEffdt(ComboDTO c);
 
 	public List<ComboDTO> GetCombosActivos();
+
+	public List<ComboActivoDTO> GetCombosActivosFecha();
 
 	public void InsertIntoComboVenta(ComboVentaDTO comboVenta);
 

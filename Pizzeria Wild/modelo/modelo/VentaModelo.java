@@ -13,7 +13,8 @@ import clasesImpresiones.ObjProductoTicketComanda;
 import utilidades.Fecha;
 import utilidades.Msj;
 import vista.ArmadoVentaVista;
-import dto.ComboActivoDTO; 
+import dto.ComboActivoDTO;
+import dto.ComboDTO;
 import dto.ComboProductoDTO;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
@@ -211,8 +212,7 @@ public class VentaModelo {
 		return ret;
 	}
 
-	private List<ComboProductoDTO> getItemsTicketCombo(
-			vista.ArmadoVentaVista vista) {
+	private List<ComboProductoDTO> getItemsTicketCombo(ArmadoVentaVista vista) {
 		List<ComboProductoDTO> ret = new ArrayList<ComboProductoDTO>();
 		JTable tc = vista.getTblCombo();
 		for (int i = 0; i < vista.getModelTableCombo().getRowCount(); i++) {
@@ -220,8 +220,12 @@ public class VentaModelo {
 					.trim());
 			int cantidad = Integer.parseInt(tc.getValueAt(i, 2).toString()
 					.trim());
-			ret = this.mdlCombo.GetProductos(new ComboActivoDTO(numCombo, "",
-					0, true));
+			String fecha = tc.getValueAt(i, 4).toString().trim();
+			// ComboProductoDTO a = new ComboProductoDTO(Id, Effdt, Producto,
+			// Sabor, Cantidad)
+			ComboActivoDTO comboActual = new ComboActivoDTO(numCombo, fecha, 0,
+					true);
+			ret = this.mdlCombo.GetProductos(comboActual);
 
 			for (ComboProductoDTO itemCombo : ret) {
 				itemCombo.setCantidad(itemCombo.getCantidad() * cantidad);

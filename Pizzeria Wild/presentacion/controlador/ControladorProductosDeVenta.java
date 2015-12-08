@@ -3,14 +3,13 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import utilidades.Msj;
 import utilidades.Str;
 import validacionesCampos.Valida;
+import vista.ArmadoVentaVista;
 import vista.ProductosDeVentasVista;
 import dto.SaborDTO;
 import modelo.*;
@@ -22,10 +21,12 @@ public class ControladorProductosDeVenta implements ActionListener {
 	private SaborModelo mdlSabor;
 	private ProductoModelo mdlProducto;
 	private ControladorArmadoVenta ctrAP;
+	private ArmadoVentaVista vtArmadoVenta;
 
 	public ControladorProductosDeVenta(ControladorArmadoVenta CtrAP,
-			JDialog Dialog) {
-		this.vtProPe = new ProductosDeVentasVista(Dialog);
+			ArmadoVentaVista vista) {
+		this.vtArmadoVenta = vista;
+		this.vtProPe = new ProductosDeVentasVista(vista);
 
 		addListeners();
 
@@ -35,6 +36,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 	}
 
 	public void Iniciar() {
+		this.vtArmadoVenta.Close();
 		this.vtProPe.Open();
 	}
 
@@ -60,78 +62,6 @@ public class ControladorProductosDeVenta implements ActionListener {
 		this.vtProPe.getTable().setModel(tabla);
 	}
 
-	public void ActualizarTablaOLD() {
-		this.vtProPe.getModelSabores().setRowCount(0);
-		this.vtProPe.getModelSabores().setColumnCount(0);
-		this.vtProPe.getModelSabores().setColumnIdentifiers(
-				this.vtProPe.getNombreColunmnas());
-		this.lstProducto = this.mdlSabor.ObtenerSabores(this.vtProPe
-				.getTxtIdproducto().getText());
-		for (SaborDTO sabor : this.lstProducto) {
-			Object[] fila = { sabor.getNombre(), sabor.getPrecio() };
-			this.vtProPe.getModelSabores().addRow(fila);
-		}
-		this.vtProPe.getTable().setModel(this.vtProPe.getModelSabores());
-	}
-
-	/**
-	 * JNVR - Lo dejo para que vean lo criptico que es. Anda a encontrar un bug
-	 * aca ¬¬
-	 */
-	public void actionPerformedOLD(ActionEvent arg0) {
-		if (arg0.getSource() == this.vtProPe.getBtnBusqueda()) {
-			accionBuscar();
-		} else if (arg0.getSource() == this.vtProPe.getBtnAceptar()) {
-			/* Si selccciona una fila y pone un cantidad */
-			if (!this.vtProPe.getTxtIdproducto().getText().trim().equals("")) {
-				if (this.vtProPe.getTable().getSelectedRow() >= 0) {
-					// JNVR REVISA DOS VECES LO MISMO!
-					// SI la cantidad tiene texto...
-					if (this.vtProPe.getTxtCantidad().getText().trim().length() > 0) {
-						// Si la cantidad es un entero positivo...
-						if (Valida.esEnteroPositivo(vtProPe.getTxtCantidad()
-								.getText())) {
-							// LA CLASE QUE VALIDA HACE LAS DOS COSAS DE UNA
-							// VEZ.
-							// NO HACE FALTA PREGUNTAR POR LOS DOS
-							this.ctrAP.AgregarProducto(
-									this.vtProPe.getTxtIdproducto().getText(),
-									this.vtProPe
-											.getTable()
-											.getValueAt(
-													this.vtProPe.getTable()
-															.getSelectedRow(),
-													0).toString(),
-									Integer.parseInt(this.vtProPe
-											.getTxtCantidad().getText()));
-							this.vtProPe.Close();
-						} else {
-							JOptionPane.showMessageDialog(null,
-									"Debe Ingresar una cantidad valida",
-									"Error Formato Cantidad",
-									JOptionPane.ERROR_MESSAGE);
-						}
-					} else {
-						JOptionPane.showMessageDialog(null,
-								"Debe ingresar una cantidad.",
-								"Error Cantidad", JOptionPane.WARNING_MESSAGE);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Debe seleccionar sabor.", "Error seleccion sabor",
-							JOptionPane.WARNING_MESSAGE);
-				}
-			} else {
-				JOptionPane.showMessageDialog(null,
-						"Debe seleccionar un producto.",
-						"Error de seleccion de producto.",
-						JOptionPane.INFORMATION_MESSAGE);
-			}
-		} else if (arg0.getSource() == this.vtProPe.getBtnCancelar()) {
-			this.vtProPe.Close();
-		}
-	}
-
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Object source = arg0.getSource();
@@ -142,6 +72,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 			accionAceptar();
 		} else if (source == vista.getBtnCancelar()) {
 			vista.Close();
+			this.vtArmadoVenta.Open();
 		} else {
 			System.out.println("Estado Ilegal");
 		}
@@ -212,6 +143,7 @@ public class ControladorProductosDeVenta implements ActionListener {
 
 		this.ctrAP.AgregarProducto(producto, sabor, cantidad);
 		vista.Close();
+		this.vtArmadoVenta.Open();
 	}
 
 	/** JNVR - Construye el controlador de busqueda de productos y lo inicializa */

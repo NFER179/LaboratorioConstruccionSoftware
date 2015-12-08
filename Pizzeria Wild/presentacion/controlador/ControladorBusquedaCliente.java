@@ -2,12 +2,12 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
-import javax.swing.JDialog;
+import java.util.List; 
 import javax.swing.JTable;
 import javax.swing.RowFilter;
 
 import utilidades.Msj;
+import vista.ArmadoVentaVista;
 import vista.BusquedaClienteVista;
 import dao.ClienteDAO;
 import daoImplementacion.ClienteImp;
@@ -20,10 +20,12 @@ public class ControladorBusquedaCliente implements ActionListener {
 	private ControladorArmadoVenta ctrArmadoPedido;
 	private List<ClienteDTO> lstCliente;
 	private ClienteModelo mdlCliente;
+	private ArmadoVentaVista vtArmadoVenta;
 
 	public ControladorBusquedaCliente(ControladorArmadoVenta CtrArmadoPedido,
-			JDialog Dialog) {
-		this.vtBusquedaCliente = new BusquedaClienteVista(Dialog);
+			ArmadoVentaVista vista) {
+		this.vtArmadoVenta = vista;
+		this.vtBusquedaCliente = new BusquedaClienteVista(vista);
 		addListeners();
 
 		this.ctrArmadoPedido = CtrArmadoPedido;
@@ -32,6 +34,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 
 	public void Iniciar() {
 		CargarClientes();
+		this.vtArmadoVenta.Close();
 		this.vtBusquedaCliente.Open();
 	}
 
@@ -62,6 +65,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 			accionAceptar();
 		} else if (arg0.getSource() == this.vtBusquedaCliente.getBtnCancelar()) {
 			this.vtBusquedaCliente.Close();
+			this.vtArmadoVenta.Open();
 		} else if (arg0.getSource() == this.vtBusquedaCliente.getBtnBuscar()) {
 			accionBuscar();
 		}
@@ -84,6 +88,7 @@ public class ControladorBusquedaCliente implements ActionListener {
 			ClienteDAO cdao = new ClienteImp();
 			this.ctrArmadoPedido.CargarDatosCliente(cdao.GetCliente(idCliente));
 			this.vtBusquedaCliente.Close();
+			this.vtArmadoVenta.Open();
 		} else {
 			Msj.error("Error en la busqueda", "Debe Seleccionar un cliente");
 		}

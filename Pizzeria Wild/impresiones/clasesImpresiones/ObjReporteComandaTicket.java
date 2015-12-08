@@ -2,8 +2,6 @@ package clasesImpresiones;
 
 import java.util.List;
 
-import utilidades.Fecha;
-
 public class ObjReporteComandaTicket extends ObjImprimible {
 
 	private static final int maxPag = 11;

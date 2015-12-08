@@ -44,7 +44,9 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 				this.vtSeleccion.getNombreColumnas());
 		for (ComboDTO c : this.mdlCombo.ObtenerCombosActivos()) {
 			int precio = this.mdlCombo.ObtenerPrecioActual(c);
-			Object[] fila = { c.getId(), c.getDescripcion(), "$ " + precio };
+			String fecha = this.mdlCombo.ObtenerFechaActual(c);
+			Object[] fila = { c.getId(), c.getDescripcion(), "$ " + precio,
+					fecha };
 			this.vtSeleccion.getModelTable().addRow(fila);
 		}
 		this.vtSeleccion.getTable().setModel(this.vtSeleccion.getModelTable());
@@ -67,6 +69,7 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 			int Id = Integer.parseInt(idS);
 
 			String Descripcion = t.getValueAt(selected, 1).toString().trim();
+			String Fecha = t.getValueAt(selected, 3).toString().trim();
 
 			ComboDTO c = new ComboDTO(Id, Descripcion);
 
@@ -89,7 +92,7 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 				return;
 			}
 
-			this.ctr.AgregarItemCombo(c, cantidad);
+			this.ctr.AgregarItemCombo(c, cantidad, Fecha);
 
 			this.vtSeleccion.Close();
 			this.vtArmadoVenta.Open();
