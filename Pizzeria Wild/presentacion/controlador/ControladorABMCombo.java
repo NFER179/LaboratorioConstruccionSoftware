@@ -392,6 +392,11 @@ public class ControladorABMCombo implements ActionListener {
 			Msj.error("Error", "La decripcion no puede estar vacia");
 			return;
 		}
+		if (Descripcion.length() > 30) {
+			Msj.error("Error",
+					"La decripcion puede contener a lo sumo 30 caracteres");
+			return;
+		}
 		ComboDTO c = new ComboDTO(Id, Descripcion);
 		if (this.vtComboABM.getTable().getRowCount() <= 0) {
 			Msj.advertencia("Advertencia", "La lista de productos esta vacia");

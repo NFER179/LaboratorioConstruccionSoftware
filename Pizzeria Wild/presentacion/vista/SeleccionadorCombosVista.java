@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -32,6 +33,7 @@ public class SeleccionadorCombosVista extends JDialog {
 				SeleccionadorCombosVista.class
 						.getResource("/Iconos/pizza_1.PNG")));
 		setResizable(false);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setTitle(" Seleccion Combo");
 		setBounds(100, 100, 491, 321);
 		getContentPane().setLayout(null);

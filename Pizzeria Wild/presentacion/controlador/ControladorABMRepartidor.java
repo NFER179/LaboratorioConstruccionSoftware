@@ -46,7 +46,7 @@ public class ControladorABMRepartidor implements ActionListener {
 	public void InicializarModificacion(int idRepartidor) {
 		this.creacion = false;
 		RepartidorDTO r = this.mdlRepartidor.ObtenerRepartidor(idRepartidor);
-
+		
 		this.vtRepartidorABM.getTxtRepartidorid().setText(
 				Integer.toString(r.getRepartidorId()));
 		this.vtRepartidorABM.getTxtNombre().setText(r.getNombre());
@@ -54,8 +54,8 @@ public class ControladorABMRepartidor implements ActionListener {
 		this.vtRepartidorABM.getTxtTel().setText(r.getTel());
 		this.vtRepartidorABM.getTxtDireccion().setText(r.getDireccion());
 		this.vtRepartidorABM.getTxtPatente().setText(r.getVehiculoId());
-		this.vtRepartidorABM.getTxtTipo().setText(r.getTipoVehiculo());
-		this.vtRepartidorABM.getTxtModelo().setText(r.getModeloVehiculo());
+		this.vtRepartidorABM.getTxtTipo().setText(r.getModeloVehiculo());
+		this.vtRepartidorABM.getTxtModelo().setText(r.getTipoVehiculo());
 		this.vtRepartidorABM.getChckbxActivo().setSelected(r.isActivo());
 		this.vtRepartidor.Close();
 		this.vtRepartidorABM.Open();
@@ -82,42 +82,11 @@ public class ControladorABMRepartidor implements ActionListener {
 		boolean Activo = this.vtRepartidorABM.getChckbxActivo().isSelected();
 
 		RepartidorDTO r = new RepartidorDTO(RepartidorId, Nombre, Apellido,
-				Tel, Direccion, VehiculoId, TipoVehiculo, ModeloVehiculo,
+				Tel, Direccion, VehiculoId, ModeloVehiculo, TipoVehiculo,
 				Activo);
 		// VALIDACION
 		String mensaje = "";
-		if (!Valida.esNullOVacio(r.getApellido())) {
-			if (!Valida.esNullOVacio(r.getNombre())) {
-				if (!Valida.esNullOVacio(r.getDireccion())) {
-					if (!Valida.esNullOVacio(r.getModeloVehiculo())) {
-						if (!Valida.esNullOVacio(r.getTipoVehiculo())) {
-							if (!Valida.esNullOVacio(r.getTel())) {
-								try {
-									String telTemp = r.getTel()
-											.replace(" ", "").replace("-", "");
-									Integer.parseInt(telTemp);
-
-								} catch (Exception e) {
-									mensaje += "Debe ingresar un numero de telefono valido";
-								}
-							} else {
-								mensaje += "El numero de telefono no puede ser vacio";
-							}
-						} else {
-							mensaje += "El tipo de vehiculo no puede ser vacio";
-						}
-					} else {
-						mensaje += "El modelo del vehiculo no puede ser vacio";
-					}
-				} else {
-					mensaje += "La direccion no puede ser vacia";
-				}
-			} else {
-				mensaje += "El nombre no puede ser vacio";
-			}
-		} else {
-			mensaje += "El apellido no puede ser vacio";
-		}
+		mensaje = validar(r, mensaje);
 		if (Valida.esNullOVacio(mensaje)) {
 			agregaOModifica(r);
 			this.ctrRepartidor.ActualizarTabla();
@@ -126,6 +95,100 @@ public class ControladorABMRepartidor implements ActionListener {
 		} else {
 			Msj.error("Error", mensaje);
 		}
+	}
+
+	private String validar(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getApellido())) {
+			if (r.getApellido().length() > 30) {
+				mensaje += "El apellido debe contener a lo sumo 30 caracteres";
+			} else
+				mensaje = validaNombre(r, mensaje);
+		} else
+			mensaje += "El apellido no puede ser vacio";
+		return mensaje;
+	}
+
+	private String validaNombre(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getNombre())) {
+			if (r.getNombre().length() > 30) {
+				mensaje += "El nombre debe contener a lo sumo 30 caracteres";
+			} else {
+				mensaje = validarDireccion(r, mensaje);
+			}
+		} else {
+			mensaje += "El nombre no puede ser vacio";
+		}
+		return mensaje;
+	}
+
+	private String validarDireccion(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getDireccion())) {
+			if (r.getDireccion().length() > 30) {
+				mensaje += "La direccion debe contener a lo sumo 30 caracteres";
+			} else {
+				mensaje = validaModeloVehiculo(r, mensaje);
+			}
+		} else {
+			mensaje += "La direccion no puede ser vacia";
+		}
+		return mensaje;
+	}
+
+	private String validaModeloVehiculo(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getModeloVehiculo())) {
+			if (r.getModeloVehiculo().length() > 30)
+				mensaje += "El modelo del vehiculo debe contener a lo sumo 30 caracteres";
+			else
+				mensaje = validaTipoVehiculo(r, mensaje);
+		} else
+			mensaje += "El modelo del vehiculo no puede ser vacio";
+
+		return mensaje;
+	}
+
+	private String validaTipoVehiculo(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getTipoVehiculo())) {
+			if (r.getTipoVehiculo().length() > 20) {
+				mensaje += "El tipo de vehiculo debe contener a lo sumo 20 caracteres";
+			} else {
+				mensaje = validaPatente(r, mensaje);
+			}
+		} else {
+			mensaje += "El tipo de vehiculo no puede ser vacio";
+		}
+		return mensaje;
+	}
+
+	private String validaPatente(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getVehiculoId())) {
+			if (r.getVehiculoId().length() > 10) {
+				mensaje += "La patente del vehiculo debe contener a lo sumo 10 caracteres";
+			} else {
+				mensaje = validaNumTel(r, mensaje);
+			}
+		} else {
+			mensaje += "La patente del vehiculo no puede ser vacio";
+		}
+		return mensaje;
+	}
+
+	private String validaNumTel(RepartidorDTO r, String mensaje) {
+		if (!Valida.esNullOVacio(r.getTel())) {
+			if (r.getTel().length() > 14)
+				mensaje += "El numero de telefono debe contener a lo sumo 14 caracteres";
+			else {
+				try {
+					String telTemp = r.getTel().replace(" ", "")
+							.replace("-", "");
+					Long.parseLong(telTemp);
+
+				} catch (Exception e) {
+					mensaje += "Debe ingresar un numero de telefono valido";
+				}
+			}
+		} else
+			mensaje += "El numero de telefono no puede ser vacio";
+		return mensaje;
 	}
 
 	private void agregaOModifica(RepartidorDTO r) {

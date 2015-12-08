@@ -319,7 +319,6 @@ public class ComboImp implements ComboDAO {
 		} finally {
 			this.conector.CloseConnection();
 		}
-		System.out.println(precio);
 		return precio;
 	}
 

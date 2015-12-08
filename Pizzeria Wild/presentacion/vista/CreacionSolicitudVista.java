@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -45,6 +46,7 @@ public class CreacionSolicitudVista extends JDialog {
 		setTitle(" Creaci\u00F3n Solicitud");
 		setResizable(false);
 		setBounds(100, 100, 512, 473);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		getContentPane().setLayout(null);
 		this.setLocationRelativeTo(null);
 

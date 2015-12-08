@@ -34,6 +34,11 @@ public class ControladorSabor implements ActionListener {
 			Msj.error("Error", "Debe ingresar un sabor");
 			return;
 		}
+		if (sabor.length() > 100) {
+			Msj.error("Error",
+					"El sabor debe contener a lo sumo 100 caracteres");
+			return;
+		}
 		if (precio.equals("")) {
 			Msj.error("Error", "Debe ingresar un precio");
 			return;

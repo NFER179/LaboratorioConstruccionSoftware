@@ -68,30 +68,47 @@ public class ControladorABMCliente implements ActionListener {
 		if (Valida.esNullOVacio(Cliente.getNombre())) {
 			mensaje += "El nombre no puede ser vacio";
 		} else {
-			this.vtClienteABM.getTxtNombres().setText(Cliente.getNombre());
-			if (Valida.esNullOVacio(Cliente.getApellido())) {
-				mensaje += "El apellido no puede ser vacio";
+			if (Cliente.getNombre().length() > 50) {
+				mensaje += "El nombre puede contener a lo sumo 50 caracteres";
 			} else {
-				this.vtClienteABM.getTxtApellido().setText(
-						Cliente.getApellido());
-				if (Valida.esNullOVacio(Cliente.getDireccion())) {
-					mensaje += "La direccion no puede ser vacia";
+				this.vtClienteABM.getTxtNombres().setText(Cliente.getNombre());
+				if (Valida.esNullOVacio(Cliente.getApellido())) {
+					mensaje += "El apellido no puede ser vacio";
 				} else {
-					this.vtClienteABM.getTxtDireccion().setText(
-							Cliente.getDireccion());
-					if (Valida.esNullOVacio(Cliente.getTel())) {
-						mensaje += "El numero de telefono no puede ser vacio";
+					if (Cliente.getApellido().length() > 30) {
+						mensaje += "El apellido puede contener a lo sumo 30 caracteres";
 					} else {
-						try {
-							String telTemp = Cliente.getTel().replace(" ", "")
-									.replace("-", "");
-							Integer.parseInt(telTemp);
-							this.vtClienteABM.getTxtTel().setText(
-									Cliente.getTel());
-						} catch (Exception e) {
-							mensaje += "Debe ingresar un numero de telefono valido";
-						}
+						this.vtClienteABM.getTxtApellido().setText(
+								Cliente.getApellido());
+						if (Valida.esNullOVacio(Cliente.getDireccion())) {
+							mensaje += "La direccion no puede ser vacia";
+						} else {
+							if (Cliente.getDireccion().length() > 50) {
+								mensaje += "La direccion puede contener a lo sumo 50 caracteres";
+							} else {
+								this.vtClienteABM.getTxtDireccion().setText(
+										Cliente.getDireccion());
+								if (Valida.esNullOVacio(Cliente.getTel())) {
+									mensaje += "El numero de telefono no puede ser vacio";
+								} else {
+									try {
+										String telTemp = Cliente.getTel()
+												.replace(" ", "")
+												.replace("-", "");
+										Integer.parseInt(telTemp);
+										if (Cliente.getTel().length() > 20) {
+											mensaje += "El numero de telefono puede contener a lo sumo 20 caracteres";
+										} else {
+											this.vtClienteABM.getTxtTel()
+													.setText(Cliente.getTel());
+										}
+									} catch (Exception e) {
+										mensaje += "Debe ingresar un numero de telefono valido";
+									}
 
+								}
+							}
+						}
 					}
 				}
 			}

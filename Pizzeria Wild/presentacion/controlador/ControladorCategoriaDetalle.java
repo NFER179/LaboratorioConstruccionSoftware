@@ -198,32 +198,41 @@ public class ControladorCategoriaDetalle implements ActionListener {
 			Msj.error("Error", "La lista de materias primas esta vacia");
 			return;
 		}
-		CategoriaDTO c = new CategoriaDTO(categoria, descripcion);
 
-		if (this.modificacion) {
-			this.mdlCategoria.ActualizarDescripcion(c);
+		if (categoria.length() > 8) {
+			Msj.error("Error",
+					"El nombre de la categoria debe contener como mucho 8 caracateres");
+			return;
+		} else if (descripcion.length() > 100) {
+			Msj.error("Error",
+					"La descripcion debe contener como mucho 100 caracateres");
+			return;
 		} else {
-			this.mdlCategoria.CrearCategoria(c);
-		}
+			CategoriaDTO c = new CategoriaDTO(categoria, descripcion);
 
-		for (int i = 0; i < tabla.getRowCount(); i++) {
-			JTable t = this.vtCategoriadetalle.getTable();
-			String Nombre = t.getValueAt(i, 0).toString().trim();
-			String Unidad = t.getValueAt(i, 1).toString().trim();
-
-			MateriaPrimaDTO MateriaPrima = new MateriaPrimaDTO(Nombre, Unidad);
-			if (!this.mdlMT.Existe(Nombre)) {
-				this.mdlMT.RegistrarMateriaPrima(MateriaPrima);
-				this.mdlCategoria.AsignarMateriaPrima(c, MateriaPrima);
+			if (this.modificacion) {
+				this.mdlCategoria.ActualizarDescripcion(c);
+			} else {
+				this.mdlCategoria.CrearCategoria(c);
 			}
-			// MateriaPrimaDTO materiaPrima = new
-			// MateriaPrimaDTO(tabla.getValueAt(i, 0).toString().trim(),"");
-			// this.mdlCategoria.AsignarMateriaPrima(c, materiaPrima);
-		}
 
-		this.ctrCategoria.ActualizarTabla();
-		this.vtCategoriadetalle.Close();
-		this.ctrCategoria.Return();
+			for (int i = 0; i < tabla.getRowCount(); i++) {
+				JTable t = this.vtCategoriadetalle.getTable();
+				String Nombre = t.getValueAt(i, 0).toString().trim();
+				String Unidad = t.getValueAt(i, 1).toString().trim();
+
+				MateriaPrimaDTO MateriaPrima = new MateriaPrimaDTO(Nombre,
+						Unidad);
+				if (!this.mdlMT.Existe(Nombre)) {
+					this.mdlMT.RegistrarMateriaPrima(MateriaPrima);
+					this.mdlCategoria.AsignarMateriaPrima(c, MateriaPrima);
+				}
+			}
+
+			this.ctrCategoria.ActualizarTabla();
+			this.vtCategoriadetalle.Close();
+			this.ctrCategoria.Return();
+		}
 	}
 
 	@Override

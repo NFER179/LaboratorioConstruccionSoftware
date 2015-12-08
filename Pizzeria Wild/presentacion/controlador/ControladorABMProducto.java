@@ -111,8 +111,18 @@ public class ControladorABMProducto implements ActionListener {
 					"El identificador de producto no puede ser vacio");
 			return;
 		}
+		if (ProductoId.length() > 4) {
+			Msj.error("Error",
+					"El identificador de producto debe contener a lo sumo 4 caracteres");
+			return;
+		}
 		if (Descripcion.equals("")) {
 			Msj.error("Error", "La descripcion no puede ser vacia");
+			return;
+		}
+		if (Descripcion.length() > 100) {
+			Msj.error("Error",
+					"La descripcion del producto debe contener a lo sumo 100 caracteres");
 			return;
 		}
 		boolean ElaboraCocina = this.vtABM.getChckbxEleboraCocina()
