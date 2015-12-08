@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
+import javax.swing.ListSelectionModel;
 
 import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
@@ -49,8 +50,10 @@ public class ClienteVista extends JFrame {
 		contentPane.add(scrollPane);
 
 		this.modelTable = new WDefaultTableModel(null, this.nombreColumna);
+		
 		table = new WTable(this.modelTable);
 		scrollPane.setViewportView(table);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		btnCrear = new JButton(" Crear");
 		btnCrear.setIcon(new ImageIcon(ClienteVista.class

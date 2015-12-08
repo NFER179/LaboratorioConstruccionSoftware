@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -11,9 +12,11 @@ import objetosVistaCustom.WDefaultTableModel;
 import objetosVistaCustom.WTable;
 import java.awt.Toolkit;
 import java.awt.Font;
+import java.awt.Dialog.ModalExclusionType;
+
 import javax.swing.ImageIcon;
 
-public class CategoriaDetalleVista extends JDialog {
+public class CategoriaDetalleVista extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIdcategoria;
 	private JTextField txtDescr;
@@ -29,7 +32,9 @@ public class CategoriaDetalleVista extends JDialog {
 	private JLabel lblNewLabel;
 
 	public CategoriaDetalleVista(CategoriaVista vtCategoria) {
-		super(vtCategoria, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+		setResizable(false);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				CategoriaDetalleVista.class.getResource("/Iconos/pizza_1.PNG")));

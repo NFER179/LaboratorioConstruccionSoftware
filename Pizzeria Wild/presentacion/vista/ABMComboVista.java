@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -53,6 +54,7 @@ public class ABMComboVista extends JDialog {
 
 	public ABMComboVista(ComboVista Vista) {
 		super(Vista, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				ABMComboVista.class.getResource("/Iconos/pizza_1.PNG")));
 

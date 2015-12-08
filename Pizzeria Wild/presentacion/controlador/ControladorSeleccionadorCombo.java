@@ -18,11 +18,12 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 	private ControladorArmadoVenta ctr;
 	private SeleccionadorCombosVista vtSeleccion;
 	private ComboModelo mdlCombo;
+	private ArmadoVentaVista vtArmadoVenta;
 
 	public ControladorSeleccionadorCombo(ControladorArmadoVenta Ctr,
 			ArmadoVentaVista Vista) {
 		this.ctr = Ctr;
-
+		this.vtArmadoVenta = Vista;
 		this.vtSeleccion = new SeleccionadorCombosVista(Vista);
 		this.vtSeleccion.getBtnAgregar().addActionListener(this);
 		this.vtSeleccion.getBtnCancelar().addActionListener(this);
@@ -32,6 +33,7 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarTabla();
+		this.vtArmadoVenta.Close();
 		this.vtSeleccion.Open();
 	}
 
@@ -90,6 +92,7 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 			this.ctr.AgregarItemCombo(c, cantidad);
 
 			this.vtSeleccion.Close();
+			this.vtArmadoVenta.Open();
 		} else {
 			Msj.error("Error de seleccion", "Debe seleccionar un producto");
 			return;
@@ -98,5 +101,6 @@ public class ControladorSeleccionadorCombo implements ActionListener {
 
 	private void Cancelar() {
 		this.vtSeleccion.Close();
+		this.vtArmadoVenta.Open();
 	}
 }

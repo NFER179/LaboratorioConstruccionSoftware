@@ -88,4 +88,8 @@ public class ControladorCliente implements ActionListener {
 			this.Volver();
 		}
 	}
+
+	public void Return() {
+		this.vtCliente.Open();
+	}
 }

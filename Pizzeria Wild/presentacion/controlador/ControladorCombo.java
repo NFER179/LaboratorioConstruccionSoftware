@@ -67,11 +67,7 @@ public class ControladorCombo implements ActionListener {
 		ControladorABMCombo ctr = new ControladorABMCombo(this, this.vtCombo);
 		ctr.InicializarInformacion(c, selectesRow);
 	}
-
-//	public void Eliminar() {
-//		// TODO;
-//	}
-
+ 
 	private void Volver() {
 		this.ctrVenta.Return();
 		this.vtCombo.Close();

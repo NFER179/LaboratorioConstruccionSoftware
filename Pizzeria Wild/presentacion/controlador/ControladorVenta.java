@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import modelo.VentaModelo;
+import utilidades.Fecha;
 import utilidades.Msj;
 import utilidades.Str;
 import validacion.ValidacionVenta;
@@ -86,10 +87,14 @@ public class ControladorVenta implements ActionListener {
 				this.vtVenta.getNombreColumnas());
 		this.ventasEnTabla = this.mdlVenta.GetVentaSinFacturar();
 		for (VentaDTO p : this.ventasEnTabla) {
-			Object[] fila = { p.getFecha(), Integer.toString(p.getNumVenta()),
-					p.getCliente(), "$ " + Integer.toString(p.getPrecio()),
-					p.getEstado(), this.Delivery(p.isDelivery()) };
-			this.vtVenta.getModelVentas().addRow(fila);
+			if (p.getFecha().equals(Fecha.CurrentDate())) {
+				Object[] fila = { p.getFecha(),
+						Integer.toString(p.getNumVenta()), p.getCliente(),
+						"$ " + Integer.toString(p.getPrecio()), p.getEstado(),
+						this.Delivery(p.isDelivery()) };
+				this.vtVenta.getModelVentas().addRow(fila);
+			}
+
 		}
 		this.vtVenta.getTableVentas().setModel(this.vtVenta.getModelVentas());
 	}
@@ -382,7 +387,7 @@ public class ControladorVenta implements ActionListener {
 	// }
 
 	private void accionBackUp() {
-		new ControladorBackUp().Inicializar();
+		new ControladorBackUp(this.vtVenta).Inicializar();
 	}
 
 	private void CambiarTabla() {
@@ -489,9 +494,7 @@ public class ControladorVenta implements ActionListener {
 
 	/** Boton para generar una nueva venta. */
 	private void accionNuevaVenta() {
-		ControladorArmadoVenta ctrArmadoVenta = new ControladorArmadoVenta(
-				this, this.vtVenta);
-		ctrArmadoVenta.Inicializar();
+		new ControladorArmadoVenta(this, this.vtVenta).Inicializar();
 
 	}
 
@@ -529,9 +532,7 @@ public class ControladorVenta implements ActionListener {
 
 	/** Boton para ver las ventas que estan en viaje. */
 	private void accionEnViaje() {
-		ControladorVentasEnViaje ctrVentasEnViaje = new ControladorVentasEnViaje(
-				this, this.vtVenta);
-		ctrVentasEnViaje.Iniciar();
+		new ControladorVentasEnViaje(this, this.vtVenta).Iniciar();
 
 	}
 

@@ -21,11 +21,13 @@ public class ControladorABMProducto implements ActionListener {
 	private ABMProductoVista vtABM;
 	private ProductoModelo mdlProducto;
 	private SaborModelo mdlSabor;
+	private ProductoVista vtProducto;
 	boolean crear;
 
 	public ControladorABMProducto(ControladorProducto Ctr, ProductoVista Vista) {
 		this.ctrProducto = Ctr;
 
+		this.vtProducto = Vista;
 		this.vtABM = new ABMProductoVista(Vista);
 		this.vtABM.getBtnAgregar().addActionListener(this);
 		this.vtABM.getBtnEliminar().addActionListener(this);
@@ -37,6 +39,7 @@ public class ControladorABMProducto implements ActionListener {
 	}
 
 	public void InicializarCreacion() {
+		this.vtProducto.Close();
 		this.crear = true;
 		this.vtABM.Open();
 	}
@@ -45,7 +48,7 @@ public class ControladorABMProducto implements ActionListener {
 		this.crear = false;
 
 		this.vtABM.getTxtIdproducto().setEditable(false);
-		this.vtABM.getTxtIdproducto().setEnabled(false);
+		this.vtABM.getTxtDescipcion().setEnabled(false);
 		this.vtABM.getTxtIdproducto().setText(producto.getProductoId());
 
 		this.vtABM.getTxtDescipcion().setText(producto.getDescipcion());
@@ -53,7 +56,7 @@ public class ControladorABMProducto implements ActionListener {
 				producto.isElaboraCocina());
 
 		this.CargarSabores(producto);
-
+		this.vtProducto.Close();
 		this.vtABM.Open();
 	}
 
@@ -83,16 +86,21 @@ public class ControladorABMProducto implements ActionListener {
 	private void Agregar() {
 		ControladorSabor ctr = new ControladorSabor(this, this.vtABM);
 		ctr.Inicializar();
+		// vtProducto.Open();vtABMvtABMvtABMvtABMvtABMvtABMvtABMProveedorVista
+		// VistaProveedorVista Vista
 	}
 
 	private void Eliminar() {
 		JTable t = this.vtABM.getTable();
 		int[] selectedRows = t.getSelectedRows();
-
-		for (int i = selectedRows.length - 1; i >= 0; i--) {
-			this.vtABM.getModelTable().removeRow(selectedRows[i]);
+		if (selectedRows.length <= 0) {
+			Msj.error("Error", "Debe seleccionar productos que eliminar");
+		} else {
+			for (int i = selectedRows.length - 1; i >= 0; i--) {
+				this.vtABM.getModelTable().removeRow(selectedRows[i]);
+			}
+			this.vtABM.getTable().setModel(this.vtABM.getModelTable());
 		}
-		this.vtABM.getTable().setModel(this.vtABM.getModelTable());
 	}
 
 	private void Guardar() {
@@ -143,9 +151,11 @@ public class ControladorABMProducto implements ActionListener {
 
 		this.ctrProducto.RecargarTabla();
 		this.vtABM.Close();
+		this.vtProducto.Open();
 	}
 
 	private void Cancelar() {
+		this.vtProducto.Open();
 		this.vtABM.Close();
 	}
 
@@ -161,4 +171,9 @@ public class ControladorABMProducto implements ActionListener {
 			this.Cancelar();
 		}
 	}
+
+	public void Return() {
+		this.vtABM.Open();
+	}
+
 }

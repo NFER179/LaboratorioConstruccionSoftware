@@ -77,7 +77,7 @@ public class SolicitudCompraVista extends JFrame {
 		btnSolicitudeEntregada.setBounds(335, 136, 140, 40);
 		contentPane.add(btnSolicitudeEntregada);
 
-		btnTodasSolicitudes = new JButton(" Todas");
+		btnTodasSolicitudes = new JButton("Todas las Sol.");
 		btnTodasSolicitudes.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnTodasSolicitudes.setBounds(335, 260, 140, 40);
 		contentPane.add(btnTodasSolicitudes);

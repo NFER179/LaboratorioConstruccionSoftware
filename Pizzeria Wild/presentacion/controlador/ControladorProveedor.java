@@ -54,8 +54,7 @@ public class ControladorProveedor implements ActionListener {
 	}
 	
 	private void NuevoProveedor() {
-		ControladorABMProveedor ctrABM = new ControladorABMProveedor(this, this.vtProveedor);
-		ctrABM.Inicializar();
+		 new ControladorABMProveedor(this, this.vtProveedor).Inicializar();
 	}
 
 	private void ModificarProveedor() {
@@ -94,5 +93,9 @@ public class ControladorProveedor implements ActionListener {
 			this.ctrVenta.Return();
 			this.vtProveedor.Close();
 		}
+	}
+
+	public void Return() {
+		this.vtProveedor.Open();
 	}
 }

@@ -22,11 +22,12 @@ public class ControladorBusquedaProductosCombos implements ActionListener {
 	private BusquedaProductosCombosVista vtBusqueda;
 	private ProductoModelo mdlProducto;
 	private SaborModelo mdlSabor;
+	private ABMComboVista vtComboABM;
 
 	public ControladorBusquedaProductosCombos(ControladorABMCombo Ctr,
 			ABMComboVista Vista) {
-		this.ctr = Ctr;
-
+		this.vtComboABM = Vista;
+		this.ctr = Ctr; 
 		this.vtBusqueda = new BusquedaProductosCombosVista(Vista);
 		this.vtBusqueda.getComboBox().addActionListener(this);
 		this.vtBusqueda.getBtnAceptar().addActionListener(this);
@@ -38,14 +39,21 @@ public class ControladorBusquedaProductosCombos implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarComboBox();
-		String product = this.vtBusqueda.getComboBox().getSelectedItem()
-				.toString().trim();
-		String desc = this.mdlProducto.ObtenerDescr(product);
-		this.vtBusqueda.getTxtDescripcion().setText(desc);
-		this.vtBusqueda.getTxtDescripcion().setEnabled(false);
-		this.CargarTabla(product);
+		int cantidadElementos = this.vtBusqueda.getComboBox().getItemCount();
+		boolean tieneElementos = cantidadElementos > 0;
+		if (tieneElementos) {
+			String product = this.vtBusqueda.getComboBox().getSelectedItem()
+					.toString().trim();
+			String desc = this.mdlProducto.ObtenerDescr(product);
+			this.vtBusqueda.getTxtDescripcion().setText(desc);
+			this.vtBusqueda.getTxtDescripcion().setEnabled(false);
+			this.CargarTabla(product);
+			this.vtComboABM.Close();
+			this.vtBusqueda.Open();
+		} else {
+			Msj.error("Error", "No hay productos que mostrar");
+		}
 
-		this.vtBusqueda.Open();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -113,11 +121,13 @@ public class ControladorBusquedaProductosCombos implements ActionListener {
 			return;
 		}
 		this.ctr.AgregarProductoALista(producto, sabor, cantidad);
-
+		
 		this.vtBusqueda.Close();
+		this.vtComboABM.Open();
 	}
 
 	private void CancelarBusqueda() {
 		this.vtBusqueda.Close();
+		this.vtComboABM.Open();
 	}
 }

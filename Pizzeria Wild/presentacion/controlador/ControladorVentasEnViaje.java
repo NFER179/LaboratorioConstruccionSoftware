@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -18,6 +17,7 @@ import modelo.VentaModelo;
 import utilidades.Msj;
 import utilidades.Str;
 import vista.VentasEnViajeVista;
+import vista.VentasVista;
 
 public class ControladorVentasEnViaje implements ActionListener {
 
@@ -28,12 +28,14 @@ public class ControladorVentasEnViaje implements ActionListener {
 	private String fechadeliverySeleccionado;
 	private int numPedidoSeleccionado;
 	private DeliveryVentaModelo mdlDeliveryVenta;
+	private VentasVista vtVentas;
 
 	private static int columnaFecha = 0;
 	private static int columnaNumVenta = 1;
 
-	public ControladorVentasEnViaje(ControladorVenta CtrVenta, JFrame Frame) {
-		this.vtVentasEnViaje = new VentasEnViajeVista(Frame);
+	public ControladorVentasEnViaje(ControladorVenta CtrVenta, VentasVista Vista) {
+		this.vtVentas = Vista;
+		this.vtVentasEnViaje = new VentasEnViajeVista(Vista);
 		addListeners();
 		this.ctrVenta = CtrVenta;
 		this.mdlVenta = new VentaModelo();
@@ -43,6 +45,7 @@ public class ControladorVentasEnViaje implements ActionListener {
 
 	public void Iniciar() {
 		this.CargarTablaDelivery();
+		this.vtVentas.Close();
 		this.vtVentasEnViaje.Open();
 	}
 
@@ -179,6 +182,7 @@ public class ControladorVentasEnViaje implements ActionListener {
 	private void accionAceptar() {
 		this.ctrVenta.Inicializar();
 		this.vtVentasEnViaje.Close();
+		this.vtVentas.Open();
 	}
 
 	private void accionNoEntregado() {

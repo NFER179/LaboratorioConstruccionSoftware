@@ -1,6 +1,6 @@
 package vista;
-
-import javax.swing.JDialog;
+ 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -14,8 +14,9 @@ import objetosVistaCustom.WTable;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalExclusionType;
 
-public class ABMProductoVista extends JDialog {
+public class ABMProductoVista extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtIdproducto;
 	private JTextField txtDescipcion;
@@ -30,7 +31,8 @@ public class ABMProductoVista extends JDialog {
 	private JLabel lblNewLabel;
 
 	public ABMProductoVista(ProductoVista Vista) {
-		super(Vista, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				ABMProductoVista.class.getResource("/Iconos/pizza_1.PNG")));
 		setTitle(" Informacion Producto");

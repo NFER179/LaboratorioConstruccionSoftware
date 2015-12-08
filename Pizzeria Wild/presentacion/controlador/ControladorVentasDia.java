@@ -20,10 +20,12 @@ public class ControladorVentasDia implements ActionListener {
 	private VentasDiasVista vtVentasDia;
 	private VentaModelo mdlventa;
 	private SolicitudModelo mdlSolicitud;
+	private ReporteVista vtReporte;
 
 	public ControladorVentasDia(ReporteVista Vista) {
-		this.vtVentasDia = new VentasDiasVista(Vista); 
-		
+		this.vtReporte = Vista;
+		this.vtVentasDia = new VentasDiasVista(Vista);
+
 		this.vtVentasDia.getBtnVolver().addActionListener(this);
 
 		this.mdlventa = new VentaModelo();
@@ -32,6 +34,7 @@ public class ControladorVentasDia implements ActionListener {
 
 	public void inicializar() {
 		this.CargarValores();
+		this.vtReporte.Close();
 		this.vtVentasDia.Open();
 	}
 
@@ -39,11 +42,11 @@ public class ControladorVentasDia implements ActionListener {
 		this.CargarCantdadVentas();
 		this.CargarVentas();
 		this.CargarGanancias();
-		
+
 		this.CargarCantidadSolicitudes();
 		this.CargarSolicitudes();
 		this.CargarPerdidas();
-		
+
 		this.CargarTotalGanancias();
 	}
 
@@ -74,7 +77,8 @@ public class ControladorVentasDia implements ActionListener {
 	}
 
 	private void CargarCantidadSolicitudes() {
-		String Cantidad = Integer.toString(this.mdlSolicitud.ObtenerCurCantidadSolicitudesEntregadas());
+		String Cantidad = Integer.toString(this.mdlSolicitud
+				.ObtenerCurCantidadSolicitudesEntregadas());
 		this.vtVentasDia.getTxtCantidadCanceladas().setText(Cantidad);
 	}
 
@@ -83,10 +87,14 @@ public class ControladorVentasDia implements ActionListener {
 		this.vtVentasDia.getModelCanceladas().setColumnCount(0);
 		this.vtVentasDia.getModelCanceladas().setColumnIdentifiers(
 				this.vtVentasDia.getNombreColumnasSolicitudes());
-		for (SolicitudDTO solicitud : this.mdlSolicitud.ObtenerCurSolicidesRecibidas()) {
-			ProveedorDTO proveedordto = this.mdlSolicitud.ObtenerProveedor(solicitud.getEffdt(), Integer.toString(solicitud.getNumPedido()));
+		for (SolicitudDTO solicitud : this.mdlSolicitud
+				.ObtenerCurSolicidesRecibidas()) {
+			ProveedorDTO proveedordto = this.mdlSolicitud.ObtenerProveedor(
+					solicitud.getEffdt(),
+					Integer.toString(solicitud.getNumPedido()));
 			String proveedor = proveedordto.getNombre();
-			Object[] fila = { solicitud.getEffdt(), solicitud.getNumPedido(), proveedor, "$ " + solicitud.getCosto() };
+			Object[] fila = { solicitud.getEffdt(), solicitud.getNumPedido(),
+					proveedor, "$ " + solicitud.getCosto() };
 			this.vtVentasDia.getModelCanceladas().addRow(fila);
 		}
 		JTable tabla = this.vtVentasDia.getTblCanceladas();
@@ -94,7 +102,8 @@ public class ControladorVentasDia implements ActionListener {
 	}
 
 	private void CargarPerdidas() {
-		String Perdidas = Integer.toString(this.mdlSolicitud.ObtenerCurCostoSolicituides());
+		String Perdidas = Integer.toString(this.mdlSolicitud
+				.ObtenerCurCostoSolicituides());
 		this.vtVentasDia.getTxtTotalcanceladas().setText("$ " + Perdidas);
 	}
 
@@ -111,6 +120,7 @@ public class ControladorVentasDia implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if (arg0.getSource() == vtVentasDia.getBtnVolver()) {
 			this.vtVentasDia.Close();
+			this.vtReporte.Open();
 		}
 	}
 }

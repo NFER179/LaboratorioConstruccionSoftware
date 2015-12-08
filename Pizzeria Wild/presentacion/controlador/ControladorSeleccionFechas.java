@@ -14,8 +14,10 @@ public class ControladorSeleccionFechas implements ActionListener {
 
 	private ControladorReporte ctrReporte;
 	private SeleccionFechasVista vtSeleccion;
+	private ReporteVista vtReporte;
 
 	public ControladorSeleccionFechas(ControladorReporte Ctr, ReporteVista Vista) {
+		this.vtReporte = Vista;
 		this.ctrReporte = Ctr;
 		this.vtSeleccion = new SeleccionFechasVista(Vista);
 		addListeners();
@@ -36,6 +38,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.vtSeleccion.getRdbtnPorDia().setSelected(true);
 		this.vtSeleccion.getCbxDia().setEnabled(true);
 		this.vtSeleccion.getRdbtnMes().setSelected(true);
+		this.vtReporte.Close();
 		this.vtSeleccion.Open();
 	}
 
@@ -137,6 +140,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.ctrReporte.EjecutarReporte();
 		this.ctrReporte.SetRangoFechas(from, to);
 		this.vtSeleccion.Close();
+		this.ctrReporte.Return();
 	}
 
 	private String[] opcionSemana(int anio) {
@@ -166,6 +170,7 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.ctrReporte.SetRangoFechas(from, to);
 		this.ctrReporte.EjecutarReporte();
 		this.vtSeleccion.Close();
+		this.ctrReporte.Return();
 	}
 
 	private void opcionDia() {
@@ -174,11 +179,13 @@ public class ControladorSeleccionFechas implements ActionListener {
 		this.ctrReporte.SetRangoFechas(from, to);
 		this.ctrReporte.EjecutarReporte();
 		this.vtSeleccion.Close();
+		this.ctrReporte.Return();
 	}
 
 	private void Cancelar() {
 		this.ctrReporte.NoEjecutarReporte();
 		this.vtSeleccion.Close();
+		this.ctrReporte.Return();
 	}
 
 	@Override

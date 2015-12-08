@@ -7,6 +7,7 @@ import mail.MailWildPizzeria;
 import utilidades.Fecha;
 import utilidades.Msj;
 
+import dao.ProveedorDAO;
 import dao.SolicitudDAO;
 import daoImplementacion.SolicitudImp;
 import dto.MateriaPrimaSolicitudDTO;
@@ -16,6 +17,7 @@ import dto.SolicitudDTO;
 public class SolicitudModelo {
 
 	private SolicitudDAO solicitud;
+	private ProveedorDAO mdlProveedor;
 
 	public SolicitudModelo() {
 		solicitud = new SolicitudImp();
@@ -58,8 +60,8 @@ public class SolicitudModelo {
 	private void EnviarMailSolicitud(SolicitudDTO solicitud, String Proveedor,
 			List<MateriaPrimaSolicitudDTO> MateriasPrimas) {
 		/* Conseguir el mail del proveedor */
-		String[] pReceptor = { "nicofer179@gmail.com" };// JNVR ADD RECEPTORES!
-
+		ProveedorDTO p = mdlProveedor.GetProveedor(Proveedor);
+		String mail = p.getMail();
 		/* Armar mensaje */
 		String enter = "\n";
 		String tab = "\t";
@@ -74,7 +76,7 @@ public class SolicitudModelo {
 		pMensaje = pMensaje + enter + "Desde ya muchas gracias." + enter
 				+ "PizzeriaWild";
 
-		MailWildPizzeria Sender = new MailWildPizzeria(pReceptor,
+		MailWildPizzeria Sender = new MailWildPizzeria(mail,
 				"Solicitud Materia Prima", pMensaje);
 		// JNVR ADD
 		try {

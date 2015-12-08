@@ -24,7 +24,7 @@ public class MailWildPizzeria extends Mail {
 		super(usuario, contrasenia);
 	}
 
-	public MailWildPizzeria(String[] pReceptor, String pAsunto, String pMensaje) {
+	public MailWildPizzeria(String pReceptor, String pAsunto, String pMensaje) {
 		super(usuario, contrasenia, pReceptor, pAsunto, pMensaje);
 	}
 
@@ -59,7 +59,7 @@ public class MailWildPizzeria extends Mail {
 
 	private boolean isValidMail() {
 		boolean ret = true;
-		ret &= Valida.esEnteroPositivo(this.para.length + "");
+		ret &= !Valida.esNullOVacio(this.para);
 		ret &= !Valida.esNullOVacio(this.asunto);
 		ret &= !Valida.esNullOVacio(this.mensaje);
 		return ret;
@@ -70,12 +70,9 @@ public class MailWildPizzeria extends Mail {
 		MimeMessage message = new MimeMessage(session);
 
 		message.setFrom(new InternetAddress(mail.getEmisor()));
-		String[] receptores = mail.para;
-		// Agrego los receptores
-		for (int i = 0; i < receptores.length; i++) {
-			InternetAddress direccionActual = new InternetAddress(receptores[i]);
-			message.addRecipient(Message.RecipientType.TO, direccionActual);
-		}
+		InternetAddress direccionActual = new InternetAddress(mail.para);
+		message.addRecipient(Message.RecipientType.TO, direccionActual);
+
 		message.setSubject(mail.asunto);
 		message.setText(mail.mensaje);
 		return message;

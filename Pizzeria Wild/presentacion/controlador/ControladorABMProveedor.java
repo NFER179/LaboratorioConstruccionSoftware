@@ -29,11 +29,12 @@ public class ControladorABMProveedor implements ActionListener {
 	private CategoriaModelo mdlCategoria;
 	private MateriaPrimaProveedorModelo mdlMPProveedor;
 	private boolean Modificar;
-
+	private ProveedorVista vtProveedor;
+	
 	public ControladorABMProveedor(ControladorProveedor Ctr,
 			ProveedorVista Vista) {
 		this.ctrProveedor = Ctr;
-
+		this.vtProveedor = Vista;
 		this.vtABMProveedor = new ABMProveedorVista(Vista);
 		addListeners();
 
@@ -54,6 +55,7 @@ public class ControladorABMProveedor implements ActionListener {
 
 	public void Inicializar() {
 		this.Modificar = false;
+		this.vtProveedor.Close();
 		this.vtABMProveedor.Open();
 	}
 
@@ -243,9 +245,9 @@ public class ControladorABMProveedor implements ActionListener {
 		for (MateriaPrimaProveedorDTO mppDTO : mtProveedor) {
 			this.mdlMPProveedor.CargarMateriasPrimas(mppDTO);
 		}
-
 		this.ctrProveedor.RecargarTabla();
 		this.vtABMProveedor.Close();
+		this.ctrProveedor.Return();
 	}
 
 	@Override
@@ -271,6 +273,7 @@ public class ControladorABMProveedor implements ActionListener {
 			}
 		} else if (arg0.getSource() == this.vtABMProveedor.getBtnCancelar()) {
 			this.vtABMProveedor.Close();
+			this.ctrProveedor.Return();
 		}
 	}
 }

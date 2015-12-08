@@ -11,18 +11,23 @@ import backUp.BackUp;
 
 import utilidades.Msj;
 import vista.BackUpVista;
+import vista.VentasVista;
 
 public class ControladorBackUp implements ActionListener {
 
 	private BackUpVista vista;
 	private String extension = ".sql";
+	@SuppressWarnings("unused")
+	private VentasVista vtVentas;
 
-	public ControladorBackUp() {
+	public ControladorBackUp(VentasVista vtVenta) {
+		this.vtVentas = vtVenta;
 		this.vista = new BackUpVista();
 		addListeners();
 	}
 
 	public void Inicializar() {
+//		this.vtVentas.Close();
 		this.vista.Open();
 	}
 
@@ -41,28 +46,29 @@ public class ControladorBackUp implements ActionListener {
 		} else {
 			System.out.println("Estado ilegal");
 		}
-		this.vista.Close();
 	}
 
 	private void accionRestaurar() {
 		try {
 			String path = abrir();
-			int respuesta = JOptionPane.showConfirmDialog(null,
-					"¿Esta seguro de restaurar los datos de la apliacacion?",
-					"Restaurar base de datos", JOptionPane.YES_NO_OPTION);
-			if (respuesta == JOptionPane.YES_OPTION) {
-				if (path != null) {
-					if (path != "") {
-						BackUp.restore(path);
-						Msj.info("Informacion",
-								"Back Up realizado correctamente, debe reiniciar la aplicacion");
-					} else {
-						Msj.advertencia("Error de Seleccion",
-								"Debe seleccionar un archivo .SQL");
-					}
-				}
-			} else
-				return;
+
+			if (path != null && path != "") {
+				int respuesta = JOptionPane
+						.showConfirmDialog(
+								null,
+								"¿Esta seguro de restaurar los datos de la apliacacion?",
+								"Restaurar base de datos",
+								JOptionPane.YES_NO_OPTION);
+
+				if (respuesta == JOptionPane.YES_OPTION) {
+					BackUp.restore(path);
+					Msj.info("Informacion",
+							"Back Up realizado correctamente, debe reiniciar la aplicacion");
+					this.vista.Close();
+				} else
+					return;
+
+			}
 		} catch (Exception e) {
 			Msj.error("Error", "Error inesperado al restaurar el backup");
 		}
@@ -76,6 +82,7 @@ public class ControladorBackUp implements ActionListener {
 					BackUp.backUp(path);
 					Msj.info("Exito",
 							"Copia de seguridad realizada correctamente");
+
 				} else {
 					Msj.error("Error de extension",
 							"El backUp debe guardarse en un archivo .sql");

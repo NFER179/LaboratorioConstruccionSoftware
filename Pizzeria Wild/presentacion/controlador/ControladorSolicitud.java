@@ -73,7 +73,7 @@ public class ControladorSolicitud implements ActionListener {
 	}
 
 	private void Informacion() {
-		boolean enviado = false;
+		boolean muestraImprimir = false;
 		JTable tabla = this.vtSolicitudCompra.getTable();
 		int filaSeleccionada = tabla.getSelectedRow();
 
@@ -81,16 +81,17 @@ public class ControladorSolicitud implements ActionListener {
 				.toString().trim();
 		String NumeroSolicitud = tabla.getValueAt(filaSeleccionada, 1)
 				.toString().trim();
-		String Estado = tabla.getValueAt(filaSeleccionada, 2).toString().trim();
+		String Estado = tabla.getValueAt(filaSeleccionada, 2).toString().trim()
+				.toUpperCase();
 
-		if (Estado.toUpperCase().equals("ENVIADO")) {
-			enviado = true;
+		if (Estado.equals("ENVIADO") || Estado.equals("RECIBIDO")) {
+			muestraImprimir = true;
 		}
 
 		ControladorCreacionSolicitud ctrCreacionSolicitud = new ControladorCreacionSolicitud(
 				this, this.vtSolicitudCompra);
 		ctrCreacionSolicitud.InicializarInformacionPedido(FechaSolicitud,
-				NumeroSolicitud, enviado);
+				NumeroSolicitud, muestraImprimir);
 	}
 
 	private void SolicitudRecepcionada() {
@@ -130,12 +131,12 @@ public class ControladorSolicitud implements ActionListener {
 					this.vtSolicitudCompra.getModelTable());
 
 			this.vtSolicitudCompra.getBtnTodasSolicitudes().setText(
-					"Solicitudes Pendientes");
+					"Sol. Pendientes");
 			this.vistaSolicitudesDia = false;
 		} else {
 			this.CargarTabla();
 			this.vtSolicitudCompra.getBtnTodasSolicitudes().setText(
-					"Todas las Solicitudes");
+					"Todas las Sol.");
 			this.vistaSolicitudesDia = true;
 		}
 	}

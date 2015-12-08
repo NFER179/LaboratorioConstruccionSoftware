@@ -6,8 +6,8 @@ public class ObjDatosPizzeria {
 	private String direccion;
 	private String telefono;
 	private static String rutaUsuario = "configs/conf/usuario.txt";
-	private static int numDir = 3;
-	private static int numTel = 4;
+	private static int numDir = 4;
+	private static int numTel = 3;
 	private static int parteValor = 1;
 
 	/**

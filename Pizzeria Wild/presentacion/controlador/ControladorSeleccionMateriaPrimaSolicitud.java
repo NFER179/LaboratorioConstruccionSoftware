@@ -23,13 +23,13 @@ public class ControladorSeleccionMateriaPrimaSolicitud implements
 	private String proveedor;
 
 	public ControladorSeleccionMateriaPrimaSolicitud(
-			ControladorCreacionSolicitud arg0, CreacionSolicitudVista arg1) {
-		this.vtSMPS = new SeleccionMateriaPrimaSolicitudVista(arg1);
+			ControladorCreacionSolicitud ctr, CreacionSolicitudVista Vista) {
+		this.vtSMPS = new SeleccionMateriaPrimaSolicitudVista(Vista);
 		addListeners();
 
 		this.vldSeleccion = new ValidacionSeleccionMateriaPrimaSolicitud(
 				this.vtSMPS);
-		this.ctrCreacionSolicitud = arg0;
+		this.ctrCreacionSolicitud = ctr;
 		this.mdlProveedor = new ProveedorModelo();
 		this.proveedor = this.ctrCreacionSolicitud.ObtenerProveedor();
 	}

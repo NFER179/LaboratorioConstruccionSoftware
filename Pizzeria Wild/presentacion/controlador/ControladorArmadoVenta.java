@@ -4,13 +4,12 @@ import utilidades.Fecha;
 import utilidades.Msj;
 import validacion.ValidacionArmadoPedido;
 import vista.ArmadoVentaVista;
+import vista.VentasVista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,10 +32,12 @@ public class ControladorArmadoVenta implements ActionListener {
 	private ControladorVentasCocina ctrPedidoCocina;
 	private ValidacionArmadoPedido vldArmado;
 	private ComboModelo mdlCombo;
+	private VentasVista vtVentas;
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
-			JFrame Frame) {
-		this.vtArmadoPedido = new ArmadoVentaVista(Frame);
+			VentasVista vista) {
+		this.vtVentas = vista;
+		this.vtArmadoPedido = new ArmadoVentaVista(vista);
 		this.vtArmadoPedido.getTxtNumVenta().setText("NEXT");
 		this.vtArmadoPedido.getBtnBusquedaCliente().addActionListener(this);
 		this.vtArmadoPedido.getBtnAgregar().addActionListener(this);
@@ -56,8 +57,9 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
-			JFrame Frame, String Fecha, int NumPedido) {
-		this.vtArmadoPedido = new ArmadoVentaVista(Frame);
+			VentasVista vista, String Fecha, int NumPedido) {
+		this.vtVentas = vista;
+		this.vtArmadoPedido = new ArmadoVentaVista(vista);
 		this.vtArmadoPedido.getTxtFecha().setText(Fecha);
 		this.vtArmadoPedido.getTxtNumVenta().setText(
 				Integer.toString(NumPedido));
@@ -81,9 +83,11 @@ public class ControladorArmadoVenta implements ActionListener {
 		/* ver de cambiar el pedido. */
 		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
 			this.CargarFecha();
+			this.vtVentas.Close();
 			this.vtArmadoPedido.Open();
 		} else {
 			this.CargarPedido();
+			this.vtVentas.Close();
 			this.vtArmadoPedido.Open();
 		}
 	}
@@ -329,21 +333,26 @@ public class ControladorArmadoVenta implements ActionListener {
 	private void QuitarCombo() {
 		JTable t = this.vtArmadoPedido.getTblCombo();
 		int[] selectedRows = t.getSelectedRows();
-
-		for (int i = selectedRows.length - 1; i >= 0; i++) {
-			this.vtArmadoPedido.getModelTableCombo().removeRow(selectedRows[i]);
+		if (selectedRows.length <= 0) {
+			Msj.error("Error de seleccion",
+					"Debe seleccionar un combo a quitar");
+		} else {
+			for (int i = selectedRows.length - 1; i >= 0; i--) {
+				this.vtArmadoPedido.getModelTableCombo().removeRow(
+						selectedRows[i]);
+			}
+			this.vtArmadoPedido.getTblCombo().setModel(
+					this.vtArmadoPedido.getModelTableCombo());
+			this.ActualizarPrecio();
 		}
-		this.vtArmadoPedido.getTblCombo().setModel(
-				this.vtArmadoPedido.getModelTableCombo());
-
-		this.ActualizarPrecio();
 	}
 
 	public void AgregarItemCombo(ComboDTO c, int cantidad) {
-		boolean noAgrego = true;
+		boolean debeAgregar = true;
 		JTable t = this.vtArmadoPedido.getTblCombo();
 		for (int i = 0; i < t.getRowCount(); i++) {
-			if (t.getValueAt(i, 0).toString().equals(c.getId())) {
+			String idActual = t.getValueAt(i, 0).toString();
+			if (idActual.equals(c.getId()+"")) {
 				String cantidadS = t.getValueAt(i, 2).toString().trim();
 				int total = Integer.parseInt(cantidadS) + cantidad;
 
@@ -353,11 +362,11 @@ public class ControladorArmadoVenta implements ActionListener {
 				t.setValueAt(this.AgregarMoneda(Integer.toString(precioCombo)),
 						i, 3);
 
-				noAgrego = false;
+				debeAgregar = false;
 			}
 		}
 
-		if (noAgrego) {
+		if (debeAgregar) {
 			int precioCombo = this.mdlCombo.ObtenerPrecioActual(c) * cantidad;
 			Object[] f = { c.getId(), c.getDescripcion(), cantidad,
 					this.AgregarMoneda(Integer.toString(precioCombo)) };
@@ -508,28 +517,13 @@ public class ControladorArmadoVenta implements ActionListener {
 			this.PresionarCheck();
 			/* Boton para terminar con el armado de la venta. */
 		} else if (arg0.getSource() == this.vtArmadoPedido.getBtnArmar()) {
-			// if (!vtArmadoPedido.getTxtCliente().getText().equals("")
-			// && !vtArmadoPedido.getTxtDireccion().getText().equals("")
-			// && !vtArmadoPedido.getTxtDireccion().getText().equals("")) {
-			// if (this.vtArmadoPedido.getModelProductos().getRowCount() > 0) {
-			// this.ArmarPedido();
-			// this.ctrPedido.RecargarTabla();
-			// this.ctrPedidoCocina.RecargarTablas();
-			// this.vtArmadoPedido.Close();
-			// } else {
-			// JOptionPane.showMessageDialog(null,
-			// "Debe Ingresar al Menos un Producto.");
-			// }
-			// } else {
-			// JOptionPane.showMessageDialog(null,
-			// "Ingrese un cliente nuevo o seleccione uno existente");
-			// }
 			if (this.vldArmado.ArmadoValido()) {
 				accionArmar();
 			}
 			/* Boton para salir del armado de la venta, sin crearla. */
 		} else if (arg0.getSource() == this.vtArmadoPedido.getBtnCancelar()) {
 			this.vtArmadoPedido.Close();
+			this.vtVentas.Open();
 		}
 	}
 
@@ -545,44 +539,12 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private void accionArmar() {
-		// ArmadoVentaVista vista = this.vtArmadoPedido;
-		// String textoCliente = Str.trim(vista.getTxtCliente().getText());
-		// boolean textoClienteVacio = Valida.esNullOVacio(textoCliente);
-		// if (!textoClienteVacio) {
-		revisoDireccion();
-		// } else {
-		// Msj.advertencia("Atencion", "Debe ingresar el nombre del cliente");
-		// }
-	}
-
-	private void revisoDireccion() {
-		// ArmadoVentaVista vista = this.vtArmadoPedido;
-		// String textoDireccion = Str.trim(vista.getTxtDireccion().getText());
-		// boolean textoDireccionVacio = Valida.esNullOVacio(textoDireccion);
-		// if (!textoDireccionVacio) {
-		revisoProductos();
-		// } else {
-		// Msj.advertencia("Atencion",
-		// "Debe ingresar la direccion del cliente");
-		// }
-	}
-
-	private void revisoProductos() {
-		// ArmadoVentaVista vista = this.vtArmadoPedido;
-		// DefaultTableModel tabla = vista.getModelProductos();
-		// boolean seleccionoProducto = tabla.getRowCount() > 0;
-		// if (seleccionoProducto) {
-		armarPedido();
-		// } else {
-		// Msj.advertencia("Atencion", "Debe Ingresar al Menos un Producto.");
-		// }
-	}
-
-	private void armarPedido() {
 		this.ArmarPedido();
 		this.ctrPedido.RecargarTabla();
 		this.ctrPedidoCocina.RecargarTablas();
 		this.vtArmadoPedido.Close();
 		this.mdlPedido.crearComanda(vtArmadoPedido);
+		this.vtVentas.Open();
 	}
+
 }

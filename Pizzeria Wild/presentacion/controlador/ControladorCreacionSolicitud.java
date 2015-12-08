@@ -31,9 +31,11 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	private ValidacionCreacionSolicitud vldCreacion;
 	private SolicitudModelo mdlSolicitud;
 	private MateriaPrimaModelo mdlMateriaPrima;
+	private SolicitudCompraVista vtSolicitud;
 
 	public ControladorCreacionSolicitud(ControladorSolicitud Ctr,
 			SolicitudCompraVista vista) {
+		this.vtSolicitud = vista;
 		this.vtCreacionSolicitud = new CreacionSolicitudVista(vista);
 		addListeners();
 
@@ -70,8 +72,9 @@ public class ControladorCreacionSolicitud implements ActionListener {
 			if (!textNumPedido.equals("")) {
 				NumPedido = Integer.parseInt(textNumPedido);
 			}
-		} 
+		}
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumPedido + "");
+		this.vtSolicitud.Close();
 		this.vtCreacionSolicitud.Open();
 	}
 
@@ -97,7 +100,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	}
 
 	public void InicializarInformacionPedido(String FechaSolicitud,
-			String NumeroSolicitud, boolean Enviado) {
+			String NumeroSolicitud, boolean muestoImprimir) {
 		this.vtCreacionSolicitud.getTxtFecha().setText(FechaSolicitud);
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumeroSolicitud);
 
@@ -122,7 +125,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		this.vtCreacionSolicitud.getContentPane().remove(
 				this.vtCreacionSolicitud.getBtnGuardar());
 
-		if (!Enviado) {
+		if (!muestoImprimir) {
 			this.vtCreacionSolicitud.getContentPane().remove(
 					this.vtCreacionSolicitud.getBtnImprimir());
 		}
@@ -231,14 +234,14 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		String FechaEnvio = FechaCreacion;
 		int referenciaNumeroPedido = NumPedido;
 
-		SolicitudDTO sol = new SolicitudDTO(FechaCreacion, NumPedido,
+		SolicitudDTO solicitud = new SolicitudDTO(FechaCreacion, NumPedido,
 				"Enviado", FechaEnvio, referenciaNumeroPedido,
 				Fecha.CurrentDate(), 0);
 
 		String proveedor = this.vtCreacionSolicitud.getTxtIdproveedor()
 				.getText().trim();
 
-		this.mdlSolicitud.EnviarSolicitud(sol, proveedor,
+		this.mdlSolicitud.EnviarSolicitud(solicitud, proveedor,
 				this.GetMateriasPrimas());
 
 		this.vtCreacionSolicitud.getContentPane().add(
@@ -299,6 +302,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 			accionGuardar();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud.getBtnVolver()) {
 			this.vtCreacionSolicitud.Close();
+			this.vtSolicitud.Open();
 		} else if (arg0.getSource() == this.vtCreacionSolicitud
 				.getBtnImprimir()) {
 			accionImprimir();
@@ -317,7 +321,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	private ObjReporteSolicitudMP buildSolicitudMP() {
 		ProveedorDTO proveedor = buildProveedor();
 		String fecha = this.vtCreacionSolicitud.getTxtFecha().getText().trim();
-		// NICOF TODO
+
 		int id = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido()
 				.getText().trim());
 		ObjReporteSolicitudMP solicitud = new ObjReporteSolicitudMP(fecha, id,
@@ -329,7 +333,6 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		return solicitud;
 	}
 
-	// NICOF TODO
 	/**
 	 * Debe retornar el proveedor
 	 * */
@@ -368,6 +371,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 			this.EnviarSolicitud();
 			this.ctrSolicitud.CargarTabla();
 			this.vtCreacionSolicitud.Close();
+			this.vtSolicitud.Open();
 		}
 	}
 
@@ -393,6 +397,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 			this.GuardarPedido();
 			this.ctrSolicitud.CargarTabla();
 			this.vtCreacionSolicitud.Close();
+			this.vtSolicitud.Open();
 		}
 	}
 }

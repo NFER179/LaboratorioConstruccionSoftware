@@ -3,6 +3,7 @@ package vista;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
@@ -35,6 +36,7 @@ public class BusquedaProductosCombosVista extends JDialog {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public BusquedaProductosCombosVista(ABMComboVista Vista) {
 		super(Vista, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				BusquedaProductosCombosVista.class
 						.getResource("/Iconos/pizza_1.PNG")));

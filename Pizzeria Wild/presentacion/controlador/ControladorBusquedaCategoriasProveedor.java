@@ -21,11 +21,12 @@ public class ControladorBusquedaCategoriasProveedor implements ActionListener {
 	private BusquedaCategoriasProveedorVista vtBusquedaC;
 	private CategoriaModelo mdlCategoria;
 	private ValidacionBusquedaCategoriaProveedor vldBusqueda;
+	private ABMProveedorVista vtProveedorABM;
 
 	public ControladorBusquedaCategoriasProveedor(ControladorABMProveedor Ctr,
 			ABMProveedorVista Vista) {
 		this.ctrABM = Ctr;
-
+		this.vtProveedorABM = Vista;
 		this.vtBusquedaC = new BusquedaCategoriasProveedorVista(Vista);
 		this.vtBusquedaC.getBtnAsignar().addActionListener(this);
 		this.vtBusquedaC.getBtnCancelar().addActionListener(this);
@@ -37,6 +38,7 @@ public class ControladorBusquedaCategoriasProveedor implements ActionListener {
 
 	public void Inicializar() {
 		this.CargatTabla();
+		this.vtProveedorABM.Close();
 		this.vtBusquedaC.Open();
 	}
 
@@ -78,6 +80,7 @@ public class ControladorBusquedaCategoriasProveedor implements ActionListener {
 	private void Asignar() {
 		this.ctrABM.AgregarCategoria(this.CategoriasSeleccionadas());
 		this.vtBusquedaC.Close();
+		this.vtProveedorABM.Open();
 	}
 
 	@Override
@@ -88,6 +91,7 @@ public class ControladorBusquedaCategoriasProveedor implements ActionListener {
 			}
 		} else if (arg0.getSource() == this.vtBusquedaC.getBtnCancelar()) {
 			this.vtBusquedaC.Close();
+			this.vtProveedorABM.Open();
 		}
 	}
 }

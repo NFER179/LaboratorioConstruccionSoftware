@@ -1,7 +1,7 @@
 package controlador;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
 
 import javax.swing.JTable;
 
@@ -19,72 +19,78 @@ public class ControladorRepartidor implements ActionListener {
 	private ValidacionRepartidor vldRepartidor;
 	private RepartidorModelo mdlRepartidor;
 	private boolean vistaActivos;
-	
+
 	public ControladorRepartidor(ControladorVenta Ctr) {
 		this.ctrVenta = Ctr;
-		
+
 		this.vtRepartidor = new RepartidorVista();
 		this.vtRepartidor.getBtnAgregar().addActionListener(this);
 		this.vtRepartidor.getBtnModificar().addActionListener(this);
 		this.vtRepartidor.getBtnTodos().addActionListener(this);
 		this.vtRepartidor.getBtnVolver().addActionListener(this);
-		
+
 		this.vldRepartidor = new ValidacionRepartidor(this.vtRepartidor);
 		this.mdlRepartidor = new RepartidorModelo();
 		this.vistaActivos = true;
 	}
-	
+
 	public void Inicializar() {
 		this.CargarTablaActivos();
 		this.vtRepartidor.Open();
 	}
-	
+
 	private void CargarTablaActivos() {
 		this.vtRepartidor.getModelTable().setRowCount(0);
 		this.vtRepartidor.getModelTable().setColumnCount(0);
-		this.vtRepartidor.getModelTable().setColumnIdentifiers(this.vtRepartidor.getNombreColumnas());
-		for(RepartidorDTO r:this.mdlRepartidor.ObtenerRepartidoresActivos()) {
-			Object[] fila = {r.getRepartidorId(), r.getApellido() + " " + r.getNombre(), r.GetLongStringActivo()};
+		this.vtRepartidor.getModelTable().setColumnIdentifiers(
+				this.vtRepartidor.getNombreColumnas());
+		for (RepartidorDTO r : this.mdlRepartidor.ObtenerRepartidoresActivos()) {
+			Object[] fila = { r.getRepartidorId(),
+					r.getApellido() + " " + r.getNombre(),
+					r.GetLongStringActivo() };
 			this.vtRepartidor.getModelTable().addRow(fila);
 		}
-		this.vtRepartidor.getTable().setModel(this.vtRepartidor.getModelTable());
+		this.vtRepartidor.getTable()
+				.setModel(this.vtRepartidor.getModelTable());
 	}
-	
+
 	public void ActualizarTabla() {
-		if(this.vistaActivos) {
+		if (this.vistaActivos) {
 			this.CargarTablaActivos();
-		}
-		else{
+		} else {
 			this.CargarTablaTodosRepartidores();
 		}
 	}
-	
+
 	private void AgregarRepartidor() {
-		ControladorABMRepartidor ctr = new ControladorABMRepartidor(this, this.vtRepartidor);
-		ctr.InicializarCreacion();
+		new ControladorABMRepartidor(this, this.vtRepartidor)
+				.InicializarCreacion();
 	}
 
 	private void ModificarRepartidor() {
-		ControladorABMRepartidor ctr = new ControladorABMRepartidor(this, this.vtRepartidor);
-		
+		ControladorABMRepartidor ctr = new ControladorABMRepartidor(this,
+				this.vtRepartidor);
+
 		JTable t = this.vtRepartidor.getTable();
 		int selectedRow = t.getSelectedRow();
-		
-		int idRepartidor = Integer.parseInt(t.getValueAt(selectedRow, 0).toString().trim());
-		
+
+		int idRepartidor = Integer.parseInt(t.getValueAt(selectedRow, 0)
+				.toString().trim());
+
 		ctr.InicializarModificacion(idRepartidor);
 	}
-	
+
 	private void CambiarVistaRepartidores() {
-		if(this.vistaActivos) {
+		if (this.vistaActivos) {
 			this.vistaActivos = false;
-			this.vtRepartidor.getLblReoartidoresActivos().setText("Todos los Proveedores:");
+			this.vtRepartidor.getLblReoartidoresActivos().setText(
+					"Todos los Repartidores:");
 			this.vtRepartidor.getBtnTodos().setText("Activos");
 			this.CargarTablaTodosRepartidores();
-		}
-		else{
+		} else {
 			this.vistaActivos = true;
-			this.vtRepartidor.getLblReoartidoresActivos().setText("Proveedores Avtivos:");
+			this.vtRepartidor.getLblReoartidoresActivos().setText(
+					"Repartidores Activos:");
 			this.vtRepartidor.getBtnTodos().setText("Todos");
 			this.CargarTablaActivos();
 		}
@@ -93,36 +99,40 @@ public class ControladorRepartidor implements ActionListener {
 	private void CargarTablaTodosRepartidores() {
 		this.vtRepartidor.getModelTable().setRowCount(0);
 		this.vtRepartidor.getModelTable().setColumnCount(0);
-		this.vtRepartidor.getModelTable().setColumnIdentifiers(this.vtRepartidor.getNombreColumnas());
-		for(RepartidorDTO r: this.mdlRepartidor.ObtenerTodosLosRepartidores()) {
-			Object[] fila = {r.getRepartidorId(), r.getApellido() + " " + r.getNombre(), r.GetLongStringActivo()};
+		this.vtRepartidor.getModelTable().setColumnIdentifiers(
+				this.vtRepartidor.getNombreColumnas());
+		for (RepartidorDTO r : this.mdlRepartidor.ObtenerTodosLosRepartidores()) {
+			Object[] fila = { r.getRepartidorId(),
+					r.getApellido() + " " + r.getNombre(),
+					r.GetLongStringActivo() };
 			this.vtRepartidor.getModelTable().addRow(fila);
 		}
-		this.vtRepartidor.getTable().setModel(this.vtRepartidor.getModelTable());
+		this.vtRepartidor.getTable()
+				.setModel(this.vtRepartidor.getModelTable());
 	}
 
 	private void Volver() {
 		this.ctrVenta.Return();
 		this.vtRepartidor.Close();
 	}
-	
+
 	public void Return() {
 		this.vtRepartidor.Open();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if(arg0.getSource() == this.vtRepartidor.getBtnAgregar()) {
-			if(this.vistaActivos) {
+		if (arg0.getSource() == this.vtRepartidor.getBtnAgregar()) {
+			if (this.vistaActivos) {
 				this.AgregarRepartidor();
 			}
-		}else if(arg0.getSource() == this.vtRepartidor.getBtnModificar()) {
-			if(this.vldRepartidor.ModificarValido()) {
+		} else if (arg0.getSource() == this.vtRepartidor.getBtnModificar()) {
+			if (this.vldRepartidor.ModificarValido()) {
 				this.ModificarRepartidor();
 			}
-		}else if(arg0.getSource() == this.vtRepartidor.getBtnTodos()) {
+		} else if (arg0.getSource() == this.vtRepartidor.getBtnTodos()) {
 			this.CambiarVistaRepartidores();
-		}else if(arg0.getSource() == this.vtRepartidor.getBtnVolver()) {
+		} else if (arg0.getSource() == this.vtRepartidor.getBtnVolver()) {
 			this.Volver();
 		}
 	}

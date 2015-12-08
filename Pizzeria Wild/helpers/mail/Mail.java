@@ -3,7 +3,7 @@ package mail;
 public class Mail {
 	private String emisor;
 	private String contrasenia;
-	public String[] para;
+	public String para;
 	public String asunto;
 	public String mensaje;
 
@@ -12,7 +12,7 @@ public class Mail {
 		this.contrasenia = pContrasenia;
 	}
 
-	public Mail(String pEmisor, String pContrasenia, String[] pReceptor,
+	public Mail(String pEmisor, String pContrasenia, String pReceptor,
 			String pAsunto, String pMensaje) {
 		this.emisor = pEmisor;
 		this.contrasenia = pContrasenia;

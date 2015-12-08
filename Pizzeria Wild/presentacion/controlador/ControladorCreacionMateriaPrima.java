@@ -125,6 +125,7 @@ public class ControladorCreacionMateriaPrima implements ActionListener {
 		if (this.creacion) {
 			if (this.ctrCategoria.AgregarMT(mp)) {
 				this.vtCreacion.Close();
+				this.ctrCategoria.Return();
 			} else {
 				String mensaje = "Ya Agrego esa materia prima";
 				String titulo = "Error";
@@ -134,6 +135,7 @@ public class ControladorCreacionMateriaPrima implements ActionListener {
 		} else {
 			if (this.ctrCategoria.ModificarMateriaPrima(this.antiguaMP, mp)) {
 				this.vtCreacion.Close();
+				this.ctrCategoria.Return();
 			} else {
 				String mensaje = "Ya eciste esa materiaprima";
 				String titulo = "Error";

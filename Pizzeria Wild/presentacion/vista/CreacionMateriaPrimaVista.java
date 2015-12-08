@@ -1,15 +1,17 @@
 package vista;
-
-import javax.swing.JDialog;
+ 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalExclusionType;
+
 import javax.swing.ImageIcon;
 
-public class CreacionMateriaPrimaVista extends JDialog {
+public class CreacionMateriaPrimaVista extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtMateriaprima;
 	private String[] valoresComboBox = { "Kg", "Lts", "Unidad" };
@@ -26,7 +28,9 @@ public class CreacionMateriaPrimaVista extends JDialog {
 	// public CreacionMateriaPrimaVista(MateriaPrimaVista MPV) {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public CreacionMateriaPrimaVista(CategoriaDetalleVista CDV) {
-		super(CDV, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+		setResizable(false);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				CreacionMateriaPrimaVista.class
 						.getResource("/Iconos/pizza_1.PNG")));

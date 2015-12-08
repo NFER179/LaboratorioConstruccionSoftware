@@ -1,7 +1,7 @@
 package validacion;
+ 
 
-import javax.swing.JOptionPane;
-
+import utilidades.Msj;
 import vista.CostoSolicitudVista;
 
 public class ValidacionCostoSolicitud {
@@ -16,12 +16,16 @@ public class ValidacionCostoSolicitud {
 		boolean valido = true;
 		
 		try {
-			Integer.parseInt(this.vtCosto.getTextField().getText().trim());
+			int valor = Integer.parseInt(this.vtCosto.getTextField().getText().trim());
+			if(valor<=0){
+				valido = false;
+				Msj.error("Error", "El costo debe ser un numero mayor que cero");
+			}
 		}catch(Exception e) {
 			valido = false;
 			String mensaje = "Ingrese numero valido";
 			String titulo = "Error";
-			JOptionPane.showMessageDialog(null, mensaje, titulo, JOptionPane.ERROR_MESSAGE);
+			Msj.error(titulo, mensaje);
 		}
 		
 		return valido;

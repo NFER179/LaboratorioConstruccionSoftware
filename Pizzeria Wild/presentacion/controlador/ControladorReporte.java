@@ -79,9 +79,7 @@ public class ControladorReporte implements ActionListener {
 
 	// REGION ACCIONES
 	private void accionVentasDelDia() {
-		ControladorVentasDia ctrVentasDia = new ControladorVentasDia(
-				this.vtReporte);
-		ctrVentasDia.inicializar();
+		new ControladorVentasDia(this.vtReporte).inicializar();
 	}
 
 	private void accionReporteMejoresClientes() {
@@ -209,6 +207,10 @@ public class ControladorReporte implements ActionListener {
 	public void SetRangoFechas(String from, String to) {
 		this.datefrom = from;
 		this.dateTo = to;
+	}
+
+	public void Return() {
+		this.vtReporte.Open();
 	}
 
 }

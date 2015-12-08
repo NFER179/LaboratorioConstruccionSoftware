@@ -105,8 +105,7 @@ public class ControladorCategoria implements ActionListener {
 	}
 
 	private void accionModificar() {
-		ControladorCategoriaDetalle ctrCategotiaDetalle = new ControladorCategoriaDetalle(
-				this, this.vtCategoria);
+
 		JTable tabla = this.vtCategoria.getTable();
 		int filaSeleccionada = tabla.getSelectedRow();
 		if (filaSeleccionada < 0) {
@@ -115,7 +114,8 @@ public class ControladorCategoria implements ActionListener {
 		} else {
 			String Categoria = tabla.getValueAt(filaSeleccionada, 0).toString()
 					.trim();
-			ctrCategotiaDetalle.InicializarModificacion(Categoria);
+			new ControladorCategoriaDetalle(this, this.vtCategoria)
+					.InicializarModificacion(Categoria);
 		}
 	}
 

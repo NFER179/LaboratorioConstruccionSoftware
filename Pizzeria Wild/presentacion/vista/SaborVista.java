@@ -1,14 +1,17 @@
 package vista;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.Dialog.ModalExclusionType;
+
 import javax.swing.ImageIcon;
 
-public class SaborVista extends JDialog {
+public class SaborVista extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtSabor;
 	private JTextField txtPrecio;
@@ -17,7 +20,8 @@ public class SaborVista extends JDialog {
 	private JLabel lblNewLabel;
 
 	public SaborVista(ABMProductoVista Vista) {
-		super(Vista, true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				SaborVista.class.getResource("/Iconos/pizza_1.PNG")));

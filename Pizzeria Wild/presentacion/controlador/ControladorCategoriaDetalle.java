@@ -26,9 +26,11 @@ public class ControladorCategoriaDetalle implements ActionListener {
 	private CategoriaModelo mdlCategoria;
 	private MateriaPrimaModelo mdlMT;
 	private boolean modificacion;
+	private CategoriaVista vtCategoria;
 
 	public ControladorCategoriaDetalle(ControladorCategoria CtrCategoria,
 			CategoriaVista VistaCategoria) {
+		this.vtCategoria = VistaCategoria;
 		this.vtCategoriadetalle = new CategoriaDetalleVista(VistaCategoria);
 		this.vtCategoriadetalle.getBtnAgregar().addActionListener(this);
 		this.vtCategoriadetalle.getBtnModificarMt().addActionListener(this);
@@ -46,6 +48,7 @@ public class ControladorCategoriaDetalle implements ActionListener {
 	public void InicializarNueva() {
 		this.modificacion = false;
 		this.CargarTabla();
+		this.vtCategoria.Close();
 		this.vtCategoriadetalle.Open();
 	}
 
@@ -56,6 +59,7 @@ public class ControladorCategoriaDetalle implements ActionListener {
 		this.modificacion = true;
 		this.CargarDescripcion(Categoria);
 		this.CargarTablaPara(Categoria);
+		this.vtCategoria.Close();
 		this.vtCategoriadetalle.Open();
 	}
 
@@ -182,6 +186,18 @@ public class ControladorCategoriaDetalle implements ActionListener {
 				.getText().trim().toUpperCase();
 		String descripcion = this.vtCategoriadetalle.getTxtDescr().getText()
 				.trim();
+		if (categoria.equals("")) {
+			Msj.error("Error", "La categoria no puede ser vacia");
+			return;
+		} else if (descripcion.equals("")) {
+			Msj.error("Error", "La descripcion no puede ser vacia");
+			return;
+		}
+		JTable tabla = this.vtCategoriadetalle.getTable();
+		if (tabla.getRowCount() == 0) {
+			Msj.error("Error", "La lista de materias primas esta vacia");
+			return;
+		}
 		CategoriaDTO c = new CategoriaDTO(categoria, descripcion);
 
 		if (this.modificacion) {
@@ -189,8 +205,6 @@ public class ControladorCategoriaDetalle implements ActionListener {
 		} else {
 			this.mdlCategoria.CrearCategoria(c);
 		}
-
-		JTable tabla = this.vtCategoriadetalle.getTable();
 
 		for (int i = 0; i < tabla.getRowCount(); i++) {
 			JTable t = this.vtCategoriadetalle.getTable();
@@ -209,6 +223,7 @@ public class ControladorCategoriaDetalle implements ActionListener {
 
 		this.ctrCategoria.ActualizarTabla();
 		this.vtCategoriadetalle.Close();
+		this.ctrCategoria.Return();
 	}
 
 	@Override
@@ -222,8 +237,6 @@ public class ControladorCategoriaDetalle implements ActionListener {
 			this.QuitarAsignacion();
 		} else if (arg0.getSource() == this.vtCategoriadetalle.getBtnGuardar()) {
 			this.Guardar();
-			this.vtCategoriadetalle.Close();
-			this.ctrCategoria.Return();
 		} else if (arg0.getSource() == this.vtCategoriadetalle.getBtnCancelar()) {
 			this.vtCategoriadetalle.Close();
 			this.ctrCategoria.Return();
