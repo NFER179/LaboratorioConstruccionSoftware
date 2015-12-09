@@ -14,7 +14,6 @@ import utilidades.Fecha;
 import utilidades.Msj;
 import vista.ArmadoVentaVista;
 import dto.ComboActivoDTO;
-import dto.ComboDTO;
 import dto.ComboProductoDTO;
 import dto.VentaDTO;
 import dto.ProductoEnVentaDTO;
@@ -177,8 +176,8 @@ public class VentaModelo {
 	private List<ObjProductoTicketComanda> getItemsTicket(ArmadoVentaVista vista) {
 		int id = Integer.parseInt(vista.getTxtNumVenta().getText());
 		String fecha = vista.getTxtFecha().getText();
-		List<ProductoEnVentaDTO> productosComanda = productos.GetProductosPara(
-				fecha, id);
+		List<ProductoEnVentaDTO> productosComanda = productos
+				.GetProductosSinCombo(fecha, id);
 		List<ProductoEnVentaDTO> productosTicket = productos
 				.GetProductosNoCocina(fecha, id);
 

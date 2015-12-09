@@ -9,6 +9,8 @@ public interface ProductoEnVentaDAO {
 	/* Devuelve los productos en determinado pedido. */
 	public List<ProductoEnVentaDTO> GetProductosPara(String Fecha, int Venta);
 
+	public List<ProductoEnVentaDTO> GetProductosSinCombo(String Fecha, int Venta);
+
 	/* Trae por producto la cantidad de cada sabor que falta por elaborar */
 	public List<ProductoEnVentaDTO> GetFaltantesElabracion();
 
