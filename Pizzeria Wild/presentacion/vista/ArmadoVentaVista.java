@@ -230,11 +230,13 @@ public class ArmadoVentaVista extends JDialog {
 		scrollPaneCombo.setViewportView(tblCombo);
 
 		btnAgregarCombo = new JButton("Agregar Combo");
+		btnAgregarCombo.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Agregar.png")));		
 		btnAgregarCombo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnAgregarCombo.setBounds(951, 66, 140, 60);
 		contentPanel.add(btnAgregarCombo);
 
 		btnQuitarCombo = new JButton("Quitar Combo");
+		btnQuitarCombo.setIcon(new ImageIcon(ArmadoVentaVista.class.getResource("/Iconos/Quitar.png")));
 		btnQuitarCombo.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnQuitarCombo.setBounds(951, 171, 140, 60);
 		contentPanel.add(btnQuitarCombo);
