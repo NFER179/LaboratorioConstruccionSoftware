@@ -30,7 +30,7 @@ public class ControladorABMProveedor implements ActionListener {
 	private MateriaPrimaProveedorModelo mdlMPProveedor;
 	private boolean Modificar;
 	private ProveedorVista vtProveedor;
-	
+
 	public ControladorABMProveedor(ControladorProveedor Ctr,
 			ProveedorVista Vista) {
 		this.ctrProveedor = Ctr;
@@ -66,6 +66,7 @@ public class ControladorABMProveedor implements ActionListener {
 		this.CargarDatosProveedor(proveedor);
 		this.CargarCategoriasProveedor(proveedor);
 		// this.CargarMTProveedor(proveedor);
+		this.vtProveedor.Close();
 		this.vtABMProveedor.Open();
 	}
 
