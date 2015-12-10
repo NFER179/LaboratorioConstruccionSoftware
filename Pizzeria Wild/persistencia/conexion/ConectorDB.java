@@ -66,7 +66,7 @@ public class ConectorDB {
 		if (this.conexion == null || this.statement == null) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
-				String url = "jdbc:mysql://localhost";
+				String url = "jdbc:mysql://localhost:3306";
 				String texto = ManejoArchivos.getTextoArchivo(rutaUsuario);
 				String[] partes = texto.split(";");
 				String dbUser = partes[0].split(":")[1].trim();
