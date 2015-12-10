@@ -80,7 +80,7 @@ public class VentasVista extends JFrame {
 		this.setResizable(false);
 		this.setTitle("Ventas");
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setBounds(0, 0, 1080, 740);
+		this.setBounds(0, 0, 1080, 670);
 
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -184,12 +184,12 @@ public class VentasVista extends JFrame {
 
 		this.btnEnviar = new JButton("Enviar");
 		btnEnviar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnEnviar.setBounds(924, 270, 140, 40);
+		this.btnEnviar.setBounds(924, 252, 140, 40);
 		this.contentPane.add(btnEnviar);
 
 		this.btnEnViaje = new JButton("En Viaje");
 		btnEnViaje.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnEnViaje.setBounds(924, 321, 140, 40);
+		this.btnEnViaje.setBounds(924, 303, 140, 40);
 		this.contentPane.add(btnEnViaje);
 
 		this.btnEnMostrador = new JButton("En mostrador");
@@ -199,17 +199,17 @@ public class VentasVista extends JFrame {
 
 		this.btnInformacin = new JButton("Informaci\u00F3n");
 		btnInformacin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnInformacin.setBounds(924, 449, 140, 40);
+		this.btnInformacin.setBounds(924, 426, 140, 40);
 		this.contentPane.add(btnInformacin);
 
 		this.btnModificar = new JButton("Modificar");
 		btnModificar.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnModificar.setBounds(924, 372, 140, 40);
+		this.btnModificar.setBounds(924, 354, 140, 40);
 		this.contentPane.add(btnModificar);
 
 		btnTodasLasVentas = new JButton("Todas las Ventas");
 		btnTodasLasVentas.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnTodasLasVentas.setBounds(924, 500, 140, 40);
+		btnTodasLasVentas.setBounds(924, 477, 140, 40);
 		contentPane.add(btnTodasLasVentas);
 
 		this.btnNuevaVenta = new JButton("Nueva Venta");
@@ -232,7 +232,7 @@ public class VentasVista extends JFrame {
 		btnSalir.setIcon(new ImageIcon(VentasVista.class
 				.getResource("/Iconos/salir.png")));
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 11));
-		this.btnSalir.setBounds(924, 645, 140, 40);
+		this.btnSalir.setBounds(924, 576, 140, 40);
 		this.contentPane.add(btnSalir);
 
 		JLabel lblNewLabel = new JLabel("");

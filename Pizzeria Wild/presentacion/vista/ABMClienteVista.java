@@ -21,6 +21,7 @@ public class ABMClienteVista extends JDialog {
 
 	public ABMClienteVista(ClienteVista Vista) {
 		super(Vista, true);
+		setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(
 				ABMClienteVista.class.getResource("/Iconos/pizza_1.PNG")));
 		this.Iniciar();

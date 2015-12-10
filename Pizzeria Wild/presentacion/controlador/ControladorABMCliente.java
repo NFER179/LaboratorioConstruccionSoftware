@@ -128,8 +128,8 @@ public class ControladorABMCliente implements ActionListener {
 	}
 
 	private void Cancelar() {
-		this.ctrCliente.Return();
 		this.vtClienteABM.Close();
+		this.ctrCliente.Return();
 	}
 
 	@Override

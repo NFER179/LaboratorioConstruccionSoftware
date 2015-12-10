@@ -67,6 +67,8 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.vtArmadoPedido.getBtnBusquedaCliente().setEnabled(false);
 		this.vtArmadoPedido.getBtnAgregar().addActionListener(this);
 		this.vtArmadoPedido.getBtnQuitar().addActionListener(this);
+		this.vtArmadoPedido.getBtnAgregarCombo().addActionListener(this);
+		this.vtArmadoPedido.getBtnQuitarCombo().addActionListener(this);
 		this.vtArmadoPedido.getChckbxDelivery().addActionListener(this);
 		this.vtArmadoPedido.getBtnArmar().addActionListener(this);
 		this.vtArmadoPedido.getBtnCancelar().addActionListener(this);
@@ -350,9 +352,9 @@ public class ControladorArmadoVenta implements ActionListener {
 	public void AgregarItemCombo(ComboDTO c, int cantidad, String fecha) {
 		boolean debeAgregar = true;
 		JTable t = this.vtArmadoPedido.getTblCombo();
-		for (int i = 0; i < t.getSelectedRowCount(); i++) {
+		for (int i = 0; i < t.getRowCount(); i++) {
 			String idActual = t.getValueAt(i, 0).toString();
-			if (idActual.equals(c.getId() + "")) {
+			if (idActual.equals(Integer.toString(c.getId()))) {
 				String cantidadS = t.getValueAt(i, 2).toString().trim();
 				int total = Integer.parseInt(cantidadS) + cantidad;
 
