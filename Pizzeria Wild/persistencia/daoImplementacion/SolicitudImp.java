@@ -61,7 +61,7 @@ public class SolicitudImp implements SolicitudDAO {
 		String sqlString = "select max(p.num_pedido) as 'num_pedido' from pedido p " +
 						"where p.effdt = '" + Fecha + "'";
 		ResultSet rs = null;
-		int numSolicitud = 0;
+		int numSolicitud = 1;
 		
 		try{
 			rs = stm.executeQuery(sqlString);

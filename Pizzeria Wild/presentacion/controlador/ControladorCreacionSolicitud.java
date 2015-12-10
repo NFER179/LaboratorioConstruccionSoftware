@@ -33,8 +33,7 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	private MateriaPrimaModelo mdlMateriaPrima;
 	private SolicitudCompraVista vtSolicitud;
 
-	public ControladorCreacionSolicitud(ControladorSolicitud Ctr,
-			SolicitudCompraVista vista) {
+	public ControladorCreacionSolicitud(ControladorSolicitud Ctr,SolicitudCompraVista vista) {
 		this.vtSolicitud = vista;
 		this.vtCreacionSolicitud = new CreacionSolicitudVista(vista);
 		addListeners();
@@ -58,28 +57,24 @@ public class ControladorCreacionSolicitud implements ActionListener {
 
 	public void Inicializar() {
 		this.CargarFecha();
-		this.vtCreacionSolicitud.getContentPane().remove(
-				this.vtCreacionSolicitud.getBtnImprimir());
+		this.vtCreacionSolicitud.getContentPane().remove(this.vtCreacionSolicitud.getBtnImprimir());
 		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
 
-		int NumPedido = 0;
-		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
-			NumPedido = this.mdlSolicitud
-					.ObtenerNumNuevaSolicitud(FechaCreacion);
-		} else {
-			String textNumPedido = this.vtCreacionSolicitud.getTxtNumpedido()
-					.getText().trim();
-			if (!textNumPedido.equals("")) {
-				NumPedido = Integer.parseInt(textNumPedido);
-			}
-		}
+		int NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaCreacion);
+//		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+//			NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaCreacion);
+//		} else {
+//			String textNumPedido = this.vtCreacionSolicitud.getTxtNumpedido().getText().trim();
+//			if (!textNumPedido.equals("")) {
+//				NumPedido = Integer.parseInt(textNumPedido);
+//			}
+//		}
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumPedido + "");
 		this.vtSolicitud.Close();
 		this.vtCreacionSolicitud.Open();
 	}
 
-	public void InicializarModificacion(String FechaSolicitud,
-			String NumeroSolicitud) {
+	public void InicializarModificacion(String FechaSolicitud,	String NumeroSolicitud) {
 		this.vtCreacionSolicitud.getTxtFecha().setText(FechaSolicitud);
 		this.vtCreacionSolicitud.getTxtNumpedido().setText(NumeroSolicitud);
 
@@ -222,14 +217,14 @@ public class ControladorCreacionSolicitud implements ActionListener {
 		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText()
 				.trim();
 
-		int NumPedido;
-		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
-			NumPedido = this.mdlSolicitud
-					.ObtenerNumNuevaSolicitud(FechaCreacion);
-		} else {
-			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
-					.getTxtNumpedido().getText().trim());
-		}
+		int NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
+//		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+//			NumPedido = this.mdlSolicitud
+//					.ObtenerNumNuevaSolicitud(FechaCreacion);
+//		} else {
+//			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
+//					.getTxtNumpedido().getText().trim());
+//		}
 
 		String FechaEnvio = FechaCreacion;
 		int referenciaNumeroPedido = NumPedido;
@@ -263,14 +258,12 @@ public class ControladorCreacionSolicitud implements ActionListener {
 	private void GuardarPedido() {
 		String FechaCreacion = this.vtCreacionSolicitud.getTxtFecha().getText();
 
-		int NumPedido;
-		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
-			NumPedido = this.mdlSolicitud
-					.ObtenerNumNuevaSolicitud(FechaCreacion);
-		} else {
-			NumPedido = Integer.parseInt(this.vtCreacionSolicitud
-					.getTxtNumpedido().getText().trim());
-		}
+		int NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
+//		if (this.vtCreacionSolicitud.getTxtNumpedido().getText().equals("NEXT")) {
+//			NumPedido = this.mdlSolicitud.ObtenerNumNuevaSolicitud(FechaCreacion);
+//		} else {
+//			NumPedido = Integer.parseInt(this.vtCreacionSolicitud.getTxtNumpedido().getText().trim());
+//		}
 
 		String FechaEnvio = FechaCreacion;
 		int referenciaNumeroPedido = NumPedido;

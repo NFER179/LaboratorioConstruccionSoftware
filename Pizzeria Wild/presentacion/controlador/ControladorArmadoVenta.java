@@ -38,7 +38,7 @@ public class ControladorArmadoVenta implements ActionListener {
 			VentasVista vista) {
 		this.vtVentas = vista;
 		this.vtArmadoPedido = new ArmadoVentaVista(vista);
-		this.vtArmadoPedido.getTxtNumVenta().setText("NEXT");
+		//this.vtArmadoPedido.getTxtNumVenta().setText("NEXT");
 		this.vtArmadoPedido.getBtnBusquedaCliente().addActionListener(this);
 		this.vtArmadoPedido.getBtnAgregar().addActionListener(this);
 		this.vtArmadoPedido.getBtnQuitar().addActionListener(this);
@@ -54,6 +54,8 @@ public class ControladorArmadoVenta implements ActionListener {
 		this.mdlCombo = new ComboModelo();
 		this.ctrPedidoCocina = ControladorVentasCocina.GetInstancia();
 		this.vldArmado = new ValidacionArmadoPedido(this.vtArmadoPedido);
+		
+		this.vtArmadoPedido.getTxtNumVenta().setText(Integer.toString(this.mdlPedido.GetNuevoNumeroVenta()));
 	}
 
 	public ControladorArmadoVenta(ControladorVenta ControladorPedido,
@@ -83,7 +85,7 @@ public class ControladorArmadoVenta implements ActionListener {
 
 	public void Inicializar() {
 		/* ver de cambiar el pedido. */
-		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
+		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals(Integer.toString(this.mdlPedido.GetNuevoNumeroVenta()))) {
 			this.CargarFecha();
 			this.vtVentas.Close();
 			this.vtArmadoPedido.Open();
@@ -387,7 +389,8 @@ public class ControladorArmadoVenta implements ActionListener {
 	}
 
 	private void ArmarPedido() {
-		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
+		//if (this.vtArmadoPedido.getTxtNumVenta().getText().equals("NEXT")) {
+		if (this.vtArmadoPedido.getTxtNumVenta().getText().equals(Integer.toString(this.mdlPedido.GetNuevoNumeroVenta()))) {
 			String fecha = this.vtArmadoPedido.getTxtFecha().getText().trim();
 			int numPedido = this.mdlPedido.GetNuevoNumeroVenta();
 			this.vtArmadoPedido.getTxtNumVenta().setText(
